@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model;
+package Model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -18,9 +18,7 @@ public class DBConnect {
     Connection conn=null;
     public DBConnect(String URL, String userName,String password){
         try{
-       // URL: string connection: Server,Datebase
-       // username,password: account of SQL Sever
-       // cal driver
+       
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 //call connection
                 conn= DriverManager.getConnection(URL, userName, password);
@@ -32,7 +30,7 @@ public class DBConnect {
         } 
     }
     public DBConnect(){
-        this("jdbc:sqlserver://localhost:1433;databaseName=SE1899", "sa1","123456");
+        this("jdbc:sqlserver://localhost:1433;databaseName=SE1899", "sa","123456");
     }
     
     public static void main(String[] args){
