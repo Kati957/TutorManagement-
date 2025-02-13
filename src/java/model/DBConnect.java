@@ -32,9 +32,13 @@ public class DBConnect {
         } 
     }
     public DBConnect(){
-        this("jdbc:sqlserver://localhost:1433;databaseName=SE1899", "sa1","123456");
+        this("jdbc:sqlserver://localhost:1433;databaseName=test", "sa1","123456");
     }
     
     public static void main(String[] args){
+        DBConnect conn=new DBConnect();
+        if(conn==null){
+            System.out.println("failed");
+        }
     }
 }
