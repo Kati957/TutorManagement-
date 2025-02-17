@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author dvdung
+ * @author Heizxje
  */
 @WebServlet(name = "UserRegister", urlPatterns = {"/User"})
 public class UserRegister extends HttpServlet {

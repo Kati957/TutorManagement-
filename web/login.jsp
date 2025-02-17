@@ -66,7 +66,7 @@
                         <div class="col-lg-12">
                             <h6>Login with Social media</h6>
                             <div class="d-flex">
-                                <a class="btn flex-fill m-l5 google" href="https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:9999/SWP391_Group4_TutorManagement/login&response_type=code&client_id=819143009725-u7utkfuhlatnei6757ivdp5s1pmcijro.apps.googleusercontent.com&approval_prompt=force"><i class="fa fa-google"></i> Google</a>
+                                <a class="btn flex-fill m-l5 google" href="https://accounts.google.com/o/oauth2/auth?scope=email profile openid&redirect_uri=http://localhost:9999/SWP391_Group4_TutorManagement/login&response_type=code&client_id=918167236066-r8da2g0h2eh06buen60d3km6fqaecn1f.apps.googleusercontent.com&approval_prompt=force"><i class="fa fa-google"></i> Google</a>
                             </div>
                         </div>
                     </div>

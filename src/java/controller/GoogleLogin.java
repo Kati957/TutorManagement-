@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -14,7 +15,7 @@ import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
 /**
  *
- * @author HP
+ * @author Heizxje
  */
 public class GoogleLogin {
     public static String getToken(String code) throws ClientProtocolException, IOException {

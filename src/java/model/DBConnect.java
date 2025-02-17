@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 /**
  *
- * @author dvdung
+ * @author Heizxje
  */
 public class DBConnect {
     Connection conn=null;
