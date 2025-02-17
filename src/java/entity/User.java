@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package entity;
-
+import java.sql.Date;
 /**
  *
  * @author dvdung
@@ -16,7 +16,7 @@ public class User {
     private String phone;
     private String createAt;
     private int isActive;
-    private String dob;
+    private Date dob;
     private String address;
     private String avatar;
     private String userName;
@@ -25,7 +25,7 @@ public class User {
     public User() {
     }
 
-    public User(int userID, int roleID, String email, String fullName, String phone, String createAt, int isActive, String dob, String address, String avatar, String userName, String password) {
+    public User(int userID, int roleID, String email, String fullName, String phone, String createAt, int isActive, Date dob, String address, String avatar, String userName, String password) {
         this.userID = userID;
         this.roleID = roleID;
         this.email = email;
@@ -96,11 +96,11 @@ public class User {
         this.isActive = isActive;
     }
 
-    public String getDob() {
+    public Date getDob() {
         return dob;
     }
 
-    public void setDob(String dob) {
+    public void setDob(Date dob) {
         this.dob = dob;
     }
 
