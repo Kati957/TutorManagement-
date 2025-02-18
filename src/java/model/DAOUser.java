@@ -13,7 +13,7 @@ import java.sql.Date;
 
 /**
  *
- * @author dvdung
+ * @author Heizxje
  */
 public class DAOUser extends DBConnect{
     public User Login(String username, String password){

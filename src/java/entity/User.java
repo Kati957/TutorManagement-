@@ -6,7 +6,7 @@ package entity;
 import java.sql.Date;
 /**
  *
- * @author dvdung
+ * @author Heizxje
  */
 public class User {
     private int userID;
