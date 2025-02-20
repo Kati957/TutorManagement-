@@ -29,7 +29,7 @@
 <body id="bg">
     <div class="page-wraper">
         <div class="account-form">
-            <div class="account-head" style="background-image:url(assets/images/background/bg2.jpg);">
+            <div class="account-head" style="background-imagUsere:url(assets/images/background/bg2.jpg);">
                 <a href="index.jsp"><img src="assets/images/logo-white-2.png" alt=""></a>
             </div>
             <div class="account-form-inner">
@@ -38,7 +38,7 @@
                         <h2 class="title-head">Sign Up <span>Now</span></h2>
                         <p>Login Your Account <a href="login.jsp">Click here</a></p>
                     </div>
-                    <form action="UserURL" method="POST" class="contact-bx">
+                    <form action="User" method="POST" class="contact-bx">
                         <input type="hidden" name="service" value="registerUser">
                         <div class="row placeani">
                             <input type="hidden" name="RoleID" value="2">
