@@ -78,6 +78,7 @@ public class LoginServlet extends HttpServlet {
                     request.getRequestDispatcher("register.jsp").forward(request, response);
                 } else {
                     session.setAttribute("user", user);
+                    session.setAttribute("userId", user.getUserID()); // Thêm userId vào session
                     response.sendRedirect("home.jsp");
                 }
             } else {
@@ -104,6 +105,7 @@ public class LoginServlet extends HttpServlet {
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             } else {
                 session.setAttribute("user", user);
+                session.setAttribute("userId", user.getUserID()); // Thêm userId vào session
                 response.sendRedirect("home.jsp");
             }
         }

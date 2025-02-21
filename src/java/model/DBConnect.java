@@ -15,6 +15,7 @@ import java.sql.Statement;
  * @author Heizxje
  */
 public class DBConnect {
+    protected Connection connection;
     Connection conn=null;
     public DBConnect(String URL, String userName,String password){
         try{
@@ -32,7 +33,7 @@ public class DBConnect {
         } 
     }
     public DBConnect(){
-        this("jdbc:sqlserver://localhost:1433;databaseName=test", "sa","123");
+        this("jdbc:sqlserver://localhost:1433;databaseName=test1", "sa","123");
     }
     
     public static void main(String[] args){

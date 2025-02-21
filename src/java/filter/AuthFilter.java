@@ -24,6 +24,7 @@ public class AuthFilter implements Filter {
         "/list-view-calendar.html",
         "/mailbox-compose.html",
         "/mailbox-read.html",
+        "/profile_user.jsp",
         "/mailbox.html"
     );
     
