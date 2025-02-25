@@ -46,6 +46,10 @@ public class LoginServlet extends HttpServlet {
             case "loginUser":
                 handleUserLogin(request, response, session, dao);
                 break;
+                
+            case "logoutUser":
+                handleUserLogout(request, response, session, dao);
+                break;
 
             default:
                 request.setAttribute("error", "Dịch vụ đăng nhập không hợp lệ.");
@@ -107,6 +111,11 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect("home.jsp");
             }
         }
+    }
+    private void handleUserLogout(HttpServletRequest request, HttpServletResponse response, HttpSession session, DAOUser dao)
+            throws ServletException, IOException {
+                session.invalidate();
+                request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 
     @Override

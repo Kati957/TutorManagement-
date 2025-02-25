@@ -99,7 +99,8 @@
                                                 <li><a href="user-profile.html">My profile</a></li>
                                                 <li><a href="list-view-calendar.html">Activity</a></li>
                                                 <li><a href="mailbox.html">Messages</a></li>
-                                                <li><a href="../login.html">Logout</a></li>
+                                                <li><a href="login?service=logoutUser">Logout</a></li>
+                                                <li><a href="cv">Become tutor</a></li>
                                             </ul>
                                         </div>
                                     </li>
