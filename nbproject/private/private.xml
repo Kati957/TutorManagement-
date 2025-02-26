@@ -3,13 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/H:/Project/TutorManagement--HaiLV/TutorManagement-/src/java/controller/LoginServlet.java</file>
             <file>file:/H:/Project/TutorManagement--HaiLV/TutorManagement-/src/java/model/DAOUser.java</file>
-            <file>file:/H:/Project/TutorManagement--HaiLV/TutorManagement-/src/java/model/DBConnect.java</file>
+            <file>file:/H:/Project/TutorManagement--HaiLV/TutorManagement-/src/java/filter/AuthFilter.java</file>
             <file>file:/H:/Project/TutorManagement--HaiLV/TutorManagement-/src/java/entity/User.java</file>
-            <file>file:/H:/Project/TutorManagement--HaiLV/TutorManagement-/src/java/controller/EditProfileServlet.java</file>
             <file>file:/H:/Project/TutorManagement--HaiLV/TutorManagement-/web/profile_user.jsp</file>
-            <file>file:/H:/Project/TutorManagement--HaiLV/TutorManagement-/src/java/controller/UpdateProfileServlet.java</file>
+            <file>file:/H:/Project/TutorManagement--HaiLV/TutorManagement-/src/java/controller/UserRegister.java</file>
+            <file>file:/H:/Project/TutorManagement--HaiLV/TutorManagement-/src/java/controller/ProfileServlet.java</file>
+            <file>file:/H:/Project/TutorManagement--HaiLV/TutorManagement-/web/index.jsp</file>
+            <file>file:/H:/Project/TutorManagement--HaiLV/TutorManagement-/web/register.jsp</file>
+            <file>file:/H:/Project/TutorManagement--HaiLV/TutorManagement-/web/home.jsp</file>
         </group>
     </open-files>
 </project-private>

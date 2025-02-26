@@ -3,6 +3,7 @@
     Created on : Feb 21, 2025, 4:15:54 PM
     Author     : Heizxje
 --%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="entity.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -18,6 +19,7 @@
 <html lang="en">
 
     <head>
+
         <!-- META ============================================= -->
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -61,8 +63,8 @@
         <!-- STYLESHEETS ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
         <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
-    </head>
 
+    </head>
     <body id="bg">
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
@@ -88,7 +90,7 @@
                                     <% if (user == null) { %>
                                     <li><a href="login">Login</a></li>
                                     <li><a href="User?service=registerUser">Register</a></li>
-                                        <% } else { %>
+                                        <%} else {%>
                                     <li>
                                         <div class="ttr-header-submenu">
                                             <ul>
@@ -100,7 +102,7 @@
                                             </ul>
                                         </div>
                                     </li>
-                                    <% }%>
+                                    <%}%>
                                 </ul>
                             </div>
                         </div>
@@ -111,7 +113,7 @@
                         <div class="container clearfix">
                             <!-- Header Logo ==== -->
                             <div class="menu-logo">
-                                <a href="index.html"><img src="assets/images/logo.png" alt=""></a>
+                                <a href="home.jsp"><img src="assets/images/logo.png" alt=""></a>
                             </div>
                             <!-- Mobile Nav Button ==== -->
                             <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -142,19 +144,14 @@
                             <!-- Navigation Menu ==== -->
                             <div class="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
                                 <div class="menu-logo">
-                                    <a href="index.html"><img src="assets/images/logo.png" alt=""></a>
+                                    <a href="home.jsp"><img src="assets/images/logo.png" alt=""></a>
                                 </div>
                                 <ul class="nav navbar-nav">	
-                                    <li class="active"><a href="javascript:;">Home</a></li>
-                                    <li class="add-mega-menu"><a href="javascript:;">Our Courses</a></li>
-                                    <li><a href="javascript:;">Blog <i class="fa fa-chevron-down"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="blog-classic-grid.html">Blog Classic</a></li>
-                                            <li><a href="blog-classic-sidebar.html">Blog Classic Sidebar</a></li>
-                                            <li><a href="blog-list-sidebar.html">Blog List Sidebar</a></li>
-                                            <li><a href="blog-standard-sidebar.html">Blog Standard Sidebar</a></li>
-                                            <li><a href="blog-details.html">Blog Details</a></li>
-                                        </ul>
+                                    <li class="active"><a href="home.jsp">Home</a>
+                                    </li>
+                                    <li class="add-mega-menu"><a href="javascript:;">Our Courses</a>
+                                    </li>
+                                    <li><a href="blog-classic-grid.html">Blog</a>
                                     </li>
                                 </ul>
                                 <div class="nav-social-link">
@@ -183,7 +180,7 @@
                 <div class="breadcrumb-row">
                     <div class="container">
                         <ul class="list-inline">
-                            <li><a href="#">Home</a></li>
+                            <li><a href="home.jsp">Home</a></li>
                             <li>Profile</li>
                         </ul>
                     </div>
@@ -198,7 +195,7 @@
                                 <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
                                     <div class="profile-bx text-center">
                                         <div class="user-profile-thumb">
-                                            <img src="<%= user.getAvatar()%>" alt="Avatar"/>
+                                            <img src="assets/images/profile/pic1.jpg" alt=""/>
                                         </div>
                                         <div class="profile-info">
                                             <h4><%= user.getFullName()%></h4>
@@ -223,6 +220,7 @@
                                                 <li class="nav-item">
                                                     <a class="nav-link" data-toggle="tab" href="#change-password"><i class="ti-lock"></i>Change Password</a>
                                                 </li>
+
                                             </ul>
                                         </div>
                                     </div>
@@ -235,35 +233,45 @@
                                                     <h3>Profile Detail</h3>
                                                 </div>
                                                 <form class="edit-profile">
-                                                    <!-- Full Name -->
-                                                    <div class="form-group row">
-                                                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Full Name</label>
-                                                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                            <input class="form-control" type="text" name="fullName" value="<%= user.getFullName()%>" readonly>
+                                                    <div class="">
+                                                        <!-- Email -->
+                                                        <div class="form-group row">
+                                                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Email</label>
+                                                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                                <input class="form-control" type="email" value="<%= user.getEmail()%>" readonly>
+                                                            </div>
                                                         </div>
-                                                    </div>
 
-                                                    <!-- Phone Number -->
-                                                    <div class="form-group row">
-                                                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Phone</label>
-                                                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                            <input class="form-control" type="text" name="phone" value="<%= user.getPhone()%>" readonly>
+                                                        <!-- Full Name -->
+                                                        <div class="form-group row">
+                                                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Full Name</label>
+                                                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                                <input class="form-control" type="text" value="<%= user.getFullName()%>" readonly>
+                                                            </div>
                                                         </div>
-                                                    </div>
 
-                                                    <!-- Date of Birth -->
-                                                    <div class="form-group row">
-                                                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Date of Birth</label>
-                                                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                            <input class="form-control" type="date" name="dob" value="<%= user.getDob()%>" readonly>
+                                                        <!-- Phone Number -->
+                                                        <div class="form-group row">
+                                                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"></label>
+                                                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                                <input class="form-control" type="text" value="<%= user.getPhone()%>" readonly>
+                                                            </div>
                                                         </div>
-                                                    </div>
 
-                                                    <!-- Address -->
-                                                    <div class="form-group row">
-                                                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Address</label>
-                                                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                            <input class="form-control" type="text" name="address" value="<%= user.getAddress()%>" readonly>
+                                                        <!-- Date of Birth -->
+                                                        <div class="form-group row">
+                                                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Date of Birth</label>
+                                                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                                <input class="form-control" type="date" value="<%= user.getDob()%>" readonly>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Address -->
+                                                        <div class="form-group row">
+                                                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Address</label>
+                                                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                                <input class="form-control" type="text" value="<%= user.getAddress()%>" readonly>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -272,118 +280,86 @@
                                                 <div class="profile-head">
                                                     <h3>Edit Profile</h3>
                                                 </div>
-                                                <form class="edit-profile" action="UpdateProfileServlet" method="post">
-                                                    <!-- Trường ẩn để lưu userID -->
-                                                    <input type="hidden" name="userID" value="<%= user.getUserID()%>">
+                                                <form class="edit-profile" action="profile" method="POST" enctype="multipart/form-data">
+                                                    <input type="hidden" name="action" value="editProfile">
 
-                                                    <!-- Full Name -->
+                                                    <!-- Các trường thông tin cá nhân -->
                                                     <div class="form-group row">
                                                         <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Full Name</label>
                                                         <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                            <input class="form-control" type="text" name="fullName" value="<%= user.getFullName()%>" required>
+                                                            <input class="form-control" type="text" name="fullName" value="<%= user.getFullName()%>">
                                                         </div>
                                                     </div>
-
-                                                    <!-- Phone Number -->
+                                                    <div class="form-group row">
+                                                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Email</label>
+                                                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                            <input class="form-control" type="email" name="email" value="<%= user.getEmail()%>">
+                                                        </div>
+                                                    </div>
                                                     <div class="form-group row">
                                                         <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Phone</label>
                                                         <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                            <input class="form-control" type="text" name="phone" value="<%= user.getPhone()%>" required>
+                                                            <input class="form-control" type="text" name="phone" value="<%= user.getPhone()%>">
                                                         </div>
                                                     </div>
-
-                                                    <!-- Date of Birth -->
                                                     <div class="form-group row">
                                                         <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Date of Birth</label>
                                                         <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                             <input class="form-control" type="date" name="dob" value="<%= user.getDob()%>">
                                                         </div>
                                                     </div>
-
-                                                    <!-- Address -->
                                                     <div class="form-group row">
                                                         <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Address</label>
                                                         <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                            <input class="form-control" type="text" name="address" value="<%= user.getAddress()%>" >
+                                                            <input class="form-control" type="text" name="address" value="<%= user.getAddress()%>">
                                                         </div>
                                                     </div>
 
-                                                    <!-- Avatar Upload -->
-                                                    <div class="form-group row">
-                                                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Avatar</label>
+                                                    <!-- Nút Submit -->
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-3 col-md-3 col-lg-2"></div>
                                                         <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                            <input class="form-control" type="file" name="avatar" accept="image/*">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <div class="col-12 col-sm-9 col-md-9 col-lg-7 offset-sm-3 offset-md-3 offset-lg-2">
-                                                            <%-- Hiển thị thông báo lỗi --%>
-                                                            <% String error = (String) session.getAttribute("error"); %>
-                                                            <% if (error != null) {%>
-                                                            <div class="alert alert-danger" role="alert">
-                                                                <%= error%>
-                                                            </div>
-                                                            <% session.removeAttribute("error"); %>
-                                                            <% } %>
-
-                                                            <%-- Hiển thị thông báo thành công --%>
-                                                            <% String success = (String) session.getAttribute("success"); %>
-                                                            <% if (success != null) {%>
-                                                            <div class="alert alert-success" role="alert">
-                                                                <%= success%>
-                                                            </div>
-                                                            <% session.removeAttribute("success"); %>
-                                                            <% }%>
-                                                        </div>
-                                                    </div>
-                                                    <!-- Buttons -->
-                                                    <div class="form-group row">
-                                                        <div class="col-12 col-sm-9 col-md-9 col-lg-7 offset-sm-3 offset-md-3 offset-lg-2">
                                                             <button type="submit" class="btn btn-primary">Save changes</button>
                                                             <button type="reset" class="btn btn-secondary">Cancel</button>
                                                         </div>
                                                     </div>
                                                 </form>
-                                            </div>
-                                            <div class="tab-pane" id="change-password" action="changepass" method="post">
+                                            </div>                                    
+                                            <div class="tab-pane" id="change-password">
                                                 <div class="profile-head">
                                                     <h3>Change Password</h3>
                                                 </div>
-                                                <form class="edit-profile">
-                                                    <div class="">
-                                                        <div class="form-group row">
-                                                            <div class="col-12 col-sm-8 col-md-8 col-lg-9 ml-auto">
-                                                                <h3>Password</h3>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">Current Password</label>
-                                                            <div class="col-12 col-sm-8 col-md-8 col-lg-7">
-                                                                <input class="form-control" type="password" value="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">New Password</label>
-                                                            <div class="col-12 col-sm-8 col-md-8 col-lg-7">
-                                                                <input class="form-control" type="password" value="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">Re Type New Password</label>
-                                                            <div class="col-12 col-sm-8 col-md-8 col-lg-7">
-                                                                <input class="form-control" type="password" value="">
-                                                            </div>
+                                                <form class="edit-profile" action="profile" method="POST">
+                                                    <input type="hidden" name="action" value="changePassword">
+
+                                                    <!-- Các trường mật khẩu -->
+                                                    <div class="form-group row">
+                                                        <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">Current Password</label>
+                                                        <div class="col-12 col-sm-8 col-md-8 col-lg-7">
+                                                            <input class="form-control" type="password" name="currentPassword" required>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-12 col-sm-4 col-md-4 col-lg-3">
-                                                        </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">New Password</label>
                                                         <div class="col-12 col-sm-8 col-md-8 col-lg-7">
-                                                            <button type="reset" class="btn">Save changes</button>
-                                                            <button type="reset" class="btn-secondry">Cancel</button>
+                                                            <input class="form-control" type="password" name="newPassword" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">Re Type New Password</label>
+                                                        <div class="col-12 col-sm-8 col-md-8 col-lg-7">
+                                                            <input class="form-control" type="password" name="confirmPassword" required>
                                                         </div>
                                                     </div>
 
+                                                    <!-- Nút Submit -->
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-4 col-md-4 col-lg-3"></div>
+                                                        <div class="col-12 col-sm-8 col-md-8 col-lg-7">
+                                                            <button type="submit" class="btn">Save changes</button>
+                                                            <button type="reset" class="btn-secondry">Cancel</button>
+                                                        </div>
+                                                    </div>
                                                 </form>
                                             </div>
                                         </div> 
@@ -393,6 +369,26 @@
                         </div>
                     </div>
                 </div>
+                <%
+                    String message = (String) session.getAttribute("message");
+                    String error = (String) session.getAttribute("error");
+                    if (message != null) {
+                %>
+                <div class="alert alert-success">
+                    <%= message%>
+                </div>
+                <%
+                        session.removeAttribute("message");
+                    }
+                    if (error != null) {
+                %>
+                <div class="alert alert-danger">
+                    <%= error%>
+                </div>
+                <%
+                        session.removeAttribute("error");
+                    }
+                %>
                 <!-- contact area END -->
             </div>
             <!-- Content END-->
@@ -403,7 +399,7 @@
                         <div class="container">
                             <div class="d-flex align-items-stretch">
                                 <div class="pt-logo mr-auto">
-                                    <a href="index.html"><img src="assets/images/logo-white.png" alt=""/></a>
+                                    <a href="home.jsp"><img src="assets/images/logo-white.png" alt=""/></a>
                                 </div>
                                 <div class="pt-social-link">
                                     <ul class="list-inline m-a0">
@@ -412,9 +408,6 @@
                                         <li><a href="#" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
                                         <li><a href="#" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
                                     </ul>
-                                </div>
-                                <div class="pt-btn-join">
-                                    <a href="#" class="btn ">Join Now</a>
                                 </div>
                             </div>
                         </div>
@@ -444,21 +437,10 @@
                                         <div class="widget footer_widget">
                                             <h5 class="footer-title">Company</h5>
                                             <ul>
-                                                <li><a href="index.html">Home</a></li>
+                                                <li><a href="home.jsp">Home</a></li>
                                                 <li><a href="about-1.html">About</a></li>
                                                 <li><a href="faq-1.html">FAQs</a></li>
                                                 <li><a href="contact-1.html">Contact</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 col-lg-4 col-md-4 col-sm-4">
-                                        <div class="widget footer_widget">
-                                            <h5 class="footer-title">Get In Touch</h5>
-                                            <ul>
-                                                <li><a href="http://educhamp.themetrades.com/admin/index.html">Dashboard</a></li>
-                                                <li><a href="blog-classic-grid.html">Blog</a></li>
-                                                <li><a href="portfolio.html">Portfolio</a></li>
-                                                <li><a href="event.html">Event</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -520,7 +502,16 @@
         <script src="assets/js/functions.js"></script>
         <script src="assets/js/contact.js"></script>
         <script src='assets/vendors/switcher/switcher.js'></script>
-
+        <script>
+            // Kiểm tra thông báo và kích hoạt tab tương ứng
+            <% if (session.getAttribute("message") != null || session.getAttribute("error") != null) { %>
+            <% if ("changePassword".equals(request.getParameter("action"))) { %>
+            $('#change-password').tab('show');
+            <% } else { %>
+            $('#edit-profile').tab('show');
+            <% } %>
+            <% }%>
+        </script>
     </body>
 
 </html>

@@ -7,7 +7,6 @@ package controller;
 import entity.User;
 import model.DAOUser;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,40 +15,28 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
+import java.time.LocalDate;
+import java.sql.Date;
+import java.security.MessageDigest;
 
-/**
- *
- * @author Heizxje
- */
+@WebServlet(name = "ProfileServlet", urlPatterns = {"/profile"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB
         maxRequestSize = 1024 * 1024 * 50)   // 50MB
 public class ProfileServlet extends HttpServlet {
 
-protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    // Khởi tạo DAOUser
-    DAOUser daoUser = new DAOUser();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User currentUser = (User) session.getAttribute("user");
 
-    // Lấy userId từ request (ví dụ: thông qua tham số URL)
-    int userId = Integer.parseInt(request.getParameter("userId"));
+        if (currentUser == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
 
-    // Lấy thông tin người dùng từ DAOUser
-    User user = daoUser.getUserById(userId);
-
-    if (user != null) {
-        // Đặt đối tượng user vào request
-        request.setAttribute("user", user);
-
-        // Chuyển hướng đến trang JSP
+        request.setAttribute("user", currentUser);
         request.getRequestDispatcher("/profile_user.jsp").forward(request, response);
-    } else {
-        // Xử lý trường hợp user không tồn tại
-        response.sendRedirect("error.jsp");
     }
-}
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
@@ -59,44 +46,96 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
             return;
         }
 
-        int userId = currentUser.getUserID();
-        String email = request.getParameter("email");
-        String fullName = request.getParameter("fullName");
-        String phone = request.getParameter("phone");
-        String dobParam = request.getParameter("dob");
-        Date dob = null;
-        if (dobParam != null && !dobParam.trim().isEmpty()) {
+        String action = request.getParameter("action");
+        DAOUser daoUser = new DAOUser();
+
+        if ("changePassword".equals(action)) {
+            // Xử lý đổi mật khẩu
+            String currentPassword = request.getParameter("currentPassword");
+            String newPassword = request.getParameter("newPassword");
+            String confirmPassword = request.getParameter("confirmPassword");
+
             try {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-                java.util.Date parsedDate = sdf.parse(dobParam);
-                dob = new Date(parsedDate.getTime());
+                // Kiểm tra mật khẩu hiện tại (giả sử mật khẩu trong DB không mã hóa)
+                if (!currentUser.getPassword().equals(currentPassword)) {
+                    session.setAttribute("error", "Mật khẩu hiện tại không đúng.");
+                    response.sendRedirect("profile");
+                    return;
+                }
+
+                // Kiểm tra mật khẩu mới và xác nhận mật khẩu
+                if (!newPassword.equals(confirmPassword)) {
+                    session.setAttribute("error", "Mật khẩu mới và xác nhận mật khẩu không khớp.");
+                    response.sendRedirect("profile");
+                    return;
+                }
+
+                // Cập nhật mật khẩu
+                currentUser.setPassword(newPassword);
+                if (daoUser.updateUser(currentUser)) {
+                    session.setAttribute("user", currentUser);
+                    session.setAttribute("message", "Đổi mật khẩu thành công!");
+                    response.sendRedirect("profile");
+                } else {
+                    session.setAttribute("error", "Đổi mật khẩu thất bại.");
+                    response.sendRedirect("profile");
+                }
             } catch (Exception e) {
-                request.setAttribute("error", "Ngày sinh không hợp lệ. Định dạng phải là yyyy-MM-dd.");
-                request.getRequestDispatcher("views/profile.jsp").forward(request, response);
-                return;
+                session.setAttribute("error", "Lỗi khi xử lý mật khẩu: " + e.getMessage());
+                response.sendRedirect("profile");
+            }
+        } else {
+            // Xử lý chỉnh sửa hồ sơ
+            int userId = currentUser.getUserID();
+            String email = request.getParameter("email");
+            String fullName = request.getParameter("fullName");
+            String phone = request.getParameter("phone");
+            String dobParam = request.getParameter("dob");
+            java.sql.Date sqlDob = null;
+            if (dobParam != null && !dobParam.trim().isEmpty()) {
+                try {
+                    LocalDate localDate = LocalDate.parse(dobParam);
+                    sqlDob = java.sql.Date.valueOf(localDate);
+                } catch (java.time.format.DateTimeParseException e) {
+                    session.setAttribute("error", "Ngày sinh không hợp lệ. Vui lòng nhập theo định dạng yyyy-MM-dd (ví dụ: 2025-02-25).");
+                    response.sendRedirect("profile");
+                    return;
+                }
+            }
+            String address = request.getParameter("address");
+
+            // Xử lý file upload
+            Part filePart = request.getPart("avatar");
+            String avatar = currentUser.getAvatar();
+            if (filePart != null && filePart.getSize() > 0) {
+                String uploadPath = getServletContext().getRealPath("/") + "uploads/";
+                avatar = "uploads/" + filePart.getSubmittedFileName();
+                filePart.write(uploadPath + filePart.getSubmittedFileName());
+            }
+
+            User user = new User(userId, currentUser.getRoleID(), email, fullName, phone, currentUser.getCreateAt(), currentUser.getIsActive(), sqlDob, address, avatar, currentUser.getUserName(), currentUser.getPassword());
+
+            if (daoUser.updateUser(user)) {
+                session.setAttribute("user", user);
+                session.setAttribute("message", "Cập nhật hồ sơ thành công!");
+                response.sendRedirect("profile");
+            } else {
+                session.setAttribute("error", "Cập nhật hồ sơ thất bại.");
+                response.sendRedirect("profile");
             }
         }
-        String address = request.getParameter("address");
+    }
 
-        // Xử lý file upload
-        Part filePart = request.getPart("avatar");
-        String avatar = currentUser.getAvatar(); // Giữ nguyên avatar cũ nếu không có file mới
-
-        if (filePart != null && filePart.getSize() > 0) {
-            String uploadPath = getServletContext().getRealPath("/") + "uploads/";
-            avatar = "uploads/" + filePart.getSubmittedFileName();
-            filePart.write(uploadPath + filePart.getSubmittedFileName());
+    // Hàm mã hóa mật khẩu (nếu cần)
+    private String hashPassword(String password) throws Exception {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] hash = digest.digest(password.getBytes("UTF-8"));
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : hash) {
+            String hex = Integer.toHexString(0xff & b);
+            if (hex.length() == 1) hexString.append('0');
+            hexString.append(hex);
         }
-
-        User user = new User(userId, currentUser.getRoleID(), email, fullName, phone, currentUser.getCreateAt(), currentUser.getIsActive(), (java.sql.Date) dob, address, avatar, currentUser.getUserName(), currentUser.getPassword());
-
-        DAOUser daoUser = new DAOUser();
-        if (daoUser.updateUser(user)) {
-            session.setAttribute("user", user); // Cập nhật lại session
-            response.sendRedirect("profile");
-        } else {
-            request.setAttribute("error", "Update failed");
-            request.getRequestDispatcher("views/profile.jsp").forward(request, response);
-        }
+        return hexString.toString();
     }
 }
