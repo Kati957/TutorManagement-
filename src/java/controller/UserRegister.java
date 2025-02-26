@@ -20,6 +20,7 @@ import jakarta.servlet.http.HttpSession;
 
 /**
  * Servlet xử lý đăng ký người dùng.
+ *
  * @author Heizxje
  */
 @WebServlet(name = "UserRegister", urlPatterns = {"/User"})
@@ -111,10 +112,11 @@ public class UserRegister extends HttpServlet {
 
     /**
      * Kiểm tra dữ liệu đầu vào và trùng lặp.
+     *
      * @return Chuỗi lỗi nếu có, rỗng nếu hợp lệ
      */
     private String validateInput(DAOUser dao, String email, String fullName, String phone, String dob,
-                                 String address, String userName, String password) throws SQLException {
+            String address, String userName, String password) throws SQLException {
         if (email == null || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
             return "Email không hợp lệ.";
         }
