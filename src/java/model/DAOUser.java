@@ -41,13 +41,16 @@ public class DAOUser extends DBConnect {
                 );
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error logging in user", ex);
         }
         return user;
     }
 
     // Phương thức đăng ký người dùng mới
     public int registerUser(User user) throws SQLException {
+        if (conn == null) {
+            throw new SQLException("Database connection is not initialized.");
+        }
         int n = 0;
         String sql = "INSERT INTO Users (RoleID, Email, FullName, Phone, CreatedAt, IsActive, Dob, Address, Avatar, UserName, Password) "
                 + "VALUES (?, ?, ?, ?, GETDATE(), 1, ?, ?, ?, ?, ?)";
@@ -63,13 +66,18 @@ public class DAOUser extends DBConnect {
             stmt.setString(9, user.getPassword());
             n = stmt.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error registering user", ex);
+            throw ex; // Ném lại ngoại lệ để xử lý ở tầng trên
         }
         return n;
     }
 
     // Phương thức lấy thông tin người dùng bằng email
     public User getUserByEmail(String email) {
+        if (conn == null) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Database connection is null");
+            return null;
+        }
         String sql = "SELECT * FROM Users WHERE Email = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, email);
@@ -79,13 +87,17 @@ public class DAOUser extends DBConnect {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error fetching user by email", e);
         }
         return null;
     }
 
     // Phương thức lấy thông tin người dùng bằng userID
     public User getUserById(int userId) {
+        if (conn == null) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Database connection is null");
+            return null;
+        }
         String sql = "SELECT * FROM Users WHERE UserID = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, userId);
@@ -95,20 +107,24 @@ public class DAOUser extends DBConnect {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error fetching user by ID", e);
         }
         return null;
     }
 
     // Phương thức cập nhật mật khẩu
     public void updatePassword(String email, String password) {
+        if (conn == null) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Database connection is null");
+            return;
+        }
         String sql = "UPDATE Users SET Password = ? WHERE Email = ?";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setString(1, password);
             st.setString(2, email);
             st.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error updating password", e);
         }
     }
 
@@ -132,18 +148,25 @@ public class DAOUser extends DBConnect {
 
     // Phương thức cập nhật mật khẩu bằng email
     public void updatePasswordByEmail(String email, String password) {
+        if (conn == null) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Database connection is null");
+            return;
+        }
         String sql = "UPDATE Users SET Password = ? WHERE Email = ?";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setString(1, password);
             st.setString(2, email);
             st.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error updating password by email", e);
         }
     }
 
     // Phương thức kiểm tra người dùng có tồn tại không
     public boolean checkUserExists(String username) throws SQLException {
+        if (conn == null) {
+            throw new SQLException("Database connection is not initialized.");
+        }
         String sql = "SELECT * FROM Users WHERE UserName = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, username);
@@ -151,13 +174,17 @@ public class DAOUser extends DBConnect {
                 return rs.next();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error checking user existence", ex);
+            throw ex;
         }
-        return false;
     }
 
     // Phương thức thay đổi mật khẩu
     public boolean changePassword(String username, String oldPassword, String newPassword) {
+        if (conn == null) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Database connection is null");
+            return false;
+        }
         String sql = "UPDATE Users SET Password = ? WHERE UserName = ? AND Password = ?";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setString(1, newPassword);
@@ -166,13 +193,17 @@ public class DAOUser extends DBConnect {
             int rowsUpdated = st.executeUpdate();
             return rowsUpdated > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error changing password", e);
+            return false;
         }
-        return false;
     }
 
     // Phương thức cập nhật thông tin người dùng
     public boolean updateUser(User user) {
+        if (conn == null) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Database connection is null");
+            return false;
+        }
         String sql = "UPDATE Users SET RoleID = ?, Email = ?, FullName = ?, Phone = ?, Dob = ?, Address = ?, Avatar = ?, UserName = ?, Password = ? WHERE UserID = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, user.getRoleID());
@@ -188,19 +219,22 @@ public class DAOUser extends DBConnect {
             int rowsUpdated = ps.executeUpdate();
             return rowsUpdated > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error updating user", e);
+            return false;
         }
-        return false;
     }
 
     // Phương thức kiểm tra Email trùng lặp
     public boolean isEmailExists(String email) throws SQLException {
+        if (conn == null) {
+            throw new SQLException("Database connection is not initialized.");
+        }
         String sql = "SELECT COUNT(*) FROM Users WHERE Email = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, email);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt(1) > 0; // Trả về true nếu email đã tồn tại
+                    return rs.getInt(1) > 0;
                 }
             }
         }
@@ -209,12 +243,15 @@ public class DAOUser extends DBConnect {
 
     // Phương thức kiểm tra SDT trùng lặp
     public boolean isPhoneExists(String phone) throws SQLException {
+        if (conn == null) {
+            throw new SQLException("Database connection is not initialized.");
+        }
         String sql = "SELECT COUNT(*) FROM Users WHERE Phone = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, phone);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt(1) > 0; // Trả về true nếu số điện thoại đã tồn tại
+                    return rs.getInt(1) > 0;
                 }
             }
         }
@@ -223,12 +260,15 @@ public class DAOUser extends DBConnect {
 
     // Phương thức kiểm tra Username trùng lặp
     public boolean isUsernameExists(String username) throws SQLException {
+        if (conn == null) {
+            throw new SQLException("Database connection is not initialized.");
+        }
         String sql = "SELECT COUNT(*) FROM Users WHERE UserName = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, username);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt(1) > 0; // Trả về true nếu username đã tồn tại
+                    return rs.getInt(1) > 0;
                 }
             }
         }
@@ -238,24 +278,33 @@ public class DAOUser extends DBConnect {
     // Phương thức main để kiểm tra
     public static void main(String[] args) {
         DAOUser dao = new DAOUser();
+        if (dao.conn == null) {
+            System.out.println("Failed to connect to database!");
+            return;
+        }
         int n = 0;
         try {
-            n = dao.registerUser(new User(1, 1, "example@example.com", "John Doe", "123456789", null, 1, java.sql.Date.valueOf("1990-01-01"), "123 Main St", "avatar.jpg", "johndoe", "password123"));
+            n = dao.registerUser(new User(1, 1, "example@example.com", "John Doe", "123456789", null, 1, 
+                                         java.sql.Date.valueOf("1990-01-01"), "123 Main St", "avatar.jpg", 
+                                         "johndoe", "password123"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if (n != 0) {
+        if (n > 0) {
             System.out.println("User registered successfully!");
+        } else {
+            System.out.println("User registration failed!");
         }
     }
-    
-        // Phương thức đóng kết nối (nếu cần)
+
+    // Phương thức đóng kết nối
     public void closeConnection() {
-        if (connection != null) {
+        if (conn != null) { // Sửa từ connection thành conn
             try {
-                connection.close();
+                conn.close();
+                Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "Database connection closed");
             } catch (SQLException e) {
-                e.printStackTrace();
+                Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error closing connection", e);
             }
         }
     }
