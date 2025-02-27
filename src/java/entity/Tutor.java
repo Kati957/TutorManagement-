@@ -12,7 +12,9 @@ public class Tutor {
     private int tutorID;
     private int CVID;
     private float rating;
-
+    
+    private Cv cv; // hungnv don't delete
+    
     public Tutor() {
     }
 
@@ -46,6 +48,15 @@ public class Tutor {
     public void setRating(float rating) {
         this.rating = rating;
     }
+
+    public Cv getCv() {
+        return cv;
+    }
+
+    public void setCv(Cv cv) {
+        this.cv = cv;
+    }
    
+    
     
 }
