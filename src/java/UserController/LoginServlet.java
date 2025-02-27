@@ -3,12 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package UserController;
 
 import model.DAOUser;
 import entity.GoogleAccount;
 import entity.User;
-import controller.GoogleLogin;
+import UserController.GoogleLogin;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;

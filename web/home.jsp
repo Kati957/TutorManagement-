@@ -115,7 +115,7 @@
                         <div class="container clearfix">
                             <!-- Header Logo ==== -->
                             <div class="menu-logo">
-                                <a href="index.html"><img src="assets/images/logo-white.png" alt=""></a>
+                                <a href="home.jsp"><img src="assets/images/logo-white.png" alt=""></a>
                             </div>
                             <!-- Mobile Nav Button ==== -->
                             <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -146,12 +146,12 @@
                             <!-- Navigation Menu ==== -->
                             <div class="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
                                 <div class="menu-logo">
-                                    <a href="index.html"><img src="assets/images/logo.png" alt=""></a>
+                                    <a href="home.jsp"><img src="assets/images/logo.png" alt=""></a>
                                 </div>
                                 <ul class="nav navbar-nav">	
                                     <li class="active"><a href="javascript:;">Home <i class="fa fa-chevron-down"></i></a>
                                         <ul class="sub-menu">
-                                            <li><a href="index.html">Home 1</a></li>
+                                            <li><a href="home.jsp">Home 1</a></li>
                                             <li><a href="index-2.html">Home 2</a></li>
                                         </ul>
                                     </li>
@@ -192,7 +192,7 @@
                                             <li class="add-menu-left">
                                                 <h5 class="menu-adv-title">Our Courses</h5>
                                                 <ul>
-                                                    <li><a href="courses.html">Courses </a></li>
+                                                    <li><a href="Courses">Courses </a></li>
                                                     <li><a href="courses-details.html">Courses Details</a></li>
                                                     <li><a href="profile.html">Instructor Profile</a></li>
                                                     <li><a href="event.html">Upcoming Event</a></li>
