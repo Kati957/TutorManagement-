@@ -32,7 +32,7 @@ public class DBConnect {
         } 
     }
     public DBConnect(){
-        this("jdbc:sqlserver://localhost:1433;databaseName=test", "sa","Minh2004");
+        this("jdbc:sqlserver://localhost:1433;databaseName=test", "sa","123456");
     }
     
     public static void main(String[] args){
