@@ -15,7 +15,7 @@ import java.sql.Statement;
  * @author dvdung
  */
 public class DBConnect {
-    Connection conn=null;
+    public Connection conn=null;
     public DBConnect(String URL, String userName,String password){
         try{
        // URL: string connection: Server,Datebase

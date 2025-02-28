@@ -1,7 +1,22 @@
-<!DOCTYPE html>
-<%@page import="java.sql.ResultSet,entity.User"%>
-<html lang="en">
+<%-- 
+    Document   : profile_user
+    Created on : Feb 21, 2025, 4:15:54 PM
+    Author     : Heizxje
+--%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
+<%@page import="entity.User"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+    User user = (User) session.getAttribute("user");
+    if (user == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
 
+<!DOCTYPE html>
+<html lang="en">
 
     <head>
 
@@ -50,17 +65,11 @@
         <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
 
     </head>
-    <%
-        ResultSet rsSub = (ResultSet) request.getAttribute("rsSub");
-        ResultSet rs = (ResultSet) request.getAttribute("rs");
-        User user = (User) session.getAttribute("user");
-    %>
     <body id="bg">
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
-
             <!-- Header Top ==== -->
-            <header class="header rs-nav header-transparent">
+            <header class="header rs-nav">
                 <div class="top-bar">
                     <div class="container">
                         <div class="row d-flex justify-content-between">
@@ -90,7 +99,6 @@
                                                 <li><a href="list-view-calendar.html">Activity</a></li>
                                                 <li><a href="mailbox.html">Messages</a></li>
                                                 <li><a href="logout">Logout</a></li>
-                                                <li><a href="cv">Become tutor</a></li>
                                             </ul>
                                         </div>
                                     </li>
@@ -105,7 +113,7 @@
                         <div class="container clearfix">
                             <!-- Header Logo ==== -->
                             <div class="menu-logo">
-                                <a href="index.html"><img src="assets/images/logo-white.png" alt=""></a>
+                                <a href="home.jsp"><img src="assets/images/logo.png" alt=""></a>
                             </div>
                             <!-- Mobile Nav Button ==== -->
                             <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -136,14 +144,14 @@
                             <!-- Navigation Menu ==== -->
                             <div class="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
                                 <div class="menu-logo">
-                                    <a href="index.html"><img src="assets/images/logo.png" alt=""></a>
+                                    <a href="home.jsp"><img src="assets/images/logo.png" alt=""></a>
                                 </div>
                                 <ul class="nav navbar-nav">	
                                     <li class="active"><a href="home.jsp">Home</a>
                                     </li>
-                                    <li class="add-mega-menu"><a href="Courses">Our Courses</a>
+                                    <li class="add-mega-menu"><a href="javascript:;">Our Courses</a>
                                     </li>
-                                    <li><a href="javascript:;">Blog</a>
+                                    <li><a href="blog-classic-grid.html">Blog</a>
                                     </li>
                                 </ul>
                                 <div class="nav-social-link">
@@ -157,14 +165,14 @@
                     </div>
                 </div>
             </header>
-            <!-- Header Top END ==== -->
+            <!-- header END ==== -->
             <!-- Content -->
             <div class="page-content bg-white">
                 <!-- inner page banner -->
-                <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
+                <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner1.jpg);">
                     <div class="container">
                         <div class="page-banner-entry">
-                            <h1 class="text-white">Our Courses</h1>
+                            <h1 class="text-white">Profile</h1>
                         </div>
                     </div>
                 </div>
@@ -172,8 +180,8 @@
                 <div class="breadcrumb-row">
                     <div class="container">
                         <ul class="list-inline">
-                            <li><a href="#">Home</a></li>
-                            <li>Our Courses</li>
+                            <li><a href="home.jsp">Home</a></li>
+                            <li>Profile</li>
                         </ul>
                     </div>
                 </div>
@@ -185,118 +193,203 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
-                                    <div class="widget courses-search-bx placeani">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <form action="Courses" method="get">
-                                                        <label>Search Tutor</label>
-                                                        <input name="dzName" type="text" required class="form-control">
-                                                </form>
-                                            </div>
+                                    <div class="profile-bx text-center">
+                                        <div class="user-profile-thumb">
+                                            <img src="assets/images/profile/pic1.jpg" alt=""/>
                                         </div>
-                                    </div>
-                                    <div class="widget widget_archive">
-                                        <h5 class="widget-title style-1">All Courses</h5>
-                                        <ul>
-                                            <li class="active"><a href="#">General</a></li>
-                                                <% while (rsSub.next()) {%>
-                                            <li><a href="#"><%=rsSub.getString(2)%></a></li>
-                                                <%}%>
-                                        </ul>
-                                    </div>
-                                    <div class="widget">
-                                        <a href="#"><img src="assets/images/adv/adv.jpg" alt=""/></a>
-                                    </div>
-                                    <div class="widget recent-posts-entry widget-courses">
-                                        <h5 class="widget-title style-1">Recent Courses</h5>
-                                        <div class="widget-post-bx">
-                                            <div class="widget-post clearfix">
-                                                <div class="ttr-post-media"> <img src="assets/images/blog/recent-blog/pic1.jpg" width="200" height="143" alt=""> </div>
-                                                <div class="ttr-post-info">
-                                                    <div class="ttr-post-header">
-                                                        <h6 class="post-title"><a href="#">Introduction EduChamp</a></h6>
-                                                    </div>
-                                                    <div class="ttr-post-meta">
-                                                        <ul>
-                                                            <li class="price">
-                                                                <del>$190</del>
-                                                                <h5>$120</h5>
-                                                            </li>
-                                                            <li class="review">03 Review</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-post clearfix">
-                                                <div class="ttr-post-media"> <img src="assets/images/blog/recent-blog/pic3.jpg" width="200" height="160" alt=""> </div>
-                                                <div class="ttr-post-info">
-                                                    <div class="ttr-post-header">
-                                                        <h6 class="post-title"><a href="#">English For Tommorow</a></h6>
-                                                    </div>
-                                                    <div class="ttr-post-meta">
-                                                        <ul>
-                                                            <li class="price">
-                                                                <h5 class="free">Free</h5>
-                                                            </li>
-                                                            <li class="review">07 Review</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="profile-info">
+                                            <h4><%= user.getFullName()%></h4>
+                                            <span><%= user.getEmail()%></span>
+                                        </div>
+                                        <div class="profile-social">
+                                            <ul class="list-inline m-a0">
+                                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="profile-tabnav">
+                                            <ul class="nav nav-tabs">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" data-toggle="tab" href="#profile-detail"><i class="ti-user"></i>Profile Detail</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#edit-profile"><i class="ti-pencil-alt"></i>Edit Profile</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#change-password"><i class="ti-lock"></i>Change Password</a>
+                                                </li>
+
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-9 col-md-8 col-sm-12">
-                                    <div class="row">
-                                        <% while (rs.next()) {%>
-                                        <div class="col-md-6 col-lg-4 col-sm-6 m-b30">
-                                            <div class="cours-bx">
-                                                <div class="action-box">
-                                                    <img src="<%=rs.getString(4)%>" alt="">
-                                                    <a href="#" class="btn">Read More</a>
+                                <div class="col-lg-9 col-md-8 col-sm-12 m-b30">
+                                    <div class="profile-content-bx">
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="profile-detail">
+                                                <div class="profile-head">
+                                                    <h3>Profile Detail</h3>
                                                 </div>
-                                                <div class="info-bx text-center">
-                                                    <h5><a href="#"><%=rs.getString(1)%></a></h5>
-                                                    <span><%=rs.getString(2)%></span>
-                                                </div>
-                                                <div class="cours-more-info">
-                                                    <div class="review">
-                                                        <span>3 Review</span>
-                                                        <ul class="cours-star">
-                                                            <li class="active"><i class="fa fa-star"></i></li>
-                                                            <li class="active"><i class="fa fa-star"></i></li>
-                                                            <li class="active"><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
-                                                        </ul>
+                                                <form class="edit-profile">
+                                                    <div class="">
+                                                        <!-- Email -->
+                                                        <div class="form-group row">
+                                                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Email</label>
+                                                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                                <input class="form-control" type="email" value="<%= user.getEmail()%>" readonly>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Full Name -->
+                                                        <div class="form-group row">
+                                                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Full Name</label>
+                                                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                                <input class="form-control" type="text" value="<%= user.getFullName()%>" readonly>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Phone Number -->
+                                                        <div class="form-group row">
+                                                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"></label>
+                                                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                                <input class="form-control" type="text" value="<%= user.getPhone()%>" readonly>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Date of Birth -->
+                                                        <div class="form-group row">
+                                                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Date of Birth</label>
+                                                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                                <input class="form-control" type="date" value="<%= user.getDob()%>" readonly>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Address -->
+                                                        <div class="form-group row">
+                                                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Address</label>
+                                                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                                <input class="form-control" type="text" value="<%= user.getAddress()%>" readonly>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="price">
-                                                        <del>$190</del>
-                                                        <h5>$120</h5>
-                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="tab-pane" id="edit-profile">
+                                                <div class="profile-head">
+                                                    <h3>Edit Profile</h3>
                                                 </div>
+                                                <form class="edit-profile" action="profile" method="POST" enctype="multipart/form-data">
+                                                    <input type="hidden" name="action" value="editProfile">
+
+                                                    <!-- Các trường thông tin cá nhân -->
+                                                    <div class="form-group row">
+                                                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Full Name</label>
+                                                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                            <input class="form-control" type="text" name="fullName" value="<%= user.getFullName()%>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Email</label>
+                                                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                            <input class="form-control" type="email" name="email" value="<%= user.getEmail()%>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Phone</label>
+                                                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                            <input class="form-control" type="text" name="phone" value="<%= user.getPhone()%>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Date of Birth</label>
+                                                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                            <input class="form-control" type="date" name="dob" value="<%= user.getDob()%>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Address</label>
+                                                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                            <input class="form-control" type="text" name="address" value="<%= user.getAddress()%>">
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Nút Submit -->
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-3 col-md-3 col-lg-2"></div>
+                                                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                                            <button type="reset" class="btn btn-secondary">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>                                    
+                                            <div class="tab-pane" id="change-password">
+                                                <div class="profile-head">
+                                                    <h3>Change Password</h3>
+                                                </div>
+                                                <form class="edit-profile" action="profile" method="POST">
+                                                    <input type="hidden" name="action" value="changePassword">
+
+                                                    <!-- Các trường mật khẩu -->
+                                                    <div class="form-group row">
+                                                        <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">Current Password</label>
+                                                        <div class="col-12 col-sm-8 col-md-8 col-lg-7">
+                                                            <input class="form-control" type="password" name="currentPassword" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">New Password</label>
+                                                        <div class="col-12 col-sm-8 col-md-8 col-lg-7">
+                                                            <input class="form-control" type="password" name="newPassword" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">Re Type New Password</label>
+                                                        <div class="col-12 col-sm-8 col-md-8 col-lg-7">
+                                                            <input class="form-control" type="password" name="confirmPassword" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Nút Submit -->
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-4 col-md-4 col-lg-3"></div>
+                                                        <div class="col-12 col-sm-8 col-md-8 col-lg-7">
+                                                            <button type="submit" class="btn">Save changes</button>
+                                                            <button type="reset" class="btn-secondry">Cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
-                                        </div>
-                                        <%}%>
-                                        <div class="col-lg-12 m-b20">
-                                            <div class="pagination-bx rounded-sm gray clearfix">
-                                                <ul class="pagination">
-                                                    <li class="previous"><a href="#"><i class="ti-arrow-left"></i> Prev</a></li>
-                                                    <li class="active"><a href="#">1</a></li>
-                                                    <li><a href="#">2</a></li>
-                                                    <li><a href="#">3</a></li>
-                                                    <li class="next"><a href="#">Next <i class="ti-arrow-right"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        </div> 
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <%
+                    String message = (String) session.getAttribute("message");
+                    String error = (String) session.getAttribute("error");
+                    if (message != null) {
+                %>
+                <div class="alert alert-success">
+                    <%= message%>
+                </div>
+                <%
+                        session.removeAttribute("message");
+                    }
+                    if (error != null) {
+                %>
+                <div class="alert alert-danger">
+                    <%= error%>
+                </div>
+                <%
+                        session.removeAttribute("error");
+                    }
+                %>
                 <!-- contact area END -->
-
             </div>
             <!-- Content END-->
             <!-- Footer ==== -->
@@ -315,9 +408,6 @@
                                         <li><a href="#" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
                                         <li><a href="#" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
                                     </ul>
-                                </div>
-                                <div class="pt-btn-join">
-                                    <a href="#" class="btn ">Join Now</a>
                                 </div>
                             </div>
                         </div>
@@ -356,20 +446,9 @@
                                     </div>
                                     <div class="col-4 col-lg-4 col-md-4 col-sm-4">
                                         <div class="widget footer_widget">
-                                            <h5 class="footer-title">Get In Touch</h5>
-                                            <ul>
-                                                <li><a href="http://educhamp.themetrades.com/admin/index.html">Dashboard</a></li>
-                                                <li><a href="blog-classic-grid.html">Blog</a></li>
-                                                <li><a href="portfolio.html">Portfolio</a></li>
-                                                <li><a href="event.html">Event</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 col-lg-4 col-md-4 col-sm-4">
-                                        <div class="widget footer_widget">
                                             <h5 class="footer-title">Courses</h5>
                                             <ul>
-                                                <li><a href="Courses">Courses</a></li>
+                                                <li><a href="courses.html">Courses</a></li>
                                                 <li><a href="courses-details.html">Details</a></li>
                                                 <li><a href="membership.html">Membership</a></li>
                                                 <li><a href="profile.html">Profile</a></li>
@@ -423,6 +502,16 @@
         <script src="assets/js/functions.js"></script>
         <script src="assets/js/contact.js"></script>
         <script src='assets/vendors/switcher/switcher.js'></script>
+        <script>
+            // Kiểm tra thông báo và kích hoạt tab tương ứng
+            <% if (session.getAttribute("message") != null || session.getAttribute("error") != null) { %>
+            <% if ("changePassword".equals(request.getParameter("action"))) { %>
+            $('#change-password').tab('show');
+            <% } else { %>
+            $('#edit-profile').tab('show');
+            <% } %>
+            <% }%>
+        </script>
     </body>
 
 </html>

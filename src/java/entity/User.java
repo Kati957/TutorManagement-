@@ -14,7 +14,7 @@ public class User {
     private String email;
     private String fullName;
     private String phone;
-    private String createAt;
+    private Date createAt;
     private int isActive;
     private Date dob;
     private String address;
@@ -25,7 +25,7 @@ public class User {
     public User() {
     }
 
-    public User(int userID, int roleID, String email, String fullName, String phone, String createAt, int isActive, Date dob, String address, String avatar, String userName, String password) {
+    public User(int userID, int roleID, String email, String fullName, String phone, Date createAt, int isActive, Date dob, String address, String avatar, String userName, String password) {
         this.userID = userID;
         this.roleID = roleID;
         this.email = email;
@@ -80,11 +80,11 @@ public class User {
         this.phone = phone;
     }
 
-    public String getCreateAt() {
+    public Date getCreateAt() {
         return createAt;
     }
 
-    public void setCreateAt(String createAt) {
+    public void setCreateAt(Date createAt) {
         this.createAt = createAt;
     }
 
@@ -135,6 +135,8 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    
     
     
 }
