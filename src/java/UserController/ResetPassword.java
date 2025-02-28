@@ -1,4 +1,4 @@
-package controller;
+package UserController;
 
 import model.DAOTokenForget;
 import model.DAOUser;

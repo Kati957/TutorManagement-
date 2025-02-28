@@ -1,16 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-
-package controller;
+package UserController;
 
 import model.DAOUser;
 import entity.GoogleAccount;
 import entity.User;
-import controller.GoogleLogin;
+import UserController.GoogleLogin;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -18,10 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-/**
- *
- * @author Heizxje
- */
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 
@@ -35,7 +25,7 @@ public class LoginServlet extends HttpServlet {
         String service = request.getParameter("service");
 
         if (service == null) {
-            service = "googleLogin"; // Mặc định là login bằng Google nếu không có gì được truyền vào
+            service = "googleLogin";
         }
 
         switch (service) {
@@ -78,8 +68,9 @@ public class LoginServlet extends HttpServlet {
                     request.getRequestDispatcher("register.jsp").forward(request, response);
                 } else {
                     session.setAttribute("user", user);
-                    session.setAttribute("userId", user.getUserID()); // Thêm userId vào session
-                    response.sendRedirect("home.jsp");
+                    session.setAttribute("userId", user.getUserID());
+                    // Kiểm tra RoleID và điều hướng
+                    redirectBasedOnRole(user, response);
                 }
             } else {
                 request.setAttribute("error", "Không lấy được thông tin tài khoản Google.");
@@ -105,9 +96,26 @@ public class LoginServlet extends HttpServlet {
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             } else {
                 session.setAttribute("user", user);
-                session.setAttribute("userId", user.getUserID()); // Thêm userId vào session
-                response.sendRedirect("home.jsp");
+                session.setAttribute("userId", user.getUserID());
+                // Kiểm tra RoleID và điều hướng
+                redirectBasedOnRole(user, response);
             }
+        }
+    }
+
+    // Phương thức mới để xử lý điều hướng dựa trên RoleID
+    private void redirectBasedOnRole(User user, HttpServletResponse response) throws IOException {
+        // Giả sử RoleID = 1 là user, RoleID = 2 là admin
+        // Bạn cần điều chỉnh giá trị này theo cấu trúc database của bạn
+        int roleId = user.getRoleID();
+        
+        if (roleId == 2) { // User
+            response.sendRedirect("home.jsp");
+        } else if (roleId == 1) { // Admin
+            response.sendRedirect("admin/dashboard.jsp");
+        } else {
+            // Xử lý các role khác nếu có hoặc redirect về trang mặc định
+            response.sendRedirect("home.jsp");
         }
     }
 

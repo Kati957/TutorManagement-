@@ -94,7 +94,7 @@
                                     <li>
                                         <div class="ttr-header-submenu">
                                             <ul>
-                                                <li><a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a></li>
+                                                <li><a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/profile/pic1.jpg" width="32" height="32"></span></a></li>
                                                 <li><a href="profile_user.jsp">My profile</a></li>
                                                 <li><a href="list-view-calendar.html">Activity</a></li>
                                                 <li><a href="mailbox.html">Messages</a></li>
@@ -252,7 +252,7 @@
 
                                                         <!-- Phone Number -->
                                                         <div class="form-group row">
-                                                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"></label>
+                                                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Phone</label>
                                                             <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                                 <input class="form-control" type="text" value="<%= user.getPhone()%>" readonly>
                                                             </div>
@@ -288,12 +288,6 @@
                                                         <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Full Name</label>
                                                         <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                             <input class="form-control" type="text" name="fullName" value="<%= user.getFullName()%>">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Email</label>
-                                                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                            <input class="form-control" type="email" name="email" value="<%= user.getEmail()%>">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">

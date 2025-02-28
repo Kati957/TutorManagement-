@@ -258,6 +258,24 @@ public class DAOUser extends DBConnect {
         return false;
     }
 
+    // Phương thức kiểm tra SDT trùng lặp cho ProfileServlet
+    public boolean isPhoneExist(String phone, int excludeUserId) throws SQLException {
+        if (conn == null) {
+            throw new SQLException("Database connection is not initialized.");
+        }
+        String sql = "SELECT COUNT(*) FROM Users WHERE Phone = ? AND UserID != ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, phone);
+            stmt.setInt(2, excludeUserId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        }
+        return false;
+    }
+
     // Phương thức kiểm tra Username trùng lặp
     public boolean isUsernameExists(String username) throws SQLException {
         if (conn == null) {
@@ -284,9 +302,9 @@ public class DAOUser extends DBConnect {
         }
         int n = 0;
         try {
-            n = dao.registerUser(new User(1, 1, "example@example.com", "John Doe", "123456789", null, 1, 
-                                         java.sql.Date.valueOf("1990-01-01"), "123 Main St", "avatar.jpg", 
-                                         "johndoe", "password123"));
+            n = dao.registerUser(new User(1, 1, "example@example.com", "John Doe", "123456789", null, 1,
+                    java.sql.Date.valueOf("1990-01-01"), "123 Main St", "avatar.jpg",
+                    "johndoe", "password123"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
