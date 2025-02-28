@@ -29,39 +29,40 @@ public class AuthenticationFilter implements Filter {
 
     // Danh sách các URL yêu cầu đăng nhập (protected)
     private static final List<String> PROTECTED_URLS = Arrays.asList(
-            "/add-listing.html",
-            "/bookmark.html",
-            "/courses.html",
-            "/review.html",
-            "/teacher-profile.html",
-            "/user-profile.html",
-            "/basic-calendar.html",
-            "/list-view-calendar.html",
-            "/mailbox-compose.html",
-            "/mailbox-read.html",
-            "/mailbox.html",
+            "/add-listing.jsp",
+            "/bookmark.jsp",
+            "/courses.jsp",
+            "/review.jsp",
+            "/teacher-profile.jsp",
+            "/user-profile.jsp",
+            "/basic-calendar.jsp",
+            "/list-view-calendar.jsp",
+            "/mailbox-compose.jsp",
+            "/mailbox-read.jsp",
+            "/mailbox.jsp",
+            "/profile_user.jsp",
             "/admin/"
     );
 
     // Danh sách các URL public không cần đăng nhập
     private static final List<String> PUBLIC_URLS = Arrays.asList(
             "/login.jsp", // sử dụng login.jsp (đồng nhất với redirect)
-            "/register.html",
-            "/forget-password.html",
-            "/index.html",
-            "/index-2.html",
-            "/about-1.html",
-            "/about-2.html",
+            "/register.jsp",
+            "/forget-password.jsp",
+            "/index.jsp",
+            "/index-2.jsp",
+            "/about-1.jsp",
+            "/about-2.jsp",
             "/assets/",
             "/blog-",
             "/contact-",
-            "/courses-details.html",
-            "/event.html",
-            "/events-details.html",
-            "/faq-1.html",
-            "/faq-2.html",
-            "/error-404.html",
-            "/home.html"
+            "/courses-details.jsp",
+            "/event.jsp",
+            "/events-details.jsp",
+            "/faq-1.jsp",
+            "/faq-2.jsp",
+            "/error-404.jsp",
+            "/home.jsp"
     );
 
     private FilterConfig filterConfig = null;

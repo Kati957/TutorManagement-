@@ -69,8 +69,7 @@ public class LoginServlet extends HttpServlet {
                 } else {
                     session.setAttribute("user", user);
                     session.setAttribute("userId", user.getUserID());
-                    // Kiểm tra RoleID và điều hướng
-                    redirectBasedOnRole(user, response);
+                    redirectBasedOnRole(user, request, response);
                 }
             } else {
                 request.setAttribute("error", "Không lấy được thông tin tài khoản Google.");
@@ -97,25 +96,24 @@ public class LoginServlet extends HttpServlet {
             } else {
                 session.setAttribute("user", user);
                 session.setAttribute("userId", user.getUserID());
-                // Kiểm tra RoleID và điều hướng
-                redirectBasedOnRole(user, response);
+                redirectBasedOnRole(user, request, response);
             }
         }
     }
 
-    // Phương thức mới để xử lý điều hướng dựa trên RoleID
-    private void redirectBasedOnRole(User user, HttpServletResponse response) throws IOException {
-        // Giả sử RoleID = 1 là user, RoleID = 2 là admin
-        // Bạn cần điều chỉnh giá trị này theo cấu trúc database của bạn
+    // Phương thức điều hướng dựa trên RoleID
+    private void redirectBasedOnRole(User user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         int roleId = user.getRoleID();
+        String contextPath = request.getContextPath(); // Lấy context path động
         
-        if (roleId == 2) { // User
-            response.sendRedirect("home.jsp");
-        } else if (roleId == 1) { // Admin
-            response.sendRedirect("admin/dashboard.jsp");
+        // RoleID trong DB: Admin = 1, User = 2
+        if (roleId == 1) { // Admin
+            response.sendRedirect(contextPath + "/admin/index.jsp");
+        } else if (roleId == 2) { // User
+            response.sendRedirect(contextPath + "/home.jsp");
         } else {
-            // Xử lý các role khác nếu có hoặc redirect về trang mặc định
-            response.sendRedirect("home.jsp");
+            // Trường hợp RoleID không xác định, về trang mặc định
+            response.sendRedirect(contextPath + "/home.jsp");
         }
     }
 

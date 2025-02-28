@@ -76,7 +76,7 @@
                         <div class="row d-flex justify-content-between">
                             <div class="topbar-left">
                                 <ul>
-                                    <li><a href="faq-1.html"><i class="fa fa-question-circle"></i>Ask a Question</a></li>
+                                    <li><a href="faq-1.jsp"><i class="fa fa-question-circle"></i>Ask a Question</a></li>
                                     <li><a href="javascript:;"><i class="fa fa-envelope-o"></i>Support@website.com</a></li>
                                 </ul>
                             </div>
@@ -97,8 +97,8 @@
                                             <ul>
                                                 <li><a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a></li>
                                                 <li><a href="profile_user.jsp">My profile</a></li>
-                                                <li><a href="list-view-calendar.html">Activity</a></li>
-                                                <li><a href="mailbox.html">Messages</a></li>
+                                                <li><a href="list-view-calendar.jsp">Activity</a></li>
+                                                <li><a href="mailbox.jsp">Messages</a></li>
                                                 <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
                                             </ul>
                                         </div>
@@ -114,7 +114,7 @@
                         <div class="container clearfix">
                             <!-- Header Logo ==== -->
                             <div class="menu-logo">
-                                <a href="index.html"><img src="assets/images/logo-white.png" alt=""></a>
+                                <a href="index.jsp"><img src="assets/images/logo-white.png" alt=""></a>
                             </div>
                             <!-- Mobile Nav Button ==== -->
                             <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -145,7 +145,7 @@
                             <!-- Navigation Menu ==== -->
                             <div class="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
                                 <div class="menu-logo">
-                                    <a href="index.html"><img src="assets/images/logo.png" alt=""></a>
+                                    <a href="index.jsp"><img src="assets/images/logo.png" alt=""></a>
                                 </div>
                                 <ul class="nav navbar-nav">	
                                     <li class="active"><a href="home.jsp">Home</a>
@@ -183,7 +183,7 @@
                                     data-easein="default" 
                                     data-easeout="default" 
                                     data-masterspeed="default" 
-                                    data-thumb="error-404.html" 
+                                    data-thumb="error-404.jsp" 
                                     data-rotate="0" 
                                     data-fstransition="fade" 
                                     data-fsmasterspeed="1500" 
@@ -875,7 +875,7 @@
                                                 <li><a href="#"><i class="fa fa-calendar"></i>Jan 02 2019</a></li>
                                                 <li><a href="#"><i class="fa fa-user"></i>By William</a></li>
                                             </ul>
-                                            <h5 class="post-title"><a href="blog-details.html">This Story Behind Education Will Haunt You Forever.</a></h5>
+                                            <h5 class="post-title"><a href="blog-details.jsp">This Story Behind Education Will Haunt You Forever.</a></h5>
                                             <p>Knowing that, you’ve optimised your pages countless amount of times, written tons.</p>
                                             <div class="post-extra">
                                                 <a href="#" class="btn-link">READ MORE</a>
@@ -894,7 +894,7 @@
                                                 <li><a href="#"><i class="fa fa-calendar"></i>Feb 05 2019</a></li>
                                                 <li><a href="#"><i class="fa fa-user"></i>By John</a></li>
                                             </ul>
-                                            <h5 class="post-title"><a href="blog-details.html">What Will Education Be Like In The Next 50 Years?</a></h5>
+                                            <h5 class="post-title"><a href="blog-details.jsp">What Will Education Be Like In The Next 50 Years?</a></h5>
                                             <p>As desperate as you are right now, you have done everything you can on your.</p>
                                             <div class="post-extra">
                                                 <a href="#" class="btn-link">READ MORE</a>
@@ -913,7 +913,7 @@
                                                 <li><a href="#"><i class="fa fa-calendar"></i>April 14 2019</a></li>
                                                 <li><a href="#"><i class="fa fa-user"></i>By George</a></li>
                                             </ul>
-                                            <h5 class="post-title"><a href="blog-details.html">Master The Skills Of Education And Be.</a></h5>
+                                            <h5 class="post-title"><a href="blog-details.jsp">Master The Skills Of Education And Be.</a></h5>
                                             <p>You will see in the guide all my years of valuable experience together with.</p>
                                             <div class="post-extra">
                                                 <a href="#" class="btn-link">READ MORE</a>
@@ -938,7 +938,7 @@
                         <div class="container">
                             <div class="d-flex align-items-stretch">
                                 <div class="pt-logo mr-auto">
-                                    <a href="index.html"><img src="assets/images/logo-white.png" alt=""/></a>
+                                    <a href="index.jsp"><img src="assets/images/logo-white.png" alt=""/></a>
                                 </div>
                                 <div class="pt-social-link">
                                     <ul class="list-inline m-a0">
@@ -979,10 +979,10 @@
                                         <div class="widget footer_widget">
                                             <h5 class="footer-title">Company</h5>
                                             <ul>
-                                                <li><a href="index.html">Home</a></li>
-                                                <li><a href="about-1.html">About</a></li>
-                                                <li><a href="faq-1.html">FAQs</a></li>
-                                                <li><a href="contact-1.html">Contact</a></li>
+                                                <li><a href="index.jsp">Home</a></li>
+                                                <li><a href="about-1.jsp">About</a></li>
+                                                <li><a href="faq-1.jsp">FAQs</a></li>
+                                                <li><a href="contact-1.jsp">Contact</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -990,10 +990,10 @@
                                         <div class="widget footer_widget">
                                             <h5 class="footer-title">Get In Touch</h5>
                                             <ul>
-                                                <li><a href="http://educhamp.themetrades.com/admin/index.html">Dashboard</a></li>
-                                                <li><a href="blog-classic-grid.html">Blog</a></li>
-                                                <li><a href="portfolio.html">Portfolio</a></li>
-                                                <li><a href="event.html">Event</a></li>
+                                                <li><a href="http://educhamp.themetrades.com/admin/index.jsp">Dashboard</a></li>
+                                                <li><a href="blog-classic-grid.jsp">Blog</a></li>
+                                                <li><a href="portfolio.jsp">Portfolio</a></li>
+                                                <li><a href="event.jsp">Event</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -1001,10 +1001,10 @@
                                         <div class="widget footer_widget">
                                             <h5 class="footer-title">Courses</h5>
                                             <ul>
-                                                <li><a href="courses.html">Courses</a></li>
-                                                <li><a href="courses-details.html">Details</a></li>
-                                                <li><a href="membership.html">Membership</a></li>
-                                                <li><a href="profile.html">Profile</a></li>
+                                                <li><a href="courses.jsp">Courses</a></li>
+                                                <li><a href="courses-details.jsp">Details</a></li>
+                                                <li><a href="membership.jsp">Membership</a></li>
+                                                <li><a href="profile.jsp">Profile</a></li>
                                             </ul>
                                         </div>
                                     </div>

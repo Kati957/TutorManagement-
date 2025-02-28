@@ -75,7 +75,7 @@
                         <div class="row d-flex justify-content-between">
                             <div class="topbar-left">
                                 <ul>
-                                    <li><a href="faq-1.html"><i class="fa fa-question-circle"></i>Ask a Question</a></li>
+                                    <li><a href="faq-1.jsp"><i class="fa fa-question-circle"></i>Ask a Question</a></li>
                                     <li><a href="javascript:;"><i class="fa fa-envelope-o"></i>Support@website.com</a></li>
                                 </ul>
                             </div>
@@ -96,8 +96,8 @@
                                             <ul>
                                                 <li><a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/profile/pic1.jpg" width="32" height="32"></span></a></li>
                                                 <li><a href="profile_user.jsp">My profile</a></li>
-                                                <li><a href="list-view-calendar.html">Activity</a></li>
-                                                <li><a href="mailbox.html">Messages</a></li>
+                                                <li><a href="list-view-calendar.jsp">Activity</a></li>
+                                                <li><a href="mailbox.jsp">Messages</a></li>
                                                 <li><a href="logout">Logout</a></li>
                                             </ul>
                                         </div>
@@ -151,7 +151,7 @@
                                     </li>
                                     <li class="add-mega-menu"><a href="javascript:;">Our Courses</a>
                                     </li>
-                                    <li><a href="blog-classic-grid.html">Blog</a>
+                                    <li><a href="blog-classic-grid.jsp">Blog</a>
                                     </li>
                                 </ul>
                                 <div class="nav-social-link">
@@ -432,9 +432,9 @@
                                             <h5 class="footer-title">Company</h5>
                                             <ul>
                                                 <li><a href="home.jsp">Home</a></li>
-                                                <li><a href="about-1.html">About</a></li>
-                                                <li><a href="faq-1.html">FAQs</a></li>
-                                                <li><a href="contact-1.html">Contact</a></li>
+                                                <li><a href="about-1.jsp">About</a></li>
+                                                <li><a href="faq-1.jsp">FAQs</a></li>
+                                                <li><a href="contact-1.jsp">Contact</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -442,10 +442,10 @@
                                         <div class="widget footer_widget">
                                             <h5 class="footer-title">Courses</h5>
                                             <ul>
-                                                <li><a href="courses.html">Courses</a></li>
-                                                <li><a href="courses-details.html">Details</a></li>
-                                                <li><a href="membership.html">Membership</a></li>
-                                                <li><a href="profile.html">Profile</a></li>
+                                                <li><a href="courses.jsp">Courses</a></li>
+                                                <li><a href="courses-details.jsp">Details</a></li>
+                                                <li><a href="membership.jsp">Membership</a></li>
+                                                <li><a href="profile.jsp">Profile</a></li>
                                             </ul>
                                         </div>
                                     </div>

@@ -23,24 +23,24 @@ public class AuthorizationFilter implements Filter {
     private static final boolean debug = true;
 
     private static final Set<String> ADMIN_URLS = Set.of(
-            "/admin/dashboard.jsp", "/admin/add-listing.html", "/admin/basic-calendar.html", "/admin/courses.html",
-            "/admin/list-view-calendar.html", "/admin/mailbox.html", "/admin/mailbox-compose.html", "/admin/mailbox-read.html",
-            "/admin/review.html", "/admin/teacher-profile.html", "/admin/user-profile.html"
+            "/admin/index.jsp", "/admin/add-listing.jsp", "/admin/basic-calendar.jsp", "/admin/courses.jsp",
+            "/admin/list-view-calendar.jsp", "/admin/mailbox.jsp", "/admin/mailbox-compose.jsp", "/admin/mailbox-read.jsp",
+            "/admin/review.jsp", "/admin/teacher-profile.jsp", "/admin/user-profile.jsp"
     );
 
     private static final Set<String> STAFF_URLS = Set.of(
-            "/admin/index.html", "/admin/basic-calendar.html", "/admin/add-listing.html", "/admin/courses.html", "/admin/list-view-calendar.html",
-            "/admin/mailbox.html", "/admin/mailbox-compose.html", "/admin/mailbox-read.html", "/admin/review.html", "/admin/user-profile.html"
+            "/admin/index.jsp", "/admin/basic-calendar.jsp", "/admin/add-listing.jsp", "/admin/courses.jsp", "/admin/list-view-calendar.jsp",
+            "/admin/mailbox.jsp", "/admin/mailbox-compose.jsp", "/admin/mailbox-read.jsp", "/admin/review.jsp", "/admin/user-profile.jsp"
     );
 
     private static final Set<String> TUTOR_URLS = Set.of(
-            "/admin/basic-calendar.html", "/admin/bookmark.html", "/admin/courses.html", "/admin/list-view-calendar.html",
-            "/admin/mailbox.html", "/admin/mailbox-compose.html", "/admin/mailbox-read.html", "/admin/review.html", "/admin/teacher-profile.html"
+            "/admin/basic-calendar.jsp", "/admin/bookmark.jsp", "/admin/courses.jsp", "/admin/list-view-calendar.jsp",
+            "/admin/mailbox.jsp", "/admin/mailbox-compose.jsp", "/admin/mailbox-read.jsp", "/admin/review.jsp", "/admin/teacher-profile.jsp"
     );
 
     private static final Set<String> USER_URLS = Set.of(
-            "/admin/basic-calendar.html", "/admin/bookmark.html", "/admin/courses.html", "/admin/list-view-calendar.html",
-            "/admin/mailbox.html", "/admin/mailbox-compose.html", "/admin/mailbox-read.html", "/admin/review.html", "/admin/user-profile.html"
+            "/admin/basic-calendar.jsp", "/admin/bookmark.jsp", "/admin/courses.jsp", "/admin/list-view-calendar.jsp",
+            "/admin/mailbox.jsp", "/admin/mailbox-compose.jsp", "/admin/mailbox-read.jsp", "/admin/review.jsp", "/admin/user-profile.jsp"
     );
 
     private FilterConfig filterConfig = null;
@@ -78,7 +78,7 @@ public class AuthorizationFilter implements Filter {
         };
 
         if (!hasAccess) {
-            httpResponse.sendRedirect(httpRequest.getContextPath() + "/error-403.html");
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/error-404.jsp");
             return;
         }
 
