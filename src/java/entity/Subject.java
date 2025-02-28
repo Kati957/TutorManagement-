@@ -5,7 +5,9 @@ public class Subject {
     private int subjectID;
     private String subjectName;
     private String description;
-
+    
+    private int bookingCount;
+    
     public Subject() {
     }
 
@@ -37,5 +39,14 @@ public class Subject {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    
+    public int getBookingCount() {
+        return bookingCount;
+    }
+
+    public void setBookingCount(int bookingCount) {
+        this.bookingCount = bookingCount;
     }
 }

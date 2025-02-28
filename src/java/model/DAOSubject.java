@@ -1,11 +1,12 @@
-
 package model;
+
 import entity.Subject;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DAOSubject extends DBConnect {
+
     public int addSubject(Subject subject) {
         int result = 0;
         String sql = "INSERT INTO Subject (SubjectName, Description) VALUES (?, ?)";
@@ -79,24 +80,35 @@ public class DAOSubject extends DBConnect {
         }
         return null;
     }
-
-    public List<Subject> getTopSubjects(int limit) {
-        List<Subject> subjects = new ArrayList<>();
-        String sql = "SELECT TOP (?) * FROM Subject ORDER BY LEN(Description) DESC";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, limit);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                subjects.add(new Subject(
-                        rs.getInt("SubjectID"),
-                        rs.getString("SubjectName"),
-                        rs.getString("Description")
-                ));
-            }
-        } catch (SQLException e) {
-            System.out.println("Lỗi khi lấy các Subject.");
-            e.printStackTrace();
+    // dang su dung: Hungnv tai homepage
+    // join: Subject, booking
+    public List<Subject> getTopSubjectsByBooking(int limit) {
+    List<Subject> subjects = new ArrayList<>();
+    String sql = """
+        SELECT TOP (?) s.SubjectID, s.SubjectName, s.Description, COUNT(b.SubjectID) AS BookingCount
+        FROM Subject s
+        JOIN Booking b ON s.SubjectID = b.SubjectID
+        WHERE b.Status IN ('Confirmed', 'Completed', 'Pending')
+        GROUP BY s.SubjectID, s.SubjectName, s.Description
+        ORDER BY BookingCount DESC
+    """;
+    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, limit);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Subject subject = new Subject();
+            subject.setSubjectID(rs.getInt("SubjectID"));
+            subject.setSubjectName(rs.getString("SubjectName"));
+            subject.setDescription(rs.getString("Description"));
+            subject.setBookingCount(rs.getInt("BookingCount"));
+            subjects.add(subject);
         }
-        return subjects;
+    } catch (SQLException e) {
+        System.out.println("Lỗi khi lấy các Subject.");
+        e.printStackTrace();
     }
+    return subjects;
+}
+
+
 }

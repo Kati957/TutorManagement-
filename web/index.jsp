@@ -406,7 +406,7 @@
                                             <div class="feature-box-sm radius bg-white">
                                                 <i class="fa fa-bank text-primary"></i>
                                             </div>
-                                            <h4><a href="#">Best Industry Leaders</a></h4>
+                                            <h4><a href="#">All Tutors</a></h4>
                                             <a href="#" class="btn radius-xl">View More</a>
                                         </div>
                                     </div>
@@ -420,7 +420,7 @@
                                             <div class="feature-box-sm radius bg-white">
                                                 <i class="fa fa-book text-primary"></i>
                                             </div>
-                                            <h4><a href="#">Learn Courses Online</a></h4>
+                                            <h4><a href="#">All Subjects</a></h4>
                                             <a href="#" class="btn radius-xl">View More</a>
                                         </div>
                                     </div>
@@ -434,8 +434,8 @@
                                             <div class="feature-box-sm radius bg-white">
                                                 <i class="fa fa-file-text-o text-primary"></i>
                                             </div>
-                                            <h4><a href="#">Book Library & Store</a></h4>
-                                            <a href="#" class="btn radius-xl">View More</a>
+                                            <h4><a href="myschedule">My Schedule</a></h4>
+                                            <a href="myschedule" class="btn radius-xl">View More</a>
                                         </div>
                                     </div>
                                 </div>
@@ -487,65 +487,43 @@
                                     </c:forEach>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <!-- Popular Courses END -->
-
-                    <!-- Form -->
-                    <div class="section-area section-sp1 ovpr-dark bg-fix online-cours" style="background-image:url(assets/images/background/bg1.jpg);">
+                    <!-- Testimonials -->
+                    <div class="section-area section-sp2 bg-fix ovbl-dark" style="background-image:url(assets/images/background/bg1.jpg);">
                         <div class="container">
                             <div class="row">
-                                <div class="col-md-12 text-center text-white">
-                                    <h2>Online Courses To Learn</h2>
-                                    <h5>Own Your Feature Learning New Skills Online</h5>
-                                    <form class="cours-search">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="What do you want to learn today?	">
-                                            <div class="input-group-append">
-                                                <button class="btn" type="submit">Search</button> 
-                                            </div>
-                                        </div>
-                                    </form>
+                                <div class="col-md-12 text-white heading-bx left">
+                                    <h2 class="title-head text-uppercase">Top Subjects <span>have the most Bookings</span></h2>
+                                    <p>Những môn học nhận được nhiều lượt booking nhất của chúng tôi:</p>
                                 </div>
                             </div>
-                            <div class="mw800 m-auto">
-                                <div class="row">
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="cours-search-bx m-b30">
-                                            <div class="icon-box">
-                                                <h3><i class="ti-user"></i><span class="counter">5</span>M</h3>
+                            <div class="testimonial-carousel owl-carousel owl-btn-1 col-12 p-lr0">
+                                <c:forEach var="subject" items="${topSubjects}" varStatus="status">
+                                    <div class="item">
+                                        <div class="testimonial-bx">
+                                            <div class="testimonial-info">
+                                                <a href="#"><h5 class="name">Top ${status.index + 1}:  ${subject.subjectName}</h5></a>
+                                                <p>Booking Count: ${subject.bookingCount} </p>
                                             </div>
-                                            <span class="cours-search-text">Over 5 million student</span>
+                                            <div class="testimonial-content">
+                                                <p>Description: ${subject.description}</p>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="cours-search-bx m-b30">
-                                            <div class="icon-box">
-                                                <h3><i class="ti-book"></i><span class="counter">30</span>K</h3>
-                                            </div>
-                                            <span class="cours-search-text">30,000 Courses.</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-12">
-                                        <div class="cours-search-bx m-b30">
-                                            <div class="icon-box">
-                                                <h3><i class="ti-layout-list-post"></i><span class="counter">20</span>K</h3>
-                                            </div>
-                                            <span class="cours-search-text">Learn Anythink Online.</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                </c:forEach>
                             </div>
                         </div>
                     </div>
-                    <!-- Form END -->
+                    <!-- Testimonials END -->
+
                     <div class="section-area section-sp2">
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12 text-center heading-bx">
-                                    <h2 class="title-head m-b0">Upcoming <span>Events</span></h2>
-                                    <p class="m-b0">Upcoming Education Events To Feed Brain. </p>
+                                    <h2 class="title-head m-b0"> My Upcoming <span>Schedules</span></h2>
+                                    <p class="m-b0">Lịch sắp tới của tôi: </p>
                                 </div>
                             </div>
                             <div class="row">
@@ -622,53 +600,59 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <a href="#" class="btn">View All Event</a>
+                                <a href="#" class="btn">View All My Schedules</a>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Testimonials -->
-                    <div class="section-area section-sp2 bg-fix ovbl-dark" style="background-image:url(assets/images/background/bg1.jpg);">
+                    <!-- Form -->
+                    <div class="section-area section-sp1 ovpr-dark bg-fix online-cours" style="background-image:url(assets/images/background/bg1.jpg);">
                         <div class="container">
                             <div class="row">
-                                <div class="col-md-12 text-white heading-bx left">
-                                    <h2 class="title-head text-uppercase">what people <span>say</span></h2>
-                                    <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+                                <div class="col-md-12 text-center text-white">
+                                    <h2>Online Courses To Learn</h2>
+                                    <h5>Own Your Feature Learning New Skills Online</h5>
+                                    <form class="cours-search">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="What do you want to learn today?	">
+                                            <div class="input-group-append">
+                                                <button class="btn" type="submit">Search</button> 
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                            <div class="testimonial-carousel owl-carousel owl-btn-1 col-12 p-lr0">
-                                <div class="item">
-                                    <div class="testimonial-bx">
-                                        <div class="testimonial-thumb">
-                                            <img src="assets/images/testimonials/pic1.jpg" alt="">
-                                        </div>
-                                        <div class="testimonial-info">
-                                            <h5 class="name">Peter Packer</h5>
-                                            <p>-Art Director</p>
-                                        </div>
-                                        <div class="testimonial-content">
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type...</p>
+                            <div class="mw800 m-auto">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="cours-search-bx m-b30">
+                                            <div class="icon-box">
+                                                <h3><i class="ti-user"></i><span class="counter">5</span>M</h3>
+                                            </div>
+                                            <span class="cours-search-text">Over 5 million student</span>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="item">
-                                    <div class="testimonial-bx">
-                                        <div class="testimonial-thumb">
-                                            <img src="assets/images/testimonials/pic2.jpg" alt="">
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="cours-search-bx m-b30">
+                                            <div class="icon-box">
+                                                <h3><i class="ti-book"></i><span class="counter">30</span>K</h3>
+                                            </div>
+                                            <span class="cours-search-text">30,000 Courses.</span>
                                         </div>
-                                        <div class="testimonial-info">
-                                            <h5 class="name">Peter Packer</h5>
-                                            <p>-Art Director</p>
-                                        </div>
-                                        <div class="testimonial-content">
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type...</p>
+                                    </div>
+                                    <div class="col-md-4 col-sm-12">
+                                        <div class="cours-search-bx m-b30">
+                                            <div class="icon-box">
+                                                <h3><i class="ti-layout-list-post"></i><span class="counter">20</span>K</h3>
+                                            </div>
+                                            <span class="cours-search-text">Learn Anythink Online.</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Testimonials END -->
+                    <!-- Form END -->
 
                     <!-- Recent News -->
                     <div class="section-area section-sp2">
