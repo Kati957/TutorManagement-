@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import entity.User; // Đảm bảo import entity User
 
-@WebServlet("/logout") // Giữ nguyên ánh xạ chung
+@WebServlet("/logout") // Giữ nguyên ánh xạ chung.
 public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
