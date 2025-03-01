@@ -14,7 +14,7 @@ public class User {
     private String email;
     private String fullName;
     private String phone;
-    private String createAt;
+    private Date createAt; // Changed to Date type
     private int isActive;
     private Date dob;
     private String address;
@@ -22,10 +22,9 @@ public class User {
     private String userName;
     private String password;
 
-    public User() {
-    }
+    
 
-    public User(int userID, int roleID, String email, String fullName, String phone, String createAt, int isActive, Date dob, String address, String avatar, String userName, String password) {
+    public User(int userID, int roleID, String email, String fullName, String phone, Date createAt, int isActive, Date dob, String address, String avatar, String userName, String password) {
         this.userID = userID;
         this.roleID = roleID;
         this.email = email;
@@ -38,6 +37,17 @@ public class User {
         this.avatar = avatar;
         this.userName = userName;
         this.password = password;
+    }
+
+    public User(int userID, String email, String fullName, String phone, String password, Date dob, String address, String avatar) {
+        this.userID = userID;
+        this.email = email;
+        this.fullName = fullName;
+        this.phone = phone;
+        this.password = password;
+        this.dob = dob;
+        this.address = address;
+        this.avatar = avatar;
     }
 
     public int getUserID() {
@@ -80,11 +90,11 @@ public class User {
         this.phone = phone;
     }
 
-    public String getCreateAt() {
+    public Date getCreateAt() {
         return createAt;
     }
 
-    public void setCreateAt(String createAt) {
+    public void setCreateAt(Date createAt) {
         this.createAt = createAt;
     }
 
@@ -135,6 +145,26 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userID=" + userID +
+                ", roleID=" + roleID +
+                ", email='" + email + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", phone='" + phone + '\'' +
+                ", createAt=" + createAt +
+                ", isActive=" + isActive +
+                ", dob=" + dob +
+                ", address='" + address + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
+    public Object getImage() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
