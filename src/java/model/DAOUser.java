@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.Connection;
 
 /**
  *
@@ -325,5 +326,9 @@ public class DAOUser extends DBConnect {
                 Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error closing connection", e);
             }
         }
+    }
+    
+    public boolean isConnected() {
+        return conn != null;
     }
 }

@@ -61,7 +61,7 @@ public class UserRegister extends HttpServlet {
 
         // Khởi tạo DAOUser
         DAOUser dao = new DAOUser();
-        if (dao.conn == null) {
+        if (!dao.isConnected()) {
             LOGGER.log(Level.SEVERE, "Database connection is null");
             request.setAttribute("error", "Không thể kết nối cơ sở dữ liệu. Vui lòng thử lại sau.");
             request.getRequestDispatcher(REGISTER_JSP).forward(request, response);
