@@ -22,7 +22,9 @@ public class User {
     private String userName;
     private String password;
 
-    
+    // Constructor mặc định
+    public User() {
+    }
 
     public User(int userID, int roleID, String email, String fullName, String phone, Date createAt, int isActive, Date dob, String address, String avatar, String userName, String password) {
         this.userID = userID;
