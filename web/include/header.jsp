@@ -74,13 +74,13 @@
                         <a href="home"><img src="assets/images/logo.png" alt=""></a> 
                     </div>
                     <ul class="nav navbar-nav">	
-                        <li class="active"><a href="javascript:;">Home <i class="fa fa-chevron-down"></i></a>
+                        <li class="active"><a href="home">Home <i class="fa fa-chevron-down"></i></a>
                             <ul class="sub-menu">
                                 <li><a href="index.html">Home 1</a></li>
                                 <li><a href="index-2.html">Home 2</a></li>
                             </ul>
                         </li>
-                        <li><a href="javascript:;">Pages <i class="fa fa-chevron-down"></i></a>
+                        <li><a href="javascript:;">Find tutor<i class="fa fa-chevron-down"></i></a>
                             <ul class="sub-menu">
                                 <li><a href="javascript:;">About<i class="fa fa-angle-right"></i></a>
                                     <ul class="sub-menu">
@@ -112,7 +112,7 @@
                                 <li><a href="error-404.html">404 Page</a></li>
                             </ul>
                         </li>
-                        <li class="add-mega-menu"><a href="javascript:;">Our Courses <i class="fa fa-chevron-down"></i></a>
+                        <li class="add-mega-menu"><a href="javascript:;">Become A tutor<i class="fa fa-chevron-down"></i></a>
                             <ul class="sub-menu add-menu">
                                 <li class="add-menu-left">
                                     <h5 class="menu-adv-title">Our Courses</h5>
@@ -129,6 +129,7 @@
                                 </li>
                             </ul>
                         </li>
+                        <c:if test="${not empty sessionScope.user}">
                         <li><a href="javascript:;">Blog <i class="fa fa-chevron-down"></i></a>
                             <ul class="sub-menu">
                                 <li><a href="blog-classic-grid.html">Blog Classic</a></li>
@@ -138,6 +139,17 @@
                                 <li><a href="blog-details.html">Blog Details</a></li>
                             </ul>
                         </li>
+                        <li><a href="javascript:;">About <i class="fa fa-chevron-down"></i></a>
+                            <ul class="sub-menu">
+                                <li><a href="blog-classic-grid.html">Blog Classic</a></li>
+                                <li><a href="blog-classic-sidebar.html">Blog Classic Sidebar</a></li>
+                                <li><a href="blog-list-sidebar.html">Blog List Sidebar</a></li>
+                                <li><a href="blog-standard-sidebar.html">Blog Standard Sidebar</a></li>
+                                <li><a href="blog-details.html">Blog Details</a></li>
+                            </ul>
+                        </li>
+                        </c:if>
+                        <c:if test="${not empty sessionScope.user and sessionScope.user.roleID == 1}">
                         <li class="nav-dashboard"><a href="javascript:;">Dashboard <i class="fa fa-chevron-down"></i></a>
                             <ul class="sub-menu">
                                 <li><a href="admin/index.html">Dashboard</a></li>
@@ -162,12 +174,14 @@
                                 </li>
                             </ul>
                         </li>
+                        </c:if>
+
                     </ul>
-                    <div class="nav-social-link">
+<!--                    <div class="nav-social-link">
                         <a href="javascript:;"><i class="fa fa-facebook"></i></a>
                         <a href="javascript:;"><i class="fa fa-google-plus"></i></a>
                         <a href="javascript:;"><i class="fa fa-linkedin"></i></a>
-                    </div>
+                    </div>-->
                 </div>
                 <!-- Navigation Menu END ==== -->
             </div>
