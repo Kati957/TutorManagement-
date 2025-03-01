@@ -20,7 +20,7 @@ public class AuthorizationFilter implements Filter {
     private static final Set<String> ADMIN_URLS = Set.of(
             "/admin/index.html", "/admin/add-listing.html", "/admin/basic-calendar.html", "/admin/courses.html",
             "/admin/list-view-calendar.html", "/admin/mailbox.html", "/admin/mailbox-compose.html", "/admin/mailbox-read.html",
-            "/admin/review.html", "/admin/teacher-profile.html", "/admin/user-profile.html"
+            "/admin/review.html", "/admin/teacher-profile.html", "/admin/user-profile.html","/admin/staff-management.html"
     );
 
     private static final Set<String> STAFF_URLS = Set.of(
