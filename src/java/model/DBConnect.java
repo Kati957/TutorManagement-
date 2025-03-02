@@ -32,7 +32,18 @@ public class DBConnect {
         } 
     }
     public DBConnect(){
-        this("jdbc:sqlserver://localhost:1433;databaseName=test1", "sa","123");
+        this("jdbc:sqlserver://localhost:1433;databaseName=test", "sa1","123456");
+    }
+    public ResultSet getData(String sql){
+        ResultSet rs=null;
+        try {
+            Statement state = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            rs = state.executeQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOCv.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
     }
     
     public static void main(String[] args){

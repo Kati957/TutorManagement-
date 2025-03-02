@@ -100,6 +100,7 @@
                                                 <li><a href="list-view-calendar.jsp">Activity</a></li>
                                                 <li><a href="mailbox.jsp">Messages</a></li>
                                                 <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
+                                                <li><a href="cv">Become tutor</a></li>
                                             </ul>
                                         </div>
                                     </li>
@@ -150,7 +151,7 @@
                                 <ul class="nav navbar-nav">	
                                     <li class="active"><a href="home.jsp">Home</a>
                                     </li>
-                                    <li class="add-mega-menu"><a href="javascript:;">Our Courses</a>
+                                    <li class="add-mega-menu"><a href="Courses">Our Courses</a>
                                     </li>
                                     <li><a href="javascript:;">Blog</a>
                                     </li>
