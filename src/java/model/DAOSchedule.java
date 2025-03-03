@@ -50,7 +50,8 @@ public class DAOSchedule extends DBConnect {
 
                 Booking booking = new Booking();
                 booking.setBookingID(rs.getInt("BookingID"));
-                booking.setBookingDate(rs.getTimestamp("BookingDate"));
+                booking.setBookingDate(rs.getDate("BookingDate"));
+                booking.setStatus(rs.getString("BookingStatus"));
 
                 Slot slot = new Slot();
                 slot.setBooking(booking);

@@ -29,7 +29,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
 
         <!-- PAGE TITLE HERE ============================================= -->
-        <title>My Schedule - User/.jsp</title>
+        <title>Book Schedule - user/*.jsp</title>
 
         <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -142,7 +142,7 @@
                                          data-paddingbottom="[10,10,10,10]"
                                          data-paddingleft="[0,0,0,0]"
                                          style="z-index: 6; font-family:rubik; font-weight:700; text-align:center; white-space: normal;">
-                                        My Schedules
+                                        Booking Schedule
                                     </div>
 
                                     <!-- LAYER NR. 3 -->
@@ -396,7 +396,7 @@
                 <div class="container mt-4">
                     <div class="row">
 
-                        <aside class="col-md-3 mb-3">
+                        <aside class="col-md-3">
                             <h4>Categories</h4>
                             <ul class="list-group">
                                 <li class="list-group-item ${empty param.subject ? 'active' : ''}">
@@ -414,105 +414,54 @@
 
                         <!-- Phần bên phải: Lịch trình -->
                         <main class="col-md-9">
-                            <h3>Schedule List</h3>
-                            <a href="bookschedule" class="btn btn-default mb-3">Book Schedule</a><br>
-                            <!-- Ô tìm kiếm -->
-                            <form method="GET" class="mb-3" onsubmit="return validateSearch()">
-                                <input type="text" id="searchInput" name="search" value="${search}" placeholder="Search by subject" class="form-control" />
-                                <button type="submit" class="btn btn-primary mt-2">Search</button>
-                                <p id="error" style="color: red; display: none;">Search cannot contain underscores (_).</p>
-                            </form>
-
-                            <script>
-                                function validateSearch() {
-                                    const searchInput = document.getElementById('searchInput').value;
-                                    const error = document.getElementById('error');
-
-                                    if (searchInput.includes('_')) {
-                                        error.style.display = 'block';
-                                        return false; // Ngăn gửi form
-                                    } else {
-                                        error.style.display = 'none';
-                                        return true; // Cho phép gửi form
-                                    }
-                                }
-                            </script>
-
-
-                            <!-- Bảng hiển thị lịch -->
-                            <table class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <a href="?sortBy=SubjectName&order=${sortBy == 'SubjectName' && order == 'asc' ? 'desc' : 'asc'}">
-                                                Subject
-                                            </a>
-                                        </th>
-                                        <th>
-                                            <a href="?sortBy=BookingDate&order=${sortBy == 'BookingDate' && order == 'asc' ? 'desc' : 'asc'}">
-                                                Booking Date
-                                            </a>
-                                        </th>
-                                        <th>
-                                            <a href="?sortBy=StartTime&order=${sortBy == 'StartTime' && order == 'asc' ? 'desc' : 'asc'}">
-                                                Start Time
-                                            </a>
-                                        </th>
-                                        <th>
-                                            <a href="?sortBy=EndTime&order=${sortBy == 'EndTime' && order == 'asc' ? 'desc' : 'asc'}">
-                                                End Time
-                                            </a>
-                                        </th>
-                                        <th>
-                                            Status
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:choose>
-                                        <c:when test="${not empty schedules}">
-                                            <c:forEach var="schedule" items="${schedules}">
-                                                <tr>
-                                                    <td>${schedule.subject.subjectName}</td>
-                                                    <td>
-                                                        <fmt:formatDate value="${schedule.slot.booking.bookingDate}" pattern="dd/MM/yyyy" />
-                                                    </td>
-                                                    <td>
-                                                        <fmt:formatDate value="${schedule.startTime}" pattern="dd/MM/yyyy" /><br>
-                                                        <fmt:formatDate value="${schedule.startTime}" pattern="HH:mm:ss" />
-                                                    </td>
-                                                    <td>
-                                                        <fmt:formatDate value="${schedule.endTime}" pattern="dd/MM/yyyy" /><br>
-                                                        <fmt:formatDate value="${schedule.endTime}" pattern="HH:mm:ss" />
-                                                    </td>
-                                                    <td>
-                                                        ${schedule.slot.booking.status}
-                                                    </td>
-                                                </tr>
+                            <div class="container mt-5 mb-3">
+                                <h2>Booking Schedule Form</h2>
+                                <a href="myschedule" class="btn btn-default mb-3">My Schedule</a><br>
+                                <c:if test="${not empty error}">
+                                    <div class="alert alert-danger">${error}</div>
+                                </c:if>
+                                <c:if test="${not empty success}">
+                                    <div class="alert alert-success">${success}</div>
+                                </c:if>
+                                <form id="bookingForm" action="bookschedule" method="post" class="mt-4">
+                                    <!-- Chọn Subject -->
+                                    <div class="mb-3">
+                                        <label for="subjectID" class="form-label">Select Subject</label>
+                                        <select id="subjectID" name="subjectID" class="form-select" required>
+                                            <option value="">-- Choose Subject --</option>
+                                            <c:forEach var="subject" items="${subjectList}">
+                                                <option value="${subject.subjectID}">${subject.subjectName}</option>
                                             </c:forEach>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <tr>
-                                                <td colspan="4" class="text-center">No schedules found.</td>
-                                            </tr>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </tbody>
-                            </table>
-
-                            <nav>
-                                <ul class="pagination">
-                                    <c:if test="${page > 1}">
-                                        <li class="page-item">
-                                            <a class="page-link" href="?page=${page - 1}&search=${search}&sortBy=${sortBy}&order=${order}">Previous</a>
-                                        </li>
-                                    </c:if>
-
-                                    <li class="page-item">
-                                        <a class="page-link" href="?page=${page + 1}&search=${search}&sortBy=${sortBy}&order=${order}">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
+                                        </select>
+                                    </div>
+                                    <!-- Chọn Slot -->
+                                    <div class="mb-3">
+                                        <label for="slotID" class="form-label">Select Slot</label>
+                                        <select id="slotID" name="slotID" class="form-select" required>
+                                            <option value="">-- Choose Slot --</option>
+                                            <c:forEach var="slot" items="${slotList}">
+                                                <option value="${slot.slotID}">
+                                                    <fmt:formatDate value="${slot.schedule.startTime}" pattern="HH:mm dd/MM/yy" />
+                                                    -
+                                                    <fmt:formatDate value="${slot.schedule.endTime}" pattern="HH:mm dd/MM/yy" />
+                                                </option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    <!-- Chọn Tutor -->
+                                    <div class="mb-3">
+                                        <label for="tutorID" class="form-label">Select Tutor</label>
+                                        <select id="tutorID" name="tutorID" class="form-select" required>
+                                            <option value="">-- Choose Tutor --</option>
+                                            <c:forEach var="tutor" items="${tutorList}">
+                                                <option value="${tutor.tutorID}">${tutor.cv.user.fullName}: ${tutor.cv.user.email}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <a href="bookschedule" class="btn btn-secondary">Clear</a>
+                                </form>
+                            </div>
                         </main>
                     </div>
                 </div>
@@ -556,95 +505,93 @@
         <script src="assets/vendors/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
         <script src="assets/vendors/revolution/js/extensions/revolution.extension.video.min.js"></script>
         <script>
-                                jQuery(document).ready(function () {
-                                    var ttrevapi;
-                                    var tpj = jQuery;
-                                    if (tpj("#rev_slider_486_1").revolution == undefined) {
-                                        revslider_showDoubleJqueryError("#rev_slider_486_1");
-                                    } else {
-                                        ttrevapi = tpj("#rev_slider_486_1").show().revolution({
-                                            sliderType: "standard",
-                                            jsFileLocation: "assets/vendors/revolution/js/",
-                                            sliderLayout: "fullwidth",
-                                            dottedOverlay: "none",
-                                            delay: 9000,
-                                            navigation: {
-                                                keyboardNavigation: "on",
-                                                keyboard_direction: "horizontal",
-                                                mouseScrollNavigation: "off",
-                                                mouseScrollReverse: "default",
-                                                onHoverStop: "on",
-                                                touch: {
-                                                    touchenabled: "on",
-                                                    swipe_threshold: 75,
-                                                    swipe_min_touches: 1,
-                                                    swipe_direction: "horizontal",
-                                                    drag_block_vertical: false
-                                                }
-                                                ,
-                                                arrows: {
-                                                    style: "uranus",
-                                                    enable: true,
-                                                    hide_onmobile: false,
-                                                    hide_onleave: false,
-                                                    tmp: '',
-                                                    left: {
-                                                        h_align: "left",
-                                                        v_align: "center",
-                                                        h_offset: 10,
-                                                        v_offset: 0
-                                                    },
-                                                    right: {
-                                                        h_align: "right",
-                                                        v_align: "center",
-                                                        h_offset: 10,
-                                                        v_offset: 0
-                                                    }
-                                                },
+            jQuery(document).ready(function () {
+                var ttrevapi;
+                var tpj = jQuery;
+                if (tpj("#rev_slider_486_1").revolution == undefined) {
+                    revslider_showDoubleJqueryError("#rev_slider_486_1");
+                } else {
+                    ttrevapi = tpj("#rev_slider_486_1").show().revolution({
+                        sliderType: "standard",
+                        jsFileLocation: "assets/vendors/revolution/js/",
+                        sliderLayout: "fullwidth",
+                        dottedOverlay: "none",
+                        delay: 9000,
+                        navigation: {
+                            keyboardNavigation: "on",
+                            keyboard_direction: "horizontal",
+                            mouseScrollNavigation: "off",
+                            mouseScrollReverse: "default",
+                            onHoverStop: "on",
+                            touch: {
+                                touchenabled: "on",
+                                swipe_threshold: 75,
+                                swipe_min_touches: 1,
+                                swipe_direction: "horizontal",
+                                drag_block_vertical: false
+                            }
+                            ,
+                            arrows: {
+                                style: "uranus",
+                                enable: true,
+                                hide_onmobile: false,
+                                hide_onleave: false,
+                                tmp: '',
+                                left: {
+                                    h_align: "left",
+                                    v_align: "center",
+                                    h_offset: 10,
+                                    v_offset: 0
+                                },
+                                right: {
+                                    h_align: "right",
+                                    v_align: "center",
+                                    h_offset: 10,
+                                    v_offset: 0
+                                }
+                            },
 
-                                            },
-                                            viewPort: {
-                                                enable: true,
-                                                outof: "pause",
-                                                visible_area: "80%",
-                                                presize: false
-                                            },
-                                            responsiveLevels: [1240, 1024, 778, 480],
-                                            visibilityLevels: [1240, 1024, 778, 480],
-                                            gridwidth: [1240, 1024, 778, 480],
-                                            gridheight: [768, 600, 600, 600],
-                                            lazyType: "none",
-                                            parallax: {
-                                                type: "scroll",
-                                                origo: "enterpoint",
-                                                speed: 400,
-                                                levels: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 46, 47, 48, 49, 50, 55],
-                                                type: "scroll",
-                                            },
-                                            shadow: 0,
-                                            spinner: "off",
-                                            stopLoop: "off",
-                                            stopAfterLoops: -1,
-                                            stopAtSlide: -1,
-                                            shuffle: "off",
-                                            autoHeight: "off",
-                                            hideThumbsOnMobile: "off",
-                                            hideSliderAtLimit: 0,
-                                            hideCaptionAtLimit: 0,
-                                            hideAllCaptionAtLilmit: 0,
-                                            debugMode: false,
-                                            fallbacks: {
-                                                simplifyAll: "off",
-                                                nextSlideOnWindowFocus: "off",
-                                                disableFocusListener: false,
-                                            }
-                                        });
-                                    }
-                                });
+                        },
+                        viewPort: {
+                            enable: true,
+                            outof: "pause",
+                            visible_area: "80%",
+                            presize: false
+                        },
+                        responsiveLevels: [1240, 1024, 778, 480],
+                        visibilityLevels: [1240, 1024, 778, 480],
+                        gridwidth: [1240, 1024, 778, 480],
+                        gridheight: [768, 600, 600, 600],
+                        lazyType: "none",
+                        parallax: {
+                            type: "scroll",
+                            origo: "enterpoint",
+                            speed: 400,
+                            levels: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 46, 47, 48, 49, 50, 55],
+                            type: "scroll",
+                        },
+                        shadow: 0,
+                        spinner: "off",
+                        stopLoop: "off",
+                        stopAfterLoops: -1,
+                        stopAtSlide: -1,
+                        shuffle: "off",
+                        autoHeight: "off",
+                        hideThumbsOnMobile: "off",
+                        hideSliderAtLimit: 0,
+                        hideCaptionAtLimit: 0,
+                        hideAllCaptionAtLilmit: 0,
+                        debugMode: false,
+                        fallbacks: {
+                            simplifyAll: "off",
+                            nextSlideOnWindowFocus: "off",
+                            disableFocusListener: false,
+                        }
+                    });
+                }
+            });
         </script>
     </body>
 
 
 </html>
-
-

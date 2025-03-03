@@ -8,6 +8,10 @@
         <servlet-name>ViewScheduleServlet</servlet-name>
         <servlet-class>controller.Customer.ViewScheduleServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BookScheduleServlet</servlet-name>
+        <servlet-class>controller.Customer.BookScheduleServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomePageServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -18,6 +22,10 @@
     <servlet-mapping>
         <servlet-name>ViewScheduleServlet</servlet-name>
         <url-pattern>/myschedule</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookScheduleServlet</servlet-name>
+        <url-pattern>/bookschedule</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
