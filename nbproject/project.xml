@@ -7,6 +7,10 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library dirs="200">
+                    <file>${file.reference.commons-fileupload2-core-2.0.0-M2.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library dirs="200">
                     <file>${file.reference.commons-logging-1.2.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
@@ -72,13 +76,6 @@
                 </library>
                 <library dirs="200">
                     <file>${file.reference.sqljdbc42.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library dirs="200">
-                    <file>${file.reference.commons-fileupload2-core-2.0.0-M2.jar}</file>
-                </library>
-                <library dirs="200">
-                    <file>${file.reference.commons-fileupload2-core-2.0.0-M2.jar-1}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
