@@ -244,25 +244,17 @@ public class DAOBlog extends DBConnect {
     public static void main(String[] args) {
         DAOBlog dao = new DAOBlog();
         //  Test insertBlog
-//        Blog sd = new Blog(0, 0, "", "", "", "", new java.util.Date(), "");
-//        int in = 0;
-//        try {
-//            in = dao.insertBlogJSP(sd);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(DAOBlog.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        System.out.println("Insert result: " + in);
 
-//        Blog newBlog = new Blog(1, 1, "julianNg", "https://t3.ftcdn.net/jpg/09/38/20/44/360_F_938204480_5BZPwZ4dL5iujr2XZwzkxdFeQJoRDsRE.jpg",
-//                "New Blog Post", "blog post content",
-//                new java.util.Date(), "Short summary here");
-//        int inserted = 0;
-//        try {
-//            inserted = dao.insertBlog(newBlog);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(DAOBlog.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        System.out.println("Insert result: " + inserted);
+        Blog newBlog = new Blog(1, 1, "julianNg", "https://t3.ftcdn.net/jpg/09/38/20/44/360_F_938204480_5BZPwZ4dL5iujr2XZwzkxdFeQJoRDsRE.jpg",
+                "New Blog Post", "blog post content",
+                new java.util.Date(), "Short summary here");
+        int inserted = 0;
+        try {
+            inserted = dao.insertBlog(newBlog);
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOBlog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("Insert result: " + inserted);
         // Test getAllBlogs
         //        List<Blog> blogs = null;
         //        try {
@@ -286,27 +278,27 @@ public class DAOBlog extends DBConnect {
 //            System.out.println(blog.getThumbnail());
 //        }
         //Test update
-        Blog blog = new Blog(
-            1,                          // blogID
-            1,                       // staffID
-            "Nguyen Van A",           // authorName
-            "thumbnail.jpg",          // thumbnail
-            "New Blog Title",         // title
-            "Updated blog content...", // content
-            new java.util.Date(),               // createdAt (ngày hiện tại)
-            "This is a summary"       // summary
-        );
-
-        // Tạo đối tượng DAOBlog
-
-        // Gọi hàm updateBlog và kiểm tra kết quả
-        int result = dao.updateBlog(blog);
-
-        if (result > 0) {
-            System.out.println("Cập nhật blog thành công! Số hàng bị ảnh hưởng: " + result);
-        } else {
-            System.out.println("Cập nhật blog thất bại!");
-        }
+//        Blog blog = new Blog(
+//            1,                          // blogID
+//            1,                       // staffID
+//            "Nguyen Van A",           // authorName
+//            "thumbnail.jpg",          // thumbnail
+//            "New Blog Title",         // title
+//            "Updated blog content...", // content
+//            new java.util.Date(),               // createdAt (ngày hiện tại)
+//            "This is a summary"       // summary
+//        );
+//
+//        // Tạo đối tượng DAOBlog
+//
+//        // Gọi hàm updateBlog và kiểm tra kết quả
+//        int result = dao.updateBlog(blog);
+//
+//        if (result > 0) {
+//            System.out.println("Cập nhật blog thành công! Số hàng bị ảnh hưởng: " + result);
+//        } else {
+//            System.out.println("Cập nhật blog thất bại!");
+//        }
     }
     }
 
