@@ -1,4 +1,10 @@
 
+<%-- 
+    Document   : index
+    Created on : Feb 23, 2025, 11:24:14 PM
+    Author     : Heizxje
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -854,6 +860,7 @@
             });
         </script>
     </body>
+
 
 </html>
 

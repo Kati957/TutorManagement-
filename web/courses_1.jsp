@@ -1,11 +1,7 @@
-
-<%@ page import="java.util.List" %>
-<%@ page import="entity.Blog" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<html lang="en">
 <!DOCTYPE html>
+<%@page import="java.sql.ResultSet,entity.User"%>
 <html lang="en">
+
 
     <head>
 
@@ -54,12 +50,17 @@
         <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
 
     </head>
+    <%
+        ResultSet rsSub = (ResultSet) request.getAttribute("rsSub");
+        ResultSet rs = (ResultSet) request.getAttribute("rs");
+        User user = (User) session.getAttribute("user");
+    %>
     <body id="bg">
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
 
             <!-- Header Top ==== -->
-            <header class="header rs-nav">
+            <header class="header rs-nav header-transparent">
                 <div class="top-bar">
                     <div class="container">
                         <div class="row d-flex justify-content-between">
@@ -77,8 +78,23 @@
                                             <option data-icon="flag flag-us">English US</option>
                                         </select>
                                     </li>
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="register.html">Register</a></li>
+                                    <% if (user == null) { %>
+                                    <li><a href="login">Login</a></li>
+                                    <li><a href="User?service=registerUser">Register</a></li>
+                                        <%} else {%>
+                                    <li>
+                                        <div class="ttr-header-submenu">
+                                            <ul>
+                                                <li><a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a></li>
+                                                <li><a href="profile_user.jsp">My profile</a></li>
+                                                <li><a href="list-view-calendar.html">Activity</a></li>
+                                                <li><a href="mailbox.html">Messages</a></li>
+                                                <li><a href="logout">Logout</a></li>
+                                                <li><a href="cv">Become tutor</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <%}%>
                                 </ul>
                             </div>
                         </div>
@@ -89,7 +105,7 @@
                         <div class="container clearfix">
                             <!-- Header Logo ==== -->
                             <div class="menu-logo">
-                                <a href="index.html"><img src="assets/images/logo.png" alt=""></a>
+                                <a href="index.html"><img src="assets/images/logo-white.png" alt=""></a>
                             </div>
                             <!-- Mobile Nav Button ==== -->
                             <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -123,93 +139,11 @@
                                     <a href="index.html"><img src="assets/images/logo.png" alt=""></a>
                                 </div>
                                 <ul class="nav navbar-nav">	
-                                    <li class="active"><a href="javascript:;">Home <i class="fa fa-chevron-down"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="index.html">Home 1</a></li>
-                                            <li><a href="index-2.html">Home 2</a></li>
-                                        </ul>
+                                    <li class="active"><a href="home.jsp">Home</a>
                                     </li>
-                                    <li><a href="javascript:;">Pages <i class="fa fa-chevron-down"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="javascript:;">About<i class="fa fa-angle-right"></i></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="about-1.html">About 1</a></li>
-                                                    <li><a href="about-2.html">About 2</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="javascript:;">Event<i class="fa fa-angle-right"></i></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="event.html">Event</a></li>
-                                                    <li><a href="events-details.html">Events Details</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="javascript:;">FAQ's<i class="fa fa-angle-right"></i></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="faq-1.html">FAQ's 1</a></li>
-                                                    <li><a href="faq-2.html">FAQ's 2</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="javascript:;">Contact Us<i class="fa fa-angle-right"></i></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="contact-1.html">Contact Us 1</a></li>
-                                                    <li><a href="contact-2.html">Contact Us 2</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="portfolio.html">Portfolio</a></li>
-                                            <li><a href="profile.html">Profile</a></li>
-                                            <li><a href="membership.html">Membership</a></li>
-                                            <li><a href="error-404.html">404 Page</a></li>
-                                        </ul>
+                                    <li class="add-mega-menu"><a href="Courses">Our Courses</a>
                                     </li>
-                                    <li class="add-mega-menu"><a href="javascript:;">Our Courses <i class="fa fa-chevron-down"></i></a>
-                                        <ul class="sub-menu add-menu">
-                                            <li class="add-menu-left">
-                                                <h5 class="menu-adv-title">Our Courses</h5>
-                                                <ul>
-                                                    <li><a href="courses.html">Courses </a></li>
-                                                    <li><a href="courses-details.html">Courses Details</a></li>
-                                                    <li><a href="profile.html">Instructor Profile</a></li>
-                                                    <li><a href="event.html">Upcoming Event</a></li>
-                                                    <li><a href="membership.html">Membership</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="add-menu-right">
-                                                <img src="assets/images/adv/adv.jpg" alt=""/>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="javascript:;">Blog <i class="fa fa-chevron-down"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="blog-classic-grid.html">Blog Classic</a></li>
-                                            <li><a href="blog-classic-sidebar.html">Blog Classic Sidebar</a></li>
-                                            <li><a href="blog-list-sidebar.html">Blog List Sidebar</a></li>
-                                            <li><a href="blog-standard-sidebar.html">Blog Standard Sidebar</a></li>
-                                            <li><a href="blog-details.html">Blog Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-dashboard"><a href="javascript:;">Dashboard <i class="fa fa-chevron-down"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="admin/index.html">Dashboard</a></li>
-                                            <li><a href="admin/add-listing.html">Add Listing</a></li>
-                                            <li><a href="admin/bookmark.html">Bookmark</a></li>
-                                            <li><a href="admin/courses.html">Courses</a></li>
-                                            <li><a href="admin/review.html">Review</a></li>
-                                            <li><a href="admin/teacher-profile.html">Teacher Profile</a></li>
-                                            <li><a href="admin/user-profile.html">User Profile</a></li>
-                                            <li><a href="javascript:;">Calendar<i class="fa fa-angle-right"></i></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="admin/basic-calendar.html">Basic Calendar</a></li>
-                                                    <li><a href="admin/list-view-calendar.html">List View Calendar</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="javascript:;">Mailbox<i class="fa fa-angle-right"></i></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="admin/mailbox.html">Mailbox</a></li>
-                                                    <li><a href="admin/mailbox-compose.html">Compose</a></li>
-                                                    <li><a href="admin/mailbox-read.html">Mail Read</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                    <li><a href="javascript:;">Blog</a>
                                     </li>
                                 </ul>
                                 <div class="nav-social-link">
@@ -223,14 +157,14 @@
                     </div>
                 </div>
             </header>
-            <!-- header END ==== -->
+            <!-- Header Top END ==== -->
             <!-- Content -->
             <div class="page-content bg-white">
                 <!-- inner page banner -->
-                <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner2.jpg);">
+                <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
                     <div class="container">
                         <div class="page-banner-entry">
-                            <h1 class="text-white">Blog Details</h1>
+                            <h1 class="text-white">Our Courses</h1>
                         </div>
                     </div>
                 </div>
@@ -238,146 +172,131 @@
                 <div class="breadcrumb-row">
                     <div class="container">
                         <ul class="list-inline">
-                            <ul class="list-inline">
-                            <li><a href="home.jsp">Home</a></li>
-                            <li><a href="ViewBlog">Blog Classic Sidebar</a></li>
-                            <li>Blog Details</li>
+                            <li><a href="#">Home</a></li>
+                            <li>Our Courses</li>
                         </ul>
                     </div>
                 </div>
                 <!-- Breadcrumb row END -->
+                <!-- inner page banner END -->
                 <div class="content-block">
+                    <!-- About Us -->
                     <div class="section-area section-sp1">
                         <div class="container">
                             <div class="row">
-                                <!-- Left part start -->
-                                <div class="col-lg-8 col-xl-8">
-                                    <!-- blog start -->
-                                    <div class="recent-news blog-lg">
-                                        <%
-                                            Blog blog = (Blog) request.getAttribute("blog");
-                                            if (blog != null) {
-                                        %>
-                                        <div class="action-box blog-lg">
-                                            <img src="<%= blog.getThumbnail()%>" alt="<%= blog.getTitle()%>">
-                                        </div>
-                                        <div class="info-bx">
-                                            <ul class="media-post">
-                                                <li><a href="#"><i class="fa fa-calendar"></i> <%= blog.getCreatedAt() != null ? blog.getCreatedAt() : "N/A"%></a></li>
-                                                <li><a href="#"><i class="fa fa-user"></i> By <%= blog.getAuthorName() != null ? blog.getAuthorName() : "Unknown"%></a></li>
-                                            </ul>
-                                            <h5 class="post-title">
-                                                <%= blog.getTitle()%>
-                                            </h5>
-                                            <p><%= blog.getContent() != null ? blog.getContent() : "No content available."%></p>
-
-
-                                            <div class="ttr-divider bg-gray"><i class="icon-dot c-square"></i></div>
-                                        </div>
-                                        <%
-                                        } else {
-                                        %>
-                                        <div class="info-bx">
-                                            <p>no post.</p>
-                                        </div>
-                                        <%
-                                            }
-                                        %>
-                                    </div>
-                                    <!-- blog END -->
-
-
-                                </div>
-                                <!-- Left part END -->
-
-                                <!-- Side bar start -->
-                                <div class="col-lg-4 col-xl-4 col-md-5 sticky-top">
-                                    <aside class="side-bar sticky-top">
-                                        <div class="widget">
-                                            <h6 class="widget-title">Search</h6>
-                                            <div class="search-bx style-1">
-                                                <form role="search" method="post" action="ViewBlog">
-                                                    <input type="hidden" name="service" value="searchBlog">
-                                                    <div class="input-group">
-                                                        <input name="text" class="form-control" 
-                                                               placeholder="Enter your keywords..." 
-                                                               type="text" 
-                                                               value="${keyword != null ? keyword : ''}">
-                                                        <span class="input-group-btn">
-                                                            <button type="submit" class="fa fa-search text-primary"></button>
-                                                        </span>
-                                                    </div>
+                                <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
+                                    <div class="widget courses-search-bx placeani">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <form action="Courses" method="get">
+                                                        <label>Search Tutor</label>
+                                                        <input name="dzName" type="text" required class="form-control">
                                                 </form>
                                             </div>
                                         </div>
-
-                                        <div class="widget recent-posts-entry">
-                                            <h6 class="widget-title">Recent Posts</h6>
-                                            <div class="widget-post-bx">
-                                                <%
-                                                    List<Blog> recentBlogs = (List<Blog>) request.getAttribute("recentBlogs");
-                                                    if (recentBlogs != null && !recentBlogs.isEmpty()) {
-                                                        for (Blog blog1 : recentBlogs) {
-                                                %>
-                                                <div class="widget-post clearfix">
-                                                    <div class="ttr-post-media">
-                                                        <img src="<%= blog1.getThumbnail()%>" 
-                                                             width="200" height="143" alt="<%= blog1.getTitle()%>">
+                                    </div>
+                                    <div class="widget widget_archive">
+                                        <h5 class="widget-title style-1">All Courses</h5>
+                                        <ul>
+                                            <li class="active"><a href="#">General</a></li>
+                                                <% while (rsSub.next()) {%>
+                                            <li><a href="#"><%=rsSub.getString(2)%></a></li>
+                                                <%}%>
+                                        </ul>
+                                    </div>
+                                    <div class="widget">
+                                        <a href="#"><img src="assets/images/adv/adv.jpg" alt=""/></a>
+                                    </div>
+                                    <div class="widget recent-posts-entry widget-courses">
+                                        <h5 class="widget-title style-1">Recent Courses</h5>
+                                        <div class="widget-post-bx">
+                                            <div class="widget-post clearfix">
+                                                <div class="ttr-post-media"> <img src="assets/images/blog/recent-blog/pic1.jpg" width="200" height="143" alt=""> </div>
+                                                <div class="ttr-post-info">
+                                                    <div class="ttr-post-header">
+                                                        <h6 class="post-title"><a href="#">Introduction EduChamp</a></h6>
                                                     </div>
-                                                    <div class="ttr-post-info">
-                                                        <div class="ttr-post-header">
-                                                            <h6 class="post-title">
-                                                                <a href="ViewBlog?service=detailBlog&blogID=<%= blog1.getBlogID()%>">
-                                                                    <%= blog1.getTitle()%>
-                                                                </a>
-                                                            </h6>
-                                                        </div>
-                                                        <ul class="media-post">
-                                                            <li><a href="#"><i class="fa fa-calendar"></i> <%= blog1.getCreatedAt()%></a></li>
-                                                            <li><a href="#"><i class="fa fa-comments-o"></i> 15 Comment</a></li>
+                                                    <div class="ttr-post-meta">
+                                                        <ul>
+                                                            <li class="price">
+                                                                <del>$190</del>
+                                                                <h5>$120</h5>
+                                                            </li>
+                                                            <li class="review">03 Review</li>
                                                         </ul>
                                                     </div>
                                                 </div>
-                                                <%
-                                                    }
-                                                } else {
-                                                %>
-                                                <p>no post.</p>
-                                                <%
-                                                    }
-                                                %>
+                                            </div>
+                                            <div class="widget-post clearfix">
+                                                <div class="ttr-post-media"> <img src="assets/images/blog/recent-blog/pic3.jpg" width="200" height="160" alt=""> </div>
+                                                <div class="ttr-post-info">
+                                                    <div class="ttr-post-header">
+                                                        <h6 class="post-title"><a href="#">English For Tommorow</a></h6>
+                                                    </div>
+                                                    <div class="ttr-post-meta">
+                                                        <ul>
+                                                            <li class="price">
+                                                                <h5 class="free">Free</h5>
+                                                            </li>
+                                                            <li class="review">07 Review</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                            
-                                        <div class="widget widget_gallery gallery-grid-4">
-                                            <h6 class="widget-title">Our Gallery</h6>
-                                            <ul class="gallery-list">
-                                                <c:forEach var="img" items="${galleryBlogs}">
-                                                    <li>
-                                                        <div>
-                                                            <img src="${img.thumbnail}" alt="${img.title}" class="gallery-img" onclick="openImageViewer('${img.thumbnail}', '${img.title}')">
-                                                        </div>
-                                                    </li>
-                                                </c:forEach>
-                                                <c:if test="${empty galleryBlogs}">
-                                                    <li><div><p>null gallery</p></div></li>
-                                                </c:if>
-                                            </ul>
-                                        </div
-
-                                        <!-- Modal hiển thị ảnh lớn -->
-                                        <div id="imageViewer" class="image-viewer">
-                                            <span class="close-viewer" onclick="closeImageViewer()">×</span>
-                                            <img id="fullImage" src="" alt="Full Image">
-                                            <p id="imageCaption"></p>
-                                        </div>
-                                    </aside>
+                                    </div>
                                 </div>
-                                <!-- Side bar END -->
+                                <div class="col-lg-9 col-md-8 col-sm-12">
+                                    <div class="row">
+                                        <% while (rs.next()) {%>
+                                        <div class="col-md-6 col-lg-4 col-sm-6 m-b30">
+                                            <div class="cours-bx">
+                                                <div class="action-box">
+                                                    <img src="<%=rs.getString(4)%>" alt="">
+                                                    <a href="#" class="btn">Read More</a>
+                                                </div>
+                                                <div class="info-bx text-center">
+                                                    <h5><a href="#"><%=rs.getString(1)%></a></h5>
+                                                    <span><%=rs.getString(2)%></span>
+                                                </div>
+                                                <div class="cours-more-info">
+                                                    <div class="review">
+                                                        <span>3 Review</span>
+                                                        <ul class="cours-star">
+                                                            <li class="active"><i class="fa fa-star"></i></li>
+                                                            <li class="active"><i class="fa fa-star"></i></li>
+                                                            <li class="active"><i class="fa fa-star"></i></li>
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            <li><i class="fa fa-star"></i></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="price">
+                                                        <del>$190</del>
+                                                        <h5>$120</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <%}%>
+                                        <div class="col-lg-12 m-b20">
+                                            <div class="pagination-bx rounded-sm gray clearfix">
+                                                <ul class="pagination">
+                                                    <li class="previous"><a href="#"><i class="ti-arrow-left"></i> Prev</a></li>
+                                                    <li class="active"><a href="#">1</a></li>
+                                                    <li><a href="#">2</a></li>
+                                                    <li><a href="#">3</a></li>
+                                                    <li class="next"><a href="#">Next <i class="ti-arrow-right"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- contact area END -->
+
             </div>
             <!-- Content END-->
             <!-- Footer ==== -->
@@ -387,7 +306,7 @@
                         <div class="container">
                             <div class="d-flex align-items-stretch">
                                 <div class="pt-logo mr-auto">
-                                    <a href="index.html"><img src="assets/images/logo-white.png" alt=""/></a>
+                                    <a href="home.jsp"><img src="assets/images/logo-white.png" alt=""/></a>
                                 </div>
                                 <div class="pt-social-link">
                                     <ul class="list-inline m-a0">
@@ -428,7 +347,7 @@
                                         <div class="widget footer_widget">
                                             <h5 class="footer-title">Company</h5>
                                             <ul>
-                                                <li><a href="index.html">Home</a></li>
+                                                <li><a href="home.jsp">Home</a></li>
                                                 <li><a href="about-1.html">About</a></li>
                                                 <li><a href="faq-1.html">FAQs</a></li>
                                                 <li><a href="contact-1.html">Contact</a></li>
@@ -450,7 +369,7 @@
                                         <div class="widget footer_widget">
                                             <h5 class="footer-title">Courses</h5>
                                             <ul>
-                                                <li><a href="courses.html">Courses</a></li>
+                                                <li><a href="Courses">Courses</a></li>
                                                 <li><a href="courses-details.html">Details</a></li>
                                                 <li><a href="membership.html">Membership</a></li>
                                                 <li><a href="profile.html">Profile</a></li>
@@ -486,7 +405,6 @@
                 </div>
             </footer>
             <!-- Footer END ==== -->
-            <!-- scroll top button -->
             <button class="back-to-top fa fa-chevron-up" ></button>
         </div>
         <!-- External JavaScripts -->
