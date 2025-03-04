@@ -8,6 +8,7 @@
 <%@ page import="entity.Blog" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<html lang="en">
 <!DOCTYPE html>
 <html lang="en">
 
