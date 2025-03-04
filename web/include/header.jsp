@@ -129,14 +129,8 @@
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="javascript:;">Blog <i class="fa fa-chevron-down"></i></a>
-                            <ul class="sub-menu">
-                                <li><a href="blog-classic-grid.html">Blog Classic</a></li>
-                                <li><a href="blog-classic-sidebar.html">Blog Classic Sidebar</a></li>
-                                <li><a href="blog-list-sidebar.html">Blog List Sidebar</a></li>
-                                <li><a href="blog-standard-sidebar.html">Blog Standard Sidebar</a></li>
-                                <li><a href="blog-details.html">Blog Details</a></li>
-                            </ul>
+                        <li>
+                            <a href="ViewBlog">Blog </a>
                         </li>
                         <li class="nav-dashboard"><a href="javascript:;">Dashboard <i class="fa fa-chevron-down"></i></a>
                             <ul class="sub-menu">
