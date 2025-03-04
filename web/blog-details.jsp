@@ -1,8 +1,7 @@
-<%-- 
-    Document   : blog-details
-    Created on : Mar 1, 2025, 1:01:54 PM
-    Author     : minht
+    Created on : Feb 28, 2025, 4:04:48 PM
+    Author     : Heizxje
 --%>
+
 
 <%@ page import="java.util.List" %>
 <%@ page import="entity.Blog" %>

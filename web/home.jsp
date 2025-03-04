@@ -153,7 +153,7 @@
                                     </li>
                                     <li class="add-mega-menu"><a href="Courses">Our Courses</a>
                                     </li>
-                                    <li><a href="javascript:;">Blog</a>
+                                    <li><a href="BlogController">Blog</a>
                                     </li>
                                 </ul>
                                 <div class="nav-social-link">
