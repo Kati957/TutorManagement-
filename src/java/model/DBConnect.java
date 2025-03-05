@@ -41,4 +41,15 @@ public class DBConnect {
             System.out.println("failed");
         }
     }
+    public ResultSet getData(String sql){
+        ResultSet rs=null;
+        try {
+            Statement state = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+            rs = state.executeQuery(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOCv.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
 }
