@@ -3,13 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/K17_KTPM/Git_Repo/Team_Repo/TutorManagement-/src/java/model/DAOSubject.java</file>
-            <file>file:/D:/K17_KTPM/Git_Repo/Team_Repo/TutorManagement-/web/index.jsp</file>
-            <file>file:/D:/K17_KTPM/Git_Repo/Team_Repo/TutorManagement-/src/java/model/DAOTutor.java</file>
-            <file>file:/D:/K17_KTPM/Git_Repo/Team_Repo/TutorManagement-/src/java/controller/Customer/ViewScheduleServlet.java</file>
-            <file>file:/D:/K17_KTPM/Git_Repo/Team_Repo/TutorManagement-/src/java/controller/Customer/HomePageServlet.java</file>
-            <file>file:/D:/K17_KTPM/Git_Repo/Team_Repo/TutorManagement-/src/java/entity/Subject.java</file>
-            <file>file:/D:/K17_KTPM/Git_Repo/Team_Repo/TutorManagement-/src/java/entity/Cv.java</file>
+            <file>file:/D:/SWP391/TutorManagement-/src/java/model/DAOTutor.java</file>
+            <file>file:/D:/SWP391/TutorManagement-/src/java/model/DBConnect.java</file>
+            <file>file:/D:/SWP391/TutorManagement-/src/java/entity/GoogleAccount.java</file>
+            <file>file:/D:/SWP391/TutorManagement-/src/java/model/DAOBooking.java</file>
         </group>
     </open-files>
 </project-private>

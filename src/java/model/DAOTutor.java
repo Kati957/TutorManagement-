@@ -93,22 +93,36 @@ public class DAOTutor extends DBConnect {
     }
 
     public List<Tutor> getAllTutors() {
-        List<Tutor> tutors = new ArrayList<>();
-        String sql = "SELECT * FROM Tutor";
-        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql)) {
-            while (rs.next()) {
-                tutors.add(new Tutor(
-                        rs.getInt("tutorID"),
-                        rs.getInt("CVID"),
-                        rs.getFloat("rating")
-                ));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    List<Tutor> tutors = new ArrayList<>();
+    String sql = """
+        SELECT t.tutorID, t.CVIID, t.rating, u.FullName, u.Email
+        FROM Tutor t
+        JOIN CV c ON t.CVIID = c.CVID
+        JOIN Users u ON c.UserID = u.UserID
+    """;
+    try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+        while (rs.next()) {
+            User user = new User();
+            user.setFullName(rs.getString("FullName"));
+            user.setEmail(rs.getString("Email"));
+            
+            Cv cv = new Cv();
+            cv.setUser(user);
+            
+            Tutor tutor = new Tutor();
+            tutor.setTutorID(rs.getInt("tutorID"));
+            tutor.setCVID(rs.getInt("CVIID"));
+            tutor.setRating(rs.getFloat("rating"));
+            tutor.setCv(cv);
+            tutors.add(tutor);
         }
-        return tutors;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return tutors;
+}
 
+ 
     public Tutor getTutorById(int tutorID) {
         String sql = "SELECT * FROM Tutor WHERE tutorID = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -117,7 +131,7 @@ public class DAOTutor extends DBConnect {
             if (rs.next()) {
                 return new Tutor(
                         rs.getInt("tutorID"),
-                        rs.getInt("CVID"),
+                        rs.getInt("CVIID"),
                         rs.getFloat("rating")
                 );
             }

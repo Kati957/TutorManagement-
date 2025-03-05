@@ -89,7 +89,7 @@
                                     </li>
                                     <% if (user == null) { %>
                                     <li><a href="login">Login</a></li>
-                                    <li><a href="User?service=registerUser">Register</a></li>
+                                    <li><a href="user?service=registerUser">Register</a></li>
                                         <%} else {%>
                                     <li>
                                         <div class="ttr-header-submenu">

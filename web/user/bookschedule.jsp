@@ -1,12 +1,7 @@
 
-<%-- 
-    Document   : index
-    Created on : Feb 23, 2025, 11:24:14 PM
-    Author     : Heizxje
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +29,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
 
         <!-- PAGE TITLE HERE ============================================= -->
-        <title>HomePage - G4 - jsp </title>
+        <title>Book Schedule - user/*.jsp</title>
 
         <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -67,7 +62,7 @@
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
             <!-- Header Top ==== -->
-            <jsp:include page="include/header.jsp" />
+            <jsp:include page="../include/header.jsp" />
             <!-- Header Top END ==== -->
             <!-- Content -->
             <div class="page-content bg-white">
@@ -147,7 +142,7 @@
                                          data-paddingbottom="[10,10,10,10]"
                                          data-paddingleft="[0,0,0,0]"
                                          style="z-index: 6; font-family:rubik; font-weight:700; text-align:center; white-space: normal;">
-                                        Welcome To Tutor Management
+                                        Booking Schedule
                                     </div>
 
                                     <!-- LAYER NR. 3 -->
@@ -305,7 +300,7 @@
                                          data-paddingbottom="[10,10,10,10]"
                                          data-paddingleft="[0,0,0,0]"
                                          style="z-index: 6; font-family:rubik; font-weight:700; text-align:center; white-space: normal;text-transform:uppercase;">
-                                        Welcome To University
+                                        My Schedules
                                     </div>
 
                                     <!-- LAYER NR. 3 -->
@@ -397,347 +392,84 @@
                     </div>  
                 </div>  
                 <!-- Main Slider -->
-                <div class="content-block">
+                <!--Content-->
+                <div class="container mt-4">
+                    <div class="row">
 
-                    <!-- Our Services -->
-                    <div class="section-area content-inner service-info-bx">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                    <div class="service-bx">
-                                        <div class="action-box">
-                                            <img src="assets/images/our-services/pic1.jpg" alt="">
-                                        </div>
-                                        <div class="info-bx text-center">
-                                            <div class="feature-box-sm radius bg-white">
-                                                <i class="fa fa-bank text-primary"></i>
-                                            </div>
-                                            <h4><a href="#">All Tutors</a></h4>
-                                            <a href="#" class="btn radius-xl">View More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                    <div class="service-bx">
-                                        <div class="action-box">
-                                            <img src="assets/images/our-services/pic2.jpg" alt="">
-                                        </div>
-                                        <div class="info-bx text-center">
-                                            <div class="feature-box-sm radius bg-white">
-                                                <i class="fa fa-book text-primary"></i>
-                                            </div>
-                                            <h4><a href="#">All Subjects</a></h4>
-                                            <a href="#" class="btn radius-xl">View More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-12">
-                                    <div class="service-bx m-b0">
-                                        <div class="action-box">
-                                            <img src="assets/images/our-services/pic3.jpg" alt="">
-                                        </div>
-                                        <div class="info-bx text-center">
-                                            <div class="feature-box-sm radius bg-white">
-                                                <i class="fa fa-file-text-o text-primary"></i>
-                                            </div>
-                                            <h4><a href="myschedule">My Schedule</a></h4>
-                                            <a href="myschedule" class="btn radius-xl">View More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Our Services END -->
-
-                    <!-- Popular Courses -->
-                    <div class="section-area section-sp2 popular-courses-bx">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12 heading-bx left">
-                                    <h2 class="title-head">Top <span>Tutors</span></h2>
-                                    <p>Những Gia sư hàng đầu của chúng tôi:</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="courses-carousel owl-carousel owl-btn-1 col-12 p-lr0">
-                                    <c:forEach var="tutor" items="${topTutors}">
-                                        <div class="item">
-                                            <div class="cours-bx">
-                                                <div class="action-box">
-                                                    <img src="${tutor.cv.user.avatar}" alt="Avatar">
-                                                    <a href="#" class="btn">Read More</a>
-                                                </div>
-                                                <div class="info-bx text-center">
-                                                    <h5><a href="#">${tutor.cv.user.fullName}</a></h5>
-                                                    <span>${tutor.cv.description}</span>
-                                                </div>
-                                                <div class="cours-more-info">
-                                                    <div class="review">
-                                                        <span>${tutor.rating} Rating</span>
-                                                        <ul class="cours-star">
-                                                            <c:forEach begin="1" end="5" var="i">
-                                                                <li class="${i <= tutor.rating ? 'active' : ''}">
-                                                                    <i class="fa fa-star"></i>
-                                                                </li>
-                                                            </c:forEach>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="price">
-                                                        <small>${tutor.cv.user.email}</small>
-                                                        <h5>${tutor.cv.user.phone}</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </c:forEach>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Popular Courses END -->
-                    <!-- Testimonials -->
-                    <div class="section-area section-sp2 bg-fix ovbl-dark" style="background-image:url(assets/images/background/bg1.jpg);">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12 text-white heading-bx left">
-                                    <h2 class="title-head text-uppercase">Top Subjects <span>have the most Bookings</span></h2>
-                                    <p>Những môn học nhận được nhiều lượt booking nhất của chúng tôi:</p>
-                                </div>
-                            </div>
-                            <div class="testimonial-carousel owl-carousel owl-btn-1 col-12 p-lr0">
-                                <c:forEach var="subject" items="${topSubjects}" varStatus="status">
-                                    <div class="item">
-                                        <div class="testimonial-bx">
-                                            <div class="testimonial-info">
-                                                <a href="#"><h5 class="name">Top ${status.index + 1}:  ${subject.subjectName}</h5></a>
-                                                <p>Booking Count: ${subject.bookingCount} </p>
-                                            </div>
-                                            <div class="testimonial-content">
-                                                <p>Description: ${subject.description}</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <aside class="col-md-3">
+                            <h4>Categories</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item ${empty param.subject ? 'active' : ''}">
+                                    <a href="?search=&sortBy=${sortBy}&order=${order}&page=1">All</a>
+                                </li>
+                                <c:forEach var="subject" items="${subjects}">
+                                    <li class="list-group-item ${subject.subjectName eq param.subject ? 'active' : ''}">
+                                        <a href="?subject=${subject.subjectName}&search=${search}&sortBy=${sortBy}&order=${order}&page=1">
+                                            ${subject.subjectName}
+                                        </a>
+                                    </li>
                                 </c:forEach>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Testimonials END -->
+                            </ul>
+                        </aside>
 
-                    <div class="section-area section-sp2">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12 text-center heading-bx">
-                                    <h2 class="title-head m-b0"> My Upcoming <span>Schedules</span></h2>
-                                    <p class="m-b0">Lịch sắp tới của tôi: </p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="upcoming-event-carousel owl-carousel owl-btn-center-lr owl-btn-1 col-12 p-lr0  m-b30">
-                                    <div class="item">
-                                        <div class="event-bx">
-                                            <div class="action-box">
-                                                <img src="assets/images/event/pic4.jpg" alt="">
-                                            </div>
-                                            <div class="info-bx d-flex">
-                                                <div>
-                                                    <div class="event-time">
-                                                        <div class="event-date">29</div>
-                                                        <div class="event-month">October</div>
-                                                    </div>
-                                                </div>
-                                                <div class="event-info">
-                                                    <h4 class="event-title"><a href="#">Education Autumn Tour 2019</a></h4>
-                                                    <ul class="media-post">
-                                                        <li><a href="#"><i class="fa fa-clock-o"></i> 7:00am 8:00am</a></li>
-                                                        <li><a href="#"><i class="fa fa-map-marker"></i> Berlin, Germany</a></li>
-                                                    </ul>
-                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the..</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                        <!-- Phần bên phải: Lịch trình -->
+                        <main class="col-md-9">
+                            <div class="container mt-5 mb-3">
+                                <h2>Booking Schedule Form</h2>
+                                <a href="myschedule" class="btn btn-default mb-3">My Schedule</a><br>
+                                <c:if test="${not empty error}">
+                                    <div class="alert alert-danger">${error}</div>
+                                </c:if>
+                                <c:if test="${not empty success}">
+                                    <div class="alert alert-success">${success}</div>
+                                </c:if>
+                                <form id="bookingForm" action="bookschedule" method="post" class="mt-4">
+                                    <!-- Chọn Subject -->
+                                    <div class="mb-3">
+                                        <label for="subjectID" class="form-label">Select Subject</label>
+                                        <select id="subjectID" name="subjectID" class="form-select" required>
+                                            <option value="">-- Choose Subject --</option>
+                                            <c:forEach var="subject" items="${subjectList}">
+                                                <option value="${subject.subjectID}">${subject.subjectName}</option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
-                                    <div class="item">
-                                        <div class="event-bx">
-                                            <div class="action-box">
-                                                <img src="assets/images/event/pic3.jpg" alt="">
-                                            </div>
-                                            <div class="info-bx d-flex">
-                                                <div>
-                                                    <div class="event-time">
-                                                        <div class="event-date">29</div>
-                                                        <div class="event-month">October</div>
-                                                    </div>
-                                                </div>
-                                                <div class="event-info">
-                                                    <h4 class="event-title"><a href="#">Education Autumn Tour 2019</a></h4>
-                                                    <ul class="media-post">
-                                                        <li><a href="#"><i class="fa fa-clock-o"></i> 7:00am 8:00am</a></li>
-                                                        <li><a href="#"><i class="fa fa-map-marker"></i> Berlin, Germany</a></li>
-                                                    </ul>
-                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the..</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <!-- Chọn Slot -->
+                                    <div class="mb-3">
+                                        <label for="slotID" class="form-label">Select Slot</label>
+                                        <select id="slotID" name="slotID" class="form-select" required>
+                                            <option value="">-- Choose Slot --</option>
+                                            <c:forEach var="slot" items="${slotList}">
+                                                <option value="${slot.slotID}">
+                                                    <fmt:formatDate value="${slot.schedule.startTime}" pattern="HH:mm dd/MM/yy" />
+                                                    -
+                                                    <fmt:formatDate value="${slot.schedule.endTime}" pattern="HH:mm dd/MM/yy" />
+                                                </option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
-                                    <div class="item">
-                                        <div class="event-bx">
-                                            <div class="action-box">
-                                                <img src="assets/images/event/pic2.jpg" alt="">
-                                            </div>
-                                            <div class="info-bx d-flex">
-                                                <div>
-                                                    <div class="event-time">
-                                                        <div class="event-date">29</div>
-                                                        <div class="event-month">October</div>
-                                                    </div>
-                                                </div>
-                                                <div class="event-info">
-                                                    <h4 class="event-title"><a href="#">Education Autumn Tour 2019</a></h4>
-                                                    <ul class="media-post">
-                                                        <li><a href="#"><i class="fa fa-clock-o"></i> 7:00am 8:00am</a></li>
-                                                        <li><a href="#"><i class="fa fa-map-marker"></i> Berlin, Germany</a></li>
-                                                    </ul>
-                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the..</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <!-- Chọn Tutor -->
+                                    <div class="mb-3">
+                                        <label for="tutorID" class="form-label">Select Tutor</label>
+                                        <select id="tutorID" name="tutorID" class="form-select" required>
+                                            <option value="">-- Choose Tutor --</option>
+                                            <c:forEach var="tutor" items="${tutorList}">
+                                                <option value="${tutor.tutorID}">${tutor.cv.user.fullName}: ${tutor.cv.user.email}</option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
-                                </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <a href="bookschedule" class="btn btn-secondary">Clear</a>
+                                </form>
                             </div>
-                            <div class="text-center">
-                                <a href="myschedule" class="btn">View All My Schedules</a>
-                            </div>
-                        </div>
+                        </main>
                     </div>
-
-                    <!-- Form -->
-                    <div class="section-area section-sp1 ovpr-dark bg-fix online-cours" style="background-image:url(assets/images/background/bg1.jpg);">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12 text-center text-white">
-                                    <h2>Online Courses To Learn</h2>
-                                    <h5>Own Your Feature Learning New Skills Online</h5>
-                                    <form class="cours-search">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="What do you want to learn today?	">
-                                            <div class="input-group-append">
-                                                <button class="btn" type="submit">Search</button> 
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="mw800 m-auto">
-                                <div class="row">
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="cours-search-bx m-b30">
-                                            <div class="icon-box">
-                                                <h3><i class="ti-user"></i><span class="counter">5</span>M</h3>
-                                            </div>
-                                            <span class="cours-search-text">Over 5 million student</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="cours-search-bx m-b30">
-                                            <div class="icon-box">
-                                                <h3><i class="ti-book"></i><span class="counter">30</span>K</h3>
-                                            </div>
-                                            <span class="cours-search-text">30,000 Courses.</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-12">
-                                        <div class="cours-search-bx m-b30">
-                                            <div class="icon-box">
-                                                <h3><i class="ti-layout-list-post"></i><span class="counter">20</span>K</h3>
-                                            </div>
-                                            <span class="cours-search-text">Learn Anythink Online.</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Form END -->
-
-                    <!-- Recent News -->
-                    <div class="section-area section-sp2">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12 heading-bx left">
-                                    <h2 class="title-head">Recent <span>News</span></h2>
-                                    <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
-                                </div>
-                            </div>
-                            <div class="recent-news-carousel owl-carousel owl-btn-1 col-12 p-lr0">
-                                <div class="item">
-                                    <div class="recent-news">
-                                        <div class="action-box">
-                                            <img src="assets/images/blog/latest-blog/pic1.jpg" alt="">
-                                        </div>
-                                        <div class="info-bx">
-                                            <ul class="media-post">
-                                                <li><a href="#"><i class="fa fa-calendar"></i>Jan 02 2019</a></li>
-                                                <li><a href="#"><i class="fa fa-user"></i>By William</a></li>
-                                            </ul>
-                                            <h5 class="post-title"><a href="blog-details.html">This Story Behind Education Will Haunt You Forever.</a></h5>
-                                            <p>Knowing that, you’ve optimised your pages countless amount of times, written tons.</p>
-                                            <div class="post-extra">
-                                                <a href="#" class="btn-link">READ MORE</a>
-                                                <a href="#" class="comments-bx"><i class="fa fa-comments-o"></i>20 Comment</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="recent-news">
-                                        <div class="action-box">
-                                            <img src="assets/images/blog/latest-blog/pic2.jpg" alt="">
-                                        </div>
-                                        <div class="info-bx">
-                                            <ul class="media-post">
-                                                <li><a href="#"><i class="fa fa-calendar"></i>Feb 05 2019</a></li>
-                                                <li><a href="#"><i class="fa fa-user"></i>By John</a></li>
-                                            </ul>
-                                            <h5 class="post-title"><a href="blog-details.html">What Will Education Be Like In The Next 50 Years?</a></h5>
-                                            <p>As desperate as you are right now, you have done everything you can on your.</p>
-                                            <div class="post-extra">
-                                                <a href="#" class="btn-link">READ MORE</a>
-                                                <a href="#" class="comments-bx"><i class="fa fa-comments-o"></i>14 Comment</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="recent-news">
-                                        <div class="action-box">
-                                            <img src="assets/images/blog/latest-blog/pic3.jpg" alt="">
-                                        </div>
-                                        <div class="info-bx">
-                                            <ul class="media-post">
-                                                <li><a href="#"><i class="fa fa-calendar"></i>April 14 2019</a></li>
-                                                <li><a href="#"><i class="fa fa-user"></i>By George</a></li>
-                                            </ul>
-                                            <h5 class="post-title"><a href="blog-details.html">Master The Skills Of Education And Be.</a></h5>
-                                            <p>You will see in the guide all my years of valuable experience together with.</p>
-                                            <div class="post-extra">
-                                                <a href="#" class="btn-link">READ MORE</a>
-                                                <a href="#" class="comments-bx"><i class="fa fa-comments-o"></i>23 Comment</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Recent News End -->
-
                 </div>
-                <!-- contact area END -->
+                <!--End Content-->
             </div>
             <!-- Content END-->
             <!-- Footer ==== -->
-            <jsp:include page="include/footer.jsp" />
+            <jsp:include page="../include/footer.jsp" />
 
             <!-- Footer END ==== -->
             <button class="back-to-top fa fa-chevron-up" ></button>
@@ -863,4 +595,3 @@
 
 
 </html>
-
