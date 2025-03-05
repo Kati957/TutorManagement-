@@ -79,7 +79,7 @@ public class DAOTutor extends DBConnect {
 
                 Tutor tutor = new Tutor();
                 tutor.setTutorID(rs.getInt("TutorID"));
-                tutor.setCVID(rs.getInt("CVIID"));
+                tutor.setCVID(rs.getInt("CVID"));
                 tutor.setRating(rs.getInt("Rating"));
                 tutor.setCv(cv);
 
