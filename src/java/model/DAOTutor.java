@@ -93,36 +93,35 @@ public class DAOTutor extends DBConnect {
     }
 
     public List<Tutor> getAllTutors() {
-    List<Tutor> tutors = new ArrayList<>();
-    String sql = """
+        List<Tutor> tutors = new ArrayList<>();
+        String sql = """
         SELECT t.tutorID, t.CVIID, t.rating, u.FullName, u.Email
         FROM Tutor t
         JOIN CV c ON t.CVIID = c.CVID
         JOIN Users u ON c.UserID = u.UserID
     """;
-    try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql)) {
-        while (rs.next()) {
-            User user = new User();
-            user.setFullName(rs.getString("FullName"));
-            user.setEmail(rs.getString("Email"));
-            
-            Cv cv = new Cv();
-            cv.setUser(user);
-            
-            Tutor tutor = new Tutor();
-            tutor.setTutorID(rs.getInt("tutorID"));
-            tutor.setCVID(rs.getInt("CVIID"));
-            tutor.setRating(rs.getFloat("rating"));
-            tutor.setCv(cv);
-            tutors.add(tutor);
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return tutors;
-}
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next()) {
+                User user = new User();
+                user.setFullName(rs.getString("FullName"));
+                user.setEmail(rs.getString("Email"));
 
- 
+                Cv cv = new Cv();
+                cv.setUser(user);
+
+                Tutor tutor = new Tutor();
+                tutor.setTutorID(rs.getInt("tutorID"));
+                tutor.setCVID(rs.getInt("CVIID"));
+                tutor.setRating(rs.getFloat("rating"));
+                tutor.setCv(cv);
+                tutors.add(tutor);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tutors;
+    }
+
     public Tutor getTutorById(int tutorID) {
         String sql = "SELECT * FROM Tutor WHERE tutorID = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -140,4 +139,84 @@ public class DAOTutor extends DBConnect {
         }
         return null;
     }
+
+    // Hungnv: su dung trong bookschedule
+    public List<Tutor> getAllTutorsBySubject(int subjectID) {
+        List<Tutor> tutors = new ArrayList<>();
+        String sql = """
+        SELECT t.tutorID, t.CVIID, t.rating, u.FullName, u.Email
+        FROM Tutor t
+        JOIN TutorSubject ts ON t.TutorID = ts.TutorID
+        JOIN CV c ON t.CVIID = c.CVID
+        JOIN Users u ON c.UserID = u.UserID
+        WHERE ts.SubjectID = ?
+    """;
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, subjectID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setFullName(rs.getString("FullName"));
+                user.setEmail(rs.getString("Email"));
+
+                Cv cv = new Cv();
+                cv.setUser(user);
+
+                Tutor tutor = new Tutor();
+                tutor.setTutorID(rs.getInt("tutorID"));
+                tutor.setCVID(rs.getInt("CVIID"));
+                tutor.setRating(rs.getFloat("rating"));
+                tutor.setCv(cv);
+                tutors.add(tutor);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tutors;
+    }
+
+    public Tutor getTutorBySubject(int tutorID, int subjectID) {
+        Tutor tutor = null;
+        String sql = """
+        SELECT t.tutorID, t.CVIID, t.rating, 
+               u.FullName, u.Email, u.Phone, u.Avatar, 
+               c.Education, c.Experience, c.Certificates, c.Status, c.Desciption
+        FROM Tutor t
+        JOIN Cv c ON t.CVIID = c.CVID
+        JOIN Users u ON c.UserID = u.UserID
+        JOIN Subject s ON c.SubjectId = s.SubjectID
+        WHERE t.TutorID = ? AND s.SubjectID = ?
+    """;
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, tutorID);
+            ps.setInt(2, subjectID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setFullName(rs.getString("FullName"));
+                user.setEmail(rs.getString("Email"));
+                user.setPhone(rs.getString("Phone"));
+                user.setAvatar(rs.getString("Avatar"));
+
+                Cv cv = new Cv();
+                cv.setUser(user);
+                cv.setEducation(rs.getString("Education"));
+                cv.setExperience(rs.getString("Experience"));
+                cv.setCertificates(rs.getString("Certificates"));
+                cv.setStatus(rs.getString("Status"));
+                cv.setDescription(rs.getString("Desciption"));
+
+                tutor = new Tutor();
+                tutor.setTutorID(rs.getInt("tutorID"));
+                tutor.setCVID(rs.getInt("CVIID"));
+                tutor.setRating(rs.getFloat("rating"));
+                tutor.setCv(cv);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("lấy tutor by subject Id thành công");
+        return tutor;
+    }
+
 }

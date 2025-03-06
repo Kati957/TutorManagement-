@@ -15,7 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 public class DAOSchedule extends DBConnect {
-
+    
+    //Hungnv: View Schedules
     public List<Map<String, Object>> getSchedulesByUserId(int userId, String search) {
         List<Map<String, Object>> schedules = new ArrayList<>();
         String query = """
@@ -51,42 +52,25 @@ public class DAOSchedule extends DBConnect {
         System.out.println("lấy thành công schedules by user Id");
         return schedules;
     }
-
-    public List<Schedule> getSchedulesByTutorId(int tutorId) {
+    // Hungnv: Book Schedule
+    public List<Schedule> getSchedulesByTutorAndSubject(int tutorId, int subjectId) {
         List<Schedule> schedules = new ArrayList<>();
         String query = """
-        SELECT s.ScheduleID, s.StartTime, s.EndTime, 
-               sub.SubjectName, u.FullName AS TutorFullName, u.Email AS TutorEmail
+        SELECT *
         FROM Schedule s
-        JOIN Tutor t ON s.TutorID = t.TutorID
-        JOIN Cv cv ON t.CVIID = cv.CVID
-        JOIN Users u ON cv.UserID = u.UserID
-        JOIN Subject sub ON s.SubjectId = sub.SubjectID
+        WHERE TutorID = ? and SubjectID = ? and IsBooked = 0  AND StartTime > GETDATE()
     """;
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setInt(1, tutorId);
+            ps.setInt(2, subjectId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                User user = new User();
-                user.setFullName(rs.getString("TutorFullName"));
-                user.setEmail(rs.getString("TutorEmail"));
-
-                Subject subject = new Subject();
-                subject.setSubjectName(rs.getString("SubjectName"));
-
-                Cv cv = new Cv();
-                cv.setUser(user);
-
-                Tutor tutor = new Tutor();
-                tutor.setCv(cv);
-
                 Schedule schedule = new Schedule();
                 schedule.setScheduleID(rs.getInt("ScheduleID"));
+                schedule.setTutorID(rs.getInt("TutorID"));
                 schedule.setStartTime(rs.getTimestamp("StartTime"));
                 schedule.setEndTime(rs.getTimestamp("EndTime"));
-                schedule.setTutor(tutor);
-                schedule.setSubject(subject);
-
+                schedule.setSubjectId(rs.getInt("SubjectID"));
                 schedules.add(schedule);
             }
         } catch (SQLException e) {
@@ -95,68 +79,4 @@ public class DAOSchedule extends DBConnect {
         }
         return schedules;
     }
-
-    public List<Schedule> getSchedules(int tutorId, int subjectId, int page, int pageSize, String sortBy, String order, String search) {
-        List<Schedule> schedules = new ArrayList<>();
-        String query = """
-        SELECT s.ScheduleID, s.StartTime, s.EndTime, sub.SubjectName, u.FullName AS TutorFullName, u.Email AS TutorEmail
-        FROM Schedule s
-        JOIN Tutor t ON s.TutorID = t.TutorID
-        JOIN Cv cv ON t.CVID = cv.CVID
-        JOIN Users u ON cv.UserID = u.UserID
-        JOIN Subject sub ON s.SubjectId = sub.SubjectID
-        WHERE (s.TutorID = ? OR ? = -1)
-          AND (s.SubjectID = ? OR ? = -1)
-          AND (sub.SubjectName LIKE ? OR u.FullName LIKE ?)
-    """;
-
-        if (!List.of("SubjectName", "BookingDate", "StartTime", "EndTime").contains(sortBy)) {
-            sortBy = "StartTime";
-        }
-        if (!order.equalsIgnoreCase("desc")) {
-            order = "asc";
-        }
-
-        query += " ORDER BY " + sortBy + " " + order + " LIMIT ? OFFSET ?";
-
-        try (PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setInt(1, tutorId);
-            ps.setInt(2, tutorId);
-            ps.setInt(3, subjectId);
-            ps.setInt(4, subjectId);
-            ps.setString(5, "%" + search + "%");
-            ps.setString(6, "%" + search + "%");
-            ps.setInt(7, pageSize);
-            ps.setInt(8, (page - 1) * pageSize);
-
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Schedule schedule = new Schedule();
-                schedule.setScheduleID(rs.getInt("ScheduleID"));
-                schedule.setStartTime(rs.getTimestamp("StartTime"));
-                schedule.setEndTime(rs.getTimestamp("EndTime"));
-
-                User user = new User();
-                user.setFullName(rs.getString("TutorFullName"));
-                user.setEmail(rs.getString("TutorEmail"));
-
-                Cv cv = new Cv();
-                cv.setUser(user);
-
-                Tutor tutor = new Tutor();
-                tutor.setCv(cv);
-                schedule.setTutor(tutor);
-
-                Subject subject = new Subject();
-                subject.setSubjectName(rs.getString("SubjectName"));
-                schedule.setSubject(subject);
-
-                schedules.add(schedule);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return schedules;
-    }
-
 }
