@@ -267,6 +267,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="RequestCV" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-book"></i></span>
+                                <span class="ttr-label">Request tutor</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="#" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-email"></i></span>
                                 <span class="ttr-label">Mailbox</span>

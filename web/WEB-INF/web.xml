@@ -4,7 +4,7 @@
         <servlet-name>HomePageServlet</servlet-name>
         <servlet-class>controller.Customer.HomePageServlet</servlet-class>
     </servlet>
-    <servlet>
+        <servlet>
         <servlet-name>ViewScheduleServlet</servlet-name>
         <servlet-class>controller.Customer.ViewScheduleServlet</servlet-class>
     </servlet>
