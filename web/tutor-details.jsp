@@ -1,10 +1,10 @@
 <%-- 
-    Document   : about-2
-    Created on : Feb 28, 2025, 4:03:58 PM
+    Document   : courses-details
+    Created on : Feb 28, 2025, 4:06:09 PM
     Author     : Heizxje
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.sql.ResultSet"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,10 +55,15 @@
 	<link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
 	
 </head>
+    <%
+        
+        ResultSet rs = (ResultSet) request.getAttribute("rs");
+
+    %>
 <body id="bg">
 <div class="page-wraper">
-	<div id="loading-icon-bx"></div>
-    <!-- Header Top ==== -->
+<div id="loading-icon-bx"></div>
+<!-- Header Top ==== -->
     <header class="header rs-nav">
 		<div class="top-bar">
 			<div class="container">
@@ -166,7 +171,7 @@
 									<li class="add-menu-left">
 										<h5 class="menu-adv-title">Our Courses</h5>
 										<ul>
-											<li><a href="courses.jsp">Courses </a></li>
+											<li><a href="Courses">Courses </a></li>
 											<li><a href="courses-details.jsp">Courses Details</a></li>
 											<li><a href="profile.jsp">Instructor Profile</a></li>
 											<li><a href="event.jsp">Upcoming Event</a></li>
@@ -224,253 +229,320 @@
         </div>
     </header>
     <!-- header END ==== -->
-    <!-- Inner Content Box ==== -->
+    <!-- Content -->
     <div class="page-content bg-white">
-        <!-- Page Heading Box ==== -->
-        <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
+        <!-- inner page banner -->
+        <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner2.jpg);">
             <div class="container">
                 <div class="page-banner-entry">
-                    <h1 class="text-white">About Us 2</h1>
+                    <h1 class="text-white">Courses Details</h1>
 				 </div>
             </div>
         </div>
+		<!-- Breadcrumb row -->
 		<div class="breadcrumb-row">
 			<div class="container">
 				<ul class="list-inline">
 					<li><a href="#">Home</a></li>
-					<li>About Us 2</li>
+					<li>Courses Details</li>
 				</ul>
 			</div>
 		</div>
-		<!-- Page Heading Box END ==== -->
-        <!-- Page Content Box ==== -->
+		<!-- Breadcrumb row END -->
+        <!-- inner page banner END -->
 		<div class="content-block">
-            <!-- About Us ==== -->
+            <!-- About Us -->
 			<div class="section-area section-sp1">
                 <div class="container">
-					 <div class="row">
-						 <div class="col-lg-6 m-b30">
-							<h2 class="title-head ">Learn a new skill online<br/> <span class="text-primary"> on your time</span></h2>
-							<h4><span class="counter">57,000 </span> Online Courses</h4>
-							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.</p>
-							<a href="#" class="btn button-md">Join Now</a>
-						 </div>
-						 <div class="col-lg-6">
-							 <div class="row">
-								<div class="col-lg-6 col-md-6 col-sm-6 m-b30">
-									<div class="feature-container">
-										<div class="feature-md text-white m-b20">
-											<a href="#" class="icon-cell"><img src="assets/images/icon/icon1.png" alt=""/></a> 
-										</div>
-										<div class="icon-content">
-											<h5 class="ttr-tilte">Our Philosophy</h5>
-											<p>Lorem ipsum dolor sit amet, consectetuer adipiscing.</p>
+					 <div class="row d-flex flex-row-reverse">
+						<div class="col-lg-3 col-md-4 col-sm-12 m-b30">
+							<div class="course-detail-bx">
+								<div class="course-price">
+									<del>$190</del>
+									<h4 class="price"></h4>
+								</div>	
+								<div class="course-buy-now text-center">
+									<a href="#" class="btn radius-xl text-uppercase">Buy Now This Courses</a>
+								</div>
+								<div class="teacher-bx">
+									<div class="teacher-info">
+										<div class="teacher-thumb">
+											<img src="assets/images/testimonials/pic1.jpg" alt=""/>
 										</div>
 									</div>
 								</div>
-								<div class="col-lg-6 col-md-6 col-sm-6 m-b30">
-									<div class="feature-container">
-										<div class="feature-md text-white m-b20">
-											<a href="#" class="icon-cell"><img src="assets/images/icon/icon2.png" alt=""/></a> 
-										</div>
-										<div class="icon-content">
-											<h5 class="ttr-tilte">Kingster's Principle</h5>
-											<p>Lorem ipsum dolor sit amet, consectetuer adipiscing.</p>
-										</div>
+								<div class="cours-more-info">
+									<div class="review">
+										<span>3 Review</span>
+										<ul class="cours-star">
+											<li class="active"><i class="fa fa-star"></i></li>
+											<li class="active"><i class="fa fa-star"></i></li>
+											<li class="active"><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+										</ul>
+									</div>
+									<div class="price categories">
+										<span>Categories</span>
+										<h5 class="text-primary">Frontend</h5>
 									</div>
 								</div>
-								<div class="col-lg-6 col-md-6 col-sm-6 m-b30">
-									<div class="feature-container">
-										<div class="feature-md text-white m-b20">
-											<a href="#" class="icon-cell"><img src="assets/images/icon/icon3.png" alt=""/></a> 
-										</div>
-										<div class="icon-content">
-											<h5 class="ttr-tilte">Key Of Success</h5>
-											<p>Lorem ipsum dolor sit amet, consectetuer adipiscing.</p>
-										</div>
+								<div class="course-info-list scroll-page">
+									<ul class="navbar">
+										<li><a class="nav-link" href="#overview"><i class="ti-zip"></i>Overview</a></li>
+										<li><a class="nav-link" href="#curriculum"><i class="ti-bookmark-alt"></i>Curriculum</a></li>
+										<li><a class="nav-link" href="#instructor"><i class="ti-user"></i>Instructor</a></li>
+										<li><a class="nav-link" href="#reviews"><i class="ti-comments"></i>Reviews</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					
+						<div class="col-lg-9 col-md-8 col-sm-12">
+							<div class="courses-post">
+								<div class="ttr-post-media media-effect">
+									<a href="#"><img src="<%=rs.getString(5)%>" alt=""></a>
+								</div>
+								<div class="ttr-post-info">
+									<div class="ttr-post-title ">
+										<h2 class="post-title"><%=rs.getString(2)%></h2>
+									</div>
+									<div class="ttr-post-text">
+										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
 									</div>
 								</div>
-								<div class="col-lg-6 col-md-6 col-sm-6 m-b30">
-									<div class="feature-container">
-										<div class="feature-md text-white m-b20">
-											<a href="#" class="icon-cell"><img src="assets/images/icon/icon4.png" alt=""/></a> 
+							</div>
+							<div class="courese-overview" id="overview">
+								<h4>Overview</h4>
+								<div class="row">
+									<div class="col-md-12 col-lg-4">
+										<ul class="course-features">
+											<li><i class="ti-book"></i> <span class="label">Lectures</span> <span class="value">8</span></li>
+											<li><i class="ti-help-alt"></i> <span class="label">Quizzes</span> <span class="value">1</span></li>
+											<li><i class="ti-time"></i> <span class="label">Duration</span> <span class="value">60 hours</span></li>
+											<li><i class="ti-stats-up"></i> <span class="label">Skill level</span> <span class="value">Beginner</span></li>
+											<li><i class="ti-smallcap"></i> <span class="label">Language</span> <span class="value">English</span></li>
+											<li><i class="ti-user"></i> <span class="label">Students</span> <span class="value">32</span></li>
+											<li><i class="ti-check-box"></i> <span class="label">Assessments</span> <span class="value">Yes</span></li>
+										</ul>
+									</div>
+									<div class="col-md-12 col-lg-8">
+										<h5 class="m-b5">Course Description</h5>
+										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry?s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+										<h5 class="m-b5">Certification</h5>
+										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry?s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+										<h5 class="m-b5">Learning Outcomes</h5>
+										<ul class="list-checked primary">
+											<li>Over 37 lectures and 55.5 hours of content!</li>
+											<li>LIVE PROJECT End to End Software Testing Training Included.</li>
+											<li>Learn Software Testing and Automation basics from a professional trainer from your own desk.</li>
+											<li>Information packed practical training starting from basics to advanced testing techniques.</li>
+											<li>Best suitable for beginners to advanced level users and who learn faster when demonstrated.</li>
+											<li>Course content designed by considering current software testing technology and the job market.</li>
+											<li>Practical assignments at the end of every session.</li>
+											<li>Practical learning experience with live project work and examples.cv</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="m-b30" id="curriculum">
+								<h4>Curriculum</h4>
+								<ul class="curriculum-list">
+										<li>
+											<h5>First Level</h5>
+											<ul>
+												<li>
+													<div class="curriculum-list-box">
+														<span>Lesson 1.</span> Introduction to UI Design
+													</div>
+													<span>120 minutes</span>
+												</li>
+												<li>
+													<div class="curriculum-list-box">
+														<span>Lesson 2.</span> User Research and Design
+													</div>
+													<span>60 minutes</span>
+												</li>
+												<li>
+													<div class="curriculum-list-box">
+														<span>Lesson 3.</span> Evaluating User Interfaces Part 1
+													</div>
+													<span>85 minutes</span>
+												</li>
+											</ul>
+										</li>
+										<li>
+											<h5>Second Level</h5>
+											<ul>
+												<li>
+													<div class="curriculum-list-box">
+														<span>Lesson 1.</span> Prototyping and Design
+													</div>
+													<span>110 minutes</span>
+												</li>
+												<li>
+													<div class="curriculum-list-box">
+														<span>Lesson 2.</span> UI Design Capstone
+													</div>
+													<span>120 minutes</span>
+												</li>
+												<li>
+													<div class="curriculum-list-box">
+														<span>Lesson 3.</span> Evaluating User Interfaces Part 2
+													</div>
+													<span>120 minutes</span>
+												</li>
+											</ul>
+										</li>
+										<li>
+											<h5>Final</h5>
+											<ul>
+												<li>
+													<div class="curriculum-list-box">
+														<span>Part 1.</span> Final Test
+													</div>
+													<span>120 minutes</span>
+												</li>
+												<li>
+													<div class="curriculum-list-box">
+														<span>Part 2.</span> Online Test
+													</div>
+													<span>120 minutes</span>
+												</li>
+											</ul>
+										</li>
+									</ul>
+							</div>
+							<div class="" id="instructor">
+								<h4>Instructor</h4>
+								<div class="instructor-bx">
+									<div class="instructor-author">
+										<img src="assets/images/testimonials/pic1.jpg" alt="">
+									</div>
+									<div class="instructor-info">
+										<h6>Keny White </h6>
+										<span>Professor</span>
+										<ul class="list-inline m-tb10">
+											<li><a href="#" class="btn sharp-sm facebook"><i class="fa fa-facebook"></i></a></li>
+											<li><a href="#" class="btn sharp-sm twitter"><i class="fa fa-twitter"></i></a></li>
+											<li><a href="#" class="btn sharp-sm linkedin"><i class="fa fa-linkedin"></i></a></li>
+											<li><a href="#" class="btn sharp-sm google-plus"><i class="fa fa-google-plus"></i></a></li>
+										</ul>
+										<p class="m-b0">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</p>
+									</div>
+								</div>
+								<div class="instructor-bx">
+									<div class="instructor-author">
+										<img src="assets/images/testimonials/pic2.jpg" alt="">
+									</div>
+									<div class="instructor-info">
+										<h6>Keny White </h6>
+										<span>Professor</span>
+										<ul class="list-inline m-tb10">
+											<li><a href="#" class="btn sharp-sm facebook"><i class="fa fa-facebook"></i></a></li>
+											<li><a href="#" class="btn sharp-sm twitter"><i class="fa fa-twitter"></i></a></li>
+											<li><a href="#" class="btn sharp-sm linkedin"><i class="fa fa-linkedin"></i></a></li>
+											<li><a href="#" class="btn sharp-sm google-plus"><i class="fa fa-google-plus"></i></a></li>
+										</ul>
+										<p class="m-b0">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</p>
+									</div>
+								</div>
+							</div>
+							<div class="" id="reviews">
+								<h4>Reviews</h4>
+								
+								<div class="review-bx">
+									<div class="all-review">
+										<h2 class="rating-type">3</h2>
+										<ul class="cours-star">
+											<li class="active"><i class="fa fa-star"></i></li>
+											<li class="active"><i class="fa fa-star"></i></li>
+											<li class="active"><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+										</ul>
+										<span>3 Rating</span>
+									</div>
+									<div class="review-bar">
+										<div class="bar-bx">
+											<div class="side">
+												<div>5 star</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div class="bar-5" style="width:90%;"></div>
+												</div>
+											</div>
+											<div class="side right">
+												<div>150</div>
+											</div>
 										</div>
-										<div class="icon-content">
-											<h5 class="ttr-tilte">Our Philosophy</h5>
-											<p>Lorem ipsum dolor sit amet, consectetuer adipiscing.</p>
+										<div class="bar-bx">
+											<div class="side">
+												<div>4 star</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div class="bar-5" style="width:70%;"></div>
+												</div>
+											</div>
+											<div class="side right">
+												<div>140</div>
+											</div>
+										</div>
+										<div class="bar-bx">
+											<div class="side">
+												<div>3 star</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div class="bar-5" style="width:50%;"></div>
+												</div>
+											</div>
+											<div class="side right">
+												<div>120</div>
+											</div>
+										</div>
+										<div class="bar-bx">
+											<div class="side">
+												<div>2 star</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div class="bar-5" style="width:40%;"></div>
+												</div>
+											</div>
+											<div class="side right">
+												<div>110</div>
+											</div>
+										</div>
+										<div class="bar-bx">
+											<div class="side">
+												<div>1 star</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div class="bar-5" style="width:20%;"></div>
+												</div>
+											</div>
+											<div class="side right">
+												<div>80</div>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+							
 						</div>
+						
 					</div>
 				</div>
             </div>
-			<!-- About Us END ==== -->
-			<!-- Why Choose ==== -->
-			<div class="section-area bg-gray section-sp2 choose-bx">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12 heading-bx text-center">
-							<h2 class="title-head text-uppercase m-b0">Why Choose <span> Our Institution</span></h2>
-							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.</p>
-						</div>
-					</div>
-					<div class="row choose-bx-in">
-						<div class="col-lg-4 col-md-4 col-sm-6">
-							<div class="service-bx">
-								<div class="action-box">
-									<img src="assets/images/our-services/pic1.jpg" alt="">
-								</div>
-								<div class="info-bx text-center">
-									<div class="feature-box-sm radius bg-white">
-										<i class="fa fa-bank text-primary"></i>
-									</div>
-									<h4><a href="#">Best Industry Leaders</a></h4>
-									<a href="#" class="btn radius-xl">View More</a>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-6">
-							<div class="service-bx">
-								<div class="action-box">
-									<img src="assets/images/our-services/pic2.jpg" alt="">
-								</div>
-								<div class="info-bx text-center">
-									<div class="feature-box-sm radius bg-white">
-										<i class="fa fa-book text-primary"></i>
-									</div>
-									<h4><a href="#">Learn Courses Online</a></h4>
-									<a href="#" class="btn radius-xl">View More</a>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-12">
-							<div class="service-bx m-b0">
-								<div class="action-box">
-									<img src="assets/images/our-services/pic3.jpg" alt="">
-								</div>
-								<div class="info-bx text-center">
-									<div class="feature-box-sm radius bg-white">
-										<i class="fa fa-file-text-o text-primary"></i>
-									</div>
-									<h4><a href="#">Book Library & Store</a></h4>
-									<a href="#" class="btn radius-xl">View More</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Why Choose END ==== -->
-			<!-- Company Status ==== -->
-			<div class="section-area content-inner section-sp1">
-                <div class="container">
-                    <div class="section-content">
-                         <div class="row">
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-6 m-b30">
-                                <div class="counter-style-1">
-                                    <div class="text-primary">
-										<span class="counter">3000</span><span>+</span>
-									</div>
-									<span class="counter-text">Completed Projects</span>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-6 m-b30">
-                                <div class="counter-style-1">
-									<div class="text-black">
-										<span class="counter">2500</span><span>+</span>
-									</div>
-									<span class="counter-text">Happy Clients</span>
-								</div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-6 m-b30">
-                                <div class="counter-style-1">
-									<div class="text-primary">
-										<span class="counter">1500</span><span>+</span>
-									</div>
-									<span class="counter-text">Questions Answered</span>
-								</div>
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-sm-6 col-6 m-b30">
-                                <div class="counter-style-1">
-									<div class="text-black">
-										<span class="counter">1000</span><span>+</span>
-									</div>
-									<span class="counter-text">Ordered Coffee's</span>
-								</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-			<!-- Company Stats END ==== -->
-			<!-- Our Story ==== -->
-			<div class="section-area bg-gray section-sp1 our-story">
-				<div class="container">
-					<div class="row align-items-center d-flex">
-						<div class="col-lg-5 col-md-12 heading-bx">
-							<h2 class="m-b10">Our Story</h2>
-							<h5 class="fw4">It is a long established fact that a reade.</h5>
-							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-							<a href="#" class="btn">Read More</a>
-						</div>
-						<div class="col-lg-7 col-md-12 heading-bx p-lr">
-							<div class="video-bx">
-								<img src="assets/images/about/pic1.jpg" alt=""/>
-								<a href="https://www.youtube.com/watch?v=x_sJzVe9P_8" class="popup-youtube video"><i class="fa fa-play"></i></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Our Story END ==== -->
-			<!-- Testimonials ==== -->
-			<div class="section-area section-sp2">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12 heading-bx left">
-							<h2 class="title-head text-uppercase">what people <span>say</span></h2>
-							<p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
-						</div>
-					</div>
-					<div class="testimonial-carousel owl-carousel owl-btn-1 col-12 p-lr0">
-						<div class="item">
-							<div class="testimonial-bx">
-								<div class="testimonial-thumb">
-									<img src="assets/images/testimonials/pic1.jpg" alt="">
-								</div>
-								<div class="testimonial-info">
-									<h5 class="name">Peter Packer</h5>
-									<p>-Art Director</p>
-								</div>
-								<div class="testimonial-content">
-									<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type...</p>
-								</div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="testimonial-bx">
-								<div class="testimonial-thumb">
-									<img src="assets/images/testimonials/pic2.jpg" alt="">
-								</div>
-								<div class="testimonial-info">
-									<h5 class="name">Peter Packer</h5>
-									<p>-Art Director</p>
-								</div>
-								<div class="testimonial-content">
-									<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type...</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Testimonials END ==== -->
         </div>
-		<!-- Page Content Box END ==== -->
+		<!-- contact area END -->
+		
     </div>
-	<!-- Page Content Box END ==== -->
+    <!-- Content END-->
 	<!-- Footer ==== -->
     <footer>
         <div class="footer-top">
@@ -571,7 +643,7 @@
         <div class="footer-bottom">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 text-center"> <a target="_blank" href="https://www.templateshub.net">Templates Hub</a></div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 text-center"><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></div>
                 </div>
             </div>
         </div>
@@ -592,9 +664,10 @@
 <script src="assets/vendors/masonry/masonry.js"></script>
 <script src="assets/vendors/masonry/filter.js"></script>
 <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
+<script src="assets/js/jquery.scroller.js"></script>
 <script src="assets/js/functions.js"></script>
 <script src="assets/js/contact.js"></script>
-<script src='assets/vendors/switcher/switcher.js'></script>
+<script src="assets/vendors/switcher/switcher.js"></script>
 </body>
 
 </html>

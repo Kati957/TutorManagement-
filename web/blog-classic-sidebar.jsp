@@ -68,7 +68,7 @@
                         <div class="row d-flex justify-content-between">
                             <div class="topbar-left">
                                 <ul>
-                                    <li><a href="faq-1.html"><i class="fa fa-question-circle"></i>Ask a Question</a></li>
+                                    <li><a href="faq-1.jsp"><i class="fa fa-question-circle"></i>Ask a Question</a></li>
                                     <li><a href="javascript:;"><i class="fa fa-envelope-o"></i>Support@website.com</a></li>
                                 </ul>
                             </div>
@@ -80,8 +80,8 @@
                                             <option data-icon="flag flag-us">English US</option>
                                         </select>
                                     </li>
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="register.html">Register</a></li>
+                                    <li><a href="login.jsp">Login</a></li>
+                                    <li><a href="register.jsp">Register</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                         <div class="container clearfix">
                             <!-- Header Logo ==== -->
                             <div class="menu-logo">
-                                <a href="index.html"><img src="assets/images/logo.png" alt=""></a>
+                                <a href="index.jsp"><img src="assets/images/logo.png" alt=""></a>
                             </div>
                             <!-- Mobile Nav Button ==== -->
                             <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -123,45 +123,45 @@
                             <!-- Navigation Menu ==== -->
                             <div class="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
                                 <div class="menu-logo">
-                                    <a href="index.html"><img src="assets/images/logo.png" alt=""></a>
+                                    <a href="index.jsp"><img src="assets/images/logo.png" alt=""></a>
                                 </div>
                                 <ul class="nav navbar-nav">	
                                     <li class="active"><a href="javascript:;">Home <i class="fa fa-chevron-down"></i></a>
                                         <ul class="sub-menu">
-                                            <li><a href="index.html">Home 1</a></li>
-                                            <li><a href="index-2.html">Home 2</a></li>
+                                            <li><a href="index.jsp">Home 1</a></li>
+                                            <li><a href="index-2.jsp">Home 2</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="javascript:;">Pages <i class="fa fa-chevron-down"></i></a>
                                         <ul class="sub-menu">
                                             <li><a href="javascript:;">About<i class="fa fa-angle-right"></i></a>
                                                 <ul class="sub-menu">
-                                                    <li><a href="about-1.html">About 1</a></li>
-                                                    <li><a href="about-2.html">About 2</a></li>
+                                                    <li><a href="about-1.jsp">About 1</a></li>
+                                                    <li><a href="about-2.jsp">About 2</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="javascript:;">Event<i class="fa fa-angle-right"></i></a>
                                                 <ul class="sub-menu">
-                                                    <li><a href="event.html">Event</a></li>
-                                                    <li><a href="events-details.html">Events Details</a></li>
+                                                    <li><a href="event.jsp">Event</a></li>
+                                                    <li><a href="events-details.jsp">Events Details</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="javascript:;">FAQ's<i class="fa fa-angle-right"></i></a>
                                                 <ul class="sub-menu">
-                                                    <li><a href="faq-1.html">FAQ's 1</a></li>
-                                                    <li><a href="faq-2.html">FAQ's 2</a></li>
+                                                    <li><a href="faq-1.jsp">FAQ's 1</a></li>
+                                                    <li><a href="faq-2.jsp">FAQ's 2</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="javascript:;">Contact Us<i class="fa fa-angle-right"></i></a>
                                                 <ul class="sub-menu">
-                                                    <li><a href="contact-1.html">Contact Us 1</a></li>
-                                                    <li><a href="contact-2.html">Contact Us 2</a></li>
+                                                    <li><a href="contact-1.jsp">Contact Us 1</a></li>
+                                                    <li><a href="contact-2.jsp">Contact Us 2</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="portfolio.html">Portfolio</a></li>
-                                            <li><a href="profile.html">Profile</a></li>
-                                            <li><a href="membership.html">Membership</a></li>
-                                            <li><a href="error-404.html">404 Page</a></li>
+                                            <li><a href="portfolio.jsp">Portfolio</a></li>
+                                            <li><a href="profile.jsp">Profile</a></li>
+                                            <li><a href="membership.jsp">Membership</a></li>
+                                            <li><a href="error-404.jsp">404 Page</a></li>
                                         </ul>
                                     </li>
                                     <li class="add-mega-menu"><a href="javascript:;">Our Courses <i class="fa fa-chevron-down"></i></a>
@@ -169,11 +169,11 @@
                                             <li class="add-menu-left">
                                                 <h5 class="menu-adv-title">Our Courses</h5>
                                                 <ul>
-                                                    <li><a href="courses.html">Courses </a></li>
-                                                    <li><a href="courses-details.html">Courses Details</a></li>
-                                                    <li><a href="profile.html">Instructor Profile</a></li>
-                                                    <li><a href="event.html">Upcoming Event</a></li>
-                                                    <li><a href="membership.html">Membership</a></li>
+                                                    <li><a href="courses.jsp">Courses </a></li>
+                                                    <li><a href="courses-details.jsp">Courses Details</a></li>
+                                                    <li><a href="profile.jsp">Instructor Profile</a></li>
+                                                    <li><a href="event.jsp">Upcoming Event</a></li>
+                                                    <li><a href="membership.jsp">Membership</a></li>
                                                 </ul>
                                             </li>
                                             <li class="add-menu-right">
@@ -183,33 +183,33 @@
                                     </li>
                                     <li><a href="javascript:;">Blog <i class="fa fa-chevron-down"></i></a>
                                         <ul class="sub-menu">
-                                            <li><a href="blog-classic-grid.html">Blog Classic</a></li>
-                                            <li><a href="blog-classic-sidebar.html">Blog Classic Sidebar</a></li>
-                                            <li><a href="blog-list-sidebar.html">Blog List Sidebar</a></li>
-                                            <li><a href="blog-standard-sidebar.html">Blog Standard Sidebar</a></li>
-                                            <li><a href="blog-details.html">Blog Details</a></li>
+                                            <li><a href="blog-classic-grid.jsp">Blog Classic</a></li>
+                                            <li><a href="blog-classic-sidebar.jsp">Blog Classic Sidebar</a></li>
+                                            <li><a href="blog-list-sidebar.jsp">Blog List Sidebar</a></li>
+                                            <li><a href="blog-standard-sidebar.jsp">Blog Standard Sidebar</a></li>
+                                            <li><a href="blog-details.jsp">Blog Details</a></li>
                                         </ul>
                                     </li>
                                     <li class="nav-dashboard"><a href="javascript:;">Dashboard <i class="fa fa-chevron-down"></i></a>
                                         <ul class="sub-menu">
-                                            <li><a href="admin/index.html">Dashboard</a></li>
-                                            <li><a href="admin/add-listing.html">Add Listing</a></li>
-                                            <li><a href="admin/bookmark.html">Bookmark</a></li>
-                                            <li><a href="admin/courses.html">Courses</a></li>
-                                            <li><a href="admin/review.html">Review</a></li>
-                                            <li><a href="admin/teacher-profile.html">Teacher Profile</a></li>
-                                            <li><a href="admin/user-profile.html">User Profile</a></li>
+                                            <li><a href="admin/index.jsp">Dashboard</a></li>
+                                            <li><a href="admin/add-listing.jsp">Add Listing</a></li>
+                                            <li><a href="admin/bookmark.jsp">Bookmark</a></li>
+                                            <li><a href="admin/courses.jsp">Courses</a></li>
+                                            <li><a href="admin/review.jsp">Review</a></li>
+                                            <li><a href="admin/teacher-profile.jsp">Teacher Profile</a></li>
+                                            <li><a href="admin/user-profile.jsp">User Profile</a></li>
                                             <li><a href="javascript:;">Calendar<i class="fa fa-angle-right"></i></a>
                                                 <ul class="sub-menu">
-                                                    <li><a href="admin/basic-calendar.html">Basic Calendar</a></li>
-                                                    <li><a href="admin/list-view-calendar.html">List View Calendar</a></li>
+                                                    <li><a href="admin/basic-calendar.jsp">Basic Calendar</a></li>
+                                                    <li><a href="admin/list-view-calendar.jsp">List View Calendar</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="javascript:;">Mailbox<i class="fa fa-angle-right"></i></a>
                                                 <ul class="sub-menu">
-                                                    <li><a href="admin/mailbox.html">Mailbox</a></li>
-                                                    <li><a href="admin/mailbox-compose.html">Compose</a></li>
-                                                    <li><a href="admin/mailbox-read.html">Mail Read</a></li>
+                                                    <li><a href="admin/mailbox.jsp">Mailbox</a></li>
+                                                    <li><a href="admin/mailbox-compose.jsp">Compose</a></li>
+                                                    <li><a href="admin/mailbox-read.jsp">Mail Read</a></li>
                                                 </ul>
                                             </li>
                                         </ul>
@@ -421,7 +421,7 @@
                         <div class="container">
                             <div class="d-flex align-items-stretch">
                                 <div class="pt-logo mr-auto">
-                                    <a href="index.html"><img src="assets/images/logo-white.png" alt=""/></a>
+                                    <a href="index.jsp"><img src="assets/images/logo-white.png" alt=""/></a>
                                 </div>
                                 <div class="pt-social-link">
                                     <ul class="list-inline m-a0">
@@ -435,86 +435,6 @@
                                     <a href="#" class="btn ">Join Now</a>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-12 col-sm-12 footer-col-4">
-                                <div class="widget">
-                                    <h5 class="footer-title">Sign Up For A Newsletter</h5>
-                                    <p class="text-capitalize m-b20">Weekly Breaking news analysis and cutting edge advices on job searching.</p>
-                                    <div class="subscribe-form m-b20">
-                                        <form class="subscription-form" action="http://educhamp.themetrades.com/demo/assets/script/mailchamp.php" method="post">
-                                            <div class="ajax-message"></div>
-                                            <div class="input-group">
-                                                <input name="email" required="required"  class="form-control" placeholder="Your Email Address" type="email">
-                                                <span class="input-group-btn">
-                                                    <button name="submit" value="Submit" type="submit" class="btn"><i class="fa fa-arrow-right"></i></button>
-                                                </span> 
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-5 col-md-7 col-sm-12">
-                                <div class="row">
-                                    <div class="col-4 col-lg-4 col-md-4 col-sm-4">
-                                        <div class="widget footer_widget">
-                                            <h5 class="footer-title">Company</h5>
-                                            <ul>
-                                                <li><a href="index.html">Home</a></li>
-                                                <li><a href="about-1.html">About</a></li>
-                                                <li><a href="faq-1.html">FAQs</a></li>
-                                                <li><a href="contact-1.html">Contact</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 col-lg-4 col-md-4 col-sm-4">
-                                        <div class="widget footer_widget">
-                                            <h5 class="footer-title">Get In Touch</h5>
-                                            <ul>
-                                                <li><a href="http://educhamp.themetrades.com/admin/index.html">Dashboard</a></li>
-                                                <li><a href="blog-classic-grid.html">Blog</a></li>
-                                                <li><a href="portfolio.html">Portfolio</a></li>
-                                                <li><a href="event.html">Event</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 col-lg-4 col-md-4 col-sm-4">
-                                        <div class="widget footer_widget">
-                                            <h5 class="footer-title">Courses</h5>
-                                            <ul>
-                                                <li><a href="courses.html">Courses</a></li>
-                                                <li><a href="courses-details.html">Details</a></li>
-                                                <li><a href="membership.html">Membership</a></li>
-                                                <li><a href="profile.html">Profile</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-3 col-md-5 col-sm-12 footer-col-4">
-                                <div class="widget widget_gallery gallery-grid-4">
-                                    <h5 class="footer-title">Our Gallery</h5>
-                                    <ul class="magnific-image">
-                                        <li><a href="assets/images/gallery/pic1.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic1.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic2.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic2.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic3.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic3.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic4.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic4.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic5.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic5.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic6.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic6.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic7.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic7.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic8.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic8.jpg" alt=""></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 text-center"><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></div>
                         </div>
                     </div>
                 </div>

@@ -111,7 +111,10 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect(contextPath + "/admin/index.jsp");
         } else if (roleId == 2) { // User
             response.sendRedirect(contextPath + "/home.jsp");
-        } else {
+        }else if(roleId==3){
+            response.sendRedirect("staff/index_staff.jsp");
+        }
+        else {
             // Trường hợp RoleID không xác định, về trang mặc định
             response.sendRedirect(contextPath + "/home.jsp");
         }

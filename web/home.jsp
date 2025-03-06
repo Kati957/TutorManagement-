@@ -64,9 +64,9 @@
     </head>
 
     <body id="bg">
-    <%
-    User user = (User)session.getAttribute("user"); 
-    %>
+        <%
+            User user = (User) session.getAttribute("user");
+        %>
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
             <!-- Header Top ==== -->
@@ -76,7 +76,7 @@
                         <div class="row d-flex justify-content-between">
                             <div class="topbar-left">
                                 <ul>
-                                    <li><a href="faq-1.jsp"><i class="fa fa-question-circle"></i>Ask a Question</a></li>
+                                    <li><a href="faq-1.html"><i class="fa fa-question-circle"></i>Ask a Question</a></li>
                                     <li><a href="javascript:;"><i class="fa fa-envelope-o"></i>Support@website.com</a></li>
                                 </ul>
                             </div>
@@ -88,19 +88,18 @@
                                             <option data-icon="flag flag-us">English US</option>
                                         </select>
                                     </li>
-                                   <% if (user == null) { %>
+                                    <% if (user == null) { %>
                                     <li><a href="login">Login</a></li>
-                                    <li><a href="user?service=registerUser">Register</a></li>
-                                        <%}else{%>
+                                    <li><a href="User?service=registerUser">Register</a></li>
+                                        <%} else {%>
                                     <li>
                                         <div class="ttr-header-submenu">
                                             <ul>
                                                 <li><a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a></li>
                                                 <li><a href="profile_user.jsp">My profile</a></li>
-                                                <li><a href="list-view-calendar.jsp">Activity</a></li>
-                                                <li><a href="mailbox.jsp">Messages</a></li>
-                                                <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
-                                                <li><a href="cv">Become tutor</a></li>
+                                                <li><a href="list-view-calendar.html">Activity</a></li>
+                                                <li><a href="cv">Become a tutor</a></li>
+                                                <li><a href="logout">Logout</a></li>
                                             </ul>
                                         </div>
                                     </li>
@@ -115,7 +114,7 @@
                         <div class="container clearfix">
                             <!-- Header Logo ==== -->
                             <div class="menu-logo">
-                                <a href="index.jsp"><img src="assets/images/logo-white.png" alt=""></a>
+                                <a href="home.jsp"><img src="assets/images/logo-white.png" alt=""></a>
                             </div>
                             <!-- Mobile Nav Button ==== -->
                             <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -146,16 +145,14 @@
                             <!-- Navigation Menu ==== -->
                             <div class="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
                                 <div class="menu-logo">
-                                    <a href="index.jsp"><img src="assets/images/logo.png" alt=""></a>
+                                    <a href="home.jsp"><img src="assets/images/logo.png" alt=""></a>
                                 </div>
                                 <ul class="nav navbar-nav">	
                                     <li class="active"><a href="home.jsp">Home</a>
                                     </li>
                                     <li class="add-mega-menu"><a href="Courses">Our Courses</a>
                                     </li>
-
-                                    <li><a href="BlogController">Blog</a>
-
+                                    <li><a href="blog-classic-sidebar.jsp">Blog</a>
                                     </li>
                                 </ul>
                                 <div class="nav-social-link">
@@ -186,7 +183,7 @@
                                     data-easein="default" 
                                     data-easeout="default" 
                                     data-masterspeed="default" 
-                                    data-thumb="error-404.jsp" 
+                                    data-thumb="error-404.html" 
                                     data-rotate="0" 
                                     data-fstransition="fade" 
                                     data-fsmasterspeed="1500" 
@@ -248,7 +245,7 @@
                                          data-paddingbottom="[10,10,10,10]"
                                          data-paddingleft="[0,0,0,0]"
                                          style="z-index: 6; font-family:rubik; font-weight:700; text-align:center; white-space: normal;">
-                                        Welcome To University
+                                        Welcome To Tutor Management
                                     </div>
 
                                     <!-- LAYER NR. 3 -->
@@ -513,7 +510,7 @@
                                             <div class="feature-box-sm radius bg-white">
                                                 <i class="fa fa-bank text-primary"></i>
                                             </div>
-                                            <h4><a href="#">Best Industry Leaders</a></h4>
+                                            <h4><a href="#">All Tutors</a></h4>
                                             <a href="#" class="btn radius-xl">View More</a>
                                         </div>
                                     </div>
@@ -527,7 +524,7 @@
                                             <div class="feature-box-sm radius bg-white">
                                                 <i class="fa fa-book text-primary"></i>
                                             </div>
-                                            <h4><a href="#">Learn Courses Online</a></h4>
+                                            <h4><a href="#">All Subjects</a></h4>
                                             <a href="#" class="btn radius-xl">View More</a>
                                         </div>
                                     </div>
@@ -541,8 +538,8 @@
                                             <div class="feature-box-sm radius bg-white">
                                                 <i class="fa fa-file-text-o text-primary"></i>
                                             </div>
-                                            <h4><a href="#">Book Library & Store</a></h4>
-                                            <a href="#" class="btn radius-xl">View More</a>
+                                            <h4><a href="myschedule">My Schedule</a></h4>
+                                            <a href="myschedule" class="btn radius-xl">View More</a>
                                         </div>
                                     </div>
                                 </div>
@@ -556,184 +553,81 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12 heading-bx left">
-                                    <h2 class="title-head">Popular <span>Courses</span></h2>
-                                    <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+                                    <h2 class="title-head">Top <span>Tutors</span></h2>
+                                    <p>Những Gia sư hàng đầu của chúng tôi:</p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="courses-carousel owl-carousel owl-btn-1 col-12 p-lr0">
-                                    <div class="item">
-                                        <div class="cours-bx">
-                                            <div class="action-box">
-                                                <img src="assets/images/courses/pic1.jpg" alt="">
-                                                <a href="#" class="btn">Read More</a>
-                                            </div>
-                                            <div class="info-bx text-center">
-                                                <h5><a href="#">Introduction EduChamp – LMS plugin</a></h5>
-                                                <span>Programming</span>
-                                            </div>
-                                            <div class="cours-more-info">
-                                                <div class="review">
-                                                    <span>3 Review</span>
-                                                    <ul class="cours-star">
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                    </ul>
+                                    <c:forEach var="tutor" items="${topTutors}">
+                                        <div class="item">
+                                            <div class="cours-bx">
+                                                <div class="action-box">
+                                                    <img src="${tutor.cv.user.avatar}" alt="Avatar">
+                                                    <a href="#" class="btn">Read More</a>
                                                 </div>
-                                                <div class="price">
-                                                    <del>$190</del>
-                                                    <h5>$120</h5>
+                                                <div class="info-bx text-center">
+                                                    <h5><a href="#">${tutor.cv.user.fullName}</a></h5>
+                                                    <span>${tutor.cv.description}</span>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="cours-bx">
-                                            <div class="action-box">
-                                                <img src="assets/images/courses/pic2.jpg" alt="">
-                                                <a href="#" class="btn">Read More</a>
-                                            </div>
-                                            <div class="info-bx text-center">
-                                                <h5><a href="#">Introduction EduChamp – LMS plugin</a></h5>
-                                                <span>Programming</span>
-                                            </div>
-                                            <div class="cours-more-info">
-                                                <div class="review">
-                                                    <span>3 Review</span>
-                                                    <ul class="cours-star">
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="price">
-                                                    <del>$190</del>
-                                                    <h5>$120</h5>
+                                                <div class="cours-more-info">
+                                                    <div class="review">
+                                                        <span>${tutor.rating} Rating</span>
+                                                        <ul class="cours-star">
+                                                            <c:forEach begin="1" end="5" var="i">
+                                                                <li class="${i <= tutor.rating ? 'active' : ''}">
+                                                                    <i class="fa fa-star"></i>
+                                                                </li>
+                                                            </c:forEach>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="price">
+                                                        <small>${tutor.cv.user.email}</small>
+                                                        <h5>${tutor.cv.user.phone}</h5>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="cours-bx">
-                                            <div class="action-box">
-                                                <img src="assets/images/courses/pic3.jpg" alt="">
-                                                <a href="#" class="btn">Read More</a>
-                                            </div>
-                                            <div class="info-bx text-center">
-                                                <h5><a href="#">Introduction EduChamp – LMS plugin</a></h5>
-                                                <span>Programming</span>
-                                            </div>
-                                            <div class="cours-more-info">
-                                                <div class="review">
-                                                    <span>3 Review</span>
-                                                    <ul class="cours-star">
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="price">
-                                                    <del>$190</del>
-                                                    <h5>$120</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="cours-bx">
-                                            <div class="action-box">
-                                                <img src="assets/images/courses/pic4.jpg" alt="">
-                                                <a href="#" class="btn">Read More</a>
-                                            </div>
-                                            <div class="info-bx text-center">
-                                                <h5><a href="#">Introduction EduChamp – LMS plugin</a></h5>
-                                                <span>Programming</span>
-                                            </div>
-                                            <div class="cours-more-info">
-                                                <div class="review">
-                                                    <span>3 Review</span>
-                                                    <ul class="cours-star">
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li class="active"><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="price">
-                                                    <del>$190</del>
-                                                    <h5>$120</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- Popular Courses END -->
-
-                    <!-- Form -->
-                    <div class="section-area section-sp1 ovpr-dark bg-fix online-cours" style="background-image:url(assets/images/background/bg1.jpg);">
+                    <!-- Testimonials -->
+                    <div class="section-area section-sp2 bg-fix ovbl-dark" style="background-image:url(assets/images/background/bg1.jpg);">
                         <div class="container">
                             <div class="row">
-                                <div class="col-md-12 text-center text-white">
-                                    <h2>Online Courses To Learn</h2>
-                                    <h5>Own Your Feature Learning New Skills Online</h5>
-                                    <form class="cours-search">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="What do you want to learn today?	">
-                                            <div class="input-group-append">
-                                                <button class="btn" type="submit">Search</button> 
-                                            </div>
-                                        </div>
-                                    </form>
+                                <div class="col-md-12 text-white heading-bx left">
+                                    <h2 class="title-head text-uppercase">Top Subjects <span>have the most Bookings</span></h2>
+                                    <p>Những môn học nhận được nhiều lượt booking nhất của chúng tôi:</p>
                                 </div>
                             </div>
-                            <div class="mw800 m-auto">
-                                <div class="row">
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="cours-search-bx m-b30">
-                                            <div class="icon-box">
-                                                <h3><i class="ti-user"></i><span class="counter">5</span>M</h3>
+                            <div class="testimonial-carousel owl-carousel owl-btn-1 col-12 p-lr0">
+                                <c:forEach var="subject" items="${topSubjects}" varStatus="status">
+                                    <div class="item">
+                                        <div class="testimonial-bx">
+                                            <div class="testimonial-info">
+                                                <a href="#"><h5 class="name">Top ${status.index + 1}:  ${subject.subjectName}</h5></a>
+                                                <p>Booking Count: ${subject.bookingCount} </p>
                                             </div>
-                                            <span class="cours-search-text">Over 5 million student</span>
+                                            <div class="testimonial-content">
+                                                <p>Description: ${subject.description}</p>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="cours-search-bx m-b30">
-                                            <div class="icon-box">
-                                                <h3><i class="ti-book"></i><span class="counter">30</span>K</h3>
-                                            </div>
-                                            <span class="cours-search-text">30,000 Courses.</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm-12">
-                                        <div class="cours-search-bx m-b30">
-                                            <div class="icon-box">
-                                                <h3><i class="ti-layout-list-post"></i><span class="counter">20</span>K</h3>
-                                            </div>
-                                            <span class="cours-search-text">Learn Anythink Online.</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                </c:forEach>
                             </div>
                         </div>
                     </div>
-                    <!-- Form END -->
+                    <!-- Testimonials END -->
+
                     <div class="section-area section-sp2">
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12 text-center heading-bx">
-                                    <h2 class="title-head m-b0">Upcoming <span>Events</span></h2>
-                                    <p class="m-b0">Upcoming Education Events To Feed Brain. </p>
+                                    <h2 class="title-head m-b0"> My Upcoming <span>Schedules</span></h2>
+                                    <p class="m-b0">Lịch sắp tới của tôi: </p>
                                 </div>
                             </div>
                             <div class="row">
@@ -810,126 +704,10 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <a href="#" class="btn">View All Event</a>
+                                <a href="myschedule" class="btn">View All My Schedules</a>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Testimonials -->
-                    <div class="section-area section-sp2 bg-fix ovbl-dark" style="background-image:url(assets/images/background/bg1.jpg);">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12 text-white heading-bx left">
-                                    <h2 class="title-head text-uppercase">what people <span>say</span></h2>
-                                    <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
-                                </div>
-                            </div>
-                            <div class="testimonial-carousel owl-carousel owl-btn-1 col-12 p-lr0">
-                                <div class="item">
-                                    <div class="testimonial-bx">
-                                        <div class="testimonial-thumb">
-                                            <img src="assets/images/testimonials/pic1.jpg" alt="">
-                                        </div>
-                                        <div class="testimonial-info">
-                                            <h5 class="name">Peter Packer</h5>
-                                            <p>-Art Director</p>
-                                        </div>
-                                        <div class="testimonial-content">
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type...</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="testimonial-bx">
-                                        <div class="testimonial-thumb">
-                                            <img src="assets/images/testimonials/pic2.jpg" alt="">
-                                        </div>
-                                        <div class="testimonial-info">
-                                            <h5 class="name">Peter Packer</h5>
-                                            <p>-Art Director</p>
-                                        </div>
-                                        <div class="testimonial-content">
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type...</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Testimonials END -->
-
-                    <!-- Recent News -->
-                    <div class="section-area section-sp2">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12 heading-bx left">
-                                    <h2 class="title-head">Recent <span>News</span></h2>
-                                    <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
-                                </div>
-                            </div>
-                            <div class="recent-news-carousel owl-carousel owl-btn-1 col-12 p-lr0">
-                                <div class="item">
-                                    <div class="recent-news">
-                                        <div class="action-box">
-                                            <img src="assets/images/blog/latest-blog/pic1.jpg" alt="">
-                                        </div>
-                                        <div class="info-bx">
-                                            <ul class="media-post">
-                                                <li><a href="#"><i class="fa fa-calendar"></i>Jan 02 2019</a></li>
-                                                <li><a href="#"><i class="fa fa-user"></i>By William</a></li>
-                                            </ul>
-                                            <h5 class="post-title"><a href="blog-details.jsp">This Story Behind Education Will Haunt You Forever.</a></h5>
-                                            <p>Knowing that, you’ve optimised your pages countless amount of times, written tons.</p>
-                                            <div class="post-extra">
-                                                <a href="#" class="btn-link">READ MORE</a>
-                                                <a href="#" class="comments-bx"><i class="fa fa-comments-o"></i>20 Comment</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="recent-news">
-                                        <div class="action-box">
-                                            <img src="assets/images/blog/latest-blog/pic2.jpg" alt="">
-                                        </div>
-                                        <div class="info-bx">
-                                            <ul class="media-post">
-                                                <li><a href="#"><i class="fa fa-calendar"></i>Feb 05 2019</a></li>
-                                                <li><a href="#"><i class="fa fa-user"></i>By John</a></li>
-                                            </ul>
-                                            <h5 class="post-title"><a href="blog-details.jsp">What Will Education Be Like In The Next 50 Years?</a></h5>
-                                            <p>As desperate as you are right now, you have done everything you can on your.</p>
-                                            <div class="post-extra">
-                                                <a href="#" class="btn-link">READ MORE</a>
-                                                <a href="#" class="comments-bx"><i class="fa fa-comments-o"></i>14 Comment</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="recent-news">
-                                        <div class="action-box">
-                                            <img src="assets/images/blog/latest-blog/pic3.jpg" alt="">
-                                        </div>
-                                        <div class="info-bx">
-                                            <ul class="media-post">
-                                                <li><a href="#"><i class="fa fa-calendar"></i>April 14 2019</a></li>
-                                                <li><a href="#"><i class="fa fa-user"></i>By George</a></li>
-                                            </ul>
-                                            <h5 class="post-title"><a href="blog-details.jsp">Master The Skills Of Education And Be.</a></h5>
-                                            <p>You will see in the guide all my years of valuable experience together with.</p>
-                                            <div class="post-extra">
-                                                <a href="#" class="btn-link">READ MORE</a>
-                                                <a href="#" class="comments-bx"><i class="fa fa-comments-o"></i>23 Comment</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Recent News End -->
-
                 </div>
                 <!-- contact area END -->
             </div>
@@ -941,7 +719,7 @@
                         <div class="container">
                             <div class="d-flex align-items-stretch">
                                 <div class="pt-logo mr-auto">
-                                    <a href="index.jsp"><img src="assets/images/logo-white.png" alt=""/></a>
+                                    <a href="home.jsp"><img src="assets/images/logo-white.png" alt=""/></a>
                                 </div>
                                 <div class="pt-social-link">
                                     <ul class="list-inline m-a0">
@@ -955,86 +733,6 @@
                                     <a href="#" class="btn ">Join Now</a>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-12 col-sm-12 footer-col-4">
-                                <div class="widget">
-                                    <h5 class="footer-title">Sign Up For A Newsletter</h5>
-                                    <p class="text-capitalize m-b20">Weekly Breaking news analysis and cutting edge advices on job searching.</p>
-                                    <div class="subscribe-form m-b20">
-                                        <form class="subscription-form" action="http://educhamp.themetrades.com/demo/assets/script/mailchamp.php" method="post">
-                                            <div class="ajax-message"></div>
-                                            <div class="input-group">
-                                                <input name="email" required="required"  class="form-control" placeholder="Your Email Address" type="email">
-                                                <span class="input-group-btn">
-                                                    <button name="submit" value="Submit" type="submit" class="btn"><i class="fa fa-arrow-right"></i></button>
-                                                </span> 
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-5 col-md-7 col-sm-12">
-                                <div class="row">
-                                    <div class="col-4 col-lg-4 col-md-4 col-sm-4">
-                                        <div class="widget footer_widget">
-                                            <h5 class="footer-title">Company</h5>
-                                            <ul>
-                                                <li><a href="index.jsp">Home</a></li>
-                                                <li><a href="about-1.jsp">About</a></li>
-                                                <li><a href="faq-1.jsp">FAQs</a></li>
-                                                <li><a href="contact-1.jsp">Contact</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 col-lg-4 col-md-4 col-sm-4">
-                                        <div class="widget footer_widget">
-                                            <h5 class="footer-title">Get In Touch</h5>
-                                            <ul>
-                                                <li><a href="http://educhamp.themetrades.com/admin/index.jsp">Dashboard</a></li>
-                                                <li><a href="blog-classic-grid.jsp">Blog</a></li>
-                                                <li><a href="portfolio.jsp">Portfolio</a></li>
-                                                <li><a href="event.jsp">Event</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 col-lg-4 col-md-4 col-sm-4">
-                                        <div class="widget footer_widget">
-                                            <h5 class="footer-title">Courses</h5>
-                                            <ul>
-                                                <li><a href="courses.jsp">Courses</a></li>
-                                                <li><a href="courses-details.jsp">Details</a></li>
-                                                <li><a href="membership.jsp">Membership</a></li>
-                                                <li><a href="profile.jsp">Profile</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-3 col-md-5 col-sm-12 footer-col-4">
-                                <div class="widget widget_gallery gallery-grid-4">
-                                    <h5 class="footer-title">Our Gallery</h5>
-                                    <ul class="magnific-image">
-                                        <li><a href="assets/images/gallery/pic1.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic1.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic2.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic2.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic3.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic3.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic4.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic4.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic5.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic5.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic6.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic6.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic7.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic7.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic8.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic8.jpg" alt=""></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 text-center"> <a target="_blank" href="https://www.templateshub.net">Templates Hub</a></div>
                         </div>
                     </div>
                 </div>

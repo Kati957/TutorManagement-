@@ -31,7 +31,7 @@
                             <h2 class="title-head">Sign Up <span>Now</span></h2>
                             <p>Login Your Account <a href="login.jsp">Click here</a></p>
                         </div>
-                        <form action="user" method="POST" class="contact-bx">
+                        <form action="User" method="POST" class="contact-bx">
                             <input type="hidden" name="service" value="registerUser">
                             <div class="row placeani">
                                 <input type="hidden" name="RoleID" value="2">
