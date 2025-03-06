@@ -1,5 +1,6 @@
 package controller.Customer;
 
+import com.google.gson.Gson;
 import entity.Schedule;
 import entity.Subject;
 import entity.User;
@@ -10,6 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 import model.DAOSchedule;
 import model.DAOSubject;
 
@@ -19,31 +21,13 @@ public class ViewScheduleServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         DAOSchedule daoSchedule = new DAOSchedule();
-        DAOSubject daoSubject = new DAOSubject();
-
         User user = (User) request.getSession().getAttribute("user");
-
         String search = request.getParameter("search") != null ? request.getParameter("search") : "";
-        String sortBy = request.getParameter("sortBy") != null ? request.getParameter("sortBy") : "BookingDate";
-        String order = request.getParameter("order") != null ? request.getParameter("order") : "asc";
-        int page = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
-        int pageSize = 5;
-
-        String subject = request.getParameter("subject");
-        if (subject != null && !subject.isEmpty()) {
-            search = subject; 
-        }
-
-        List<Schedule> schedules = daoSchedule.getSchedulesByUserId(user.getUserID(), search, sortBy, order, page, pageSize);
-
-        List<Subject> subjects = daoSubject.getAllSubjects();
-        request.setAttribute("subjects", subjects);
-
+        
+        List<Map<String, Object>> schedules = daoSchedule.getSchedulesByUserId(user.getUserID(), search);
+        System.out.println(schedules);
         request.setAttribute("schedules", schedules);
         request.setAttribute("search", search);
-        request.setAttribute("sortBy", sortBy);
-        request.setAttribute("order", order);
-        request.setAttribute("page", page);
         request.getRequestDispatcher("user/myschedule.jsp").forward(request, response);
     }
 
