@@ -255,92 +255,89 @@
                 <nav class="ttr-sidebar-navi">
                     <ul>
                         <li>
-                            <a href="dashboard.jsp" class="ttr-material-button">
+                            <a href="index.jsp" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-home"></i></span>
-                                <span class="ttr-label">Dashborad</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="courses.jsp" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-book"></i></span>
-                                <span class="ttr-label">Courses</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="RequestCV" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-book"></i></span>
-                                <span class="ttr-label">Request tutor</span>
+                                <span class="ttr-label">Dashborad</span> 
                             </a>
                         </li>
                         <li>
                             <a href="#" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-email"></i></span>
-                                <span class="ttr-label">Mailbox</span>
+                                <span class="ttr-icon"><i class="ti-briefcase"></i></span>
+                                <span class="ttr-label">Tutor Management</span>
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
                                 <li>
-                                    <a href="mailbox.jsp" class="ttr-material-button"><span class="ttr-label">Mail Box</span></a>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Courses</span></a>
                                 </li>
                                 <li>
-                                    <a href="mailbox-compose.jsp" class="ttr-material-button"><span class="ttr-label">Compose</span></a>
+                                    <a href="RequestCV" class="ttr-material-button"><span class="ttr-label">Status CV</span></a>
                                 </li>
                                 <li>
-                                    <a href="mailbox-read.jsp" class="ttr-material-button"><span class="ttr-label">Mail Read</span></a>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Edit Subject</span></a>
                                 </li>
                             </ul>
                         </li>
                         <li>
                             <a href="#" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-calendar"></i></span>
-                                <span class="ttr-label">Calendar</span>
-                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a href="basic-calendar.jsp" class="ttr-material-button"><span class="ttr-label">Basic Calendar</span></a>
-                                </li>
-                                <li>
-                                    <a href="list-view-calendar.jsp" class="ttr-material-button"><span class="ttr-label">List View</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="bookmark.jsp" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-bookmark-alt"></i></span>
-                                <span class="ttr-label">Bookmarks</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="review.jsp" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-comments"></i></span>
-                                <span class="ttr-label">Review</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="staff-management.jsp" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-user"></i></span>
                                 <span class="ttr-label">Staff Management</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="add-listing.jsp" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-layout-accordion-list"></i></span>
-                                <span class="ttr-label">Add listing</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-user"></i></span>
-                                <span class="ttr-label">My Profile</span>
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
                                 <li>
-                                    <a href="user-profile.jsp" class="ttr-material-button"><span class="ttr-label">User Profile</span></a>
+                                    <a href="StaffRegister" class="ttr-material-button"><span class="ttr-label">Staff Management</span></a>
                                 </li>
                                 <li>
-                                    <a href="teacher-profile.jsp" class="ttr-material-button"><span class="ttr-label">Teacher Profile</span></a>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View Reports</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-id-badge"></i></span>
+                                <span class="ttr-label">User Management</span>
+                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Profile</span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Tutor</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-credit-card"></i></span>
+                                <span class="ttr-label">Payment</span>
+                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-book"></i></span>
+                                <span class="ttr-label">Content Management</span>
+                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Blog</span></a>
                                 </li>
                             </ul>
                         </li>

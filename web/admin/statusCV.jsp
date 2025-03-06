@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <%@page import="entity.User,java.sql.ResultSet"%>
-    <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:10:19 GMT -->
+    <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:10:19 GMT -->
     <head>
 
         <!-- META ============================================= -->
@@ -21,7 +21,7 @@
         <meta name="format-detection" content="telephone=no">
 
         <!-- FAVICONS ICON ============================================= -->
-        <link rel="icon" href="../error-404.html" type="image/x-icon" />
+        <link rel="icon" href="../error-404.jsp" type="image/x-icon" />
         <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
 
         <!-- PAGE TITLE HERE ============================================= -->
@@ -68,7 +68,7 @@
                 <!--logo start -->
                 <div class="ttr-logo-box">
                     <div>
-                        <a href="index.html" class="ttr-logo">
+                        <a href="index.jsp" class="ttr-logo">
                             <img alt="" class="ttr-logo-mobile" src="assets/images/logo-mobile.png" width="30" height="30">
                             <img alt="" class="ttr-logo-desktop" src="assets/images/logo-white.png" width="160" height="27">
                         </a>
@@ -79,15 +79,15 @@
                     <!-- header left menu start -->
                     <ul class="ttr-header-navigation">
                         <li>
-                            <a href="../index.html" class="ttr-material-button ttr-submenu-toggle">HOME</a>
+                            <a href="../index.jsp" class="ttr-material-button ttr-submenu-toggle">HOME</a>
                         </li>
                         <li>
                             <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i class="fa fa-angle-down"></i></a>
                             <div class="ttr-header-submenu">
                                 <ul>
-                                    <li><a href="../courses.html">Our Courses</a></li>
-                                    <li><a href="../event.html">New Event</a></li>
-                                    <li><a href="../membership.html">Membership</a></li>
+                                    <li><a href="../courses.jsp">Our Courses</a></li>
+                                    <li><a href="../event.jsp">New Event</a></li>
+                                    <li><a href="../membership.jsp">Membership</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -177,10 +177,10 @@
                             <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
                             <div class="ttr-header-submenu">
                                 <ul>
-                                    <li><a href="user-profile.html">My profile</a></li>
-                                    <li><a href="list-view-calendar.html">Activity</a></li>
-                                    <li><a href="mailbox.html">Messages</a></li>
-                                    <li><a href="../login.html">Logout</a></li>
+                                    <li><a href="user-profile.jsp">My profile</a></li>
+                                    <li><a href="list-view-calendar.jsp">Activity</a></li>
+                                    <li><a href="mailbox.jsp">Messages</a></li>
+                                    <li><a href="../login.jsp">Logout</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -251,86 +251,89 @@
                 <nav class="ttr-sidebar-navi">
                     <ul>
                         <li>
-                            <a href="index.html" class="ttr-material-button">
+                            <a href="index.jsp" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-home"></i></span>
-                                <span class="ttr-label">Dashborad</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="courses.html" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-book"></i></span>
-                                <span class="ttr-label">Courses</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="RequestCV" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-book"></i></span>
-                                <span class="ttr-label">Request tutor</span>
+                                <span class="ttr-label">Dashborad</span> 
                             </a>
                         </li>
                         <li>
                             <a href="#" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-email"></i></span>
-                                <span class="ttr-label">Mailbox</span>
+                                <span class="ttr-icon"><i class="ti-briefcase"></i></span>
+                                <span class="ttr-label">Tutor Management</span>
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
                                 <li>
-                                    <a href="mailbox.html" class="ttr-material-button"><span class="ttr-label">Mail Box</span></a>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Courses</span></a>
                                 </li>
                                 <li>
-                                    <a href="mailbox-compose.html" class="ttr-material-button"><span class="ttr-label">Compose</span></a>
+                                    <a href="RequestCV" class="ttr-material-button"><span class="ttr-label">Status CV</span></a>
                                 </li>
                                 <li>
-                                    <a href="mailbox-read.html" class="ttr-material-button"><span class="ttr-label">Mail Read</span></a>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Edit Subject</span></a>
                                 </li>
                             </ul>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-calendar"></i></span>
-                                <span class="ttr-label">Calendar</span>
-                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a href="basic-calendar.html" class="ttr-material-button"><span class="ttr-label">Basic Calendar</span></a>
-                                </li>
-                                <li>
-                                    <a href="list-view-calendar.html" class="ttr-material-button"><span class="ttr-label">List View</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="bookmark.html" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-bookmark-alt"></i></span>
-                                <span class="ttr-label">Bookmarks</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="review.html" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-comments"></i></span>
-                                <span class="ttr-label">Review</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="add-listing.html" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-layout-accordion-list"></i></span>
-                                <span class="ttr-label">Add listing</span>
-                            </a>
                         </li>
                         <li>
                             <a href="#" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-user"></i></span>
-                                <span class="ttr-label">My Profile</span>
+                                <span class="ttr-label">Staff Management</span>
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
                                 <li>
-                                    <a href="user-profile.html" class="ttr-material-button"><span class="ttr-label">User Profile</span></a>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Staff Management</span></a>
                                 </li>
                                 <li>
-                                    <a href="teacher-profile.html" class="ttr-material-button"><span class="ttr-label">Teacher Profile</span></a>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View Reports</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-id-badge"></i></span>
+                                <span class="ttr-label">User Management</span>
+                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Profile</span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Tutor</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-credit-card"></i></span>
+                                <span class="ttr-label">Payment</span>
+                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-book"></i></span>
+                                <span class="ttr-label">Content Management</span>
+                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Blog</span></a>
                                 </li>
                             </ul>
                         </li>
@@ -401,5 +404,5 @@
         <script src='assets/vendors/switcher/switcher.js'></script>
     </body>
 
-    <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:11:35 GMT -->
+    <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:11:35 GMT -->
 </html>

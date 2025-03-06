@@ -8,490 +8,508 @@
 <%@ page import="entity.Blog" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <!-- META ============================================= -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="" />
-    <meta name="author" content="" />
-    <meta name="robots" content="" />
+    <!-- Mirrored from educhamp.themetrades.com/demo/admin/index.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:08:15 GMT -->
+    <head>
 
-    <!-- DESCRIPTION -->
-    <meta name="description" content="EduChamp : Education HTML Template" />
+        <!-- META ============================================= -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+        <meta name="robots" content="" />
 
-    <!-- OG -->
-    <meta property="og:title" content="EduChamp : Education HTML Template" />
-    <meta property="og:description" content="EduChamp : Education HTML Template" />
-    <meta property="og:image" content="" />
-    <meta name="format-detection" content="telephone=no">
+        <!-- DESCRIPTION -->
+        <meta name="description" content="EduChamp : Education HTML Template" />
 
-    <!-- FAVICONS ICON ============================================= -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
+        <!-- OG -->
+        <meta property="og:title" content="EduChamp : Education HTML Template" />
+        <meta property="og:description" content="EduChamp : Education HTML Template" />
+        <meta property="og:image" content="" />
+        <meta name="format-detection" content="telephone=no">
 
-    <!-- PAGE TITLE HERE ============================================= -->
-    <title>EduChamp : Education HTML Template </title>
+        <!-- FAVICONS ICON ============================================= -->
+        <link rel="icon" href="../error-404.jsp" type="image/x-icon" />
+        <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
 
-    <!-- MOBILE SPECIFIC ============================================= -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- PAGE TITLE HERE ============================================= -->
+        <title>EduChamp : Education HTML Template </title>
 
-    <!--[if lt IE 9]>
-    <script src="assets/js/html5shiv.min.js"></script>
-    <script src="assets/js/respond.min.js"></script>
-    <![endif]-->
+        <!-- MOBILE SPECIFIC ============================================= -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- All PLUGINS CSS ============================================= -->
-    <link rel="stylesheet" type="text/css" href="staff/assets/css/assets.css">
+        <!--[if lt IE 9]>
+        <script src="assets/js/html5shiv.min.js"></script>
+        <script src="assets/js/respond.min.js"></script>
+        <![endif]-->
 
-    <!-- TYPOGRAPHY ============================================= -->
-    <link rel="stylesheet" type="text/css" href="staff/assets/css/typography.css">
+        <!-- All PLUGINS CSS ============================================= -->
+        <link rel="stylesheet" type="text/css" href="assets/css/assets.css">
+        <link rel="stylesheet" type="text/css" href="assets/vendors/calendar/fullcalendar.css">
 
-    <!-- SHORTCODES ============================================= -->
-    <link rel="stylesheet" type="text/css" href="staff/assets/css/shortcodes/shortcodes.css">
+        <!-- TYPOGRAPHY ============================================= -->
+        <link rel="stylesheet" type="text/css" href="assets/css/typography.css">
 
-    <!-- STYLESHEETS ============================================= -->
-    <link rel="stylesheet" type="text/css" href="staff/assets/css/style.css">
-    <link class="skin" rel="stylesheet" type="text/css" href="staff/assets/css/color/color-1.css">
-</head>
-<body id="bg">
-    <div class="page-wraper">
-        <div id="loading-icon-bx"></div>
+        <!-- SHORTCODES ============================================= -->
+        <link rel="stylesheet" type="text/css" href="assets/css/shortcodes/shortcodes.css">
 
-        <!-- Header Top ==== -->
-        <header class="header rs-nav">
-            <div class="top-bar">
-                <div class="container">
-                    <div class="row d-flex justify-content-between">
-                        <div class="topbar-left">
-                            <ul>
-                                <li><a href="faq-1.html"><i class="fa fa-question-circle"></i>Ask a Question</a></li>
-                                <li><a href="javascript:;"><i class="fa fa-envelope-o"></i>Support@website.com</a></li>
-                            </ul>
-                        </div>
-                        <div class="topbar-right">
-                            <ul>
-                                <li>
-                                    <select class="header-lang-bx">
-                                        <option data-icon="flag flag-uk">English UK</option>
-                                        <option data-icon="flag flag-us">English US</option>
-                                    </select>
-                                </li>
-                                <li><a href="login.html">Login</a></li>
-                                <li><a href="register.html">Register</a></li>
-                            </ul>
-                        </div>
+        <!-- STYLESHEETS ============================================= -->
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/dashboard.css">
+        <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
+
+    </head>
+    <body class="ttr-opened-sidebar ttr-pinned-sidebar">
+
+        <!-- header start -->
+        <header class="ttr-header">
+            <div class="ttr-header-wrapper">
+                <!--sidebar menu toggler start -->
+                <div class="ttr-toggle-sidebar ttr-material-button">
+                    <i class="ti-close ttr-open-icon"></i>
+                    <i class="ti-menu ttr-close-icon"></i>
+                </div>
+                <!--sidebar menu toggler end -->
+                <!--logo start -->
+                <div class="ttr-logo-box">
+                    <div>
+                        <a href="index.jsp" class="ttr-logo">
+                            <img class="ttr-logo-mobile" alt="" src="assets/images/logo-mobile.png" width="30" height="30">
+                            <img class="ttr-logo-desktop" alt="" src="assets/images/logo-white.png" width="160" height="27">
+                        </a>
                     </div>
                 </div>
-            </div>
-            <div class="sticky-header navbar-expand-lg">
-                <div class="menu-bar clearfix">
-                    <div class="container clearfix">
-                        <!-- Header Logo ==== -->
-                        <div class="menu-logo">
-                            <a href="index.html"><img src="assets/images/logo.png" alt=""></a>
-                        </div>
-                        <!-- Mobile Nav Button ==== -->
-                        <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </button>
-                        <!-- Author Nav ==== -->
-                        <div class="secondary-menu">
-                            <div class="secondary-inner">
+                <!--logo end -->
+                <div class="ttr-header-menu">
+                    <!-- header left menu start -->
+                    <ul class="ttr-header-navigation">
+                        <li>
+                            <a href="../index.jsp" class="ttr-material-button ttr-submenu-toggle">HOME</a>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i class="fa fa-angle-down"></i></a>
+                            <div class="ttr-header-submenu">
                                 <ul>
-                                    <li><a href="javascript:;" class="btn-link"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="javascript:;" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href="javascript:;" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
-                                    <!-- Search Button ==== -->
-                                    <li class="search-btn"><button id="quik-search-btn" type="button" class="btn-link"><i class="fa fa-search"></i></button></li>
+                                    <li><a href="../courses.jsp">Our Courses</a></li>
+                                    <li><a href="../event.jsp">New Event</a></li>
+                                    <li><a href="../membership.jsp">Membership</a></li>
                                 </ul>
                             </div>
-                        </div>
-                        <!-- Search Box ==== -->
-                        <div class="nav-search-bar">
-                            <form action="#">
-                                <input name="search" value="" type="text" class="form-control" placeholder="Type to search">
-                                <span><i class="ti-search"></i></span>
-                            </form>
-                            <span id="search-remove"><i class="ti-close"></i></span>
-                        </div>
-                        <!-- Navigation Menu ==== -->
-                        <div class="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
-                            <div class="menu-logo">
-                                <a href="index.html"><img src="assets/images/logo.png" alt=""></a>
+                        </li>
+                    </ul>
+                    <!-- header left menu end -->
+                </div>
+                <div class="ttr-header-right ttr-with-seperator">
+                    <!-- header right menu start -->
+                    <ul class="ttr-header-navigation">
+                        <li>
+                            <a href="#" class="ttr-material-button ttr-search-toggle"><i class="fa fa-search"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><i class="fa fa-bell"></i></a>
+                            <div class="ttr-header-submenu noti-menu">
+                                <div class="ttr-notify-header">
+                                    <span class="ttr-notify-text-top">9 New</span>
+                                    <span class="ttr-notify-text">User Notifications</span>
+                                </div>
+                                <div class="noti-box-list">
+                                    <ul>
+                                        <li>
+                                            <span class="notification-icon dashbg-gray">
+                                                <i class="fa fa-check"></i>
+                                            </span>
+                                            <span class="notification-text">
+                                                <span>Sneha Jogi</span> sent you a message.
+                                            </span>
+                                            <span class="notification-time">
+                                                <a href="#" class="fa fa-close"></a>
+                                                <span> 02:14</span>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span class="notification-icon dashbg-yellow">
+                                                <i class="fa fa-shopping-cart"></i>
+                                            </span>
+                                            <span class="notification-text">
+                                                <a href="#">Your order is placed</a> sent you a message.
+                                            </span>
+                                            <span class="notification-time">
+                                                <a href="#" class="fa fa-close"></a>
+                                                <span> 7 Min</span>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span class="notification-icon dashbg-red">
+                                                <i class="fa fa-bullhorn"></i>
+                                            </span>
+                                            <span class="notification-text">
+                                                <span>Your item is shipped</span> sent you a message.
+                                            </span>
+                                            <span class="notification-time">
+                                                <a href="#" class="fa fa-close"></a>
+                                                <span> 2 May</span>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span class="notification-icon dashbg-green">
+                                                <i class="fa fa-comments-o"></i>
+                                            </span>
+                                            <span class="notification-text">
+                                                <a href="#">Sneha Jogi</a> sent you a message.
+                                            </span>
+                                            <span class="notification-time">
+                                                <a href="#" class="fa fa-close"></a>
+                                                <span> 14 July</span>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span class="notification-icon dashbg-primary">
+                                                <i class="fa fa-file-word-o"></i>
+                                            </span>
+                                            <span class="notification-text">
+                                                <span>Sneha Jogi</span> sent you a message.
+                                            </span>
+                                            <span class="notification-time">
+                                                <a href="#" class="fa fa-close"></a>
+                                                <span> 15 Min</span>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                            <ul class="nav navbar-nav">	
-                                <li class="active"><a href="javascript:;">Home <i class="fa fa-chevron-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="index.html">Home 1</a></li>
-                                        <li><a href="index-2.html">Home 2</a></li>
-                                    </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
+                            <div class="ttr-header-submenu">
+                                <ul>
+                                    <li><a href="user-profile.jsp">My profile</a></li>
+                                    <li><a href="list-view-calendar.jsp">Activity</a></li>
+                                    <li><a href="mailbox.jsp">Messages</a></li>
+                                    <li><a href="../login.jsp">Logout</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="ttr-hide-on-mobile">
+                            <a href="#" class="ttr-material-button"><i class="ti-layout-grid3-alt"></i></a>
+                            <div class="ttr-header-submenu ttr-extra-menu">
+                                <a href="#">
+                                    <i class="fa fa-music"></i>
+                                    <span>Musics</span>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-youtube-play"></i>
+                                    <span>Videos</span>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-envelope"></i>
+                                    <span>Emails</span>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-book"></i>
+                                    <span>Reports</span>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-smile-o"></i>
+                                    <span>Persons</span>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-picture-o"></i>
+                                    <span>Pictures</span>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- header right menu end -->
+                </div>
+                <!--header search panel start -->
+                <div class="ttr-search-bar">
+                    <form class="ttr-search-form">
+                        <div class="ttr-search-input-wrapper">
+                            <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
+                            <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
+                        </div>
+                        <span class="ttr-search-close ttr-search-toggle">
+                            <i class="ti-close"></i>
+                        </span>
+                    </form>
+                </div>
+                <!--header search panel end -->
+            </div>
+        </header>
+        <!-- header end -->
+        <!-- Left sidebar menu start -->
+        <div class="ttr-sidebar">
+            <div class="ttr-sidebar-wrapper content-scroll">
+                <!-- side menu logo start -->
+                <div class="ttr-sidebar-logo">
+                    <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
+                    <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
+                            <i class="material-icons ttr-fixed-icon">gps_fixed</i>
+                            <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
+                    </div> -->
+                    <div class="ttr-sidebar-toggle-button">
+                        <i class="ti-arrow-left"></i>
+                    </div>
+                </div>
+                <!-- side menu logo end -->
+                <!-- sidebar menu start -->
+                <nav class="ttr-sidebar-navi">
+                    <ul>
+                        <li>
+                            <a href="index.jsp" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-home"></i></span>
+                                <span class="ttr-label">Dashborad</span> 
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-briefcase"></i></span>
+                                <span class="ttr-label">Tutor Management</span>
+                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Courses</span></a>
                                 </li>
-                                <li><a href="javascript:;">Pages <i class="fa fa-chevron-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="javascript:;">About<i class="fa fa-angle-right"></i></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="about-1.html">About 1</a></li>
-                                                <li><a href="about-2.html">About 2</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="javascript:;">Event<i class="fa fa-angle-right"></i></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="event.html">Event</a></li>
-                                                <li><a href="events-details.html">Events Details</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="javascript:;">FAQ's<i class="fa fa-angle-right"></i></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="faq-1.html">FAQ's 1</a></li>
-                                                <li><a href="faq-2.html">FAQ's 2</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="javascript:;">Contact Us<i class="fa fa-angle-right"></i></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="contact-1.html">Contact Us 1</a></li>
-                                                <li><a href="contact-2.html">Contact Us 2</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="portfolio.html">Portfolio</a></li>
-                                        <li><a href="profile.html">Profile</a></li>
-                                        <li><a href="membership.html">Membership</a></li>
-                                        <li><a href="error-404.html">404 Page</a></li>
-                                    </ul>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Status CV</span></a>
                                 </li>
-                                <li class="add-mega-menu"><a href="javascript:;">Our Courses <i class="fa fa-chevron-down"></i></a>
-                                    <ul class="sub-menu add-menu">
-                                        <li class="add-menu-left">
-                                            <h5 class="menu-adv-title">Our Courses</h5>
-                                            <ul>
-                                                <li><a href="courses.html">Courses </a></li>
-                                                <li><a href="courses-details.html">Courses Details</a></li>
-                                                <li><a href="profile.html">Instructor Profile</a></li>
-                                                <li><a href="event.html">Upcoming Event</a></li>
-                                                <li><a href="membership.html">Membership</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="add-menu-right">
-                                            <img src="assets/images/adv/adv.jpg" alt=""/>
-                                        </li>
-                                    </ul>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a>
                                 </li>
-                                <li><a href="javascript:;">Blog <i class="fa fa-chevron-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="blog-classic-grid.html">Blog Classic</a></li>
-                                        <li><a href="blog-classic-sidebar.html">Blog Classic Sidebar</a></li>
-                                        <li><a href="blog-list-sidebar.html">Blog List Sidebar</a></li>
-                                        <li><a href="blog-standard-sidebar.html">Blog Standard Sidebar</a></li>
-                                        <li><a href="blog-details.html">Blog Details</a></li>
-                                    </ul>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a>
                                 </li>
-                                <li class="nav-dashboard"><a href="javascript:;">Dashboard <i class="fa fa-chevron-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="admin/index.html">Dashboard</a></li>
-                                        <li><a href="admin/add-listing.html">Add Listing</a></li>
-                                        <li><a href="admin/bookmark.html">Bookmark</a></li>
-                                        <li><a href="admin/courses.html">Courses</a></li>
-                                        <li><a href="admin/review.html">Review</a></li>
-                                        <li><a href="admin/teacher-profile.html">Teacher Profile</a></li>
-                                        <li><a href="admin/user-profile.html">User Profile</a></li>
-                                        <li><a href="javascript:;">Calendar<i class="fa fa-angle-right"></i></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="admin/basic-calendar.html">Basic Calendar</a></li>
-                                                <li><a href="admin/list-view-calendar.html">List View Calendar</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="javascript:;">Mailbox<i class="fa fa-angle-right"></i></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="admin/mailbox.html">Mailbox</a></li>
-                                                <li><a href="admin/mailbox-compose.html">Compose</a></li>
-                                                <li><a href="admin/mailbox-read.html">Mail Read</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Edit Subject</span></a>
                                 </li>
                             </ul>
-                            <div class="nav-social-link">
-                                <a href="javascript:;"><i class="fa fa-facebook"></i></a>
-                                <a href="javascript:;"><i class="fa fa-google-plus"></i></a>
-                                <a href="javascript:;"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-user"></i></span>
+                                <span class="ttr-label">Staff Management</span>
+                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Staff Management</span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View Reports</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-id-badge"></i></span>
+                                <span class="ttr-label">User Management</span>
+                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Profile</span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Tutor</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-credit-card"></i></span>
+                                <span class="ttr-label">Payment</span>
+                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-book"></i></span>
+                                <span class="ttr-label">Content Management</span>
+                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/BlogController?service=listBlog" class="ttr-label">Blog</a>
+                                </li>
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/BlogController?service=addBlog" class="ttr-label">Add Blog</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="ttr-seperate"></li>
+                    </ul>
+                    <!-- sidebar menu end -->
+                </nav>
+                <!-- sidebar menu end -->
+            </div>
+        </div>
+        <!-- Left sidebar menu end -->
+
+        <!--Main container start -->
+        <main class="ttr-wrapper">
+            <div class="container-fluid">
+                <div class="db-breadcrumb">
+                    <h4 class="breadcrumb-title">Blog</h4>
+                </div>	
+                <div class="row">
+                    <div class="col-lg-12 m-b30">
+                        <div class="widget-box">
+                            <div class="wc-title">
+                                <h4>Basic Calendar</h4>
                             </div>
-                        </div>
-                        <!-- Navigation Menu END ==== -->
-                    </div>
-                </div>
-            </header>
-            <!-- header END ==== -->
-            <!-- Content -->
-            <div class="page-content bg-white">
-                <!-- inner page banner -->
-                <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner2.jpg);">
-                    <div class="container">
-                        <div class="page-banner-entry">
-                            <h1 class="text-white">Blog Details</h1>
-                        </div>
-                    </div>
-                </div>
-                <!-- Breadcrumb row -->
-                <div class="breadcrumb-row">
-                    <div class="container">
-                        <ul class="list-inline">
-                            <li><a href="home.jsp">Home</a></li>
-                            <li><a href="BlogController">Blog Classic Sidebar</a></li>
-                            <li>Blog Details</li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Breadcrumb row END -->
-                <div class="content-block">
-                    <div class="section-area section-sp1">
-                        <div class="container">
-                            <div class="row">
-                                <!-- Left part start -->
-                                <div class="col-lg-8 col-xl-8">
-                                    <!-- blog start -->
-                                    <div class="recent-news blog-lg">
-                                        <%
-                                            Blog blog = (Blog) request.getAttribute("blog");
-                                            if (blog != null) {
-                                        %>
-                                        <div class="action-box blog-lg">
-                                            <img src="<%= blog.getThumbnail()%>" alt="<%= blog.getTitle()%>">
-                                        </div>
-                                        <div class="info-bx">
-                                            <ul class="media-post">
-                                                <li><a href="#"><i class="fa fa-calendar"></i> <%= blog.getCreatedAt() != null ? blog.getCreatedAt() : "N/A"%></a></li>
-                                                <li><a href="#"><i class="fa fa-user"></i> By <%= blog.getAuthorName() != null ? blog.getAuthorName() : "Unknown"%></a></li>
-                                            </ul>
-                                            <h5 class="post-title"><%= blog.getTitle()%></h5>
-                                            <p><%= blog.getContent() != null ? blog.getContent() : "No content available."%></p>
-                                            <div class="ttr-divider bg-gray"><i class="icon-dot c-square"></i></div>
-                                            <!-- Thêm nút Update và Delete tại đây -->
-                                            <div class="action-buttons">
-                                                <a href="BlogController?service=updateBlog&blogID=<%= blog.getBlogID()%>" class="btn-update">Update</a>
-                                                <a href="BlogController?service=deleteBlog&blogID=<%= blog.getBlogID()%>" 
-                                                   class="btn-delete" 
-                                                   onclick="return confirm('Delete this blog?');">Delete</a>
-                                            </div>
-                                        </div>
-                                        <%
-                                            } else {
-                                        %>
-                                        <div class="info-bx">
-                                            <p>no post.</p>
-                                        </div>
-                                        <%
-                                            }
-                                        %>
-                                    </div>
-                                    <!-- blog END -->
-                                </div>
-                                <!-- Left part END -->
-
-                                <!-- Side bar start -->
-                                <div class="col-lg-4 col-xl-4 col-md-5 sticky-top">
-                                    <aside class="side-bar sticky-top">
-                                        <div class="widget">
-                                            <h6 class="widget-title">Search</h6>
-                                            <div class="search-bx style-1">
-                                                <form role="search" method="post" action="ViewBlog">
-                                                    <input type="hidden" name="service" value="searchBlog">
-                                                    <div class="input-group">
-                                                        <input name="text" class="form-control" 
-                                                               placeholder="Enter your keywords..." 
-                                                               type="text" 
-                                                               value="${keyword != null ? keyword : ''}">
-                                                        <span class="input-group-btn">
-                                                            <button type="submit" class="fa fa-search text-primary"></button>
-                                                        </span>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-
-                                        <div class="widget recent-posts-entry">
-                                            <h6 class="widget-title">Recent Posts</h6>
-                                            <div class="widget-post-bx">
-                                                <%
-                                                    List<Blog> recentBlogs = (List<Blog>) request.getAttribute("recentBlogs");
-                                                    if (recentBlogs != null && !recentBlogs.isEmpty()) {
-                                                        for (Blog blog1 : recentBlogs) {
-                                                %>
-                                                <div class="widget-post clearfix">
-                                                    <div class="ttr-post-media">
-                                                        <img src="<%= blog1.getThumbnail()%>" 
-                                                             width="200" height="143" alt="<%= blog1.getTitle()%>">
-                                                    </div>
-                                                    <div class="ttr-post-info">
-                                                        <div class="ttr-post-header">
-                                                            <h6 class="post-title">
-                                                                <a href="ViewBlog?service=detailBlog&blogID=<%= blog1.getBlogID()%>">
-                                                                    <%= blog1.getTitle()%>
-                                                                </a>
-                                                            </h6>
+                            <div class="widget-inner">
+                                <div class="content-block">
+                                    <div class="section-area section-sp1">
+                                        <div class="container">
+                                            <div class="row">
+                                                <!-- Left part start -->
+                                                <div class="col-lg-8 col-xl-8">
+                                                    <!-- blog start -->
+                                                    <div class="recent-news blog-lg">
+                                                        <%
+                                                            Blog blog = (Blog) request.getAttribute("blog");
+                                                            if (blog != null) {
+                                                        %>
+                                                        <div class="action-box blog-lg">
+                                                            <img src="<%= blog.getThumbnail()%>" alt="<%= blog.getTitle()%>">
                                                         </div>
-                                                        <ul class="media-post">
-                                                            <li><a href="#"><i class="fa fa-calendar"></i> <%= blog1.getCreatedAt()%></a></li>
-                                                            <li><a href="#"><i class="fa fa-comments-o"></i> 15 Comment</a></li>
-                                                        </ul>
+                                                        <div class="info-bx">
+                                                            <ul class="media-post">
+                                                                <li><a href="#"><i class="fa fa-calendar"></i> <%= blog.getCreatedAt() != null ? blog.getCreatedAt() : "N/A"%></a></li>
+                                                                <li><a href="#"><i class="fa fa-user"></i> By <%= blog.getAuthorName() != null ? blog.getAuthorName() : "Unknown"%></a></li>
+                                                            </ul>
+                                                            <h5 class="post-title"><%= blog.getTitle()%></h5>
+                                                            <p><%= blog.getContent() != null ? blog.getContent() : "No content available."%></p>
+                                                            <div class="ttr-divider bg-gray"><i class="icon-dot c-square"></i></div>
+                                                            <!-- Thêm nút Update và Delete tại đây -->
+                                                            <div class="action-buttons">
+                                                                <a href="BlogController?service=updateBlog&blogID=<%= blog.getBlogID()%>" class="btn-update">Update</a>
+                                                                <a href="BlogController?service=deleteBlog&blogID=<%= blog.getBlogID()%>" 
+                                                                   class="btn-delete" 
+                                                                   onclick="return confirm('Delete this blog?');">Delete</a>
+                                                            </div>
+                                                        </div>
+                                                        <%
+                                                            } else {
+                                                        %>
+                                                        <div class="info-bx">
+                                                            <p>no post.</p>
+                                                        </div>
+                                                        <%
+                                                            }
+                                                        %>
                                                     </div>
+                                                    <!-- blog END -->
                                                 </div>
-                                                <%
-                                                    }
-                                                } else {
-                                                %>
-                                                <p>no post.</p>
-                                                <%
-                                                    }
-                                                %>
+                                                <!-- Left part END -->
+                
+                                                <!-- Side bar start -->
+                                                <div class="col-lg-4 col-xl-4 col-md-5 sticky-top">
+                                                    <aside class="side-bar sticky-top">
+                                                        <div class="widget">
+                                                            <h6 class="widget-title">Search</h6>
+                                                            <div class="search-bx style-1">
+                                                                <form role="search" method="post" action="ViewBlog">
+                                                                    <input type="hidden" name="service" value="searchBlog">
+                                                                    <div class="input-group">
+                                                                        <input name="text" class="form-control" 
+                                                                               placeholder="Enter your keywords..." 
+                                                                               type="text" 
+                                                                               value="${keyword != null ? keyword : ''}">
+                                                                        <span class="input-group-btn">
+                                                                            <button type="submit" class="fa fa-search text-primary"></button>
+                                                                        </span>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                
+                                                        <div class="widget recent-posts-entry">
+                                                            <h6 class="widget-title">Recent Posts</h6>
+                                                            <div class="widget-post-bx">
+                                                                <%
+                                                                    List<Blog> recentBlogs = (List<Blog>) request.getAttribute("recentBlogs");
+                                                                    if (recentBlogs != null && !recentBlogs.isEmpty()) {
+                                                                        for (Blog blog1 : recentBlogs) {
+                                                                %>
+                                                                <div class="widget-post clearfix">
+                                                                    <div class="ttr-post-media">
+                                                                        <img src="<%= blog1.getThumbnail()%>" 
+                                                                             width="200" height="143" alt="<%= blog1.getTitle()%>">
+                                                                    </div>
+                                                                    <div class="ttr-post-info">
+                                                                        <div class="ttr-post-header">
+                                                                            <h6 class="post-title">
+                                                                                <a href="ViewBlog?service=detailBlog&blogID=<%= blog1.getBlogID()%>">
+                                                                                    <%= blog1.getTitle()%>
+                                                                                </a>
+                                                                            </h6>
+                                                                        </div>
+                                                                        <ul class="media-post">
+                                                                            <li><a href="#"><i class="fa fa-calendar"></i> <%= blog1.getCreatedAt()%></a></li>
+                                                                            <li><a href="#"><i class="fa fa-comments-o"></i> 15 Comment</a></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                                <%
+                                                                    }
+                                                                } else {
+                                                                %>
+                                                                <p>no post.</p>
+                                                                <%
+                                                                    }
+                                                                %>
+                                                            </div>
+                                                        </div>
+                                                            
+                                                        <div class="widget widget_gallery gallery-grid-4">
+                                                            <h6 class="widget-title">Our Gallery</h6>
+                                                            <ul class="gallery-list">
+                                                                <c:forEach var="img" items="${galleryBlogs}">
+                                                                    <li>
+                                                                        <div>
+                                                                            <img src="${img.thumbnail}" alt="${img.title}" class="gallery-img" onclick="openImageViewer('${img.thumbnail}', '${img.title}')">
+                                                                        </div>
+                                                                    </li>
+                                                                </c:forEach>
+                                                                <c:if test="${empty galleryBlogs}">
+                                                                    <li><div><p>null gallery</p></div></li>
+                                                                </c:if>
+                                                            </ul>
+                                                        </div>
+                
+                                                        <!-- Modal hiển thị ảnh lớn -->
+                                                        <div id="imageViewer" class="image-viewer">
+                                                            <span class="close-viewer" onclick="closeImageViewer()">×</span>
+                                                            <img id="fullImage" src="" alt="Full Image">
+                                                            <p id="imageCaption"></p>
+                                                        </div>
+                                                    </aside>
+                                                </div>
+                                                <!-- Side bar END -->
                                             </div>
                                         </div>
-                                            
-                                        <div class="widget widget_gallery gallery-grid-4">
-                                            <h6 class="widget-title">Our Gallery</h6>
-                                            <ul class="gallery-list">
-                                                <c:forEach var="img" items="${galleryBlogs}">
-                                                    <li>
-                                                        <div>
-                                                            <img src="${img.thumbnail}" alt="${img.title}" class="gallery-img" onclick="openImageViewer('${img.thumbnail}', '${img.title}')">
-                                                        </div>
-                                                    </li>
-                                                </c:forEach>
-                                                <c:if test="${empty galleryBlogs}">
-                                                    <li><div><p>null gallery</p></div></li>
-                                                </c:if>
-                                            </ul>
-                                        </div>
-
-                                        <!-- Modal hiển thị ảnh lớn -->
-                                        <div id="imageViewer" class="image-viewer">
-                                            <span class="close-viewer" onclick="closeImageViewer()">×</span>
-                                            <img id="fullImage" src="" alt="Full Image">
-                                            <p id="imageCaption"></p>
-                                        </div>
-                                    </aside>
+                                    </div>
                                 </div>
-                                <!-- Side bar END -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Content END-->
-            <!-- Footer ==== -->
-            <footer>
-                <div class="footer-top">
-                    <div class="pt-exebar">
-                        <div class="container">
-                            <div class="d-flex align-items-stretch">
-                                <div class="pt-logo mr-auto">
-                                    <a href="index.html"><img src="assets/images/logo-white.png" alt=""/></a>
-                                </div>
-                                <div class="pt-social-link">
-                                    <ul class="list-inline m-a0">
-                                        <li><a href="#" class="btn-link"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#" class="btn-link"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href="#" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
-                                        <li><a href="#" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="pt-btn-join">
-                                    <a href="#" class="btn ">Join Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-12 col-sm-12 footer-col-4">
-                                <div class="widget">
-                                    <h5 class="footer-title">Sign Up For A Newsletter</h5>
-                                    <p class="text-capitalize m-b20">Weekly Breaking news analysis and cutting edge advices on job searching.</p>
-                                    <div class="subscribe-form m-b20">
-                                        <form class="subscription-form" action="http://educhamp.themetrades.com/demo/assets/script/mailchamp.php" method="post">
-                                            <div class="ajax-message"></div>
-                                            <div class="input-group">
-                                                <input name="email" required="required" class="form-control" placeholder="Your Email Address" type="email">
-                                                <span class="input-group-btn">
-                                                    <button name="submit" value="Submit" type="submit" class="btn"><i class="fa fa-arrow-right"></i></button>
-                                                </span> 
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-5 col-md-7 col-sm-12">
-                                <div class="row">
-                                    <div class="col-4 col-lg-4 col-md-4 col-sm-4">
-                                        <div class="widget footer_widget">
-                                            <h5 class="footer-title">Company</h5>
-                                            <ul>
-                                                <li><a href="index.html">Home</a></li>
-                                                <li><a href="about-1.html">About</a></li>
-                                                <li><a href="faq-1.html">FAQs</a></li>
-                                                <li><a href="contact-1.html">Contact</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 col-lg-4 col-md-4 col-sm-4">
-                                        <div class="widget footer_widget">
-                                            <h5 class="footer-title">Get In Touch</h5>
-                                            <ul>
-                                                <li><a href="http://educhamp.themetrades.com/admin/index.html">Dashboard</a></li>
-                                                <li><a href="blog-classic-grid.html">Blog</a></li>
-                                                <li><a href="portfolio.html">Portfolio</a></li>
-                                                <li><a href="event.html">Event</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 col-lg-4 col-md-4 col-sm-4">
-                                        <div class="widget footer_widget">
-                                            <h5 class="footer-title">Courses</h5>
-                                            <ul>
-                                                <li><a href="courses.html">Courses</a></li>
-                                                <li><a href="courses-details.html">Details</a></li>
-                                                <li><a href="membership.html">Membership</a></li>
-                                                <li><a href="profile.html">Profile</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-3 col-md-5 col-sm-12 footer-col-4">
-                                <div class="widget widget_gallery gallery-grid-4">
-                                    <h5 class="footer-title">Our Gallery</h5>
-                                    <ul class="magnific-image">
-                                        <li><a href="assets/images/gallery/pic1.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic1.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic2.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic2.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic3.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic3.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic4.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic4.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic5.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic5.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic6.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic6.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic7.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic7.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic8.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic8.jpg" alt=""></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 text-center"> 
-                                <a target="_blank" href="https://www.templateshub.net">Templates Hub</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-            <!-- Footer END ==== -->
-            <!-- scroll top button -->
-            <button class="back-to-top fa fa-chevron-up" ></button>
-        </div>
+        </main>
+        <div class="ttr-overlay"></div>
 
         <!-- External JavaScripts -->
         <script src="assets/js/jquery.min.js"></script>
@@ -506,8 +524,93 @@
         <script src="assets/vendors/masonry/masonry.js"></script>
         <script src="assets/vendors/masonry/filter.js"></script>
         <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
+        <script src='assets/vendors/scroll/scrollbar.min.js'></script>
         <script src="assets/js/functions.js"></script>
-        <script src="assets/js/contact.js"></script>
+        <script src="assets/vendors/chart/chart.min.js"></script>
+        <script src="assets/js/admin.js"></script>
+        <script src='assets/vendors/calendar/moment.min.js'></script>
+        <script src='assets/vendors/calendar/fullcalendar.js'></script>
         <script src='assets/vendors/switcher/switcher.js'></script>
+        <script>
+                                                                    $(document).ready(function () {
+
+                                                                        $('#calendar').fullCalendar({
+                                                                            header: {
+                                                                                left: 'prev,next today',
+                                                                                center: 'title',
+                                                                                right: 'month,agendaWeek,agendaDay,listWeek'
+                                                                            },
+                                                                            defaultDate: '2019-03-12',
+                                                                            navLinks: true, // can click day/week names to navigate views
+
+                                                                            weekNumbers: true,
+                                                                            weekNumbersWithinDays: true,
+                                                                            weekNumberCalculation: 'ISO',
+
+                                                                            editable: true,
+                                                                            eventLimit: true, // allow "more" link when too many events
+                                                                            events: [
+                                                                                {
+                                                                                    title: 'All Day Event',
+                                                                                    start: '2019-03-01'
+                                                                                },
+                                                                                {
+                                                                                    title: 'Long Event',
+                                                                                    start: '2019-03-07',
+                                                                                    end: '2019-03-10'
+                                                                                },
+                                                                                {
+                                                                                    id: 999,
+                                                                                    title: 'Repeating Event',
+                                                                                    start: '2019-03-09T16:00:00'
+                                                                                },
+                                                                                {
+                                                                                    id: 999,
+                                                                                    title: 'Repeating Event',
+                                                                                    start: '2019-03-16T16:00:00'
+                                                                                },
+                                                                                {
+                                                                                    title: 'Conference',
+                                                                                    start: '2019-03-11',
+                                                                                    end: '2019-03-13'
+                                                                                },
+                                                                                {
+                                                                                    title: 'Meeting',
+                                                                                    start: '2019-03-12T10:30:00',
+                                                                                    end: '2019-03-12T12:30:00'
+                                                                                },
+                                                                                {
+                                                                                    title: 'Lunch',
+                                                                                    start: '2019-03-12T12:00:00'
+                                                                                },
+                                                                                {
+                                                                                    title: 'Meeting',
+                                                                                    start: '2019-03-12T14:30:00'
+                                                                                },
+                                                                                {
+                                                                                    title: 'Happy Hour',
+                                                                                    start: '2019-03-12T17:30:00'
+                                                                                },
+                                                                                {
+                                                                                    title: 'Dinner',
+                                                                                    start: '2019-03-12T20:00:00'
+                                                                                },
+                                                                                {
+                                                                                    title: 'Birthday Party',
+                                                                                    start: '2019-03-13T07:00:00'
+                                                                                },
+                                                                                {
+                                                                                    title: 'Click for Google',
+                                                                                    url: 'http://google.com/',
+                                                                                    start: '2019-03-28'
+                                                                                }
+                                                                            ]
+                                                                        });
+
+                                                                    });
+
+        </script>
     </body>
+
+    <!-- Mirrored from educhamp.themetrades.com/demo/admin/index.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:09:05 GMT -->
 </html>
