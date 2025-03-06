@@ -150,7 +150,7 @@
                                 <ul class="nav navbar-nav">	
                                     <li class="active"><a href="home.jsp">Home</a>
                                     </li>
-                                    <li class="add-mega-menu"><a href="courses.jsp">Our Courses</a>
+                                    <li class="add-mega-menu"><a href="Courses">Our Courses</a>
                                     </li>
                                     <li><a href="blog-classic-sidebar.jsp">Blog</a>
                                     </li>
