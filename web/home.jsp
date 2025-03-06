@@ -152,7 +152,7 @@
                                     </li>
                                     <li class="add-mega-menu"><a href="courses.jsp">Our Courses</a>
                                     </li>
-                                    <li><a href="blog-classic-sidebar.jsp">Blog</a>
+                                    <li><a href="ViewBlog">Blog</a>
                                     </li>
                                     <li><a href="cv">Become a tutor</a>
                                     </li>
