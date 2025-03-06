@@ -4,11 +4,10 @@
     Author     : minht
 --%>
 
+<%@page import="entity.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="entity.Blog" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
 <html lang="en">
 
     <head>
@@ -34,7 +33,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
 
         <!-- PAGE TITLE HERE ============================================= -->
-        <title>EduChamp : Education HTML Template </title>
+        <title>Title Heizxje </title>
 
         <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -57,18 +56,27 @@
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
         <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
 
+        <!-- REVOLUTION SLIDER CSS ============================================= -->
+        <link rel="stylesheet" type="text/css" href="assets/vendors/revolution/css/layers.css">
+        <link rel="stylesheet" type="text/css" href="assets/vendors/revolution/css/settings.css">
+        <link rel="stylesheet" type="text/css" href="assets/vendors/revolution/css/navigation.css">
+        <!-- REVOLUTION SLIDER END -->	
     </head>
+
     <body id="bg">
+        <%
+            User user = (User) session.getAttribute("user");
+        %>
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
             <!-- Header Top ==== -->
-            <header class="header rs-nav">
+            <header class="header rs-nav header-transparent">
                 <div class="top-bar">
                     <div class="container">
                         <div class="row d-flex justify-content-between">
                             <div class="topbar-left">
                                 <ul>
-                                    <li><a href="faq-1.jsp"><i class="fa fa-question-circle"></i>Ask a Question</a></li>
+                                    <li><a href="faq-1.html"><i class="fa fa-question-circle"></i>Ask a Question</a></li>
                                     <li><a href="javascript:;"><i class="fa fa-envelope-o"></i>Support@website.com</a></li>
                                 </ul>
                             </div>
@@ -80,8 +88,22 @@
                                             <option data-icon="flag flag-us">English US</option>
                                         </select>
                                     </li>
-                                    <li><a href="login.jsp">Login</a></li>
-                                    <li><a href="register.jsp">Register</a></li>
+                                    <% if (user == null) { %>
+                                    <li><a href="login">Login</a></li>
+                                    <li><a href="User?service=registerUser">Register</a></li>
+                                        <%} else {%>
+                                    <li>
+                                        <div class="ttr-header-submenu">
+                                            <ul>
+                                                <li><a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a></li>
+                                                <li><a href="profile_user.jsp">My profile</a></li>
+                                                <li><a href="list-view-calendar.html">Activity</a></li>
+                                                <li><a href="cv">Become a tutor</a></li>
+                                                <li><a href="logout">Logout</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <%}%>
                                 </ul>
                             </div>
                         </div>
@@ -92,7 +114,7 @@
                         <div class="container clearfix">
                             <!-- Header Logo ==== -->
                             <div class="menu-logo">
-                                <a href="index.jsp"><img src="assets/images/logo.png" alt=""></a>
+                                <a href="home.jsp"><img src="assets/images/logo-white.png" alt=""></a>
                             </div>
                             <!-- Mobile Nav Button ==== -->
                             <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -123,96 +145,14 @@
                             <!-- Navigation Menu ==== -->
                             <div class="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
                                 <div class="menu-logo">
-                                    <a href="index.jsp"><img src="assets/images/logo.png" alt=""></a>
+                                    <a href="home.jsp"><img src="assets/images/logo.png" alt=""></a>
                                 </div>
                                 <ul class="nav navbar-nav">	
-                                    <li class="active"><a href="javascript:;">Home <i class="fa fa-chevron-down"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="index.jsp">Home 1</a></li>
-                                            <li><a href="index-2.jsp">Home 2</a></li>
-                                        </ul>
+                                    <li><a href="home.jsp">Home</a>
                                     </li>
-                                    <li><a href="javascript:;">Pages <i class="fa fa-chevron-down"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="javascript:;">About<i class="fa fa-angle-right"></i></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="about-1.jsp">About 1</a></li>
-                                                    <li><a href="about-2.jsp">About 2</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="javascript:;">Event<i class="fa fa-angle-right"></i></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="event.jsp">Event</a></li>
-                                                    <li><a href="events-details.jsp">Events Details</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="javascript:;">FAQ's<i class="fa fa-angle-right"></i></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="faq-1.jsp">FAQ's 1</a></li>
-                                                    <li><a href="faq-2.jsp">FAQ's 2</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="javascript:;">Contact Us<i class="fa fa-angle-right"></i></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="contact-1.jsp">Contact Us 1</a></li>
-                                                    <li><a href="contact-2.jsp">Contact Us 2</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="portfolio.jsp">Portfolio</a></li>
-                                            <li><a href="profile.jsp">Profile</a></li>
-                                            <li><a href="membership.jsp">Membership</a></li>
-                                            <li><a href="error-404.jsp">404 Page</a></li>
-                                        </ul>
+                                    <li class="add-mega-menu"><a href="Courses">Our Courses</a>
                                     </li>
-                                    <li class="add-mega-menu"><a href="javascript:;">Our Courses <i class="fa fa-chevron-down"></i></a>
-                                        <ul class="sub-menu add-menu">
-                                            <li class="add-menu-left">
-                                                <h5 class="menu-adv-title">Our Courses</h5>
-                                                <ul>
-                                                    <li><a href="courses.jsp">Courses </a></li>
-                                                    <li><a href="courses-details.jsp">Courses Details</a></li>
-                                                    <li><a href="profile.jsp">Instructor Profile</a></li>
-                                                    <li><a href="event.jsp">Upcoming Event</a></li>
-                                                    <li><a href="membership.jsp">Membership</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="add-menu-right">
-                                                <img src="assets/images/adv/adv.jpg" alt=""/>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="javascript:;">Blog <i class="fa fa-chevron-down"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="blog-classic-grid.jsp">Blog Classic</a></li>
-                                            <li><a href="blog-classic-sidebar.jsp">Blog Classic Sidebar</a></li>
-                                            <li><a href="blog-list-sidebar.jsp">Blog List Sidebar</a></li>
-                                            <li><a href="blog-standard-sidebar.jsp">Blog Standard Sidebar</a></li>
-                                            <li><a href="blog-details.jsp">Blog Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-dashboard"><a href="javascript:;">Dashboard <i class="fa fa-chevron-down"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="admin/index.jsp">Dashboard</a></li>
-                                            <li><a href="admin/add-listing.jsp">Add Listing</a></li>
-                                            <li><a href="admin/bookmark.jsp">Bookmark</a></li>
-                                            <li><a href="admin/courses.jsp">Courses</a></li>
-                                            <li><a href="admin/review.jsp">Review</a></li>
-                                            <li><a href="admin/teacher-profile.jsp">Teacher Profile</a></li>
-                                            <li><a href="admin/user-profile.jsp">User Profile</a></li>
-                                            <li><a href="javascript:;">Calendar<i class="fa fa-angle-right"></i></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="admin/basic-calendar.jsp">Basic Calendar</a></li>
-                                                    <li><a href="admin/list-view-calendar.jsp">List View Calendar</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="javascript:;">Mailbox<i class="fa fa-angle-right"></i></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="admin/mailbox.jsp">Mailbox</a></li>
-                                                    <li><a href="admin/mailbox-compose.jsp">Compose</a></li>
-                                                    <li><a href="admin/mailbox-read.jsp">Mail Read</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                    <li class="active"><a href="ViewBlog">Blog</a>
                                     </li>
                                 </ul>
                                 <div class="nav-social-link">
@@ -233,7 +173,7 @@
                 <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner1.jpg);">
                     <div class="container">
                         <div class="page-banner-entry">
-                            <h1 class="text-white">Blog Classic Sidebar</h1>
+                            <h1 class="text-white">Blog</h1>
                         </div>
                     </div>
                 </div>
@@ -243,7 +183,7 @@
                         <ul class="list-inline">
                             <ul class="list-inline">
                                 <li><a href="home.jsp">Home</a></li>
-                                <li><a href="ViewBlog">Blog Classic Sidebar</a></li>
+                                <li><a href="ViewBlog">Blog</a></li>
                             </ul>
                     </div>
                 </div>

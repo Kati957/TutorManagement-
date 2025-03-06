@@ -327,8 +327,68 @@ public class DAOUser extends DBConnect {
             }
         }
     }
-    
+
     public boolean isConnected() {
         return conn != null;
     }
+
+    // Lấy danh sách tất cả users
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM Users";
+        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                users.add(extractUserFromResultSet(rs));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error fetching all users", e);
+        }
+        return users;
+    }
+
+    // Xóa user theo UserID
+    public int deleteUser(int userId) {
+        if (conn == null) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Database connection is null");
+            return 0;
+        }
+        String sql = "DELETE FROM Users WHERE UserID = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            return ps.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error deleting user", e);
+            return 0;
+        }
+    }
+
+    public List<User> getUsersByRole(int roleID) {
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM Users WHERE RoleID = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, roleID);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    users.add(new User(
+                            rs.getInt("UserID"),
+                            rs.getInt("RoleID"),
+                            rs.getString("Email"),
+                            rs.getString("FullName"),
+                            rs.getString("Phone"),
+                            rs.getDate("CreateAt"),
+                            rs.getInt("IsActive"),
+                            rs.getDate("Dob"),
+                            rs.getString("Address"),
+                            rs.getString("Avatar"),
+                            rs.getString("UserName"),
+                            rs.getString("Password")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error fetching users by role", e);
+        }
+        return users;
+    }
+
 }
