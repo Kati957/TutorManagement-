@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutor Availability Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .booking-container {
+            background-color: white;
+            width: 100%;
+            max-width: 1200px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .booking-header {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .availability-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        .availability-table th, .availability-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .availability-table th {
+            background-color: #34495e;
+            color: white;
+        }
+        .time-slot {
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            background-color: white;
+            color: #2c3e50;
+        }
+        .time-slot:hover {
+            background-color: #e0e0e0;
+        }
+        .time-slot.booked {
+            background-color: #27ae60;
+            color: white;
+        }
+        .save-container {
+            background-color: #ecf0f1;
+            padding: 15px;
+            text-align: center;
+        }
+        #saveAvailability {
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        #saveAvailability:hover {
+            background-color: #34495e;
+        }
+        #selectedSlots {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="booking-container">
+        <div class="booking-header">
+            Book Tutor Time Slots
+        </div>
+        <table id="availabilityTable" class="availability-table">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
+                    <th>Sun</th>
+                </tr>
+            </thead>
+            <tbody id="timeSlots">
+                <!-- Time slots will be dynamically inserted here -->
+            </tbody>
+        </table>
+        <div class="save-container">
+            <button id="saveAvailability">Book Selected Slots</button>
+            <div id="selectedSlots">No slots selected</div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const times = [
+                '00:00', '01:00', '02:00', '03:00', '04:00', 
+                '05:00', '06:00', '07:00', '08:00', '09:00', 
+                '10:00', '11:00', '12:00', '13:00', '14:00', 
+                '15:00', '16:00', '17:00', '18:00', '19:00', 
+                '20:00', '21:00', '22:00', '23:00'
+            ];
+            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            const timeSlots = document.getElementById('timeSlots');
+            const selectedSlotsDisplay = document.getElementById('selectedSlots');
+            const selectedSlots = new Set();
+
+            // Create time slots
+            times.forEach((time, index) => {
+                const row = document.createElement('tr');
+                
+                // Time column
+                const timeCell = document.createElement('td');
+                timeCell.textContent = time;
+                row.appendChild(timeCell);
+
+                // Create slots for each day
+                days.forEach(day => {
+                    const slot = document.createElement('td');
+                    slot.classList.add('time-slot');
+                    slot.dataset.day = day.toLowerCase();
+                    
+                    // Calculate time range
+                    const nextTimeIndex = index + 1 < times.length ? index + 1 : 0;
+                    const timeRange = `${time}-${times[nextTimeIndex]}`;
+                    slot.dataset.time = timeRange;
+
+                    slot.addEventListener('click', () => {
+                        // Toggle booking
+                        slot.classList.toggle('booked');
+
+                        const slotKey = `${day}-${timeRange}`;
+                        if (slot.classList.contains('booked')) {
+                            selectedSlots.add(slotKey);
+                            slot.textContent = timeRange;
+                        } else {
+                            selectedSlots.delete(slotKey);
+                            slot.textContent = '';
+                        }
+
+                        // Update selected slots display
+                        if (selectedSlots.size > 0) {
+                            selectedSlotsDisplay.innerHTML = 
+                                `${selectedSlots.size} slot${selectedSlots.size > 1 ? 's' : ''} selected<br>` +
+                                Array.from(selectedSlots).join(', ');
+                        } else {
+                            selectedSlotsDisplay.textContent = 'No slots selected';
+                        }
+                    });
+
+                    row.appendChild(slot);
+                });
+
+                timeSlots.appendChild(row);
+            });
+
+            // Save availability
+            document.getElementById('saveAvailability').addEventListener('click', () => {
+                const bookedSlots = Array.from(document.querySelectorAll('.time-slot.booked'))
+                    .map(slot => ({
+                        day: slot.dataset.day,
+                        time: slot.dataset.time
+                    }));
+
+                if (bookedSlots.length === 0) {
+                    alert('Please select at least one time slot.');
+                    return;
+                }
+
+                console.log('Booked Slots:', bookedSlots);
+                alert(`Booked ${bookedSlots.length} slot${bookedSlots.length > 1 ? 's' : ''}!`);
+            });
+        });
+    </script>
+</body>
+</html>
