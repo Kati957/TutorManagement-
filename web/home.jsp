@@ -98,7 +98,7 @@
                                                 <li><a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a></li>
                                                 <li><a href="profile_user.jsp">My profile</a></li>
                                                 <li><a href="list-view-calendar.html">Activity</a></li>
-                                                <li><a href="mailbox.html">Messages</a></li>
+                                                <li><a href="cv">Become a tutor</a></li>
                                                 <li><a href="logout">Logout</a></li>
                                             </ul>
                                         </div>
@@ -153,8 +153,6 @@
                                     <li class="add-mega-menu"><a href="Courses">Our Courses</a>
                                     </li>
                                     <li><a href="blog-classic-sidebar.jsp">Blog</a>
-                                    </li>
-                                    <li><a href="cv">Become a tutor</a>
                                     </li>
                                 </ul>
                                 <div class="nav-social-link">
