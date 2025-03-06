@@ -38,26 +38,26 @@ public class CoursesController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            DAOSubject dao = new DAOSubject();
-            List<Subject> list = dao.getAllSubjects();
+            DAOSubject dao= new DAOSubject();
+            List<Subject> list= dao.getAllSubjects();
             String name = request.getParameter("dzName");
             String subjectName = request.getParameter("Subjectname");
-            String sql = "select TutorID, FullName, SubjectName, rating, Avatar, Price from users\n"
-                    + "join CV on users.UserID=Cv.UserID\n"
-                    + "join tutor on CV.CVID=tutor.CVIID\n"
-                    + "join Subject on CV.SubjectId=Subject.SubjectID";
-            ResultSet rs = null;
+            String sql="select TutorID, FullName, SubjectName, rating, Avatar, Price from users\n"
+                        + "join CV on users.UserID=Cv.UserID\n"
+                        + "join tutor on CV.CVID=tutor.CVIID\n"
+                        + "join Subject on CV.SubjectId=Subject.SubjectID";
+            ResultSet rs=null;
             if (name != null) {
-                sql += " Where FullName='" + name + "'";
-                if (subjectName != null) {
-                    sql += " and SubjectName='" + subjectName + "'";
-                }
-            } else {
-                if (subjectName != null) {
-                    sql += " Where SubjectName='" + subjectName + "'";
-                }
+                 sql += " Where FullName='"+name+"'";
+                 if(subjectName!=null){
+                     sql+= " and SubjectName='"+subjectName+"'";
+                 }
+            }else{
+                if(subjectName!=null){
+                     sql+= " Where SubjectName='"+subjectName+"'";
+                 }
             }
-            rs = dao.getData(sql);
+            rs=dao.getData(sql);
             request.setAttribute("list", list);
             request.setAttribute("rs", rs);
             request.getRequestDispatcher("/courses.jsp").forward(request, response);

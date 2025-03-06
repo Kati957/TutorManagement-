@@ -190,8 +190,8 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <form action="Courses" method="get">
-                                                    <label>Search Tutor</label>
-                                                    <input name="dzName" type="text" required class="form-control">
+                                                        <label>Search Tutor</label>
+                                                        <input name="dzName" type="text" required class="form-control">
                                                 </form>
                                             </div>
                                         </div>
@@ -201,8 +201,8 @@
                                         <ul>
                                             <li class="active"><a href="#">General</a></li>
                                                 <c:forEach var="g" items="${list}">
-                                                <li><a href="Courses?Subjectname=${g.subjectName}">${g.subjectName}</a></li>
-                                                </c:forEach>
+                                            <li><a href="Courses?Subjectname=${g.subjectName}">${g.subjectName}</a></li>
+                                            </c:forEach>
                                         </ul>
                                     </div>
                                     <div class="widget">
