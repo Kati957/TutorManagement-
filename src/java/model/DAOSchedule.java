@@ -11,7 +11,6 @@ import java.util.List;
 
 public class DAOSchedule extends DBConnect {
 
-    
     public List<Schedule> getSchedulesByUserId(int userId, String search, String sortBy, String order, int page, int pageSize) {
         List<Schedule> schedules = new ArrayList<>();
         String query = """
@@ -64,6 +63,12 @@ public class DAOSchedule extends DBConnect {
             System.out.println("Lỗi khi lấy danh sách lịch của user: " + e.getMessage());
             e.printStackTrace();
         }
+        return schedules;
+    }
+
+    public List<Schedule> getSchedulesByTutorId(int tutorId) {
+        List<Schedule> schedules = new ArrayList<>();
+
         return schedules;
     }
 
