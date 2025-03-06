@@ -1,3 +1,4 @@
+<%@page import="entity.User"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -27,7 +28,15 @@
         <!-- FAVICONS ICON ============================================= -->
         <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
         <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
+        <!-- Moment.js (FullCalendar phụ thuộc vào Moment.js) -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+        <!-- FullCalendar -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
         <!-- PAGE TITLE HERE ============================================= -->
         <title>My Schedule - User/.jsp</title>
 
@@ -59,10 +68,108 @@
         <!-- REVOLUTION SLIDER END -->	
     </head>
     <body id="bg">
+        <%
+            User user = (User) session.getAttribute("user");
+        %>
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
             <!-- Header Top ==== -->
-            <jsp:include page="../include/header.jsp" />
+            <header class="header rs-nav header-transparent">
+                <div class="top-bar">
+                    <div class="container">
+                        <div class="row d-flex justify-content-between">
+                            <div class="topbar-left">
+                                <ul>
+                                    <li><a href="faq-1.html"><i class="fa fa-question-circle"></i>Ask a Question</a></li>
+                                    <li><a href="javascript:;"><i class="fa fa-envelope-o"></i>Support@website.com</a></li>
+                                </ul>
+                            </div>
+                            <div class="topbar-right">
+                                <ul>
+                                    <li>
+                                        <select class="header-lang-bx">
+                                            <option data-icon="flag flag-uk">English UK</option>
+                                            <option data-icon="flag flag-us">English US</option>
+                                        </select>
+                                    </li>
+                                    <% if (user == null) { %>
+                                    <li><a href="login">Login</a></li>
+                                    <li><a href="User?service=registerUser">Register</a></li>
+                                        <%} else {%>
+                                    <li>
+                                        <div class="ttr-header-submenu">
+                                            <ul>
+                                                <li><a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a></li>
+                                                <li><a href="profile_user.jsp">My profile</a></li>
+                                                <li><a href="list-view-calendar.html">Activity</a></li>
+                                                <li><a href="cv">Become a tutor</a></li>
+                                                <li><a href="logout">Logout</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <%}%>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sticky-header navbar-expand-lg">
+                    <div class="menu-bar clearfix">
+                        <div class="container clearfix">
+                            <!-- Header Logo ==== -->
+                            <div class="menu-logo">
+                                <a href="home.jsp"><img src="assets/images/logo-white.png" alt=""></a>
+                            </div>
+                            <!-- Mobile Nav Button ==== -->
+                            <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </button>
+                            <!-- Author Nav ==== -->
+                            <div class="secondary-menu">
+                                <div class="secondary-inner">
+                                    <ul>
+                                        <li><a href="javascript:;" class="btn-link"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="javascript:;" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
+                                        <li><a href="javascript:;" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
+                                        <!-- Search Button ==== -->
+                                        <li class="search-btn"><button id="quik-search-btn" type="button" class="btn-link"><i class="fa fa-search"></i></button></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Search Box ==== -->
+                            <div class="nav-search-bar">
+                                <form action="#">
+                                    <input name="search" value="" type="text" class="form-control" placeholder="Type to search">
+                                    <span><i class="ti-search"></i></span>
+                                </form>
+                                <span id="search-remove"><i class="ti-close"></i></span>
+                            </div>
+                            <!-- Navigation Menu ==== -->
+                            <div class="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
+                                <div class="menu-logo">
+                                    <a href="home.jsp"><img src="assets/images/logo.png" alt=""></a>
+                                </div>
+                                <ul class="nav navbar-nav">	
+                                    <li class="active"><a href="home.jsp">Home</a>
+                                    </li>
+                                    <li class="add-mega-menu"><a href="Courses">Our Courses</a>
+                                    </li>
+                                    <li><a href="blog-classic-sidebar.jsp">Blog</a>
+                                    </li>
+                                </ul>
+                                <div class="nav-social-link">
+                                    <a href="javascript:;"><i class="fa fa-facebook"></i></a>
+                                    <a href="javascript:;"><i class="fa fa-google-plus"></i></a>
+                                    <a href="javascript:;"><i class="fa fa-linkedin"></i></a>
+                                </div>
+                            </div>
+                            <!-- Navigation Menu END ==== -->
+                        </div>
+                    </div>
+                </div>
+            </header>
             <!-- Header Top END ==== -->
             <!-- Content -->
             <div class="page-content bg-white">
@@ -394,140 +501,117 @@
                 <!-- Main Slider -->
                 <!--Content-->
                 <div class="container mt-4">
-                    <div class="row">
+                    <a href="bookschedule" class="btn btn-primary mt-2">Book A Schedule</a>
+                    <h3>My Schedule</h3>
 
-                        <aside class="col-md-3 mb-3">
-                            <h4>Categories</h4>
-                            <ul class="list-group">
-                                <li class="list-group-item ${empty param.subject ? 'active' : ''}">
-                                    <a href="?search=&sortBy=${sortBy}&order=${order}&page=1">All</a>
-                                </li>
-                                <c:forEach var="subject" items="${subjects}">
-                                    <li class="list-group-item ${subject.subjectName eq param.subject ? 'active' : ''}">
-                                        <a href="?subject=${subject.subjectName}&search=${search}&sortBy=${sortBy}&order=${order}&page=1">
-                                            ${subject.subjectName}
-                                        </a>
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                        </aside>
+                    <!-- Form tìm kiếm -->
+                    <form method="GET" id="searchForm" class="mb-3">
+                        <input type="text" id="searchInput" name="search" placeholder="Search by subject" 
+                               class="form-control" value="${search}" />
+                        <button type="submit" class="btn btn-primary mt-2">Search</button>
+                    </form>
 
-                        <!-- Phần bên phải: Lịch trình -->
-                        <main class="col-md-9">
-                            <h3>Schedule List</h3>
-                            <a href="bookschedule" class="btn btn-default mb-3">Book Schedule</a><br>
-                            <!-- Ô tìm kiếm -->
-                            <form method="GET" class="mb-3" onsubmit="return validateSearch()">
-                                <input type="text" id="searchInput" name="search" value="${search}" placeholder="Search by subject" class="form-control" />
-                                <button type="submit" class="btn btn-primary mt-2">Search</button>
-                                <p id="error" style="color: red; display: none;">Search cannot contain underscores (_).</p>
-                            </form>
-
-                            <script>
-                                function validateSearch() {
-                                    const searchInput = document.getElementById('searchInput').value;
-                                    const error = document.getElementById('error');
-
-                                    if (searchInput.includes('_')) {
-                                        error.style.display = 'block';
-                                        return false; // Ngăn gửi form
-                                    } else {
-                                        error.style.display = 'none';
-                                        return true; // Cho phép gửi form
-                                    }
-                                }
-                            </script>
-
-
-                            <!-- Bảng hiển thị lịch -->
-                            <table class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <a href="?sortBy=SubjectName&order=${sortBy == 'SubjectName' && order == 'asc' ? 'desc' : 'asc'}">
-                                                Subject
-                                            </a>
-                                        </th>
-                                        <th>
-                                            <a href="?sortBy=BookingDate&order=${sortBy == 'BookingDate' && order == 'asc' ? 'desc' : 'asc'}">
-                                                Booking Date
-                                            </a>
-                                        </th>
-                                        <th>
-                                            <a href="?sortBy=StartTime&order=${sortBy == 'StartTime' && order == 'asc' ? 'desc' : 'asc'}">
-                                                Start Time
-                                            </a>
-                                        </th>
-                                        <th>
-                                            <a href="?sortBy=EndTime&order=${sortBy == 'EndTime' && order == 'asc' ? 'desc' : 'asc'}">
-                                                End Time
-                                            </a>
-                                        </th>
-                                        <th>
-                                            Status
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:choose>
-                                        <c:when test="${not empty schedules}">
-                                            <c:forEach var="schedule" items="${schedules}">
-                                                <tr>
-                                                    <td>${schedule.subject.subjectName}</td>
-                                                    <td>
-                                                        <fmt:formatDate value="${schedule.slot.booking.bookingDate}" pattern="dd/MM/yyyy" />
-                                                    </td>
-                                                    <td>
-                                                        <fmt:formatDate value="${schedule.startTime}" pattern="dd/MM/yyyy" /><br>
-                                                        <fmt:formatDate value="${schedule.startTime}" pattern="HH:mm:ss" />
-                                                    </td>
-                                                    <td>
-                                                        <fmt:formatDate value="${schedule.endTime}" pattern="dd/MM/yyyy" /><br>
-                                                        <fmt:formatDate value="${schedule.endTime}" pattern="HH:mm:ss" />
-                                                    </td>
-                                                    <td>
-                                                        ${schedule.slot.booking.status}
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <tr>
-                                                <td colspan="4" class="text-center">No schedules found.</td>
-                                            </tr>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </tbody>
-                            </table>
-
-                            <nav>
-                                <ul class="pagination">
-                                    <c:if test="${page > 1}">
-                                        <li class="page-item">
-                                            <a class="page-link" href="?page=${page - 1}&search=${search}&sortBy=${sortBy}&order=${order}">Previous</a>
-                                        </li>
-                                    </c:if>
-
-                                    <li class="page-item">
-                                        <a class="page-link" href="?page=${page + 1}&search=${search}&sortBy=${sortBy}&order=${order}">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </main>
-                    </div>
+                    <!-- Hiển thị Calendar -->
+                    <div id="calendar"></div>
                 </div>
+
+                <!-- Thư viện -->
+                <script src="admin/assets/js/jquery.min.js"></script> 
+                <script src="admin/assets/vendors/calendar/moment.min.js"></script>
+                <!--<script src="admin/assets/vendors/calendar/fullcalendar.js"></script>-->
+                <script src="admin/assets/vendors/bootstrap/js/popper.min.js"></script>
+                <script src="admin/assets/vendors/bootstrap/js/bootstrap.min.js"></script>
+                <script src="admin/assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+                <script src="admin/assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+                <script src="admin/assets/vendors/magnific-popup/magnific-popup.js"></script>
+                <script src="admin/assets/vendors/counter/waypoints-min.js"></script>
+                <script src="admin/assets/vendors/counter/counterup.min.js"></script>
+                <script src="admin/assets/vendors/imagesloaded/imagesloaded.js"></script>
+                <script src="admin/assets/vendors/masonry/masonry.js"></script>
+                <script src="admin/assets/vendors/masonry/filter.js"></script>
+                <script src="admin/assets/vendors/owl-carousel/owl.carousel.js"></script>
+                <script src='admin/assets/vendors/scroll/scrollbar.min.js'></script>
+                <script src="admin/assets/js/functions.js"></script>
+                <script src="admin/assets/vendors/chart/chart.min.js"></script>
+                <script src="admin/assets/js/admin.js"></script>
+                <script src='admin/assets/vendors/calendar/moment.min.js'></script>
+                <script src='admin/assets/vendors/calendar/fullcalendar.js'></script>
+                <script src='admin/assets/vendors/switcher/switcher.js'></script>
+                <!-- Script hiển thị lịch -->
+                <script>
+                    $(document).ready(function () {
+                        var events = [];
+
+                        // Kiểm tra dữ liệu từ server
+                        console.log("Dữ liệu schedules:", "${schedules}");
+                        console.log("Kiểm tra jQuery: ", typeof jQuery);
+                        console.log("Kiểm tra phiên bản jQuery: ", jQuery.fn.jquery);
+                        console.log("Kiểm tra Moment.js: ", typeof moment);
+                        console.log("Kiểm tra FullCalendar: ", typeof $.fn.fullCalendar);
+                    <c:forEach var="schedule" items="${schedules}" varStatus="loop">
+                        console.log("Schedule:", "${schedule.title}", "${schedule.start}", "${schedule.end}");
+                        events.push({
+                            title: "${schedule.title}",
+                            start: "${schedule.start}",
+                            end: "${schedule.end}"
+                        });
+                    </c:forEach>
+
+                        console.log("Mảng events sau khi xử lý:", events);
+
+                        if (events.length === 0) {
+                            $('#calendar').html('<p class="text-center text-muted">Bạn không có lịch nào hiện tại để hiển thị</p>');
+                        } else {
+                            $('#calendar').fullCalendar({
+                                header: {
+                                    left: 'prev,next today',
+                                    center: 'title',
+                                    right: 'month,agendaWeek,agendaDay,listWeek'
+                                },
+                                editable: true,
+                                eventLimit: true,
+                                events: events
+                            });
+                        }
+                    });
+
+                </script>
+
+
                 <!--End Content-->
             </div>
             <!-- Content END-->
             <!-- Footer ==== -->
-            <jsp:include page="../include/footer.jsp" />
-
+            <footer>
+                <div class="footer-top">
+                    <div class="pt-exebar">
+                        <div class="container">
+                            <div class="d-flex align-items-stretch">
+                                <div class="pt-logo mr-auto">
+                                    <a href="home.jsp"><img src="assets/images/logo-white.png" alt=""/></a>
+                                </div>
+                                <div class="pt-social-link">
+                                    <ul class="list-inline m-a0">
+                                        <li><a href="#" class="btn-link"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#" class="btn-link"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
+                                        <li><a href="#" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="pt-btn-join">
+                                    <a href="#" class="btn ">Join Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
             <!-- Footer END ==== -->
             <button class="back-to-top fa fa-chevron-up" ></button>
         </div>
 
         <!-- External JavaScripts -->
-        <script src="assets/js/jquery.min.js"></script>
+        <!--<script src="assets/js/jquery.min.js"></script>-->
         <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
         <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
@@ -556,91 +640,90 @@
         <script src="assets/vendors/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
         <script src="assets/vendors/revolution/js/extensions/revolution.extension.video.min.js"></script>
         <script>
-                                jQuery(document).ready(function () {
-                                    var ttrevapi;
-                                    var tpj = jQuery;
-                                    if (tpj("#rev_slider_486_1").revolution == undefined) {
-                                        revslider_showDoubleJqueryError("#rev_slider_486_1");
-                                    } else {
-                                        ttrevapi = tpj("#rev_slider_486_1").show().revolution({
-                                            sliderType: "standard",
-                                            jsFileLocation: "assets/vendors/revolution/js/",
-                                            sliderLayout: "fullwidth",
-                                            dottedOverlay: "none",
-                                            delay: 9000,
-                                            navigation: {
-                                                keyboardNavigation: "on",
-                                                keyboard_direction: "horizontal",
-                                                mouseScrollNavigation: "off",
-                                                mouseScrollReverse: "default",
-                                                onHoverStop: "on",
-                                                touch: {
-                                                    touchenabled: "on",
-                                                    swipe_threshold: 75,
-                                                    swipe_min_touches: 1,
-                                                    swipe_direction: "horizontal",
-                                                    drag_block_vertical: false
-                                                }
-                                                ,
-                                                arrows: {
-                                                    style: "uranus",
-                                                    enable: true,
-                                                    hide_onmobile: false,
-                                                    hide_onleave: false,
-                                                    tmp: '',
-                                                    left: {
-                                                        h_align: "left",
-                                                        v_align: "center",
-                                                        h_offset: 10,
-                                                        v_offset: 0
-                                                    },
-                                                    right: {
-                                                        h_align: "right",
-                                                        v_align: "center",
-                                                        h_offset: 10,
-                                                        v_offset: 0
-                                                    }
-                                                },
-
-                                            },
-                                            viewPort: {
-                                                enable: true,
-                                                outof: "pause",
-                                                visible_area: "80%",
-                                                presize: false
-                                            },
-                                            responsiveLevels: [1240, 1024, 778, 480],
-                                            visibilityLevels: [1240, 1024, 778, 480],
-                                            gridwidth: [1240, 1024, 778, 480],
-                                            gridheight: [768, 600, 600, 600],
-                                            lazyType: "none",
-                                            parallax: {
-                                                type: "scroll",
-                                                origo: "enterpoint",
-                                                speed: 400,
-                                                levels: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 46, 47, 48, 49, 50, 55],
-                                                type: "scroll",
-                                            },
-                                            shadow: 0,
-                                            spinner: "off",
-                                            stopLoop: "off",
-                                            stopAfterLoops: -1,
-                                            stopAtSlide: -1,
-                                            shuffle: "off",
-                                            autoHeight: "off",
-                                            hideThumbsOnMobile: "off",
-                                            hideSliderAtLimit: 0,
-                                            hideCaptionAtLimit: 0,
-                                            hideAllCaptionAtLilmit: 0,
-                                            debugMode: false,
-                                            fallbacks: {
-                                                simplifyAll: "off",
-                                                nextSlideOnWindowFocus: "off",
-                                                disableFocusListener: false,
-                                            }
-                                        });
+                    jQuery(document).ready(function () {
+                        var ttrevapi;
+                        var tpj = jQuery;
+                        if (tpj("#rev_slider_486_1").revolution == undefined) {
+                            revslider_showDoubleJqueryError("#rev_slider_486_1");
+                        } else {
+                            ttrevapi = tpj("#rev_slider_486_1").show().revolution({
+                                sliderType: "standard",
+                                jsFileLocation: "assets/vendors/revolution/js/",
+                                sliderLayout: "fullwidth",
+                                dottedOverlay: "none",
+                                delay: 9000,
+                                navigation: {
+                                    keyboardNavigation: "on",
+                                    keyboard_direction: "horizontal",
+                                    mouseScrollNavigation: "off",
+                                    mouseScrollReverse: "default",
+                                    onHoverStop: "on",
+                                    touch: {
+                                        touchenabled: "on",
+                                        swipe_threshold: 75,
+                                        swipe_min_touches: 1,
+                                        swipe_direction: "horizontal",
+                                        drag_block_vertical: false
                                     }
-                                });
+                                    ,
+                                    arrows: {
+                                        style: "uranus",
+                                        enable: true,
+                                        hide_onmobile: false,
+                                        hide_onleave: false,
+                                        tmp: '',
+                                        left: {
+                                            h_align: "left",
+                                            v_align: "center",
+                                            h_offset: 10,
+                                            v_offset: 0
+                                        },
+                                        right: {
+                                            h_align: "right",
+                                            v_align: "center",
+                                            h_offset: 10,
+                                            v_offset: 0
+                                        }
+                                    },
+                                },
+                                viewPort: {
+                                    enable: true,
+                                    outof: "pause",
+                                    visible_area: "80%",
+                                    presize: false
+                                },
+                                responsiveLevels: [1240, 1024, 778, 480],
+                                visibilityLevels: [1240, 1024, 778, 480],
+                                gridwidth: [1240, 1024, 778, 480],
+                                gridheight: [768, 600, 600, 600],
+                                lazyType: "none",
+                                parallax: {
+                                    type: "scroll",
+                                    origo: "enterpoint",
+                                    speed: 400,
+                                    levels: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 46, 47, 48, 49, 50, 55],
+                                    type: "scroll",
+                                },
+                                shadow: 0,
+                                spinner: "off",
+                                stopLoop: "off",
+                                stopAfterLoops: -1,
+                                stopAtSlide: -1,
+                                shuffle: "off",
+                                autoHeight: "off",
+                                hideThumbsOnMobile: "off",
+                                hideSliderAtLimit: 0,
+                                hideCaptionAtLimit: 0,
+                                hideAllCaptionAtLilmit: 0,
+                                debugMode: false,
+                                fallbacks: {
+                                    simplifyAll: "off",
+                                    nextSlideOnWindowFocus: "off",
+                                    disableFocusListener: false,
+                                }
+                            });
+                        }
+                    });
         </script>
     </body>
 
