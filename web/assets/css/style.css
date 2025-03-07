@@ -423,15 +423,7 @@
     color: #EFBB20;
 }
 .menu-links .nav > li:hover > a:after {
-    content: "";
-    width: 10px;
-    height: 10px;
-    background: #fff;
-    top: 85%;
-    position: absolute;
-    left: 30px;
-    transform: rotate(45deg);
-    z-index: 11;
+    content: none !important;
 }
 .menu-links .nav > li:hover > .sub-menu,
 .menu-links .nav > li:hover > .mega-menu {
