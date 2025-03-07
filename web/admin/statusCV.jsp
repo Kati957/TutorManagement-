@@ -374,7 +374,7 @@
                                 <td><%=rsCv.getString(3)%></td>
                                 <td><%=rsCv.getString(5)%></td>
                                 <td><%=rsCv.getString(4)%></td>
-                                <td></td>
+                                <td><a href="viewCV?cvid=<%=rsCv.getInt(1)%>">View CV</a></td>
                             </tr>
                             <%}%>
                         </table>

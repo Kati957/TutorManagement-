@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package UserController;
+package AdminController;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,8 +19,8 @@ import model.DAOCv;
  *
  * @author dvdung
  */
-@WebServlet(name="TutorDetailController", urlPatterns={"/Tutordetail"})
-public class TutorDetailController extends HttpServlet {
+@WebServlet(name="ViewCV", urlPatterns={"/admin/viewCV"})
+public class ViewCv extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,16 +34,18 @@ public class TutorDetailController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            DAOCv dao= new DAOCv();
-            int tutor = Integer.parseInt(request.getParameter("tutorID"));
-            ResultSet rsTutor=null;
-            rsTutor = dao.getData("select TutorID, FullName, SubjectName, rating, Avatar, Price,Desciption from users\n" +
-"                        join CV on users.UserID=Cv.UserID\n" +
-"                        join tutor on CV.CVID=tutor.CVIID\n" +
-"                        join Subject on CV.SubjectId=Subject.SubjectID\n" +
-"                    where TutorID=1");
-            request.setAttribute("rsTutor", rsTutor);
-            request.getRequestDispatcher("/tutor-details.jsp").forward(request, response);
+            DAOCv dao=new DAOCv();
+            int CvID = 0;
+            String cvid = request.getParameter("cvid");
+            if (cvid != null) {
+                CvID = Integer.parseInt(cvid);
+                ResultSet Cv = dao.getData("SELECT * FROM [dbo].[CV]\n"
+                        + "                     join Subject on CV.SubjectId=Subject.SubjectID\n"
+                        + "                        join Users on Users.UserID=CV.UserID\n"
+                        + "                        where [CVID]=" + CvID);
+                request.setAttribute("cv", Cv);
+                request.getRequestDispatcher("/admin/viewCV.jsp").forward(request, response);
+            }
         }
     } 
 

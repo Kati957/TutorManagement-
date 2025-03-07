@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package AdminController;
 
 import entity.Cv;
@@ -20,40 +19,51 @@ import model.DAOCv;
  *
  * @author dvdung
  */
-@WebServlet(name="RequestTutor", urlPatterns={"/admin/RequestCV"})
+@WebServlet(name = "RequestTutor", urlPatterns = {"/admin/RequestCV"})
 public class RequestTutor extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             DAOCv dao = new DAOCv();
             String error = "";
+            int CvID = 0;
+            String cvid = request.getParameter("cvid");
             String submit = request.getParameter("submit");
             if (submit == null) {
-                ResultSet rsCv = dao.getData("SELECT [CVID],[Fullname],[Education],[Status],[SubjectName] FROM [dbo].[CV]\n" +
-"join Subject on CV.SubjectId=Subject.SubjectID\n" +
-"join Users on Users.UserID=CV.UserID");
+                ResultSet rsCv = dao.getData("SELECT [CVID],[Fullname],[Education],[Status],[SubjectName] FROM [dbo].[CV]\n"
+                        + "join Subject on CV.SubjectId=Subject.SubjectID\n"
+                        + "join Users on Users.UserID=CV.UserID");
                 request.setAttribute("rsCv", rsCv);
                 request.getRequestDispatcher("/admin/statusCV.jsp").forward(request, response);
             }
-            if (submit != null) {
+            if (cvid != null) {
+                CvID=Integer.parseInt(cvid);
+                ResultSet Cv = dao.getData("SELECT * FROM [dbo].[CV]\n"
+                        + "join Subject on CV.SubjectId=Subject.SubjectID\n"
+                        + "join Users on Users.UserID=CV.UserID"
+                        + "where [CVID]=" + CvID);
+                request.setAttribute("cv", Cv);
+                request.getRequestDispatcher("/admin/viewCV.jsp").forward(request, response);
             }
-            
         }
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -61,12 +71,13 @@ public class RequestTutor extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
-    } 
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -74,12 +85,13 @@ public class RequestTutor extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override
