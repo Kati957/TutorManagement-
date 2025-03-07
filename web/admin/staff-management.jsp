@@ -4,6 +4,7 @@
     Author     : Heizxje
 --%>
 
+<%@page import="entity.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -223,6 +224,7 @@
                     <h4 class="breadcrumb-title">Staff Management</h4>
                 </div>	
                 <div class="row">
+                    <!-- Staff List -->
                     <!-- Staff List -->
                     <div class="col-lg-12 m-b30">
                         <div class="widget-box">
