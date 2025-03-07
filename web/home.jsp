@@ -22,11 +22,11 @@
         <meta name="robots" content="" />
 
         <!-- DESCRIPTION -->
-        <meta name="description" content="EduChamp : Education HTML Template" />
+        <meta name="description" content="G4 SmartTutor : Smart tutor, effective learning." />
 
         <!-- OG -->
-        <meta property="og:title" content="EduChamp : Education HTML Template" />
-        <meta property="og:description" content="EduChamp : Education HTML Template" />
+        <meta property="og:title" content="G4 SmartTutor : Smart tutor, effective learning." />
+        <meta property="og:description" content="G4 SmartTutor : Smart tutor, effective learning." />
         <meta property="og:image" content="" />
         <meta name="format-detection" content="telephone=no">
 
@@ -35,7 +35,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
 
         <!-- PAGE TITLE HERE ============================================= -->
-        <title>Title Heizxje </title>
+        <title>G4 SmartTutor</title>
 
         <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -78,8 +78,8 @@
                         <div class="row d-flex justify-content-between">
                             <div class="topbar-left">
                                 <ul>
-                                    <li><a href="faq-1.html"><i class="fa fa-question-circle"></i>Ask a Question</a></li>
-                                    <li><a href="javascript:;"><i class="fa fa-envelope-o"></i>Support@website.com</a></li>
+                                    <li><a href="#"><i class="fa fa-question-circle"></i>Ask a Question</a></li>
+                                    <li><a href="#"><i class="fa fa-envelope-o"></i>Support@website.com</a></li>
                                 </ul>
                             </div>
                             <div class="topbar-right">
@@ -247,7 +247,7 @@
                                          data-paddingbottom="[10,10,10,10]"
                                          data-paddingleft="[0,0,0,0]"
                                          style="z-index: 6; font-family:rubik; font-weight:700; text-align:center; white-space: normal;">
-                                        Welcome To Tutor Management
+                                        Welcome To G4 SmartTutor
                                     </div>
 
                                     <!-- LAYER NR. 3 -->
@@ -269,7 +269,7 @@
                                          data-paddingbottom="[0,0,0,0]"
                                          data-paddingleft="[0,0,0,0]"
                                          style="z-index: 7; white-space: nowrap; color:#fff; font-family:rubik; font-size:18px; font-weight:400;">
-                                        Batter Education For A Better 
+                                        Better Education For A Better Future 
                                     </div>
 
                                     <!-- LAYER NR. 3 -->
@@ -291,47 +291,8 @@
                                          data-paddingbottom="[0,0,0,0]"
                                          data-paddingleft="[0,0,0,0]"
                                          style="z-index: 7; text-transform:capitalize; white-space: unset; color:#fff; font-family:rubik; font-size:18px; line-height:28px; font-weight:400;">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the
+                                        G4 SmartTutor connects students with professional tutors, offering personalized learning for better results.
                                     </div>
-                                    <!-- LAYER NR. 4 -->
-                                    <div class="tp-caption Newspaper-Button rev-btn " 
-                                         id="slide-100-layer-5" 
-                                         data-x="['center','center','center','center']" 
-                                         data-hoffset="['90','80','75','90']" 
-                                         data-y="['top','top','top','top']" 
-                                         data-voffset="['400','400','400','420']" 
-                                         data-width="none"
-                                         data-height="none"
-                                         data-whitespace="nowrap"
-                                         data-type="button" 
-                                         data-responsive_offset="on" 
-                                         data-responsive="off"
-                                         data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;","ease":"Power3.easeInOut"},{"frame":"hover","speed":"300","ease":"Power1.easeInOut","to":"o:1;rX:0;rY:0;rZ:0;z:0;","style":"c:rgba(0, 0, 0, 1.00);bg:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 1.00);bw:1px 1px 1px 1px;"}]'
-                                         data-textAlign="['center','center','center','center']"
-                                         data-paddingtop="[12,12,12,12]"
-                                         data-paddingright="[30,35,35,15]"
-                                         data-paddingbottom="[12,12,12,12]"
-                                         data-paddingleft="[30,35,35,15]"
-                                         style="z-index: 8; white-space: nowrap; outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer; background-color:var(--primary) !important; border:0; border-radius:30px; margin-right:5px;">READ MORE </div>
-                                    <div class="tp-caption Newspaper-Button rev-btn" 
-                                         id="slide-100-layer-6" 
-                                         data-x="['center','center','center','center']" 
-                                         data-hoffset="['-90','-80','-75','-90']" 
-                                         data-y="['top','top','top','top']" 
-                                         data-voffset="['400','400','400','420']" 
-                                         data-width="none"
-                                         data-height="none"
-                                         data-whitespace="nowrap"
-                                         data-type="button" 
-                                         data-responsive_offset="on" 
-                                         data-responsive="off"
-                                         data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;","ease":"Power3.easeInOut"},{"frame":"hover","speed":"300","ease":"Power1.easeInOut","to":"o:1;rX:0;rY:0;rZ:0;z:0;","style":"c:rgba(0, 0, 0, 1.00);bg:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 1.00);bw:1px 1px 1px 1px;"}]'
-                                         data-textAlign="['center','center','center','center']"
-                                         data-paddingtop="[12,12,12,12]"
-                                         data-paddingright="[30,35,35,15]"
-                                         data-paddingbottom="[12,12,12,12]"
-                                         data-paddingleft="[30,35,35,15]"
-                                         style="z-index: 8; white-space: nowrap; outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer; border-radius:30px;">CONTACT US</div>
                                 </li>
                                 <li data-index="rs-200" 
                                     data-transition="parallaxvertical" 
