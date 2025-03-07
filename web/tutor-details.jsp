@@ -5,6 +5,7 @@
 --%>
 
 <%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.ResultSet,entity.User,entity.Subject,java.util.List"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,11 +19,11 @@
         <meta name="robots" content="" />
 
         <!-- DESCRIPTION -->
-        <meta name="description" content="EduChamp : Education HTML Template" />
+        <meta name="description" content="G4 SmartTutor : Smart tutor, effective learning." />
 
         <!-- OG -->
-        <meta property="og:title" content="EduChamp : Education HTML Template" />
-        <meta property="og:description" content="EduChamp : Education HTML Template" />
+        <meta property="og:title" content="G4 SmartTutor : Smart tutor, effective learning." />
+        <meta property="og:description" content="G4 SmartTutor : Smart tutor, effective learning." />
         <meta property="og:image" content="" />
         <meta name="format-detection" content="telephone=no">
 
@@ -31,7 +32,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
 
         <!-- PAGE TITLE HERE ============================================= -->
-        <title>EduChamp : Education HTML Template </title>
+        <title>G4 SmartTutor</title>
 
         <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -59,6 +60,11 @@
         ResultSet rsTutor = (ResultSet) request.getAttribute("rsTutor");
         rsTutor.next();
     %>
+    <%
+        List<Subject> list = (List<Subject>) request.getAttribute("list");
+        ResultSet rs = (ResultSet) request.getAttribute("rs");
+        User user = (User) session.getAttribute("user");
+    %>
     <body id="bg">
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
@@ -81,8 +87,22 @@
                                             <option data-icon="flag flag-us">English US</option>
                                         </select>
                                     </li>
-                                    <li><a href="login.jsp">Login</a></li>
-                                    <li><a href="register.jsp">Register</a></li>
+                                    <% if (user == null) { %>
+                                    <li><a href="login">Login</a></li>
+                                    <li><a href="User?service=registerUser">Register</a></li>
+                                        <%} else {%>
+                                    <li>
+                                        <div class="ttr-header-submenu">
+                                            <ul>
+                                                <li><a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a></li>
+                                                <li><a href="profile_user.jsp">My profile</a></li>
+                                                <li><a href="list-view-calendar.jsp">Activity</a></li>
+                                                <li><a href="cv">Become a tutor</a></li>
+                                                <li><a href="logout">Logout</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <%}%>
                                 </ul>
                             </div>
                         </div>
@@ -127,71 +147,12 @@
                                     <a href="index.jsp"><img src="assets/images/logo.png" alt=""></a>
                                 </div>
                                 <ul class="nav navbar-nav">	
-                                    <li class="active"><a href="javascript:;">Home <i class="fa fa-chevron-down"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="index.jsp">Home 1</a></li>
-                                            <li><a href="index-2.jsp">Home 2</a></li>
-                                        </ul>
+                                    <li><a href="home.jsp">Home</a>
                                     </li>
-                                    <li><a href="javascript:;">Pages <i class="fa fa-chevron-down"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="javascript:;">About<i class="fa fa-angle-right"></i></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="about-1.jsp">About 1</a></li>
-                                                    <li><a href="about-2.jsp">About 2</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="javascript:;">Event<i class="fa fa-angle-right"></i></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="event.jsp">Event</a></li>
-                                                    <li><a href="events-details.jsp">Events Details</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="javascript:;">FAQ's<i class="fa fa-angle-right"></i></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="faq-1.jsp">FAQ's 1</a></li>
-                                                    <li><a href="faq-2.jsp">FAQ's 2</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="javascript:;">Contact Us<i class="fa fa-angle-right"></i></a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="contact-1.jsp">Contact Us 1</a></li>
-                                                    <li><a href="contact-2.jsp">Contact Us 2</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="portfolio.jsp">Portfolio</a></li>
-                                            <li><a href="profile.jsp">Profile</a></li>
-                                            <li><a href="membership.jsp">Membership</a></li>
-                                            <li><a href="error-404.jsp">404 Page</a></li>
-                                        </ul>
+                                    <li class="active" class="add-mega-menu"><a href="Courses">Our Courses</a>
                                     </li>
-                                    <li class="add-mega-menu"><a href="javascript:;">Our Courses <i class="fa fa-chevron-down"></i></a>
-                                        <ul class="sub-menu add-menu">
-                                            <li class="add-menu-left">
-                                                <h5 class="menu-adv-title">Our Courses</h5>
-                                                <ul>
-                                                    <li><a href="Courses">Courses </a></li>
-                                                    <li><a href="courses-details.jsp">Courses Details</a></li>
-                                                    <li><a href="profile.jsp">Instructor Profile</a></li>
-                                                    <li><a href="event.jsp">Upcoming Event</a></li>
-                                                    <li><a href="membership.jsp">Membership</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="add-menu-right">
-                                                <img src="assets/images/adv/adv.jpg" alt=""/>
-                                            </li>
-                                        </ul>
+                                    <li><a href="ViewBlog">Blog</a>
                                     </li>
-                                    <li><a href="javascript:;">Blog <i class="fa fa-chevron-down"></i></a>
-                                        <ul class="sub-menu">
-                                            <li><a href="blog-classic-grid.jsp">Blog Classic</a></li>
-                                            <li><a href="blog-classic-sidebar.jsp">Blog Classic Sidebar</a></li>
-                                            <li><a href="blog-list-sidebar.jsp">Blog List Sidebar</a></li>
-                                            <li><a href="blog-standard-sidebar.jsp">Blog Standard Sidebar</a></li>
-                                            <li><a href="blog-details.jsp">Blog Details</a></li>
-                                        </ul>
-                                    </li>
-
                                 </ul>
                                 <div class="nav-social-link">
                                     <a href="javascript:;"><i class="fa fa-facebook"></i></a>
@@ -537,86 +498,6 @@
                                     <a href="#" class="btn ">Join Now</a>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-12 col-sm-12 footer-col-4">
-                                <div class="widget">
-                                    <h5 class="footer-title">Sign Up For A Newsletter</h5>
-                                    <p class="text-capitalize m-b20">Weekly Breaking news analysis and cutting edge advices on job searching.</p>
-                                    <div class="subscribe-form m-b20">
-                                        <form class="subscription-form" action="http://educhamp.themetrades.com/demo/assets/script/mailchamp.php" method="post">
-                                            <div class="ajax-message"></div>
-                                            <div class="input-group">
-                                                <input name="email" required="required"  class="form-control" placeholder="Your Email Address" type="email">
-                                                <span class="input-group-btn">
-                                                    <button name="submit" value="Submit" type="submit" class="btn"><i class="fa fa-arrow-right"></i></button>
-                                                </span> 
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-5 col-md-7 col-sm-12">
-                                <div class="row">
-                                    <div class="col-4 col-lg-4 col-md-4 col-sm-4">
-                                        <div class="widget footer_widget">
-                                            <h5 class="footer-title">Company</h5>
-                                            <ul>
-                                                <li><a href="index.jsp">Home</a></li>
-                                                <li><a href="about-1.jsp">About</a></li>
-                                                <li><a href="faq-1.jsp">FAQs</a></li>
-                                                <li><a href="contact-1.jsp">Contact</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 col-lg-4 col-md-4 col-sm-4">
-                                        <div class="widget footer_widget">
-                                            <h5 class="footer-title">Get In Touch</h5>
-                                            <ul>
-                                                <li><a href="http://educhamp.themetrades.com/admin/index.jsp">Dashboard</a></li>
-                                                <li><a href="blog-classic-grid.jsp">Blog</a></li>
-                                                <li><a href="portfolio.jsp">Portfolio</a></li>
-                                                <li><a href="event.jsp">Event</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 col-lg-4 col-md-4 col-sm-4">
-                                        <div class="widget footer_widget">
-                                            <h5 class="footer-title">Courses</h5>
-                                            <ul>
-                                                <li><a href="courses.jsp">Courses</a></li>
-                                                <li><a href="courses-details.jsp">Details</a></li>
-                                                <li><a href="membership.jsp">Membership</a></li>
-                                                <li><a href="profile.jsp">Profile</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-3 col-md-5 col-sm-12 footer-col-4">
-                                <div class="widget widget_gallery gallery-grid-4">
-                                    <h5 class="footer-title">Our Gallery</h5>
-                                    <ul class="magnific-image">
-                                        <li><a href="assets/images/gallery/pic1.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic1.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic2.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic2.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic3.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic3.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic4.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic4.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic5.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic5.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic6.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic6.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic7.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic7.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic8.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic8.jpg" alt=""></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 text-center"><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></div>
                         </div>
                     </div>
                 </div>
