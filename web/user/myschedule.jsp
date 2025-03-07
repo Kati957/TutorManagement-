@@ -118,7 +118,7 @@
                         <div class="container clearfix">
                             <!-- Header Logo ==== -->
                             <div class="menu-logo">
-                                <a href="home.jsp"><img src="assets/images/logo-white.png" alt=""></a>
+                                <a href="home"><img src="assets/images/logo-white.png" alt=""></a>
                             </div>
                             <!-- Mobile Nav Button ==== -->
                             <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -149,10 +149,10 @@
                             <!-- Navigation Menu ==== -->
                             <div class="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
                                 <div class="menu-logo">
-                                    <a href="home.jsp"><img src="assets/images/logo.png" alt=""></a>
+                                    <a href="home"><img src="assets/images/logo.png" alt=""></a>
                                 </div>
                                 <ul class="nav navbar-nav">	
-                                    <li class="active"><a href="home.jsp">Home</a>
+                                    <li class="active"><a href="home">Home</a>
                                     </li>
                                     <li class="add-mega-menu"><a href="Courses">Our Courses</a>
                                     </li>
@@ -501,15 +501,19 @@
                 <!-- Main Slider -->
                 <!--Content-->
                 <div class="container mt-4">
-                    <a href="bookschedule" class="btn btn-primary mt-2">Book A Schedule</a>
+                    <a href="home" class="btn btn-primary mb-3">Back</a>
                     <h3>My Schedule</h3>
 
                     <!-- Form tìm kiếm -->
                     <form method="GET" id="searchForm" class="mb-3">
-                        <input type="text" id="searchInput" name="search" placeholder="Search by subject" 
-                               class="form-control" value="${search}" />
-                        <button type="submit" class="btn btn-primary mt-2">Search</button>
+                        <div class="input-group">
+                            <input type="text" id="searchInput" name="search" placeholder="Search by subject" 
+                                   class="form-control" value="${param.search}" />
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
                     </form>
+
+                    <a href="bookschedule" class="btn btn-primary mb-3">Book A Schedule</a>
 
                     <!-- Hiển thị Calendar -->
                     <div id="calendar"></div>

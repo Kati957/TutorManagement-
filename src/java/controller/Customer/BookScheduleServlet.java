@@ -1,66 +1,76 @@
 package controller.Customer;
 
 import entity.Booking;
+import entity.Schedule;
 import entity.Slot;
 import entity.Subject;
 import entity.Tutor;
 import entity.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import model.DAOBooking;
+import model.DAOSchedule;
 import model.DAOSlot;
 import model.DAOSubject;
 import model.DAOTutor;
 
 public class BookScheduleServlet extends HttpServlet {
 
+    // Servlet: processRequest
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         int studentID = user.getUserID();
-        int tutorID = Integer.parseInt(request.getParameter("tutorID"));
-        int slotID = Integer.parseInt(request.getParameter("slotID"));
-        int subjectID = Integer.parseInt(request.getParameter("subjectID"));
 
-        DAOBooking daoBooking = new DAOBooking();
-        DAOSubject daoSubject = new DAOSubject();
-        DAOSlot daoSlot = new DAOSlot();
-        DAOTutor daoTutor = new DAOTutor();
+        String[] scheduleIds = request.getParameterValues("scheduleIds");
+        String tutorId = request.getParameter("tutorId");
+        String subjectId = request.getParameter("subjectId");
 
-        Booking booking = new Booking();
-        booking.setStudentID(studentID);
-        booking.setTutorID(tutorID);
-        booking.setSlotID(slotID);
-        booking.setBookingDate(Date.valueOf(LocalDate.now()));
-        booking.setStatus("Pending");
-        booking.setSubjectID(subjectID);
-
-        int result = daoBooking.addBooking(booking);
-
-        List<Tutor> tutorList = daoTutor.getAllTutors();
-        List<Slot> slotList = daoSlot.getAllSlots();
-        List<Subject> subjectList = daoSubject.getAllSubjects();
-
-        request.setAttribute("tutorList", tutorList);
-        request.setAttribute("slotList", slotList);
-        request.setAttribute("subjectList", subjectList);
-
-        if (result > 0) {
-            request.setAttribute("success", "Đặt lịch thành công!");
-        } else {
-            request.setAttribute("error", "Lỗi khi đặt lịch. Vui lòng thử lại!");
+        if (scheduleIds == null || tutorId == null || subjectId == null) {
+            response.sendRedirect("bookschedule?subjectId=" + subjectId + "&tutorId=" + tutorId + "&error=Missing information");
+            return;
         }
-        request.getRequestDispatcher("user/bookschedule.jsp").forward(request, response);
+
+        DAOSlot daoSlot = new DAOSlot();
+        DAOBooking daoBooking = new DAOBooking();
+        List<Slot> slots = new ArrayList<>();
+        List<Booking> bookings = new ArrayList<>();
+
+        // Tạo danh sách Slot và Booking
+        for (String scheduleId : scheduleIds) {
+            Slot slot = new Slot();
+            slot.setScheduleID(Integer.parseInt(scheduleId));
+            slot.setStatus("Available"); // Đặt trạng thái mặc định
+
+            slots.add(slot);
+
+            Booking booking = new Booking();
+            booking.setStudentID(studentID);
+            booking.setTutorID(Integer.parseInt(tutorId));
+            booking.setBookingDate(new Date(System.currentTimeMillis()));
+            booking.setStatus("Pending");
+            booking.setSubjectID(Integer.parseInt(subjectId));
+
+            bookings.add(booking);
+        }
+
+        int result = daoBooking.addSlotsAndBookings(slots, bookings);
+
+        if (result == bookings.size()) {
+            response.sendRedirect("bookschedule?subjectId=" + subjectId + "&tutorId=" + tutorId + "&success=Booking successfully");
+        } else {
+            response.sendRedirect("bookschedule?subjectId=" + subjectId + "&tutorId=" + tutorId + "&error=Booking failed");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -75,18 +85,49 @@ public class BookScheduleServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         DAOTutor daoTutor = new DAOTutor();
         DAOSubject daoSubject = new DAOSubject();
         DAOSlot daoSlot = new DAOSlot();
 
-        List<Tutor> tutorList = daoTutor.getAllTutors();
-        List<Slot> slotList = daoSlot.getAllSlots();
         List<Subject> subjectList = daoSubject.getAllSubjects();
-
-        // Đặt thuộc tính cho request
-        request.setAttribute("tutorList", tutorList);
-        request.setAttribute("slotList", slotList);
+        List<Slot> slotList = daoSlot.getAllSlots();
         request.setAttribute("subjectList", subjectList);
+        request.setAttribute("slotList", slotList);
+
+        String subjectIdParam = request.getParameter("subjectId");
+        String tutorIdParam = request.getParameter("tutorId");
+
+        List<Tutor> tutorList;
+        Tutor selectedTutor = null;
+
+        if (subjectIdParam == null || subjectIdParam.isEmpty()) {
+            tutorList = daoTutor.getTopTutors(5);
+        } else {
+            int subjectId = Integer.parseInt(subjectIdParam);
+            tutorList = daoTutor.getAllTutorsBySubject(subjectId);
+        }
+
+        if (tutorIdParam != null && !tutorIdParam.isEmpty()) {
+            int subjectId = Integer.parseInt(subjectIdParam);
+            int tutorId = Integer.parseInt(tutorIdParam);
+            selectedTutor = daoTutor.getTutorBySubject(tutorId, subjectId);
+
+            DAOSchedule daoSchedule = new DAOSchedule();
+            List<Schedule> scheduleList = daoSchedule.getSchedulesByTutorAndSubject(tutorId, subjectId);
+            request.setAttribute("scheduleList", scheduleList);
+        }
+        request.setAttribute("selectedTutor", selectedTutor);
+        request.setAttribute("tutorList", tutorList);
+        String error = request.getParameter("error");
+        String success = request.getParameter("success");
+        if (error != null) {
+            request.setAttribute("error", error);
+        }
+        if (success != null) {
+            request.setAttribute("success", success);
+        }
+
         request.getRequestDispatcher("user/bookschedule.jsp").forward(request, response);
     }
 
