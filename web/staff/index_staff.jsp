@@ -74,6 +74,7 @@
                 <div class="ttr-logo-box">
                     <div>
                         <a href="index_staff.jsp" class="ttr-logo">
+
                             <img class="ttr-logo-mobile" alt="" src="assets/images/logo-mobile.png" width="30" height="30">
                             <img class="ttr-logo-desktop" alt="" src="assets/images/logo-white.png" width="160" height="27">
                         </a>
@@ -369,3 +370,4 @@
     <script src='assets/vendors/calendar/fullcalendar.js'></script>
     <script src='assets/vendors/switcher/switcher.js'></script>
 </body>
+
