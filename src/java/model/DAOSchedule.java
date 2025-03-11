@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 public class DAOSchedule extends DBConnect {
-    
     //Hungnv: View Schedules
     public List<Map<String, Object>> getSchedulesByUserId(int userId, String search) {
         List<Map<String, Object>> schedules = new ArrayList<>();
@@ -42,7 +41,6 @@ public class DAOSchedule extends DBConnect {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                 schedule.put("start", sdf.format(rs.getTimestamp("StartTime")));
                 schedule.put("end", sdf.format(rs.getTimestamp("EndTime")));
-
                 schedules.add(schedule);
             }
         } catch (SQLException e) {
