@@ -9,122 +9,92 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <!-- META -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="" />
-    <meta name="author" content="" />
-    <meta name="robots" content="" />
-    <meta name="description" content="G4 SmartTutor : Smart tutor, effective learning." />
-    <meta property="og:title" content="G4 SmartTutor : Smart tutor, effective learning." />
-    <meta property="og:description" content="G4 SmartTutor : Smart tutor, effective learning." />
-    <meta property="og:image" content="" />
-    <meta name="format-detection" content="telephone=no">
+    <head>
+        <!-- META -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+        <meta name="robots" content="" />
+        <meta name="description" content="G4 SmartTutor : Smart tutor, effective learning." />
+        <meta property="og:title" content="G4 SmartTutor : Smart tutor, effective learning." />
+        <meta property="og:description" content="G4 SmartTutor : Smart tutor, effective learning." />
+        <meta property="og:image" content="" />
+        <meta name="format-detection" content="telephone=no">
 
-    <!-- FAVICONS ICON -->
-    <link rel="icon" href="../error-404.jsp" type="image/x-icon" />
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
+        <!-- FAVICONS ICON -->
+        <link rel="icon" href="../error-404.jsp" type="image/x-icon" />
+        <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
 
-    <!-- PAGE TITLE -->
-    <title>G4 SmartTutor - Subject Management</title>
+        <!-- PAGE TITLE -->
+        <title>G4 SmartTutor - Add Subject</title>
 
-    <!-- MOBILE SPECIFIC -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- MOBILE SPECIFIC -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="staff/assets/css/assets.css">
-    <link rel="stylesheet" type="text/css" href="staff/assets/vendors/calendar/fullcalendar.css">
-    <link rel="stylesheet" type="text/css" href="staff/assets/css/typography.css">
-    <link rel="stylesheet" type="text/css" href="staff/assets/css/shortcodes/shortcodes.css">
-    <link rel="stylesheet" type="text/css" href="staff/assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="staff/assets/css/dashboard.css">
-    <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="staff/assets/css/assets.css">
+        <link rel="stylesheet" type="text/css" href="staff/assets/vendors/calendar/fullcalendar.css">
+        <link rel="stylesheet" type="text/css" href="staff/assets/css/typography.css">
+        <link rel="stylesheet" type="text/css" href="staff/assets/css/shortcodes/shortcodes.css">
+        <link rel="stylesheet" type="text/css" href="staff/assets/css/style.css">
+        <link rel="stylesheet" type="text/css" href="staff/assets/css/dashboard.css">
+        <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
 
-</head>
-<body class="ttr-opened-sidebar ttr-pinned-sidebar">
-    <!-- Header -->
-    <header class="ttr-header">
-        <!-- [Header content remains unchanged as in your original code] -->
-        <div class="ttr-header-wrapper">
-            <div class="ttr-toggle-sidebar ttr-material-button">
-                <i class="ti-close ttr-open-icon"></i>
-                <i class="ti-menu ttr-close-icon"></i>
-            </div>
-            <div class="ttr-logo-box">
-                <div>
-                    <a href="index.jsp" class="ttr-logo">
-                        <img class="ttr-logo-mobile" alt="" src="assets/images/logo-mobile.png" width="30" height="30">
-                        <img class="ttr-logo-desktop" alt="" src="assets/images/logo-white.png" width="160" height="27">
-                    </a>
+    </head>
+    <body class="ttr-opened-sidebar ttr-pinned-sidebar">
+        <!-- Header -->
+        <header class="ttr-header">
+            <div class="ttr-header-wrapper">
+                <!--sidebar menu toggler start -->
+                <div class="ttr-toggle-sidebar ttr-material-button">
+                    <i class="ti-close ttr-open-icon"></i>
+                    <i class="ti-menu ttr-close-icon"></i>
                 </div>
-            </div>
-            <div class="ttr-header-menu">
-                <ul class="ttr-header-navigation">
-                    <li><a href="../index.jsp" class="ttr-material-button ttr-submenu-toggle">HOME</a></li>
-                    <li>
-                        <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i class="fa fa-angle-down"></i></a>
-                        <div class="ttr-header-submenu">
-                            <ul>
-                                <li><a href="../courses.jsp">Our Courses</a></li>
-                                <li><a href="../event.jsp">New Event</a></li>
-                                <li><a href="../membership.jsp">Membership</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
+                <!--sidebar menu toggler end -->
+                <!--logo start -->
+                <div class="ttr-logo-box">
+                    <div>
+                        <a href="index_staff.jsp" class="ttr-logo">
+                            <img class="ttr-logo-mobile" alt="" src="assets/images/logo-mobile.png" width="30" height="30">
+                            <img class="ttr-logo-desktop" alt="" src="assets/images/logo-white.png" width="160" height="27">
+                        </a>
+                    </div>
+                </div>
+                <!--logo end -->
+
+                <!-- header left menu end -->
             </div>
             <div class="ttr-header-right ttr-with-seperator">
+                <!-- header right menu start -->
                 <ul class="ttr-header-navigation">
-                    <li><a href="#" class="ttr-material-button ttr-search-toggle"><i class="fa fa-search"></i></a></li>
-                    <li>
-                        <a href="#" class="ttr-material-button ttr-submenu-toggle"><i class="fa fa-bell"></i></a>
-                        <div class="ttr-header-submenu noti-menu">
-                            <div class="ttr-notify-header">
-                                <span class="ttr-notify-text-top">9 New</span>
-                                <span class="ttr-notify-text">User Notifications</span>
-                            </div>
-                            <div class="noti-box-list">
-                                <ul>
-                                    <li>
-                                        <span class="notification-icon dashbg-gray"><i class="fa fa-check"></i></span>
-                                        <span class="notification-text"><span>Sneha Jogi</span> sent you a message.</span>
-                                        <span class="notification-time"><a href="#" class="fa fa-close"></a><span> 02:14</span></span>
-                                    </li>
-                                    <!-- [Other notification items remain unchanged] -->
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
+
+
                     <li>
                         <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
                         <div class="ttr-header-submenu">
                             <ul>
-                                <li><a href="user-profile.jsp">My profile</a></li>
-                                <li><a href="list-view-calendar.jsp">Activity</a></li>
-                                <li><a href="mailbox.jsp">Messages</a></li>
+                                <li><a href="${pageContext.request.contextPath}/profile">My profile</a></li>
                                 <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
                             </ul>
                         </div>
                     </li>
-                    <li class="ttr-hide-on-mobile">
-                        <a href="#" class="ttr-material-button"><i class="ti-layout-grid3-alt"></i></a>
-                        <div class="ttr-header-submenu ttr-extra-menu">
-                            <a href="#"><i class="fa fa-music"></i><span>Musics</span></a>
-                            <!-- [Other extra menu items remain unchanged] -->
-                        </div>
-                    </li>
                 </ul>
+                <!-- header right menu end -->
             </div>
+            <!--header search panel start -->
             <div class="ttr-search-bar">
                 <form class="ttr-search-form">
                     <div class="ttr-search-input-wrapper">
                         <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
                         <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
                     </div>
-                    <span class="ttr-search-close ttr-search-toggle"><i class="ti-close"></i></span>
+                    <span class="ttr-search-close ttr-search-toggle">
+                        <i class="ti-close"></i>
+                    </span>
                 </form>
             </div>
+            <!--header search panel end -->
         </div>
     </header>
 
@@ -137,7 +107,7 @@
             </div>
             <nav class="ttr-sidebar-navi">
                 <ul>
-                    <li><a href="index.jsp" class="ttr-material-button"><span class="ttr-icon"><i class="ti-home"></i></span><span class="ttr-label">Dashboard</span></a></li>
+                    <li><a href="index_staff.jsp" class="ttr-material-button"><span class="ttr-icon"><i class="ti-home"></i></span><span class="ttr-label">Dashboard</span></a></li>
                     <li>
                         <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-briefcase"></i></span><span class="ttr-label">Tutor Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
                         <ul>
@@ -145,7 +115,7 @@
                             <li><a href="#" class="ttr-material-button"><span class="ttr-label">Status CV</span></a></li>
                             <li><a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a></li>
                             <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a></li>
-                            <li><a href="#" class="ttr-material-button"><span class="ttr-label">Edit Subject</span></a></li>
+                            <li><a href="${pageContext.request.contextPath}/SubjectController" class="ttr-material-button"><span class="ttr-label">Edit Subject</span></a></li>
                         </ul>
                     </li>
                     <li>
@@ -176,17 +146,12 @@
                             <li><a href="${pageContext.request.contextPath}/BlogController?service=addBlog" class="ttr-label">Add Blog</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-book"></i></span><span class="ttr-label">Subject Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
-                        <ul>
-                            <li><a href="${pageContext.request.contextPath}/SubjectController" class="ttr-label">Subject</a></li>
-                        </ul>
-                    </li>
                     <li class="ttr-seperate"></li>
                 </ul>
             </nav>
         </div>
     </div>
+    <!-- Left sidebar menu end -->
 
     <!-- Main content -->
     <main class="ttr-wrapper">
@@ -194,7 +159,7 @@
             <div class="db-breadcrumb">
                 <h4 class="breadcrumb-title">Subject Management</h4>
                 <ul class="db-breadcrumb-list">
-                    <li><a href="index.jsp"><i class="fa fa-home"></i>Home</a></li>
+                    <li><a href="index_staff.jsp"><i class="fa fa-home"></i>Home</a></li>
                     <li>Subject Management</li>
                 </ul>
             </div>
@@ -237,38 +202,38 @@
                     </div>
                 </div>
                 <!-- Bảng 2: Danh sách Tutor-Subject với UserName -->
-            <div class="col-lg-12 m-b30">
-                <div class="widget-box">
-                    <div class="wc-title">
-                        <h4>Tutor-Subject List with UserName</h4>
-                    </div>
-                    <div class="widget-inner">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Tutor ID</th>
-                                    <th>User Name</th>
-                                    <th>Subject ID</th>
-                                    <th>Description</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach var="tutorSubject" items="${tutorSubjectList}">
+                <div class="col-lg-12 m-b30">
+                    <div class="widget-box">
+                        <div class="wc-title">
+                            <h4>Tutor-Subject List with UserName</h4>
+                        </div>
+                        <div class="widget-inner">
+                            <table>
+                                <thead>
                                     <tr>
-                                        <td>${tutorSubject.tutorID}</td>
-                                        <td>${tutorSubject.userName}</td>
-                                        <td>${tutorSubject.subjectID}</td>
-                                        <td>${tutorSubject.description}</td>
+                                        <th>Tutor ID</th>
+                                        <th>User Name</th>
+                                        <th>Subject ID</th>
+                                        <th>Description</th>
                                     </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                        <c:if test="${tutorSubjectList == null || tutorSubjectList.isEmpty}">
-                            <p class="error">No tutor-subject records found.</p>
-                        </c:if>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="tutorSubject" items="${tutorSubjectList}">
+                                        <tr>
+                                            <td>${tutorSubject.tutorID}</td>
+                                            <td>${tutorSubject.userName}</td>
+                                            <td>${tutorSubject.subjectID}</td>
+                                            <td>${tutorSubject.description}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                            <c:if test="${tutorSubjectList == null || tutorSubjectList.isEmpty}">
+                                <p class="error">No tutor-subject records found.</p>
+                            </c:if>
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
         </div>
     </main>

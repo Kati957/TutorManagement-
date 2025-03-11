@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DAOSchedule extends DBConnect {
-    
+
     //Hungnv: View Schedules
     public List<Map<String, Object>> getSchedulesByUserId(int userId, String search) {
         List<Map<String, Object>> schedules = new ArrayList<>();
@@ -52,6 +52,7 @@ public class DAOSchedule extends DBConnect {
         System.out.println("lấy thành công schedules by user Id");
         return schedules;
     }
+
     // Hungnv: Book Schedule
     public List<Schedule> getSchedulesByTutorAndSubject(int tutorId, int subjectId) {
         List<Schedule> schedules = new ArrayList<>();

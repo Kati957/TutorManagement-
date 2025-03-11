@@ -46,86 +46,57 @@
         <!-- Header -->
         <header class="ttr-header">
             <div class="ttr-header-wrapper">
+                <!--sidebar menu toggler start -->
                 <div class="ttr-toggle-sidebar ttr-material-button">
                     <i class="ti-close ttr-open-icon"></i>
                     <i class="ti-menu ttr-close-icon"></i>
                 </div>
+                <!--sidebar menu toggler end -->
+                <!--logo start -->
                 <div class="ttr-logo-box">
                     <div>
-                        <a href="index.jsp" class="ttr-logo">
+                        <a href="index_staff.jsp" class="ttr-logo">
                             <img class="ttr-logo-mobile" alt="" src="assets/images/logo-mobile.png" width="30" height="30">
                             <img class="ttr-logo-desktop" alt="" src="assets/images/logo-white.png" width="160" height="27">
                         </a>
                     </div>
                 </div>
-                <div class="ttr-header-menu">
-                    <ul class="ttr-header-navigation">
-                        <li><a href="../index.jsp" class="ttr-material-button ttr-submenu-toggle">HOME</a></li>
-                        <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i class="fa fa-angle-down"></i></a>
-                            <div class="ttr-header-submenu">
-                                <ul>
-                                    <li><a href="../courses.jsp">Our Courses</a></li>
-                                    <li><a href="../event.jsp">New Event</a></li>
-                                    <li><a href="../membership.jsp">Membership</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="ttr-header-right ttr-with-seperator">
-                    <ul class="ttr-header-navigation">
-                        <li><a href="#" class="ttr-material-button ttr-search-toggle"><i class="fa fa-search"></i></a></li>
-                        <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><i class="fa fa-bell"></i></a>
-                            <div class="ttr-header-submenu noti-menu">
-                                <div class="ttr-notify-header">
-                                    <span class="ttr-notify-text-top">9 New</span>
-                                    <span class="ttr-notify-text">User Notifications</span>
-                                </div>
-                                <div class="noti-box-list">
-                                    <ul>
-                                        <li>
-                                            <span class="notification-icon dashbg-gray"><i class="fa fa-check"></i></span>
-                                            <span class="notification-text"><span>Sneha Jogi</span> sent you a message.</span>
-                                            <span class="notification-time"><a href="#" class="fa fa-close"></a><span> 02:14</span></span>
-                                        </li>
-                                        <!-- [Other notification items remain unchanged] -->
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
-                            <div class="ttr-header-submenu">
-                                <ul>
-                                    <li><a href="user-profile.jsp">My profile</a></li>
-                                    <li><a href="list-view-calendar.jsp">Activity</a></li>
-                                    <li><a href="mailbox.jsp">Messages</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="ttr-hide-on-mobile">
-                            <a href="#" class="ttr-material-button"><i class="ti-layout-grid3-alt"></i></a>
-                            <div class="ttr-header-submenu ttr-extra-menu">
-                                <a href="#"><i class="fa fa-music"></i><span>Musics</span></a>
-                                <!-- [Other extra menu items remain unchanged] -->
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="ttr-search-bar">
-                    <form class="ttr-search-form">
-                        <div class="ttr-search-input-wrapper">
-                            <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
-                            <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
-                        </div>
-                        <span class="ttr-search-close ttr-search-toggle"><i class="ti-close"></i></span>
-                    </form>
-                </div>
+                <!--logo end -->
+
+                <!-- header left menu end -->
             </div>
-        </header>
+            <div class="ttr-header-right ttr-with-seperator">
+                <!-- header right menu start -->
+                <ul class="ttr-header-navigation">
+
+
+                    <li>
+                        <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
+                        <div class="ttr-header-submenu">
+                            <ul>
+                                <li><a href="${pageContext.request.contextPath}/profile">My profile</a></li>
+                                <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <!-- header right menu end -->
+            </div>
+            <!--header search panel start -->
+            <div class="ttr-search-bar">
+                <form class="ttr-search-form">
+                    <div class="ttr-search-input-wrapper">
+                        <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
+                        <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
+                    </div>
+                    <span class="ttr-search-close ttr-search-toggle">
+                        <i class="ti-close"></i>
+                    </span>
+                </form>
+            </div>
+            <!--header search panel end -->
+        </div>
+    </header>
 
         <!-- Sidebar -->
         <div class="ttr-sidebar">
@@ -136,7 +107,7 @@
                 </div>
                 <nav class="ttr-sidebar-navi">
                     <ul>
-                        <li><a href="index.jsp" class="ttr-material-button"><span class="ttr-icon"><i class="ti-home"></i></span><span class="ttr-label">Dashboard</span></a></li>
+                        <li><a href="index_staff.jsp class="ttr-material-button"><span class="ttr-icon"><i class="ti-home"></i></span><span class="ttr-label">Dashboard</span></a></li>
                         <li>
                             <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-briefcase"></i></span><span class="ttr-label">Tutor Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
                             <ul>
@@ -181,18 +152,25 @@
                 </nav>
             </div>
         </div>
-
         <!-- Main content -->
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
                     <h4 class="breadcrumb-title">Add Subject</h4>
                     <ul class="db-breadcrumb-list">
-                        <li><a href="index.jsp"><i class="fa fa-home"></i>Home</a></li>
+                        <li><a href="index_staff.jsp"><i class="fa fa-home"></i>Home</a></li>
                         <li><a href="SubjectController?service=listSubject">Subject Management</a></li>
                         <li>Add Subject</li>
                     </ul>
                 </div>
+                <%
+                    String error = (String) request.getAttribute("error");
+                    if (error != null) {
+                %>
+                <div class="alert alert-danger"><%= error%></div>
+                <%
+                    }
+                %>
                 <div class="row">
                     <div class="col-lg-6 m-b30">
                         <div class="widget-box">
@@ -209,7 +187,7 @@
                                         <label for="description">Description</label>
                                         <textarea class="form-control" id="description" name="description" rows="3"></textarea>
                                     </div>
-                                    <button type="submit" class="submit-btn">Add Subject</button>
+                                    <button type="submit" name ="submit" class="submit-btn">Add Subject</button>
                                 </form>
                             </div>
                         </div>

@@ -184,13 +184,13 @@ public class SubjectController extends HttpServlet {
         }
 
         try {
-            int n = dao.deleteSubject(subjectID);
-            if (n > 0) {
-                response.sendRedirect(request.getContextPath() + "/SubjectController?service=listSubject");
-            } else {
-                request.setAttribute("error", "Xóa subject thất bại!");
-                request.getRequestDispatcher("/staff/subject.jsp").forward(request, response);
-            }
+                int n = dao.deleteSubject(subjectID);
+                if (n > 0) {
+                    response.sendRedirect(request.getContextPath() + "/SubjectController?service=listSubject");
+                } else {
+                    request.setAttribute("error", "Xóa subject thất bại!");
+                    request.getRequestDispatcher("/staff/subject.jsp").forward(request, response);
+                }
         } catch (SQLException ex) {
             Logger.getLogger(SubjectController.class.getName()).log(Level.SEVERE, "Database error", ex);
             request.setAttribute("error", "Lỗi cơ sở dữ liệu: " + ex.getMessage());

@@ -102,7 +102,6 @@ public class DAOSubject extends DBConnect {
         return subjectList;
     }
 
-
     // dang su dung: Hungnv tai homepage
     // join: Subject, booking
     public List<Subject> getTopSubjectsByBooking(int limit) {
@@ -132,31 +131,93 @@ public class DAOSubject extends DBConnect {
         }
         return subjects;
     }
-
-// public static void main(String[] args) {
-//    DAOSubject dao = new DAOSubject(); // Tạo instance của DAOSubject
 //
-//    try {
-//        // Gọi hàm getAllTutorSubjects
-//        List<Subject> tutorSubjects = dao.getAllTutorSubjects();
+//    public static void main(String[] args) {
+//        DAOSubject dao = new DAOSubject(); // Tạo instance của DAOSubject
 //
-//        // Kiểm tra và in kết quả
-//        if (tutorSubjects == null || tutorSubjects.isEmpty()) {
-//            System.out.println("Không có dữ liệu trong danh sách Tutor-Subject.");
-//        } else {
-//            System.out.println("Danh sách Tutor-Subject:");
-//            for (Subject tutorSubject : tutorSubjects) {
-//                System.out.println("TutorID: " + tutorSubject.getTutorID()
-//                        + ", UserName: " + tutorSubject.getUserName()
-//                        + ", SubjectID: " + tutorSubject.getSubjectID()
-//                        + ", Description: " + tutorSubject.getDescription());
+//        try {
+//            // Gọi hàm getAllTutorSubjects
+//            List<Subject> tutorSubjects = dao.getAllTutorSubjects();
+//
+//            // Kiểm tra và in kết quả
+//            if (tutorSubjects == null || tutorSubjects.isEmpty()) {
+//                System.out.println("Không có dữ liệu trong danh sách Tutor-Subject.");
+//            } else {
+//                System.out.println("Danh sách Tutor-Subject:");
+//                for (Subject tutorSubject : tutorSubjects) {
+//                    System.out.println("TutorID: " + tutorSubject.getTutorID()
+//                            + ", UserName: " + tutorSubject.getUserName()
+//                            + ", SubjectID: " + tutorSubject.getSubjectID()
+//                            + ", Description: " + tutorSubject.getDescription());
+//                }
 //            }
+//        } catch (SQLException e) {
+//            System.out.println("Lỗi khi truy vấn cơ sở dữ liệu!");
+//            e.printStackTrace();
 //        }
-//    } catch (SQLException e) {
-//        System.out.println("Lỗi khi truy vấn cơ sở dữ liệu!");
-//        e.printStackTrace();
 //    }
-//}
+    
+    public static void main(String[] args) {
+        DAOSubject dao = new DAOSubject(); // Tạo instance của DAOSubject
 
+        try {
+            // Demo addSubject (Insert)
+            System.out.println("=== Demo addSubject ===");
+            Subject newSubject = new Subject(0, "ko", "hiểu");
+            int insertResult = dao.addSubject(newSubject);
+            System.out.println("Insert result: " + insertResult + " rows affected.");
 
+            // Lấy SubjectID vừa thêm (giả sử tự động tăng, lấy từ getAllSubjects)
+            List<Subject> allSubjects = dao.getAllSubjects();
+//            if (!allSubjects.isEmpty()) {
+//                int newSubjectID = allSubjects.get(allSubjects.size() - 1).getSubjectID();
+//                System.out.println("Newly added SubjectID: " + newSubjectID);
+//
+//                // Demo updateSubject (Update)
+//                System.out.println("\n=== Demo updateSubject ===");
+//                Subject updateSubject = new Subject(newSubjectID, "Updated Test Subject", "Updated description here");
+//                int updateResult = dao.updateSubject(updateSubject);
+//                System.out.println("Update result: " + updateResult + " rows affected.");
+//
+//                // Kiểm tra dữ liệu sau khi cập nhật
+//                Subject updatedSubject = dao.getSubjectById(newSubjectID);
+//                if (updatedSubject != null) {
+//                    System.out.println("Updated Subject: ID=" + updatedSubject.getSubjectID() +
+//                                       ", Name=" + updatedSubject.getSubjectName() +
+//                                       ", Description=" + updatedSubject.getDescription());
+//                } else {
+//                    System.out.println("Không tìm thấy Subject vừa cập nhật!");
+//                }
+//
+//                // Demo deleteSubject (Delete)
+//                System.out.println("\n=== Demo deleteSubject ===");
+//                // Kiểm tra xem có CV approved không trước khi xóa
+//                if (dao.isSubjectRegisteredInApprovedCV(newSubjectID)) {
+//                    System.out.println("Không thể xóa SubjectID " + newSubjectID + " vì có CV approved!");
+//                } else {
+//                    int deleteResult = dao.deleteSubject(newSubjectID);
+//                    System.out.println("Delete result: " + deleteResult + " rows affected.");
+//                }
+//
+//                // In danh sách Subject còn lại để kiểm tra
+//                System.out.println("\n=== Remaining Subjects ===");
+//                allSubjects = dao.getAllSubjects();
+//                if (allSubjects.isEmpty()) {
+//                    System.out.println("Không còn Subject nào trong cơ sở dữ liệu.");
+//                } else {
+//                    for (Subject s : allSubjects) {
+//                        System.out.println("SubjectID: " + s.getSubjectID() +
+//                                           ", Name: " + s.getSubjectName() +
+//                                           ", Description: " + s.getDescription());
+//                    }
+//                }
+//            } else {
+//                System.out.println("Không có Subject nào trong cơ sở dữ liệu để test.");
+//            }
+
+        } catch (SQLException e) {
+            System.out.println("Lỗi khi thực hiện các thao tác!");
+            e.printStackTrace();
+        }
+    }
 }

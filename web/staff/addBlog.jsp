@@ -12,7 +12,7 @@
     </head>
     <body>
         <div class="container">
-            <h2 class="mb-4">Thêm Bài Viết Mới</h2>
+            <h2 class="mb-4">Add New Blog</h2>
 
             <%-- Hiển thị thông báo lỗi nếu có --%>
             <%
@@ -60,7 +60,8 @@
                 </div>
 
                 <!-- Nút submit -->
-                <button type="submit" name="submit" value="publish" class="btn btn-primary">Đăng bài</button>
+                <button type="submit" name="submit" value="publish" class="btn btn-primary">Upload</button>
+                <a href="${pageContext.request.contextPath}/BlogController" class="btn btn-secondary">Back</a>
             </form>
         </div>
 
