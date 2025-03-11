@@ -5,7 +5,7 @@ public class Slot {
     private int slotID;
     private int scheduleID;
     private String status;
-    private String meetURL;
+    
     private Schedule schedule;
     private Booking booking;
     
@@ -17,16 +17,6 @@ public class Slot {
         this.scheduleID = scheduleID;
         this.status = status;
     }
-
-    public Slot(int slotID, int scheduleID, String status, String meetURL, Schedule schedule, Booking booking) {
-        this.slotID = slotID;
-        this.scheduleID = scheduleID;
-        this.status = status;
-        this.meetURL = meetURL;
-        this.schedule = schedule;
-        this.booking = booking;
-    }
-    
 
     public int getSlotID() {
         return slotID;
@@ -52,14 +42,6 @@ public class Slot {
         this.status = status;
     }
 
-    public String getMeetURL() {
-        return meetURL;
-    }
-
-    public void setMeetURL(String meetURL) {
-        this.meetURL = meetURL;
-    }
-
     public Schedule getSchedule() {
         return schedule;
     }
@@ -75,7 +57,5 @@ public class Slot {
     public void setBooking(Booking booking) {
         this.booking = booking;
     }
-
-   
     
 }

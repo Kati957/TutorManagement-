@@ -32,7 +32,7 @@ public class DBConnect {
         } 
     }
     public DBConnect(){
-        this("jdbc:sqlserver://localhost:1433;databaseName=test1", "sa","Minh2004");
+        this("jdbc:sqlserver://localhost:1433;databaseName=test", "sa","Minh2004");
     }
       public ResultSet getData(String sql){
         ResultSet rs=null;
@@ -45,7 +45,7 @@ public class DBConnect {
         }
         return rs;
     }
-    
+
     public static void main(String[] args){
         DBConnect conn=new DBConnect();
         if(conn==null){

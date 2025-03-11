@@ -12,6 +12,7 @@ public class Cv {
     private String description;
 
     private User user;
+    private Subject subject;
 
     public Cv() {}
 
@@ -98,4 +99,13 @@ public class Cv {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+    
 }

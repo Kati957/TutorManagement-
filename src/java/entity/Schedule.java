@@ -8,7 +8,7 @@ public class Schedule {
     private Date startTime;
     private Date endTime;
     private String isBooked;
-    private String subjectId;
+    private int subjectId;
     
     private Tutor tutor; 
     private Subject subject;
@@ -17,7 +17,7 @@ public class Schedule {
     public Schedule() {
     }
 
-    public Schedule(int scheduleID, int tutorID, Date startTime, Date endTime, String isBooked, String subjectId) {
+    public Schedule(int scheduleID, int tutorID, Date startTime, Date endTime, String isBooked, int subjectId) {
         this.scheduleID = scheduleID;
         this.tutorID = tutorID;
         this.startTime = startTime;
@@ -66,11 +66,11 @@ public class Schedule {
         this.isBooked = isBooked;
     }
 
-    public String getSubjectId() {
+    public int getSubjectId() {
         return subjectId;
     }
 
-    public void setSubjectId(String subjectId) {
+    public void setSubjectId(int subjectId) {
         this.subjectId = subjectId;
     }
 

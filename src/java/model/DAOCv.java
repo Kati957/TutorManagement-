@@ -34,5 +34,4 @@ public class DAOCv extends DBConnect {
         }
         return n;
     }
-    
 }

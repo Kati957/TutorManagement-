@@ -48,7 +48,7 @@ public class BlogController extends HttpServlet {
                 handleDeleteBlog(request, response);
                 break;
             default:
-                response.sendRedirect("error-404.html");
+                response.sendRedirect("error-404.jsp");
         }
     }
 
@@ -62,7 +62,7 @@ public class BlogController extends HttpServlet {
 
         // Kiểm tra quyền (roleID = 3 mới được thêm blog)
         if (user == null || user.getRoleID() != 3) {
-            response.sendRedirect("error-403.html");
+            response.sendRedirect("error-403.jsp");
             return;
         }
 
@@ -115,13 +115,13 @@ public class BlogController extends HttpServlet {
 
         // Kiểm tra quyền (roleID = 3 mới được cập nhật blog)
         if (user == null || user.getRoleID() != 3) {
-            response.sendRedirect("error-403.html");
+            response.sendRedirect("error-403.jsp");
             return;
         }
 
         String blogIDStr = request.getParameter("blogID");
         if (blogIDStr == null || blogIDStr.isEmpty()) {
-            response.sendRedirect("error-404.html");
+            response.sendRedirect("error-404.jsp");
             return;
         }
 
@@ -129,14 +129,14 @@ public class BlogController extends HttpServlet {
         try {
             blogID = Integer.parseInt(blogIDStr);
         } catch (NumberFormatException e) {
-            response.sendRedirect("error-404.html");
+            response.sendRedirect("error-404.jsp");
             return;
         }
 
         try {
             Blog blog = dao.getBlogById(blogID);
             if (blog == null) {
-                response.sendRedirect("error-404.html");
+                response.sendRedirect("error-404.jsp");
                 return;
             }
 
@@ -190,13 +190,13 @@ public class BlogController extends HttpServlet {
 
         // Kiểm tra quyền (roleID = 3 mới được xóa blog)
         if (user == null || user.getRoleID() != 3) {
-            response.sendRedirect("error-403.html");
+            response.sendRedirect("error-403.jsp");
             return;
         }
 
         String blogIDStr = request.getParameter("blogID");
         if (blogIDStr == null || blogIDStr.isEmpty()) {
-            response.sendRedirect("error-404.html");
+            response.sendRedirect("error-404.jsp");
             return;
         }
 
@@ -204,7 +204,7 @@ public class BlogController extends HttpServlet {
         try {
             blogID = Integer.parseInt(blogIDStr);
         } catch (NumberFormatException e) {
-            response.sendRedirect("error-404.html");
+            response.sendRedirect("error-404.jsp");
             return;
         }
 
@@ -237,7 +237,7 @@ public class BlogController extends HttpServlet {
 //            request.getRequestDispatcher("/staff/blog.jsp").forward(request, response);
 //        } catch (SQLException ex) {
 //            Logger.getLogger(BlogController.class.getName()).log(Level.SEVERE, null, ex);
-//            response.sendRedirect("error-404.html");
+//            response.sendRedirect("error-404.jsp");
 //        }
 //    }
      // 📝 Xử lý hiển thị danh sách blog và recent blogs
@@ -273,7 +273,7 @@ public class BlogController extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(BlogController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("error", "error: " + ex.getMessage());
-            response.sendRedirect("error-404.html"); // Redirect nếu không có bài viết hoặc lỗi
+            response.sendRedirect("error-404.jsp"); // Redirect nếu không có bài viết hoặc lỗi
         }
     }
     private void handleDetailBlog(HttpServletRequest request, HttpServletResponse response)
@@ -302,7 +302,7 @@ public class BlogController extends HttpServlet {
                 Logger.getLogger(BlogController.class.getName()).log(Level.SEVERE, "Invalid blogID", ex);
             }
         }
-        response.sendRedirect("error-404.html"); // Redirect nếu không có bài viết hoặc lỗi
+        response.sendRedirect("error-404.jsp"); // Redirect nếu không có bài viết hoặc lỗi
     }
 
     // Xử lý tìm kiếm blog và lọc trong blogList
@@ -328,7 +328,7 @@ public class BlogController extends HttpServlet {
             request.getRequestDispatcher("/staff/blog.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(BlogController.class.getName()).log(Level.SEVERE, null, ex);
-            response.sendRedirect("error-404.html");
+            response.sendRedirect("error-404.jsp");
         }
     }
 
