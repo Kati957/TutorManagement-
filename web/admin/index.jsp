@@ -79,25 +79,6 @@
                     </div>
                 </div>
                 <!--logo end -->
-                <div class="ttr-header-menu">
-                    <!-- header left menu start -->
-                    <ul class="ttr-header-navigation">
-                        <li>
-                            <a href="../index.jsp" class="ttr-material-button ttr-submenu-toggle">HOME</a>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i class="fa fa-angle-down"></i></a>
-                            <div class="ttr-header-submenu">
-                                <ul>
-                                    <li><a href="../courses.jsp">Our Courses</a></li>
-                                    <li><a href="../event.jsp">New Event</a></li>
-                                    <li><a href="../membership.jsp">Membership</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                    <!-- header left menu end -->
-                </div>
                 <div class="ttr-header-right ttr-with-seperator">
                     <!-- header right menu start -->
                     <ul class="ttr-header-navigation">
