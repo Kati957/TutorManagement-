@@ -65,6 +65,7 @@
 
         <!-- header start -->
       <header class="ttr-header">
+
             <div class="ttr-header-wrapper">
                 <!--sidebar menu toggler start -->
                 <div class="ttr-toggle-sidebar ttr-material-button">
@@ -75,7 +76,7 @@
                 <!--logo start -->
                 <div class="ttr-logo-box">
                     <div>
-                        <a href="index_staff.jsp" class="ttr-logo">
+                        <a href="${pageContext.request.contextPath}/staff/index_staff.jsp" class="ttr-logo">
                             <img class="ttr-logo-mobile" alt="" src="assets/images/logo-mobile.png" width="30" height="30">
                             <img class="ttr-logo-desktop" alt="" src="assets/images/logo-white.png" width="160" height="27">
                         </a>
@@ -117,123 +118,46 @@
             <!--header search panel end -->
         </div>
     </header> 
+
         <!-- header end -->
-        <!-- Left sidebar menu start -->
-        <div class="ttr-sidebar">
-            <div class="ttr-sidebar-wrapper content-scroll">
-                <!-- side menu logo start -->
-                <div class="ttr-sidebar-logo">
-                    <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
-                    <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
-                            <i class="material-icons ttr-fixed-icon">gps_fixed</i>
-                            <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
-                    </div> -->
-                    <div class="ttr-sidebar-toggle-button">
-                        <i class="ti-arrow-left"></i>
-                    </div>
-                </div>
-                <!-- side menu logo end -->
-                <!-- sidebar menu start -->
-                <nav class="ttr-sidebar-navi">
-                    <ul>
-                        <li>
-                            <a href="index_staff.jsp" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-home"></i></span>
-                                <span class="ttr-label">Dashborad</span> 
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-briefcase"></i></span>
-                                <span class="ttr-label">Tutor Management</span>
-                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Courses</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Status CV</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a>
-                                </li>
-                                 <li>
-                                    <a href="${pageContext.request.contextPath}/SubjectController" class="ttr-material-button"><span class="ttr-label">Manage Subject</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-user"></i></span>
-                                <span class="ttr-label">Staff Management</span>
-                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Staff Management</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View Reports</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-id-badge"></i></span>
-                                <span class="ttr-label">User Management</span>
-                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Profile</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Tutor</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-credit-card"></i></span>
-                                <span class="ttr-label">Payment</span>
-                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-book"></i></span>
-                                <span class="ttr-label">Content Management</span>
-                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
-                            </a>
-                            <ul>
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/BlogController?service=listBlog" class="ttr-label">Blog</a>
-                                </li>
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/BlogController?service=addBlog" class="ttr-label">Add Blog</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="ttr-seperate"></li>
-                    </ul>
-                    <!-- sidebar menu end -->
-                </nav>
-                <!-- sidebar menu end -->
+         <!-- Sidebar -->
+    <div class="ttr-sidebar">
+        <div class="ttr-sidebar-wrapper content-scroll">
+            <div class="ttr-sidebar-logo">
+                <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
+                <div class="ttr-sidebar-toggle-button"><i class="ti-arrow-left"></i></div>
             </div>
+            <nav class="ttr-sidebar-navi">
+                <ul>
+                    <li><a href="${pageContext.request.contextPath}/staff/index_staff.jsp" class="ttr-material-button"><span class="ttr-icon"><i class="ti-home"></i></span><span class="ttr-label">Dashboard</span></a></li>
+                    <li>
+                        <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-briefcase"></i></span><span class="ttr-label">Tutor Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
+                        <ul>
+                            <li><a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a></li>
+                            <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a></li>
+                            <li><a href="${pageContext.request.contextPath}/SubjectController" class="ttr-material-button"><span class="ttr-label">Control Subject</span></a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-credit-card"></i></span><span class="ttr-label">Payment</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
+                        <ul>
+                            <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a></li>
+                            <li><a href="#" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-book"></i></span><span class="ttr-label">Content Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
+                        <ul>
+                            <li><a href="${pageContext.request.contextPath}/BlogController?service=listBlog" class="ttr-label">Blog</a></li>
+                            <li><a href="${pageContext.request.contextPath}/BlogController?service=addBlog" class="ttr-label">Add Blog</a></li>
+                        </ul>
+                    </li>
+                    <li class="ttr-seperate"></li>
+                </ul>
+            </nav>
         </div>
-        <!-- Left sidebar menu end -->
+    </div>
+    <!-- Left sidebar menu end -->
 
         <!--Main container start -->
         <main class="ttr-wrapper">
@@ -244,6 +168,7 @@
                 <div class="row">
                     <div class="col-lg-12 m-b30">
                         <div class="widget-box">
+
                             <div class="widget-inner">
                                 <div class="content-block">
                                     <div class="section-area section-sp1">
@@ -437,86 +362,7 @@
         <script src='assets/vendors/calendar/moment.min.js'></script>
         <script src='assets/vendors/calendar/fullcalendar.js'></script>
         <script src='assets/vendors/switcher/switcher.js'></script>
-        <script>
-                                                                    $(document).ready(function () {
-
-                                                                        $('#calendar').fullCalendar({
-                                                                            header: {
-                                                                                left: 'prev,next today',
-                                                                                center: 'title',
-                                                                                right: 'month,agendaWeek,agendaDay,listWeek'
-                                                                            },
-                                                                            defaultDate: '2019-03-12',
-                                                                            navLinks: true, // can click day/week names to navigate views
-
-                                                                            weekNumbers: true,
-                                                                            weekNumbersWithinDays: true,
-                                                                            weekNumberCalculation: 'ISO',
-
-                                                                            editable: true,
-                                                                            eventLimit: true, // allow "more" link when too many events
-                                                                            events: [
-                                                                                {
-                                                                                    title: 'All Day Event',
-                                                                                    start: '2019-03-01'
-                                                                                },
-                                                                                {
-                                                                                    title: 'Long Event',
-                                                                                    start: '2019-03-07',
-                                                                                    end: '2019-03-10'
-                                                                                },
-                                                                                {
-                                                                                    id: 999,
-                                                                                    title: 'Repeating Event',
-                                                                                    start: '2019-03-09T16:00:00'
-                                                                                },
-                                                                                {
-                                                                                    id: 999,
-                                                                                    title: 'Repeating Event',
-                                                                                    start: '2019-03-16T16:00:00'
-                                                                                },
-                                                                                {
-                                                                                    title: 'Conference',
-                                                                                    start: '2019-03-11',
-                                                                                    end: '2019-03-13'
-                                                                                },
-                                                                                {
-                                                                                    title: 'Meeting',
-                                                                                    start: '2019-03-12T10:30:00',
-                                                                                    end: '2019-03-12T12:30:00'
-                                                                                },
-                                                                                {
-                                                                                    title: 'Lunch',
-                                                                                    start: '2019-03-12T12:00:00'
-                                                                                },
-                                                                                {
-                                                                                    title: 'Meeting',
-                                                                                    start: '2019-03-12T14:30:00'
-                                                                                },
-                                                                                {
-                                                                                    title: 'Happy Hour',
-                                                                                    start: '2019-03-12T17:30:00'
-                                                                                },
-                                                                                {
-                                                                                    title: 'Dinner',
-                                                                                    start: '2019-03-12T20:00:00'
-                                                                                },
-                                                                                {
-                                                                                    title: 'Birthday Party',
-                                                                                    start: '2019-03-13T07:00:00'
-                                                                                },
-                                                                                {
-                                                                                    title: 'Click for Google',
-                                                                                    url: 'http://google.com/',
-                                                                                    start: '2019-03-28'
-                                                                                }
-                                                                            ]
-                                                                        });
-
-                                                                    });
-
-        </script>
+                                                                   
     </body>
 
-    <!-- Mirrored from educhamp.themetrades.com/demo/admin/index.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:09:05 GMT -->
 </html>

@@ -27,7 +27,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
 
         <!-- PAGE TITLE -->
-        <title>G4 SmartTutor - Add Subject</title>
+        <title>G4 SmartTutor</title>
 
         <!-- MOBILE SPECIFIC -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -55,7 +55,7 @@
                 <!--logo start -->
                 <div class="ttr-logo-box">
                     <div>
-                        <a href="index_staff.jsp" class="ttr-logo">
+                        <a href="${pageContext.request.contextPath}/staff/index_staff.jsp" class="ttr-logo">
                             <img class="ttr-logo-mobile" alt="" src="assets/images/logo-mobile.png" width="30" height="30">
                             <img class="ttr-logo-desktop" alt="" src="assets/images/logo-white.png" width="160" height="27">
                         </a>
@@ -98,6 +98,7 @@
         </div>
     </header>
 
+   <!-- Left sidebar menu start -->
     <!-- Sidebar -->
     <div class="ttr-sidebar">
         <div class="ttr-sidebar-wrapper content-scroll">
@@ -111,25 +112,9 @@
                     <li>
                         <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-briefcase"></i></span><span class="ttr-label">Tutor Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
                         <ul>
-                            <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Courses</span></a></li>
-                            <li><a href="#" class="ttr-material-button"><span class="ttr-label">Status CV</span></a></li>
                             <li><a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a></li>
                             <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a></li>
-                            <li><a href="${pageContext.request.contextPath}/SubjectController" class="ttr-material-button"><span class="ttr-label">Edit Subject</span></a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-user"></i></span><span class="ttr-label">Staff Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
-                        <ul>
-                            <li><a href="#" class="ttr-material-button"><span class="ttr-label">Staff Management</span></a></li>
-                            <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Reports</span></a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-id-badge"></i></span><span class="ttr-label">User Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
-                        <ul>
-                            <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Profile</span></a></li>
-                            <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Tutor</span></a></li>
+                            <li><a href="${pageContext.request.contextPath}/SubjectController" class="ttr-material-button"><span class="ttr-label">Control Subject</span></a></li>
                         </ul>
                     </li>
                     <li>
@@ -159,7 +144,7 @@
             <div class="db-breadcrumb">
                 <h4 class="breadcrumb-title">Subject Management</h4>
                 <ul class="db-breadcrumb-list">
-                    <li><a href="index_staff.jsp"><i class="fa fa-home"></i>Home</a></li>
+                    <li><a href="${pageContext.request.contextPath}/staff/index_staff.jsp"><i class="fa fa-home"></i>Home</a></li>
                     <li>Subject Management</li>
                 </ul>
             </div>
@@ -228,7 +213,7 @@
                                     </c:forEach>
                                 </tbody>
                             </table>
-                            <c:if test="${tutorSubjectList == null || tutorSubjectList.isEmpty}">
+                            <c:if test="${empty tutorSubjectList}">
                                 <p class="error">No tutor-subject records found.</p>
                             </c:if>
                         </div>

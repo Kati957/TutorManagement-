@@ -74,6 +74,7 @@
                 <div class="ttr-logo-box">
                     <div>
                         <a href="index_staff.jsp" class="ttr-logo">
+
                             <img class="ttr-logo-mobile" alt="" src="assets/images/logo-mobile.png" width="30" height="30">
                             <img class="ttr-logo-desktop" alt="" src="assets/images/logo-white.png" width="160" height="27">
                         </a>
@@ -86,8 +87,6 @@
             <div class="ttr-header-right ttr-with-seperator">
                 <!-- header right menu start -->
                 <ul class="ttr-header-navigation">
-
-
                     <li>
                         <a href="index_staff.jsp" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
                         <div class="ttr-header-submenu">
@@ -130,25 +129,9 @@
                     <li>
                         <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-briefcase"></i></span><span class="ttr-label">Tutor Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
                         <ul>
-                            <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Courses</span></a></li>
-                            <li><a href="#" class="ttr-material-button"><span class="ttr-label">Status CV</span></a></li>
                             <li><a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a></li>
                             <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a></li>
-                            <li><a href="${pageContext.request.contextPath}/SubjectController" class="ttr-material-button"><span class="ttr-label">Edit Subject</span></a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-user"></i></span><span class="ttr-label">Staff Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
-                        <ul>
-                            <li><a href="#" class="ttr-material-button"><span class="ttr-label">Staff Management</span></a></li>
-                            <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Reports</span></a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-id-badge"></i></span><span class="ttr-label">User Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
-                        <ul>
-                            <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Profile</span></a></li>
-                            <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Tutor</span></a></li>
+                            <li><a href="${pageContext.request.contextPath}/SubjectController" class="ttr-material-button"><span class="ttr-label">Control Subject</span></a></li>
                         </ul>
                     </li>
                     <li>
@@ -369,3 +352,4 @@
     <script src='assets/vendors/calendar/fullcalendar.js'></script>
     <script src='assets/vendors/switcher/switcher.js'></script>
 </body>
+
