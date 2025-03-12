@@ -15,7 +15,6 @@
 11. COUNTERUP
 12. FOOTER
 13. INNER CONTENT CSS
-14. SUBJECT
 ======================================
   * END TABLE CONTENT *  
 ======================================
@@ -424,15 +423,7 @@
     color: #EFBB20;
 }
 .menu-links .nav > li:hover > a:after {
-    content: "";
-    width: 10px;
-    height: 10px;
-    background: #fff;
-    top: 85%;
-    position: absolute;
-    left: 30px;
-    transform: rotate(45deg);
-    z-index: 11;
+    content: none !important;
 }
 .menu-links .nav > li:hover > .sub-menu,
 .menu-links .nav > li:hover > .mega-menu {
@@ -1231,6 +1222,57 @@
 .ttr-post-text p:last-child {
     margin: 0;
 }
+
+.gallery-list {
+    list-style: none;
+    padding: 0;
+}
+.gallery-img {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+.gallery-img:hover {
+    transform: scale(1.1);
+}
+
+/* CSS cho image viewer */
+.image-viewer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.image-viewer img {
+    max-width: 90%;
+    max-height: 80vh;
+    object-fit: contain;
+}
+.close-viewer {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+}
+.close-viewer:hover {
+    color: #ccc;
+}
+#imageCaption {
+    color: white;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
 @media only screen and (max-width: 1200px) {
     .ttr-post-meta .d-flex{
         display:block !important;
@@ -1319,96 +1361,6 @@
     display:inline-block;
     margin-right: 5px;
     margin-bottom: 6px;
-}
-.list-inline {
-    list-style-type: none; /* Bỏ chấm đen cho breadcrumb */
-    padding: 0;
-    margin: 10px 0;
-    display: inline-block; /* Để ul nằm ngang với nút Add a Blog */
-}
-.list-inline li {
-    display: inline-block; /* Xếp ngang trong breadcrumb */
-    margin-right: 10px; /* Khoảng cách giữa các mục */
-}
-.add-blog-btn {
-    display: inline-block; /* Nút nằm ngang với ul */
-    text-decoration: none;
-    background-color: #6f42c1; /* Màu tím */
-    color: white;
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-size: 16px;
-    font-weight: bold;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    margin-right: 15px; /* Khoảng cách giữa Add a Blog và Home */
-}
-.add-blog-btn:hover {
-    background-color: #5a32a3; /* Tím đậm hơn khi hover */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-.add-blog-btn:active {
-    transform: translateY(1px);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-.action-buttons {
-    margin-top: 20px;
-}
-.btn-update {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    text-decoration: none;
-    margin-right: 10px;
-    border-radius: 5px;
-}
-.btn-delete {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #f44336;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-}
-.btn-update:hover, .btn-delete:hover {
-    opacity: 0.8;
-}
-/* CSS cho image viewer */
-.image-viewer {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-.image-viewer img {
-    max-width: 90%;
-    max-height: 80vh;
-    object-fit: contain;
-}
-.close-viewer {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    color: white;
-    font-size: 40px;
-    cursor: pointer;
-}
-.close-viewer:hover {
-    color: #ccc;
-}
-#imageCaption {
-    color: white;
-    margin-top: 10px;
-    font-size: 16px;
 }
 @media only screen and (max-width: 767px) {
     .blog-md.blog-post .ttr-pfost-media,
@@ -3123,212 +3075,6 @@ button.back-to-top {
 .error-page p{
     font-size:16px;
     line-height:26px;
-}
-/*subject*/
-<!-- Custom CSS -->
-.widget-box {
-    background: #ffffff;
-    border: 1px solid #e9e9e9;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    padding: 20px;
-    transition: all 0.3s ease;
-}
-.widget-box:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-}
-.wc-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px solid #6f42c1;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-}
-.wc-title h4 {
-    margin: 0;
-    font-size: 22px;
-    color: #6f42c1;
-    font-weight: 600;
-}
-.add-btn {
-    background-color: #6f42c1;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 25px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-.add-btn:hover {
-    background-color: #5a32a3;
-    transform: translateY(-2px);
-    color: white;
-}
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #ffffff;
-    border-radius: 4px;
-    overflow: hidden;
-}
-th, td {
-    padding: 15px;
-    text-align: left;
-    border-bottom: 1px solid #e9e9e9;
-}
-th {
-    background-color: #6f42c1;
-    color: white;
-    font-weight: 600;
-}
-tr:hover {
-    background-color: #f8f9fa;
-}
-.action-links a {
-    padding: 8px 16px;
-    border-radius: 4px;
-    text-decoration: none;
-    color: white;
-    font-weight: 500;
-    margin-right: 10px;
-    transition: all 0.3s ease;
-}
-.action-links .update-btn {
-    background-color: #28a745;
-}
-.action-links .delete-btn {
-    background-color: #dc3545;
-}
-.action-links a:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
-}
-.error {
-    color: #dc3545;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 20px;
-}
-/*        update*/
-.widget-box {
-    background: #ffffff;
-    border: 1px solid #e9e9e9;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    padding: 20px;
-    transition: all 0.3s ease;
-}
-.widget-box:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-}
-.wc-title {
-    border-bottom: 2px solid #6f42c1;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-}
-.wc-title h4 {
-    margin: 0;
-    font-size: 22px;
-    color: #6f42c1;
-    font-weight: 600;
-}
-.form-group {
-    margin-bottom: 20px;
-}
-.form-control {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: border-color 0.3s ease;
-}
-.form-control:focus {
-    border-color: #6f42c1;
-    box-shadow: 0 0 5px rgba(111, 66, 193, 0.5);
-    outline: none;
-}
-label {
-    font-weight: 500;
-    color: #333;
-    margin-bottom: 5px;
-    display: block;
-}
-.submit-btn {
-    background-color: #6f42c1;
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 25px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-.submit-btn:hover {
-    background-color: #5a32a3;
-    transform: translateY(-2px);
-}
-/*add*/
-
-<!-- Custom CSS -->
-.widget-box {
-    background: #ffffff;
-    border: 1px solid #e9e9e9;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    padding: 20px;
-    transition: all 0.3s ease;
-}
-.widget-box:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-}
-.wc-title {
-    border-bottom: 2px solid #6f42c1;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-}
-.wc-title h4 {
-    margin: 0;
-    font-size: 22px;
-    color: #6f42c1;
-    font-weight: 600;
-}
-.form-group {
-    margin-bottom: 20px;
-}
-.form-control {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: border-color 0.3s ease;
-}
-.form-control:focus {
-    border-color: #6f42c1;
-    box-shadow: 0 0 5px rgba(111, 66, 193, 0.5);
-    outline: none;
-}
-label {
-    font-weight: 500;
-    color: #333;
-    margin-bottom: 5px;
-    display: block;
-}
-.submit-btn {
-    background-color: #6f42c1;
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 25px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-.submit-btn:hover {
-    background-color: #5a32a3;
-    transform: translateY(-2px);
 }
 @media only screen and (max-width: 1200px) {
     .cours-more-info .review{
