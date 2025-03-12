@@ -5,6 +5,7 @@
 package AdminController;
 
 import entity.Cv;
+import entity.Tutor;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,7 +14,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import model.DAOCv;
+import model.DAOTutor;
 
 /**
  *
@@ -37,28 +40,40 @@ public class RequestTutor extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             DAOCv dao = new DAOCv();
+            DAOTutor dao2 = new DAOTutor();
             String error = "";
             int CvID = 0;
             String cvid = request.getParameter("cvid");
+            String cvId = request.getParameter("cvId");
             String submit = request.getParameter("submit");
-            if (submit == null) {
-                ResultSet rsCv = dao.getData("SELECT [CVID],[Fullname],[Education],[Status],[SubjectName] FROM [dbo].[CV]\n"
+            String status = request.getParameter("status");
+            ResultSet rsCv = dao.getData("SELECT [CVID],[Fullname],[Education],[Status],[SubjectName] FROM [dbo].[CV]\n"
                         + "join Subject on CV.SubjectId=Subject.SubjectID\n"
                         + "join Users on Users.UserID=CV.UserID");
-                request.setAttribute("rsCv", rsCv);
-                request.getRequestDispatcher("/admin/statusCV.jsp").forward(request, response);
+            if (cvId != null && status != null) {
+                CvID = Integer.parseInt(cvId);
+                if (!dao2.isCVExists(CvID)) {
+                    dao.updateCVStatus(CvID, status);
+                    if (status.equals("Approved")) {
+                        dao2.addTutor(new Tutor(0, CvID, 5));
+                    }
+                } else {
+                    error = "This CV used";
+                }
             }
             if (cvid != null) {
-                CvID=Integer.parseInt(cvid);
-                ResultSet Cv = dao.getData("SELECT * FROM [dbo].[CV]\n"
+                CvID = Integer.parseInt(cvid);
+                 rsCv = dao.getData("SELECT * FROM [dbo].[CV]\n"
                         + "join Subject on CV.SubjectId=Subject.SubjectID\n"
                         + "join Users on Users.UserID=CV.UserID"
                         + "where [CVID]=" + CvID);
-                request.setAttribute("cv", Cv);
-                request.getRequestDispatcher("/admin/viewCV.jsp").forward(request, response);
+            }
+                request.setAttribute("error", error);
+                request.setAttribute("rsCv", rsCv);
+                request.getRequestDispatcher("//admin/statusCV.jsp").forward(request, response);
             }
         }
-    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
