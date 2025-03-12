@@ -6,15 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 import entity.Tutor;
 import entity.User;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DAOTutor extends DBConnect {
 
     public int addTutor(Tutor tutor) {
         int result = 0;
-        String sql = "INSERT INTO Tutor (CVID, rating) VALUES (?, ?)";
+        String sql = "INSERT INTO [dbo].[Tutor]([CVIID],[Rating],[Price])\n" +
+"VALUES(?,?,?)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, tutor.getCVID());
             ps.setFloat(2, tutor.getRating());
+            ps.setInt(3, 200);
             result = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -217,6 +221,53 @@ public class DAOTutor extends DBConnect {
         }
         System.out.println("lấy tutor by subject Id thành công");
         return tutor;
+    }
+    
+    public Tutor getTutorByCVid(int cvId) {
+        Tutor tutor = null;
+        String query = "SELECT TutorID, CVIID, Rating, Price FROM Tutor WHERE CVIID = ?";
+
+        // Sử dụng try-with-resources để tự động đóng kết nối và statement
+        try (
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, cvId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    tutor = new Tutor();
+                    tutor.setTutorID(rs.getInt("TutorID"));
+                    tutor.setCVID(rs.getInt("CVIID"));
+                    int rating = rs.getInt("Rating");
+                    if (rs.wasNull()) {
+                        tutor.setRating(0);
+                    } else {
+                        tutor.setRating(rating);
+                    }
+                    int price = rs.getInt("Price");
+                    if (rs.wasNull()) {
+                        tutor.setPrice(0);
+                    } else {
+                        tutor.setPrice(price);
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return tutor;
+    }
+    public boolean isCVExists(int cvid) {
+        String sql = "SELECT COUNT(*) FROM Tutor WHERE CVIIID = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, cvid );
+            ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+        }catch (SQLException ex) {
+            Logger.getLogger(DAOTutor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
 }

@@ -373,7 +373,16 @@
                                 <td><%=rsCv.getString(2)%></td>
                                 <td><%=rsCv.getString(3)%></td>
                                 <td><%=rsCv.getString(5)%></td>
-                                <td><%=rsCv.getString(4)%></td>
+                                <td>
+                                    <form action="RequestCV" method="post">
+                                        <input type="hidden" name="cvId" value="<%= rsCv.getInt(1)%>">
+                                        <select name="status" onchange="this.form.submit()">
+                                            <option value="Pending" <%= "Pending".equals(rsCv.getString("Status")) ? "selected" : ""%>>Pending</option>
+                                            <option value="Approved" <%= "Approved".equals(rsCv.getString("Status")) ? "selected" : ""%>>Approved</option>
+                                            <option value="Rejected" <%= "Rejected".equals(rsCv.getString("Status")) ? "selected" : ""%>>Rejected</option>
+                                        </select>
+                                    </form>
+                                </td>
                                 <td><a href="viewCV?cvid=<%=rsCv.getInt(1)%>">View CV</a></td>
                             </tr>
                             <%}%>
