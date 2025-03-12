@@ -13,13 +13,12 @@ public class DAOTutor extends DBConnect {
 
     public int addTutor(Tutor tutor) {
         int result = 0;
-        String sql = "INSERT INTO [dbo].[Tutor]([TutorID],[CVIID],[Rating],[Price])\n" +
-"VALUES(?,?,?,?)";
+        String sql = "INSERT INTO [dbo].[Tutor]([CVIID],[Rating],[Price])\n" +
+"VALUES(?,?,?)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1,0);
-            ps.setInt(2, tutor.getCVID());
-            ps.setFloat(3, tutor.getRating());
-            ps.setInt(4, 200);
+            ps.setInt(1, tutor.getCVID());
+            ps.setFloat(2, tutor.getRating());
+            ps.setInt(3, 200);
             result = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

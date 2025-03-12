@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.DAOCv;
 import model.DAOTutor;
+import model.DAOTutorSubject;
 
 /**
  *
@@ -41,6 +42,7 @@ public class RequestTutor extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             DAOCv dao = new DAOCv();
             DAOTutor dao2 = new DAOTutor();
+            DAOTutorSubject dao3= new DAOTutorSubject();
             String error = "";
             int CvID = 0;
             String cvid = request.getParameter("cvid");
@@ -56,6 +58,8 @@ public class RequestTutor extends HttpServlet {
                     dao.updateCVStatus(CvID, status);
                     if (status.equals("Approved")) {
                         dao2.addTutor(new Tutor(0, CvID, 5));
+                        Tutor tutor= dao2.getTutorByCVid(CvID);
+                        dao3.addTutorSubject(tutor.getTutorID(), CvID);
                     }
                 } else {
                     error = "This CV used";

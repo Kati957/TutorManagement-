@@ -39,11 +39,6 @@ public class Tutor {
     public void setPrice(int price) {
         this.price = price;
     }
-
-    
-    
-    
-
     public int getTutorID() {
         return tutorID;
     }
