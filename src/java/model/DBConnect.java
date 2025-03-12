@@ -31,8 +31,9 @@ public class DBConnect {
             ex.printStackTrace();
         } 
     }
-    public DBConnect(){ // G4_TutorManagement
-        this("jdbc:sqlserver://localhost:1433;databaseName=G4_TutorManagement", "sa","123");
+    public DBConnect(){
+
+        this("jdbc:sqlserver://localhost:1433;databaseName=test", "sa1","123456");
     }
       public ResultSet getData(String sql){
         ResultSet rs=null;

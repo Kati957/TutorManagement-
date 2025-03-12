@@ -37,11 +37,11 @@ public class TutorDetailController extends HttpServlet {
             DAOCv dao= new DAOCv();
             int tutor = Integer.parseInt(request.getParameter("tutorID"));
             ResultSet rsTutor=null;
-            rsTutor = dao.getData("select TutorID, FullName, SubjectName, rating, Avatar, Price,Desciption from users\n" +
+            rsTutor = dao.getData("select TutorID, FullName, SubjectName, rating, Avatar, Price ,Desciption, Certificates from users\n" +
 "                        join CV on users.UserID=Cv.UserID\n" +
 "                        join tutor on CV.CVID=tutor.CVIID\n" +
 "                        join Subject on CV.SubjectId=Subject.SubjectID\n" +
-"                    where TutorID=1");
+"                    where TutorID="+tutor);
             request.setAttribute("rsTutor", rsTutor);
             request.getRequestDispatcher("/tutor-details.jsp").forward(request, response);
         }

@@ -12,6 +12,7 @@ public class Tutor {
     private int tutorID;
     private int CVID;
     private float rating;
+    private int price;
     
     private Cv cv; // hungnv don't delete
     
@@ -23,8 +24,21 @@ public class Tutor {
         this.CVID = CVID;
         this.rating = rating;
     }
-    
 
+    public Tutor(int tutorID, int CVID, float rating, int price) {
+        this.tutorID = tutorID;
+        this.CVID = CVID;
+        this.rating = rating;
+        this.price = price;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
     public int getTutorID() {
         return tutorID;
     }
