@@ -481,3 +481,9 @@ Theme Version:	1.0.0
     });
 
 })(jQuery);
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".tp-leftarrow.tparrows.uranus, .tp-rightarrow.tparrows.uranus").forEach(el => {
+        el.classList.remove("tp-leftarrow", "tparrows", "uranus", "tp-rightarrow");
+    });
+});

@@ -15,7 +15,6 @@
 11. COUNTERUP
 12. FOOTER
 13. INNER CONTENT CSS
-14. SUBJECT
 ======================================
   * END TABLE CONTENT *  
 ======================================
@@ -424,15 +423,7 @@
     color: #EFBB20;
 }
 .menu-links .nav > li:hover > a:after {
-    content: "";
-    width: 10px;
-    height: 10px;
-    background: #fff;
-    top: 85%;
-    position: absolute;
-    left: 30px;
-    transform: rotate(45deg);
-    z-index: 11;
+    content: none !important;
 }
 .menu-links .nav > li:hover > .sub-menu,
 .menu-links .nav > li:hover > .mega-menu {
@@ -1231,6 +1222,57 @@
 .ttr-post-text p:last-child {
     margin: 0;
 }
+
+.gallery-list {
+    list-style: none;
+    padding: 0;
+}
+.gallery-img {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+.gallery-img:hover {
+    transform: scale(1.1);
+}
+
+/* CSS cho image viewer */
+.image-viewer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.image-viewer img {
+    max-width: 90%;
+    max-height: 80vh;
+    object-fit: contain;
+}
+.close-viewer {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+}
+.close-viewer:hover {
+    color: #ccc;
+}
+#imageCaption {
+    color: white;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
 @media only screen and (max-width: 1200px) {
     .ttr-post-meta .d-flex{
         display:block !important;
@@ -1319,96 +1361,6 @@
     display:inline-block;
     margin-right: 5px;
     margin-bottom: 6px;
-}
-.list-inline {
-    list-style-type: none; /* Bỏ chấm đen cho breadcrumb */
-    padding: 0;
-    margin: 10px 0;
-    display: inline-block; /* Để ul nằm ngang với nút Add a Blog */
-}
-.list-inline li {
-    display: inline-block; /* Xếp ngang trong breadcrumb */
-    margin-right: 10px; /* Khoảng cách giữa các mục */
-}
-.add-blog-btn {
-    display: inline-block; /* Nút nằm ngang với ul */
-    text-decoration: none;
-    background-color: #6f42c1; /* Màu tím */
-    color: white;
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-size: 16px;
-    font-weight: bold;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    margin-right: 15px; /* Khoảng cách giữa Add a Blog và Home */
-}
-.add-blog-btn:hover {
-    background-color: #5a32a3; /* Tím đậm hơn khi hover */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-.add-blog-btn:active {
-    transform: translateY(1px);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-.action-buttons {
-    margin-top: 20px;
-}
-.btn-update {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    text-decoration: none;
-    margin-right: 10px;
-    border-radius: 5px;
-}
-.btn-delete {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #f44336;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-}
-.btn-update:hover, .btn-delete:hover {
-    opacity: 0.8;
-}
-/* CSS cho image viewer */
-.image-viewer {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-.image-viewer img {
-    max-width: 90%;
-    max-height: 80vh;
-    object-fit: contain;
-}
-.close-viewer {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    color: white;
-    font-size: 40px;
-    cursor: pointer;
-}
-.close-viewer:hover {
-    color: #ccc;
-}
-#imageCaption {
-    color: white;
-    margin-top: 10px;
-    font-size: 16px;
 }
 @media only screen and (max-width: 767px) {
     .blog-md.blog-post .ttr-pfost-media,
@@ -3124,6 +3076,9 @@ button.back-to-top {
     font-size:16px;
     line-height:26px;
 }
+/*=================================
+        14. Subject
+=================================*/
 /*subject*/
 <!-- Custom CSS -->
 .widget-box {
