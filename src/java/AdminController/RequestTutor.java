@@ -48,18 +48,20 @@ public class RequestTutor extends HttpServlet {
             String cvid = request.getParameter("cvid");
             String cvId = request.getParameter("cvId");
             String submit = request.getParameter("submit");
+            String subject = request.getParameter("subject");
             String status = request.getParameter("status");
-            ResultSet rsCv = dao.getData("SELECT [CVID],[Fullname],[Education],[Status],[SubjectName] FROM [dbo].[CV]\n"
+            ResultSet rsCv = dao.getData("SELECT [CVID],[Fullname],[Education],[Status],[SubjectName],Subject.SubjectID FROM [dbo].[CV]\n"
                         + "join Subject on CV.SubjectId=Subject.SubjectID\n"
                         + "join Users on Users.UserID=CV.UserID");
             if (cvId != null && status != null) {
                 CvID = Integer.parseInt(cvId);
+                int subjectId= Integer.parseInt(subject);
                 if (!dao2.isCVExists(CvID)) {
                     dao.updateCVStatus(CvID, status);
                     if (status.equals("Approved")) {
                         dao2.addTutor(new Tutor(0, CvID, 5));
                         Tutor tutor= dao2.getTutorByCVid(CvID);
-                        dao3.addTutorSubject(tutor.getTutorID(), CvID);
+                        dao3.addTutorSubject(tutor.getTutorID(),subjectId);
                     }
                 } else {
                     error = "This CV used";
