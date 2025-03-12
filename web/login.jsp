@@ -29,7 +29,7 @@
             <div class="account-container">
                 <div class="heading-bx left">
                     <h2 class="title-head">Login to your <span>Account</span></h2>
-                    <p>Don't have an account? <a href="register.jsp">Create one here</a></p>
+                    <p>Don't have an account? <a href="User?service=registerUser">Create one here</a></p>
                 </div>  
                 <form action="login" class="contact-bx">
                     <input type="hidden" name="service" value="loginUser">
