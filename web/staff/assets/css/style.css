@@ -3076,6 +3076,215 @@ button.back-to-top {
     font-size:16px;
     line-height:26px;
 }
+/*=================================
+        14. Subject
+=================================*/
+/*subject*/
+<!-- Custom CSS -->
+.widget-box {
+    background: #ffffff;
+    border: 1px solid #e9e9e9;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+.widget-box:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+.wc-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #6f42c1;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.wc-title h4 {
+    margin: 0;
+    font-size: 22px;
+    color: #6f42c1;
+    font-weight: 600;
+}
+.add-btn {
+    background-color: #6f42c1;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+.add-btn:hover {
+    background-color: #5a32a3;
+    transform: translateY(-2px);
+    color: white;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 4px;
+    overflow: hidden;
+}
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #e9e9e9;
+}
+th {
+    background-color: #6f42c1;
+    color: white;
+    font-weight: 600;
+}
+tr:hover {
+    background-color: #f8f9fa;
+}
+.action-links a {
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
+.action-links .update-btn {
+    background-color: #28a745;
+}
+.action-links .delete-btn {
+    background-color: #dc3545;
+}
+.action-links a:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+.error {
+    color: #dc3545;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+/*        update*/
+.widget-box {
+    background: #ffffff;
+    border: 1px solid #e9e9e9;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+.widget-box:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+.wc-title {
+    border-bottom: 2px solid #6f42c1;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.wc-title h4 {
+    margin: 0;
+    font-size: 22px;
+    color: #6f42c1;
+    font-weight: 600;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+.form-control:focus {
+    border-color: #6f42c1;
+    box-shadow: 0 0 5px rgba(111, 66, 193, 0.5);
+    outline: none;
+}
+label {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+.submit-btn {
+    background-color: #6f42c1;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.submit-btn:hover {
+    background-color: #5a32a3;
+    transform: translateY(-2px);
+}
+/*add*/
+
+<!-- Custom CSS -->
+.widget-box {
+    background: #ffffff;
+    border: 1px solid #e9e9e9;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+.widget-box:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+.wc-title {
+    border-bottom: 2px solid #6f42c1;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.wc-title h4 {
+    margin: 0;
+    font-size: 22px;
+    color: #6f42c1;
+    font-weight: 600;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+.form-control:focus {
+    border-color: #6f42c1;
+    box-shadow: 0 0 5px rgba(111, 66, 193, 0.5);
+    outline: none;
+}
+label {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+.submit-btn {
+    background-color: #6f42c1;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.submit-btn:hover {
+    background-color: #5a32a3;
+    transform: translateY(-2px);
+}
 @media only screen and (max-width: 1200px) {
     .cours-more-info .review{
         padding: 8px 12px;
