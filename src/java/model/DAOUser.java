@@ -293,6 +293,18 @@ public class DAOUser extends DBConnect {
         }
         return false;
     }
+    public void updateUserRole(int userId) {
+        String sql = "UPDATE Users SET RoleID = 3 WHERE UserID = ?";
+
+        try (
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, userId);
+            int rowsUpdated = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     // Phương thức main để kiểm tra
     public static void main(String[] args) {

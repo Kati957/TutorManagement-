@@ -13,8 +13,8 @@ public class DAOTutor extends DBConnect {
 
     public int addTutor(Tutor tutor) {
         int result = 0;
-        String sql = "INSERT INTO [dbo].[Tutor]([CVIID],[Rating],[Price])\n" +
-"VALUES(?,?,?)";
+        String sql = "INSERT INTO [dbo].[Tutor]([CVIID],[Rating],[Price])\n"
+                + "VALUES(?,?,?)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, tutor.getCVID());
             ps.setFloat(2, tutor.getRating());
@@ -214,6 +214,12 @@ public class DAOTutor extends DBConnect {
                 tutor.setTutorID(rs.getInt("tutorID"));
                 tutor.setCVID(rs.getInt("CVIID"));
                 tutor.setRating(rs.getFloat("rating"));
+                int price = rs.getInt("Price");
+                if (rs.wasNull()) {
+                    tutor.setPrice(0);
+                } else {
+                    tutor.setPrice(price);
+                }
                 tutor.setCv(cv);
             }
         } catch (SQLException e) {
@@ -222,14 +228,14 @@ public class DAOTutor extends DBConnect {
         System.out.println("lấy tutor by subject Id thành công");
         return tutor;
     }
-    
+
     public Tutor getTutorByCVid(int cvId) {
         Tutor tutor = null;
         String query = "SELECT TutorID, CVIID, Rating, Price FROM Tutor WHERE CVIID = ?";
 
         // Sử dụng try-with-resources để tự động đóng kết nối và statement
         try (
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+                PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, cvId);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
@@ -256,15 +262,16 @@ public class DAOTutor extends DBConnect {
 
         return tutor;
     }
+
     public boolean isCVExists(int cvid) {
         String sql = "SELECT COUNT(*) FROM Tutor WHERE CVIIID = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, cvid );
+            stmt.setInt(1, cvid);
             ResultSet rs = stmt.executeQuery();
-                if (rs.next()) {
-                    return rs.getInt(1) > 0;
-                }
-        }catch (SQLException ex) {
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException ex) {
             Logger.getLogger(DAOTutor.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
