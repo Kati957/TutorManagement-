@@ -56,7 +56,7 @@
                                     <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
                                     <label class="custom-control-label" for="customControlAutosizing">Remember me</label>
                                 </div>
-                                <a href="requestPassword.jsp" class="ml-auto">Forgot Password?</a>
+                                <a href="requestPassword" class="ml-auto">Forgot Password?</a>
                             </div>
                         </div>
                         <p class="text-danger">${error}</p>
