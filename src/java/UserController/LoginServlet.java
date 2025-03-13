@@ -110,7 +110,7 @@ public class LoginServlet extends HttpServlet {
         if (roleId == 1) { // Admin
             response.sendRedirect(contextPath + "/admin/index.jsp");
         } else if (roleId == 2) { // User
-            response.sendRedirect(contextPath + "/home.jsp");
+            response.sendRedirect(contextPath + "/home");
         }else if(roleId==3){
             response.sendRedirect("staff/index_staff.jsp");
         }

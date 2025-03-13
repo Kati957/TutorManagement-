@@ -94,7 +94,16 @@
                                     <li>
                                         <div class="ttr-header-submenu">
                                             <ul>
-                                                <li><a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/profile/pic1.jpg" width="32" height="32"></span></a></li>
+                                                <li>
+                                                    <a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle">
+                                                        <span class="ttr-user-avatar">
+                                                            <img alt="" 
+                                                                 src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
+                                                                 width="32" height="32"
+                                                                 onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
+                                                        </span>
+                                                    </a>
+                                                </li>
                                                 <li><a href="profile_user.jsp">My profile</a></li>
                                                 <li><a href="list-view-calendar.jsp">Activity</a></li>
                                                 <li><a href="mailbox.jsp">Messages</a></li>
@@ -195,7 +204,9 @@
                                 <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
                                     <div class="profile-bx text-center">
                                         <div class="user-profile-thumb">
-                                            <img src="assets/images/profile/pic1.jpg" alt=""/>
+                                            <img src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
+                                                 alt="Avatar" 
+                                                 onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'" />
                                         </div>
                                         <div class="profile-info">
                                             <h4><%= user.getFullName()%></h4>
@@ -303,6 +314,12 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
+                                                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Avatar</label>
+                                                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                            <input class="form-control" type="file" name="avatar" accept="image/*">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
                                                         <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Address</label>
                                                         <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                             <input class="form-control" type="text" name="address" value="<%= user.getAddress()%>">
@@ -406,79 +423,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-12 col-sm-12 footer-col-4">
-                                <div class="widget">
-                                    <h5 class="footer-title">Sign Up For A Newsletter</h5>
-                                    <p class="text-capitalize m-b20">Weekly Breaking news analysis and cutting edge advices on job searching.</p>
-                                    <div class="subscribe-form m-b20">
-                                        <form class="subscription-form" action="http://educhamp.themetrades.com/demo/assets/script/mailchamp.php" method="post">
-                                            <div class="ajax-message"></div>
-                                            <div class="input-group">
-                                                <input name="email" required="required"  class="form-control" placeholder="Your Email Address" type="email">
-                                                <span class="input-group-btn">
-                                                    <button name="submit" value="Submit" type="submit" class="btn"><i class="fa fa-arrow-right"></i></button>
-                                                </span> 
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-5 col-md-7 col-sm-12">
-                                <div class="row">
-                                    <div class="col-4 col-lg-4 col-md-4 col-sm-4">
-                                        <div class="widget footer_widget">
-                                            <h5 class="footer-title">Company</h5>
-                                            <ul>
-                                                <li><a href="home.jsp">Home</a></li>
-                                                <li><a href="about-1.jsp">About</a></li>
-                                                <li><a href="faq-1.jsp">FAQs</a></li>
-                                                <li><a href="contact-1.jsp">Contact</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 col-lg-4 col-md-4 col-sm-4">
-                                        <div class="widget footer_widget">
-                                            <h5 class="footer-title">Courses</h5>
-                                            <ul>
-                                                <li><a href="courses.jsp">Courses</a></li>
-                                                <li><a href="courses-details.jsp">Details</a></li>
-                                                <li><a href="membership.jsp">Membership</a></li>
-                                                <li><a href="profile.jsp">Profile</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-3 col-md-5 col-sm-12 footer-col-4">
-                                <div class="widget widget_gallery gallery-grid-4">
-                                    <h5 class="footer-title">Our Gallery</h5>
-                                    <ul class="magnific-image">
-                                        <li><a href="assets/images/gallery/pic1.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic1.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic2.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic2.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic3.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic3.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic4.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic4.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic5.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic5.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic6.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic6.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic7.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic7.jpg" alt=""></a></li>
-                                        <li><a href="assets/images/gallery/pic8.jpg" class="magnific-anchor"><img src="assets/images/gallery/pic8.jpg" alt=""></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 text-center"> <a target="_blank" href="https://www.templateshub.net">Templates Hub</a></div>
-                        </div>
-                    </div>
                 </div>
             </footer>
-            <!-- Footer END ==== -->
-            <button class="back-to-top fa fa-chevron-up" ></button>
         </div>
         <!-- External JavaScripts -->
         <script src="assets/js/jquery.min.js"></script>

@@ -86,7 +86,16 @@
                                     <li>
                                         <div class="ttr-header-submenu">
                                             <ul>
-                                                <li><a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a></li>
+                                                <li>
+                                                    <a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle">
+                                                        <span class="ttr-user-avatar">
+                                                            <img alt="" 
+                                                                 src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
+                                                                 width="32" height="32"
+                                                                 onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
+                                                        </span>
+                                                    </a>
+                                                </li>
                                                 <li><a href="profile_user.jsp">My profile</a></li>
                                                 <li><a href="list-view-calendar.jsp">Activity</a></li>
                                                 <li><a href="cv">Become a tutor</a></li>
@@ -189,8 +198,8 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <form action="Courses" method="get">
-                                                        <label>Search Tutor</label>
-                                                        <input name="dzName" type="text" required class="form-control">
+                                                    <label>Search Tutor</label>
+                                                    <input name="dzName" type="text" required class="form-control">
                                                 </form>
                                             </div>
                                         </div>
@@ -200,8 +209,8 @@
                                         <ul>
                                             <li class="active"><a href="#">General</a></li>
                                                 <c:forEach var="g" items="${list}">
-                                            <li><a href="Courses?Subjectname=${g.subjectName}">${g.subjectName}</a></li>
-                                            </c:forEach>
+                                                <li><a href="Courses?Subjectname=${g.subjectName}">${g.subjectName}</a></li>
+                                                </c:forEach>
                                         </ul>
                                     </div>
                                 </div>
