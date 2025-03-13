@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nvarchar/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package UserController;
 
 import entity.User;
@@ -12,11 +8,13 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 
 /**
  * Servlet xử lý đăng ký người dùng.
@@ -24,6 +22,9 @@ import jakarta.servlet.http.HttpSession;
  * @author Heizxje
  */
 @WebServlet(name = "UserRegister", urlPatterns = {"/User"})
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 10, // 10MB
+        maxRequestSize = 1024 * 1024 * 50) // 50MB
 public class UserRegister extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(UserRegister.class.getName());
@@ -78,6 +79,9 @@ public class UserRegister extends HttpServlet {
         String userName = request.getParameter("UserName");
         String password = request.getParameter("Password");
 
+        // Xử lý upload ảnh
+        String avatarPath = handleFileUpload(request);
+
         try {
             // Kiểm tra dữ liệu đầu vào và trùng lặp
             String error = validateInput(dao, email, fullName, phone, dob, address, userName, password);
@@ -90,7 +94,7 @@ public class UserRegister extends HttpServlet {
             // Tạo đối tượng User
             User newUser = new User(
                     0, 2, email, fullName, phone, null, 1, Date.valueOf(dob),
-                    address, avatar != null && !avatar.isEmpty() ? avatar : "default_avatar.jpg",
+                    address, avatarPath != null ? avatarPath : "default_avatar.jpg",
                     userName, password
             );
 
@@ -110,11 +114,48 @@ public class UserRegister extends HttpServlet {
         }
     }
 
-    /**
-     * Kiểm tra dữ liệu đầu vào và trùng lặp.
-     *
-     * @return Chuỗi lỗi nếu có, rỗng nếu hợp lệ
-     */
+    private String handleFileUpload(HttpServletRequest request) throws IOException, ServletException {
+        try {
+            Part filePart = request.getPart("avatar"); // Tên field trong form phải là "avatar"
+            if (filePart != null && filePart.getSize() > 0) {
+                String fileName = extractFileName(filePart);
+                if (fileName != null && isImageFile(fileName)) {
+                    String uploadPath = getServletContext().getRealPath("") + "uploads/";
+                    java.io.File uploadDir = new java.io.File(uploadPath);
+                    if (!uploadDir.exists()) {
+                        uploadDir.mkdir();
+                    }
+                    filePart.write(uploadPath + fileName);
+                    return "uploads/" + fileName;
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error uploading file", e);
+        }
+        return null;
+    }
+
+    private String extractFileName(Part part) {
+        String contentDisposition = part.getHeader("content-disposition");
+        String[] items = contentDisposition.split(";");
+        for (String item : items) {
+            if (item.trim().startsWith("filename")) {
+                return item.substring(item.indexOf("=") + 2, item.length() - 1);
+            }
+        }
+        return null;
+    }
+
+    private boolean isImageFile(String fileName) {
+        String[] allowedExtensions = {".jpg", ".jpeg", ".png", ".gif"};
+        for (String ext : allowedExtensions) {
+            if (fileName.toLowerCase().endsWith(ext)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private String validateInput(DAOUser dao, String email, String fullName, String phone, String dob,
             String address, String userName, String password) throws SQLException {
         if (email == null || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {

@@ -94,7 +94,16 @@
                                     <li>
                                         <div class="ttr-header-submenu">
                                             <ul>
-                                                <li><a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/profile/pic1.jpg" width="32" height="32"></span></a></li>
+                                                <li>
+                                                    <a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle">
+                                                        <span class="ttr-user-avatar">
+                                                            <img alt="" 
+                                                                 src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
+                                                                 width="32" height="32"
+                                                                 onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
+                                                        </span>
+                                                    </a>
+                                                </li>
                                                 <li><a href="profile_user.jsp">My profile</a></li>
                                                 <li><a href="list-view-calendar.jsp">Activity</a></li>
                                                 <li><a href="mailbox.jsp">Messages</a></li>
@@ -195,7 +204,9 @@
                                 <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
                                     <div class="profile-bx text-center">
                                         <div class="user-profile-thumb">
-                                            <img src="assets/images/profile/pic1.jpg" alt=""/>
+                                            <img src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
+                                                 alt="Avatar" 
+                                                 onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'" />
                                         </div>
                                         <div class="profile-info">
                                             <h4><%= user.getFullName()%></h4>
@@ -300,6 +311,12 @@
                                                         <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Date of Birth</label>
                                                         <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                             <input class="form-control" type="date" name="dob" value="<%= user.getDob()%>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Avatar</label>
+                                                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                            <input class="form-control" type="file" name="avatar" accept="image/*">
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">

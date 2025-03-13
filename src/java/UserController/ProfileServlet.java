@@ -33,7 +33,7 @@ public class ProfileServlet extends HttpServlet {
     private static final int MIN_PASSWORD_LENGTH = 8;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("user");
@@ -48,7 +48,7 @@ public class ProfileServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("user");
@@ -132,10 +132,10 @@ public class ProfileServlet extends HttpServlet {
             }
         }
 
-        String avatar = handleFileUpload(request, currentUser.getAvatar());
+        String avatarPath = handleFileUpload(request, currentUser.getAvatar());
         User updatedUser = new User(userId, currentUser.getRoleID(), currentUser.getEmail(), fullName, phone,
                 currentUser.getCreateAt(), currentUser.getIsActive(), sqlDob, address,
-                avatar, currentUser.getUserName(), currentUser.getPassword());
+                avatarPath, currentUser.getUserName(), currentUser.getPassword());
 
         if (daoUser.updateUser(updatedUser)) {
             session.setAttribute("user", updatedUser);
@@ -154,7 +154,7 @@ public class ProfileServlet extends HttpServlet {
             LocalDate localDate = LocalDate.parse(dobParam);
             return java.sql.Date.valueOf(localDate);
         } catch (java.time.format.DateTimeParseException e) {
-            setError(session, "Ngày sinh không hợp lệ. Vui lòng nhập theo định dạng yyyy-MM-dd (ví dụ: 2025-02-25).");
+            setError(session, "Ngày sinh không hợp lệ. Vui lòng nhập theo định dạng yyyy-MM-dd.");
             return null;
         }
     }
@@ -162,12 +162,41 @@ public class ProfileServlet extends HttpServlet {
     private String handleFileUpload(HttpServletRequest request, String currentAvatar) throws IOException, ServletException {
         Part filePart = request.getPart("avatar");
         if (filePart != null && filePart.getSize() > 0) {
-            String uploadPath = getServletContext().getRealPath("/") + "uploads/";
-            String fileName = filePart.getSubmittedFileName();
-            filePart.write(uploadPath + fileName);
-            return "uploads/" + fileName;
+            String fileName = extractFileName(filePart);
+            if (fileName != null && isImageFile(fileName)) {
+                String uploadPath = getServletContext().getRealPath("") + "uploads/";
+                java.io.File uploadDir = new java.io.File(uploadPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdir();
+                }
+                filePart.write(uploadPath + fileName);
+                return "uploads/" + fileName;
+            } else {
+                return currentAvatar; // Giữ nguyên avatar hiện tại nếu file không hợp lệ
+            }
         }
         return currentAvatar;
+    }
+
+    private String extractFileName(Part part) {
+        String contentDisposition = part.getHeader("content-disposition");
+        String[] items = contentDisposition.split(";");
+        for (String item : items) {
+            if (item.trim().startsWith("filename")) {
+                return item.substring(item.indexOf("=") + 2, item.length() - 1);
+            }
+        }
+        return null;
+    }
+
+    private boolean isImageFile(String fileName) {
+        String[] allowedExtensions = {".jpg", ".jpeg", ".png", ".gif"};
+        for (String ext : allowedExtensions) {
+            if (fileName.toLowerCase().endsWith(ext)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void setError(HttpSession session, String errorMessage) {
@@ -176,19 +205,5 @@ public class ProfileServlet extends HttpServlet {
 
     private void setMessage(HttpSession session, String message) {
         session.setAttribute("message", message);
-    }
-
-    private String hashPassword(String password) throws Exception {
-        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] hash = digest.digest(password.getBytes("UTF-8"));
-        StringBuilder hexString = new StringBuilder();
-        for (byte b : hash) {
-            String hex = Integer.toHexString(0xff & b);
-            if (hex.length() == 1) {
-                hexString.append('0');
-            }
-            hexString.append(hex);
-        }
-        return hexString.toString();
     }
 }
