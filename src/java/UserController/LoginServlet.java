@@ -111,7 +111,7 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect(contextPath + "/admin/index.jsp");
         } else if (roleId == 2) { // User
             response.sendRedirect(contextPath + "/home");
-        }else if(roleId==3){
+        }else if(roleId==4){
             response.sendRedirect("staff/index_staff.jsp");
         }
         else {

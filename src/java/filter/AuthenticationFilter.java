@@ -24,39 +24,31 @@ public class AuthenticationFilter implements Filter {
 
     // Danh sách các URL yêu cầu đăng nhập (protected)
     private static final List<String> PROTECTED_URLS = Arrays.asList(
-            "/add-listing.jsp",
-            "/bookmark.jsp",
-            "/courses.jsp",
-            "/review.jsp",
-            "/teacher-profile.jsp",
-            "/user-profile.jsp",
-            "/basic-calendar.jsp",
-            "/list-view-calendar.jsp",
-            "/mailbox-compose.jsp",
-            "/mailbox-read.jsp",
-            "/mailbox.jsp",
-            "/admin/"
+            "/admin/",
+            "/staff/",
+            "/tutor/",
+            "profile_user.jsp",
+            "/sendCV.jsp"
     );
 
     // Danh sách các URL public không cần đăng nhập
     private static final List<String> PUBLIC_URLS = Arrays.asList(
             "/login.jsp", // sử dụng login.jsp (đồng nhất với redirect)
-            "/register.jsp",
+            "/home.jsp",
             "/forget-password.jsp",
-            "/index.jsp",
-            "/index-2.jsp",
+            "/blog-classic-sidebar.jsp",
+            "/blog-details.jsp",
+            "/register.jsp",
+            "/course.jsp",
             "/about-1.jsp",
             "/about-2.jsp",
-            "/assets/",
-            "/blog-",
-            "/contact-",
-            "/courses-details.jsp",
+            "/tutor-details.jsp",
             "/event.jsp",
             "/events-details.jsp",
             "/faq-1.jsp",
             "/faq-2.jsp",
             "/error-404.jsp",
-            "/home.jsp"
+            "/home"
     );
 
     private FilterConfig filterConfig = null;

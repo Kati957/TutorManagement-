@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.DAOBlog;
 
-@WebServlet(name = "BlogController", urlPatterns = {"/BlogController"})
+@WebServlet(name = "BlogController", urlPatterns = {"/staff/BlogController"})
 public class BlogController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -60,8 +60,8 @@ public class BlogController extends HttpServlet {
         DAOBlog dao = new DAOBlog();
         User user = (User) session.getAttribute("user");
 
-        // Kiểm tra quyền (roleID = 3 mới được thêm blog)
-        if (user == null || user.getRoleID() != 3) {
+        // Kiểm tra quyền (roleID = 4 mới được thêm blog)
+        if (user == null || user.getRoleID() != 4) {
             response.sendRedirect("error-403.jsp");
             return;
         }
@@ -113,8 +113,8 @@ public class BlogController extends HttpServlet {
         DAOBlog dao = new DAOBlog();
         User user = (User) session.getAttribute("user");
 
-        // Kiểm tra quyền (roleID = 3 mới được cập nhật blog)
-        if (user == null || user.getRoleID() != 3) {
+        // Kiểm tra quyền (roleID = 4 mới được cập nhật blog)
+        if (user == null || user.getRoleID() != 4) {
             response.sendRedirect("error-403.jsp");
             return;
         }
@@ -188,7 +188,7 @@ public class BlogController extends HttpServlet {
         DAOBlog dao = new DAOBlog();
         User user = (User) session.getAttribute("user");
 
-        // Kiểm tra quyền (roleID = 3 mới được xóa blog)
+        // Kiểm tra quyền (roleID = 4 mới được xóa blog)
         if (user == null || user.getRoleID() != 3) {
             response.sendRedirect("error-403.jsp");
             return;
@@ -269,7 +269,7 @@ public class BlogController extends HttpServlet {
             request.setAttribute("currentPage", page);
             request.setAttribute("recentBlogs", recentBlogs); // Recent Posts
             request.setAttribute("galleryBlogs", galleryBlogs); // Gallery thumbnails
-            request.getRequestDispatcher("staff/blog.jsp").forward(request, response);
+            request.getRequestDispatcher("/staff/blog.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(BlogController.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("error", "error: " + ex.getMessage());
@@ -293,7 +293,7 @@ public class BlogController extends HttpServlet {
                     request.setAttribute("blog", blog); // Blog chi tiết
                     request.setAttribute("recentBlogs", recentBlogs); // Recent Posts
                     request.setAttribute("galleryBlogs", galleryBlogs); // Gallery thumbnails
-                    request.getRequestDispatcher("staff/blog-details-staff.jsp").forward(request, response);
+                    request.getRequestDispatcher("/staff/blog-details-staff.jsp").forward(request, response);
                     return;
                 }
             } catch (SQLException ex) {

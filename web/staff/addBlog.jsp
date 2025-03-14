@@ -61,7 +61,7 @@
 
                 <!-- Nút submit -->
                 <button type="submit" name="submit" value="publish" class="btn btn-primary">Upload</button>
-                <a href="${pageContext.request.contextPath}/BlogController" class="btn btn-secondary">Back</a>
+                <a href="BlogController" class="btn btn-secondary">Back</a>
             </form>
         </div>
 
