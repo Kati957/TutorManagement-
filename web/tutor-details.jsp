@@ -209,7 +209,7 @@
                                             <h4 class="price"><%=rsTutor.getInt(6)%></h4>
                                         </div>	
                                         <div class="course-buy-now text-center">
-                                            <a href="#" class="btn radius-xl text-uppercase">Booking</a>
+                                            <a href="Booking?subjectId=<%=rsTutor.getInt("SubjectID")%>&tutorId=<%=rsTutor.getInt("TutorID")%>" class="btn radius-xl text-uppercase">Booking</a>
                                         </div>
                                         <div class="teacher-bx">
                                             <div class="teacher-info">

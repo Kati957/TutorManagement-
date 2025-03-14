@@ -187,44 +187,6 @@
                 <div class="container mt-4">
                     <a href="myschedule" class="btn btn-dark mb-3">Back</a><br>
                     <div class="row">
-                        <aside class="col-md-3">
-                            <h4>Subject:</h4>
-                            <form action="bookschedule" method="GET">
-                                <select name="subjectId" onchange="this.form.submit()">
-                                    <option value="" ${empty param.subjectId ? 'selected' : ''}>All</option>
-                                    <c:forEach var="subject" items="${subjectList}">
-                                        <option value="${subject.subjectID}" ${subject.subjectID eq param.subjectId ? 'selected' : ''}>
-                                            ${subject.subjectName}
-                                        </option>
-                                    </c:forEach>
-                                </select>
-                            </form>
-                            <h4 class="mt-3">Tutor:</h4>
-                            <ul class="list-group mb-3">
-                                <c:choose>
-                                    <c:when test="${empty tutorList}">
-                                        <li class="list-group-item text-danger">
-                                            Không có tutor nào là gia sư của môn: 
-                                            <c:forEach var="subject" items="${subjectList}">
-                                                <c:if test="${subject.subjectID eq param.subjectId}">
-                                                    ${subject.subjectName}
-                                                </c:if>
-                                            </c:forEach>
-                                        </li>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:forEach var="tutor" items="${tutorList}">
-                                            <li class="list-group-item ${param.tutorId == tutor.tutorID ? 'active' : ''}">
-                                                <a href="bookschedule?subjectId=${param.subjectId}&tutorId=${tutor.tutorID}">
-                                                    ${tutor.cv.user.fullName}
-                                                </a>
-                                            </li>
-                                        </c:forEach>
-                                    </c:otherwise>
-                                </c:choose>
-                            </ul>
-                        </aside>
-
                         <!-- Main menu booking -->
                         <main class="col-md-9">
                             <div class="container mb-3">
