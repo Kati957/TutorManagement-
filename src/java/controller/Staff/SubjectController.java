@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  *
  * @author minht
  */
-@WebServlet(name = "SubjectController", urlPatterns = {"/SubjectController"})
+@WebServlet(name = "SubjectController", urlPatterns = {"/staff/SubjectController"})
 public class SubjectController extends HttpServlet {
 
     /**

@@ -17,26 +17,20 @@ public class AuthorizationFilter implements Filter {
 
     private static final boolean debug = true;
 
+    // Đảm bảo các URL có cùng định dạng (bắt đầu bằng "/")
     private static final Set<String> ADMIN_URLS = Set.of(
-            "/admin/index.html", "/admin/add-listing.html", "/admin/basic-calendar.html", "/admin/courses.html",
-            "/admin/list-view-calendar.html", "/admin/mailbox.html", "/admin/mailbox-compose.html", "/admin/mailbox-read.html",
-            "/admin/review.html", "/admin/teacher-profile.html", "/admin/user-profile.html","/admin/staff-management.html"
+            "/admin"
     );
 
     private static final Set<String> STAFF_URLS = Set.of(
-            "/admin/index.html", "/admin/basic-calendar.html", "/admin/add-listing.html", "/admin/courses.html", "/admin/list-view-calendar.html",
-            "/admin/mailbox.html", "/admin/mailbox-compose.html", "/admin/mailbox-read.html", "/admin/review.html", "/admin/user-profile.html"
+            "/staff"
     );
 
     private static final Set<String> TUTOR_URLS = Set.of(
-            "/admin/basic-calendar.html", "/admin/bookmark.html", "/admin/courses.html", "/admin/list-view-calendar.html",
-            "/admin/mailbox.html", "/admin/mailbox-compose.html", "/admin/mailbox-read.html", "/admin/review.html", "/admin/teacher-profile.html"
+            "/tutor"
     );
 
-    private static final Set<String> USER_URLS = Set.of(
-            "/admin/basic-calendar.html", "/admin/bookmark.html", "/admin/courses.html", "/admin/list-view-calendar.html",
-            "/admin/mailbox.html", "/admin/mailbox-compose.html", "/admin/mailbox-read.html", "/admin/review.html", "/admin/user-profile.html"
-    );
+ 
 
     private FilterConfig filterConfig = null;
 
@@ -52,7 +46,6 @@ public class AuthorizationFilter implements Filter {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-
         String path = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
 
         if (!isRestricted(path)) {
@@ -64,26 +57,35 @@ public class AuthorizationFilter implements Filter {
         User user = (User) session.getAttribute("user");
 
         boolean hasAccess = switch (user.getRoleID()) {
-            case 2 -> USER_URLS.contains(path);
-            case 3 -> STAFF_URLS.contains(path);
-            case 4 -> TUTOR_URLS.contains(path);
-            case 5 -> ADMIN_URLS.contains(path);
+            case 4 -> isAllowed(STAFF_URLS, path);
+            case 3 -> isAllowed(TUTOR_URLS, path);
+            case 1 -> isAllowed(ADMIN_URLS, path);
             default -> false;
         };
 
         if (!hasAccess) {
-            httpResponse.sendRedirect(httpRequest.getContextPath() + "/error-403.html");
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/error-403.jsp");
             return;
         }
 
         chain.doFilter(request, response);
-
         doAfterProcessing(request, response);
     }
 
+    // Phương thức kiểm tra nếu path trùng khớp hoặc nằm trong phạm vi của 1 URL cho phép
+    private boolean isAllowed(Set<String> allowedUrls, String path) {
+        for (String allowed : allowedUrls) {
+            if (path.equals(allowed) || path.startsWith(allowed + "/")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Kiểm tra nếu path thuộc bất kỳ URL nào cần được bảo vệ
     private boolean isRestricted(String path) {
-        return ADMIN_URLS.contains(path) || STAFF_URLS.contains(path)
-                || TUTOR_URLS.contains(path) || USER_URLS.contains(path);
+        return isAllowed(ADMIN_URLS, path) || isAllowed(STAFF_URLS, path)
+                || isAllowed(TUTOR_URLS, path);
     }
 
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
@@ -91,7 +93,7 @@ public class AuthorizationFilter implements Filter {
         if (debug) {
             log("AuthorizationFilter:DoBeforeProcessing");
         }
-        // Thêm mã xử lý trước khi tiếp tục chuỗi lọc (nếu cần)
+        // Thêm xử lý trước nếu cần
     }
 
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
@@ -99,12 +101,11 @@ public class AuthorizationFilter implements Filter {
         if (debug) {
             log("AuthorizationFilter:DoAfterProcessing");
         }
-        // Thêm mã xử lý sau khi hoàn thành chuỗi lọc (nếu cần)
+        // Thêm xử lý sau nếu cần
     }
 
     private void sendProcessingError(Throwable t, ServletResponse response) {
         String stackTrace = getStackTrace(t);
-
         if (stackTrace != null && !stackTrace.isEmpty()) {
             try {
                 response.setContentType("text/html");
@@ -154,15 +155,13 @@ public class AuthorizationFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         this.filterConfig = filterConfig;
-        if (filterConfig != null) {
-            if (debug) {
-                log("AuthorizationFilter:Initializing filter");
-            }
+        if (filterConfig != null && debug) {
+            log("AuthorizationFilter:Initializing filter");
         }
     }
 
     @Override
     public void destroy() {
-        // Thực hiện các tác vụ khi hủy filter (nếu cần)
+        // Xử lý dọn dẹp nếu cần
     }
 }
