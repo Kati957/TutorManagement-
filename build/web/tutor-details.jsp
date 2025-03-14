@@ -94,7 +94,16 @@
                                     <li>
                                         <div class="ttr-header-submenu">
                                             <ul>
-                                                <li><a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a></li>
+                                                <li>
+                                                    <a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle">
+                                                        <span class="ttr-user-avatar">
+                                                            <img alt="" 
+                                                                 src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
+                                                                 width="32" height="32"
+                                                                 onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
+                                                        </span>
+                                                    </a>
+                                                </li>
                                                 <li><a href="profile_user.jsp">My profile</a></li>
                                                 <li><a href="list-view-calendar.jsp">Activity</a></li>
                                                 <li><a href="cv">Become a tutor</a></li>
@@ -200,7 +209,7 @@
                                             <h4 class="price"><%=rsTutor.getInt(6)%></h4>
                                         </div>	
                                         <div class="course-buy-now text-center">
-                                            <a href="#" class="btn radius-xl text-uppercase">Booking</a>
+                                            <a href="Booking?subjectId=<%=rsTutor.getInt("SubjectID")%>&tutorId=<%=rsTutor.getInt("TutorID")%>" class="btn radius-xl text-uppercase">Booking</a>
                                         </div>
                                         <div class="teacher-bx">
                                             <div class="teacher-info">
@@ -224,7 +233,7 @@
                                                 <h5 class="text-primary"><%=rsTutor.getString(3)%></h5>
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
 
@@ -260,7 +269,7 @@
                                                 <p><%=rsTutor.getString("Certificates")%></p>
                                                 <h5 class="m-b5">Learning Outcomes</h5>
                                                 <ul class="list-checked primary">
-                                                    
+
                                                 </ul>
                                             </div>
                                         </div>

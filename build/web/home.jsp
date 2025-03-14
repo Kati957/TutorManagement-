@@ -97,8 +97,17 @@
                                     <li>
                                         <div class="ttr-header-submenu">
                                             <ul>
-                                                <li><a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a></li>
-                                                <li><a href="profile_user.jsp">My profile</a></li>
+                                                <li>
+                                                    <a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle">
+                                                        <span class="ttr-user-avatar">
+                                                            <img alt="" 
+                                                                 src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
+                                                                 width="32" height="32"
+                                                                 onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li><a href="profile">My profile</a></li>
                                                 <li><a href="list-view-calendar.html">Activity</a></li>
                                                 <li><a href="cv">Become a tutor</a></li>
                                                 <li><a href="logout">Logout</a></li>
@@ -426,93 +435,6 @@
                         </div>
                     </div>
                     <!-- Testimonials END -->
-
-                    <div class="section-area section-sp2">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12 text-center heading-bx">
-                                    <h2 class="title-head m-b0"> My Upcoming <span>Schedules</span></h2>
-                                    <p class="m-b0">Lịch sắp tới của tôi: </p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="upcoming-event-carousel owl-carousel owl-btn-center-lr owl-btn-1 col-12 p-lr0  m-b30">
-                                    <div class="item">
-                                        <div class="event-bx">
-                                            <div class="action-box">
-                                                <img src="assets/images/event/pic4.jpg" alt="">
-                                            </div>
-                                            <div class="info-bx d-flex">
-                                                <div>
-                                                    <div class="event-time">
-                                                        <div class="event-date">29</div>
-                                                        <div class="event-month">October</div>
-                                                    </div>
-                                                </div>
-                                                <div class="event-info">
-                                                    <h4 class="event-title"><a href="#">Education Autumn Tour 2019</a></h4>
-                                                    <ul class="media-post">
-                                                        <li><a href="#"><i class="fa fa-clock-o"></i> 7:00am 8:00am</a></li>
-                                                        <li><a href="#"><i class="fa fa-map-marker"></i> Berlin, Germany</a></li>
-                                                    </ul>
-                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the..</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="event-bx">
-                                            <div class="action-box">
-                                                <img src="assets/images/event/pic3.jpg" alt="">
-                                            </div>
-                                            <div class="info-bx d-flex">
-                                                <div>
-                                                    <div class="event-time">
-                                                        <div class="event-date">29</div>
-                                                        <div class="event-month">October</div>
-                                                    </div>
-                                                </div>
-                                                <div class="event-info">
-                                                    <h4 class="event-title"><a href="#">Education Autumn Tour 2019</a></h4>
-                                                    <ul class="media-post">
-                                                        <li><a href="#"><i class="fa fa-clock-o"></i> 7:00am 8:00am</a></li>
-                                                        <li><a href="#"><i class="fa fa-map-marker"></i> Berlin, Germany</a></li>
-                                                    </ul>
-                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the..</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="event-bx">
-                                            <div class="action-box">
-                                                <img src="assets/images/event/pic2.jpg" alt="">
-                                            </div>
-                                            <div class="info-bx d-flex">
-                                                <div>
-                                                    <div class="event-time">
-                                                        <div class="event-date">29</div>
-                                                        <div class="event-month">October</div>
-                                                    </div>
-                                                </div>
-                                                <div class="event-info">
-                                                    <h4 class="event-title"><a href="#">Education Autumn Tour 2019</a></h4>
-                                                    <ul class="media-post">
-                                                        <li><a href="#"><i class="fa fa-clock-o"></i> 7:00am 8:00am</a></li>
-                                                        <li><a href="#"><i class="fa fa-map-marker"></i> Berlin, Germany</a></li>
-                                                    </ul>
-                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the..</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-center">
-                                <a href="myschedule" class="btn">View All My Schedules</a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <!-- contact area END -->
             </div>

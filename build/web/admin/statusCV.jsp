@@ -376,6 +376,7 @@
                                 <td>
                                     <form action="RequestCV" method="post">
                                         <input type="hidden" name="cvId" value="<%= rsCv.getInt(1)%>">
+                                        <input type="hidden" name="subject" value="<%= rsCv.getInt("SubjectID")%>">
                                         <select name="status" onchange="this.form.submit()">
                                             <option value="Pending" <%= "Pending".equals(rsCv.getString("Status")) ? "selected" : ""%>>Pending</option>
                                             <option value="Approved" <%= "Approved".equals(rsCv.getString("Status")) ? "selected" : ""%>>Approved</option>

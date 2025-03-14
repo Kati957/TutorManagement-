@@ -66,7 +66,7 @@
 
                 <!-- Nút submit -->
                 <button type="submit" name="submit" value="update" class="btn btn-primary">Update</button>
-                <a href="${pageContext.request.contextPath}/BlogController?service=listBlog" class="btn btn-secondary">Return blogs list</a> 
+                <a href="BlogController?service=listBlog" class="btn btn-secondary">Return blogs list</a> 
             </form>
         </div>
 

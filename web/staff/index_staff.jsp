@@ -131,7 +131,8 @@
                         <ul>
                             <li><a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a></li>
                             <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a></li>
-                            <li><a href="${pageContext.request.contextPath}/SubjectController" class="ttr-material-button"><span class="ttr-label">Control Subject</span></a></li>
+                            <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Booking</span></a></li>
+                            <li><a href="SubjectController" class="ttr-material-button"><span class="ttr-label">Control Subject</span></a></li>
                         </ul>
                     </li>
                     <li>
@@ -144,8 +145,8 @@
                     <li>
                         <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-book"></i></span><span class="ttr-label">Content Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
                         <ul>
-                            <li><a href="${pageContext.request.contextPath}/BlogController?service=listBlog" class="ttr-label">Blog</a></li>
-                            <li><a href="${pageContext.request.contextPath}/BlogController?service=addBlog" class="ttr-label">Add Blog</a></li>
+                            <li><a href="BlogController?service=listBlog" class="ttr-label">Blog</a></li>
+                            <li><a href="BlogController?service=addBlog" class="ttr-label">Add Blog</a></li>
                         </ul>
                     </li>
                     <li class="ttr-seperate"></li>
@@ -313,16 +314,6 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12 m-b30">
-                    <div class="widget-box">
-                        <div class="wc-title">
-                            <h4>Basic Calendar</h4>
-                        </div>
-                        <div class="widget-inner">
-                            <div id="calendar"></div>
                         </div>
                     </div>
                 </div>
