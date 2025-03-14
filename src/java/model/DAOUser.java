@@ -16,6 +16,10 @@ import java.sql.Connection;
  */
 public class DAOUser extends DBConnect {
 
+    public DAOUser() {
+        super(); // Gọi constructor của DBConnect để khởi tạo conn
+    }
+
     // Phương thức đăng nhập
     public User Login(String username, String password) {
         User user = null;
@@ -293,11 +297,12 @@ public class DAOUser extends DBConnect {
         }
         return false;
     }
+
     public void updateUserRole(int userId) {
         String sql = "UPDATE Users SET RoleID = 3 WHERE UserID = ?";
 
         try (
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, userId);
             int rowsUpdated = pstmt.executeUpdate();
@@ -376,12 +381,19 @@ public class DAOUser extends DBConnect {
 
     public List<User> getUsersByRole(int roleID) {
         List<User> users = new ArrayList<>();
+        if (conn == null) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Database connection is null in getUsersByRole");
+            return users;
+        }
         String sql = "SELECT * FROM Users WHERE RoleID = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, roleID);
+            Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "Executing query: " + sql + " with RoleID = " + roleID);
             try (ResultSet rs = ps.executeQuery()) {
+                int rowCount = 0;
                 while (rs.next()) {
-                    users.add(new User(
+                    rowCount++;
+                    User user = new User(
                             rs.getInt("UserID"),
                             rs.getInt("RoleID"),
                             rs.getString("Email"),
@@ -394,11 +406,14 @@ public class DAOUser extends DBConnect {
                             rs.getString("Avatar"),
                             rs.getString("UserName"),
                             rs.getString("Password")
-                    ));
+                    );
+                    users.add(user);
+                    Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "Added user: ID=" + user.getUserID() + ", Name=" + user.getFullName());
                 }
+                Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "Rows fetched: " + rowCount + ", Total users in list: " + users.size());
             }
         } catch (SQLException e) {
-            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error fetching users by role", e);
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error fetching users by role: " + e.getMessage(), e);
         }
         return users;
     }

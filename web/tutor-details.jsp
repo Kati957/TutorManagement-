@@ -95,7 +95,7 @@
                                         <div class="ttr-header-submenu">
                                             <ul>
                                                 <li>
-                                                    <a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle">
+                                                    <a href="profile" class="ttr-material-button ttr-submenu-toggle">
                                                         <span class="ttr-user-avatar">
                                                             <img alt="" 
                                                                  src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
@@ -104,7 +104,7 @@
                                                         </span>
                                                     </a>
                                                 </li>
-                                                <li><a href="profile_user.jsp">My profile</a></li>
+                                                <li><a href="profile">My profile</a></li>
                                                 <li><a href="list-view-calendar.jsp">Activity</a></li>
                                                 <li><a href="cv">Become a tutor</a></li>
                                                 <li><a href="logout">Logout</a></li>
@@ -122,7 +122,7 @@
                         <div class="container clearfix">
                             <!-- Header Logo ==== -->
                             <div class="menu-logo">
-                                <a href="index.jsp"><img src="assets/images/logo.png" alt=""></a>
+                                <a href="home"><img src="assets/images/logo.png" alt=""></a>
                             </div>
                             <!-- Mobile Nav Button ==== -->
                             <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -153,10 +153,10 @@
                             <!-- Navigation Menu ==== -->
                             <div class="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
                                 <div class="menu-logo">
-                                    <a href="index.jsp"><img src="assets/images/logo.png" alt=""></a>
+                                    <a href="home"><img src="assets/images/logo.png" alt=""></a>
                                 </div>
                                 <ul class="nav navbar-nav">	
-                                    <li><a href="home.jsp">Home</a>
+                                    <li><a href="home">Home</a>
                                     </li>
                                     <li class="active" class="add-mega-menu"><a href="Courses">Our Courses</a>
                                     </li>
@@ -308,7 +308,7 @@
                         <div class="container">
                             <div class="d-flex align-items-stretch">
                                 <div class="pt-logo mr-auto">
-                                    <a href="index.jsp"><img src="assets/images/logo-white.png" alt=""/></a>
+                                    <a href="home"><img src="assets/images/logo-white.png" alt=""/></a>
                                 </div>
                                 <div class="pt-social-link">
                                     <ul class="list-inline m-a0">

@@ -60,7 +60,7 @@
 	<div id="loading-icon-bx"></div>
 	<div class="account-form">
 		<div class="account-head" style="background-image:url(assets/images/background/bg2.jpg);">
-			<a href="index.jsp"><img src="assets/images/logo-white-2.png" alt=""></a>
+			<a href="home"><img src="assets/images/logo-white-2.png" alt=""></a>
 		</div>
 		<div class="account-form-inner">
 			<div class="account-container">
@@ -71,7 +71,7 @@
 					<p>Please login again or return the homepage.</p>
 					<div class="">
 						<a href="logout" class="btn m-r5">Login</a> <!-- Đăng nhập lại xóa session-->
-						<a href="home.jsp" class="btn outline black">Back To Home</a>
+						<a href="home" class="btn outline black">Back To Home</a>
 					</div>
 				</div>
 			</div>

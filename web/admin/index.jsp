@@ -272,12 +272,9 @@
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-                                <li>
-                                    <a href="StaffRegister" class="ttr-material-button"><span class="ttr-label">Staff Management</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View Reports</span></a>
-                                </li>
+                                <li><a href="${pageContext.request.contextPath}/admin/StaffList" class="ttr-material-button"><span class="ttr-label">Staff List</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/StaffRegister" class="ttr-material-button"><span class="ttr-label">Add New Staff</span></a></li>
+                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Reports</span></a></li>
                             </ul>
                         </li>
                         <li>
