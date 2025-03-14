@@ -91,7 +91,16 @@
                                     <li>
                                         <div class="ttr-header-submenu">
                                             <ul>
-                                                <li><a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a></li>
+                                                <li>
+                                                    <a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle">
+                                                        <span class="ttr-user-avatar">
+                                                            <img alt="" 
+                                                                 src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
+                                                                 width="32" height="32"
+                                                                 onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
+                                                        </span>
+                                                    </a>
+                                                </li>
                                                 <li><a href="profile_user.jsp">My profile</a></li>
                                                 <li><a href="list-view-calendar.html">Activity</a></li>
                                                 <li><a href="cv">Become a tutor</a></li>
@@ -249,7 +258,6 @@
                                                     <p><strong>Education:</strong> ${selectedTutor.cv.education}</p>
                                                     <p><strong>Experience:</strong> ${selectedTutor.cv.experience}</p>
                                                     <p><strong>Certificates:</strong> ${selectedTutor.cv.certificates}</p>
-                                                    <p><strong>Description:</strong> ${selectedTutor.cv.description}</p>
                                                 </div>
                                             </div>
 

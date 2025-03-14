@@ -29,7 +29,7 @@
             <div class="account-container">
                 <div class="heading-bx left">
                     <h2 class="title-head">Login to your <span>Account</span></h2>
-                    <p>Don't have an account? <a href="register.jsp">Create one here</a></p>
+                    <p>Don't have an account? <a href="User?service=registerUser">Create one here</a></p>
                 </div>  
                 <form action="login" class="contact-bx">
                     <input type="hidden" name="service" value="loginUser">
@@ -56,7 +56,7 @@
                                     <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
                                     <label class="custom-control-label" for="customControlAutosizing">Remember me</label>
                                 </div>
-                                <a href="requestPassword.jsp" class="ml-auto">Forgot Password?</a>
+                                <a href="requestPassword" class="ml-auto">Forgot Password?</a>
                             </div>
                         </div>
                         <p class="text-danger">${error}</p>
