@@ -4,6 +4,7 @@
     Author     : Heizxje
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page import="entity.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,55 +33,75 @@
     <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
 </head>
 <body class="ttr-opened-sidebar ttr-pinned-sidebar">
+    <%
+        User user = (User) session.getAttribute("user");
+    %>
     <!-- Header -->
-    <header class="ttr-header">
-        <div class="ttr-header-wrapper">
-            <div class="ttr-toggle-sidebar ttr-material-button">
-                <i class="ti-close ttr-open-icon"></i>
-                <i class="ti-menu ttr-close-icon"></i>
-            </div>
-            <div class="ttr-logo-box">
-                <div>
-                    <a href="index.jsp" class="ttr-logo">
-                        <img class="ttr-logo-mobile" alt="" src="assets/images/logo-mobile.png" width="30" height="30">
-                        <img class="ttr-logo-desktop" alt="" src="assets/images/logo-white.png" width="160" height="27">
-                    </a>
+        <header class="ttr-header">
+            <div class="ttr-header-wrapper">
+                <div class="ttr-toggle-sidebar ttr-material-button">
+                    <i class="ti-close ttr-open-icon"></i>
+                    <i class="ti-menu ttr-close-icon"></i>
+                </div>
+                <div class="ttr-logo-box">
+                    <div>
+                        <a href="index.jsp" class="ttr-logo">
+                            <img class="ttr-logo-mobile" alt="" src="assets/images/logo-mobile.png" width="30" height="30">
+                            <img class="ttr-logo-desktop" alt="" src="assets/images/logo-white.png" width="160" height="27">
+                        </a>
+                    </div>
+                </div>
+                <div class="ttr-header-menu">
+                    <ul class="ttr-header-navigation">
+                        <li><a href="../index.jsp" class="ttr-material-button ttr-submenu-toggle">HOME</a></li>
+                        <li>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i class="fa fa-angle-down"></i></a>
+                            <div class="ttr-header-submenu">
+                                <ul>
+                                    <li><a href="../courses.jsp">Our Courses</a></li>
+                                    <li><a href="../event.jsp">New Event</a></li>
+                                    <li><a href="../membership.jsp">Membership</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="ttr-header-right ttr-with-seperator">
+                    <ul class="ttr-header-navigation">
+                        <li><a href="#" class="ttr-material-button ttr-search-toggle"><i class="fa fa-search"></i></a></li>
+                        <li><a href="#" class="ttr-material-button ttr-submenu-toggle"><i class="fa fa-bell"></i></a></li>
+                        <li>
+                            <a href="profile" class="ttr-material-button ttr-submenu-toggle">
+                                <span class="ttr-user-avatar">
+                                    <img alt="" 
+                                         src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
+                                         width="32" height="32"
+                                         onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
+                                </span>
+                            </a>
+                            <div class="ttr-header-submenu">
+                                <ul>
+                                    <li><a href="${pageContext.request.contextPath}/admin/myprofile">My Profile</a></li>
+                                    <li><a href="list-view-calendar.jsp">Activity</a></li>
+                                    <li><a href="mailbox.jsp">Messages</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="ttr-hide-on-mobile"><a href="#" class="ttr-material-button"><i class="ti-layout-grid3-alt"></i></a></li>
+                    </ul>
+                </div>
+                <div class="ttr-search-bar">
+                    <form class="ttr-search-form">
+                        <div class="ttr-search-input-wrapper">
+                            <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
+                            <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
+                        </div>
+                        <span class="ttr-search-close ttr-search-toggle"><i class="ti-close"></i></span>
+                    </form>
                 </div>
             </div>
-            <div class="ttr-header-menu">
-                <ul class="ttr-header-navigation">
-                    <li><a href="../index.jsp" class="ttr-material-button ttr-submenu-toggle">HOME</a></li>
-                    <li>
-                        <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i class="fa fa-angle-down"></i></a>
-                        <div class="ttr-header-submenu">
-                            <ul>
-                                <li><a href="../courses.jsp">Our Courses</a></li>
-                                <li><a href="../event.jsp">New Event</a></li>
-                                <li><a href="../membership.jsp">Membership</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="ttr-header-right ttr-with-seperator">
-                <ul class="ttr-header-navigation">
-                    <li><a href="#" class="ttr-material-button ttr-search-toggle"><i class="fa fa-search"></i></a></li>
-                    <li><a href="#" class="ttr-material-button ttr-submenu-toggle"><i class="fa fa-bell"></i></a></li>
-                    <li><a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a></li>
-                    <li class="ttr-hide-on-mobile"><a href="#" class="ttr-material-button"><i class="ti-layout-grid3-alt"></i></a></li>
-                </ul>
-            </div>
-            <div class="ttr-search-bar">
-                <form class="ttr-search-form">
-                    <div class="ttr-search-input-wrapper">
-                        <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
-                        <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
-                    </div>
-                    <span class="ttr-search-close ttr-search-toggle"><i class="ti-close"></i></span>
-                </form>
-            </div>
-        </div>
-    </header>
+        </header>
     <!-- Sidebar -->
         <div class="ttr-sidebar">
             <div class="ttr-sidebar-wrapper content-scroll">

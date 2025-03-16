@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="entity.User"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,7 +60,9 @@
 
     </head>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
-
+        <%
+            User user = (User) session.getAttribute("user");
+        %>
         <!-- header start -->
         <header class="ttr-header">
             <div class="ttr-header-wrapper">
@@ -159,10 +162,17 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
+                            <a href="profile" class="ttr-material-button ttr-submenu-toggle">
+                                <span class="ttr-user-avatar">
+                                    <img alt="" 
+                                         src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
+                                         width="32" height="32"
+                                         onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
+                                </span>
+                            </a>
                             <div class="ttr-header-submenu">
                                 <ul>
-                                    <li><a href="user-profile.jsp">My profile</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/admin/myprofile">My Profile</a></li>
                                     <li><a href="list-view-calendar.jsp">Activity</a></li>
                                     <li><a href="mailbox.jsp">Messages</a></li>
                                     <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
@@ -273,7 +283,7 @@
                             </a>
                             <ul>
                                 <li><a href="${pageContext.request.contextPath}/admin/StaffList" class="ttr-material-button"><span class="ttr-label">Staff List</span></a></li>
-                                <li><a href="${pageContext.request.contextPath}/admin/StaffRegister" class="ttr-material-button"><span class="ttr-label">Add New Staff</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/StaffManage" class="ttr-material-button"><span class="ttr-label">Add New Staff</span></a></li>
                                 <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Reports</span></a></li>
                             </ul>
                         </li>

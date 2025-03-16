@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
-@WebServlet(name = "UserManage", urlPatterns = {"/admin/UserManage"}) // Đổi từ UserRegister sang UserManage
+@WebServlet(name = "UserManage", urlPatterns = {"/admin/UserManage"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 50)
 public class UserManage extends HttpServlet {
 

@@ -16,11 +16,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
-@WebServlet(name = "StaffRegister", urlPatterns = {"/admin/StaffRegister"})
+@WebServlet(name = "StaffManage", urlPatterns = {"/admin/StaffManage"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 50)
-public class StaffRegister extends HttpServlet {
+public class StaffManage extends HttpServlet {
 
-    private static final Logger LOGGER = Logger.getLogger(StaffRegister.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(StaffManage.class.getName());
     private static final String STAFF_ADD_JSP = "/admin/staff-add.jsp";
 
     @Override
