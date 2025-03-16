@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -68,7 +69,7 @@ public class SubjectController extends HttpServlet {
         String submit = request.getParameter("submit");
         if (submit == null) {
             // Hiển thị form thêm subject
-            request.getRequestDispatcher("/staff/addSubject.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/staff/addSubject.jsp");
             return;
         }
 
@@ -81,15 +82,16 @@ public class SubjectController extends HttpServlet {
         try {
             int newId = dao.addSubject(subject);
             if (newId > 0) {
-                response.sendRedirect(request.getContextPath() + "/SubjectController?service=listSubject");
+                // Thành công -> redirect về list
+                response.sendRedirect(request.getContextPath() + "/staff/BlogController?service=listBlog");
             } else {
-                request.setAttribute("error", "Thêm subject thất bại!");
-                request.getRequestDispatcher("/staff/addSubject.jsp").forward(request, response);
+                // Thất bại -> redirect với thông báo lỗi
+                HttpSession session = request.getSession();
+                session.setAttribute("error", "Add subject fail!");
+                response.sendRedirect(request.getContextPath() + "/staff/addSubject.jsp?error=AddFailed");
             }
         } catch (SQLException ex) {
             Logger.getLogger(SubjectController.class.getName()).log(Level.SEVERE, "Database error", ex);
-            request.setAttribute("error", "Lỗi cơ sở dữ liệu: " + ex.getMessage());
-            request.getRequestDispatcher("/staff/addSubject.jsp").forward(request, response);
         }
     }
 
@@ -112,7 +114,6 @@ public class SubjectController extends HttpServlet {
         }
     }
 
-    // Xử lý cập nhật subject
     private void handleUpdateSubject(HttpServletRequest request, HttpServletResponse response, DAOSubject dao)
             throws ServletException, IOException {
         String subjectIDStr = request.getParameter("subjectID");
@@ -152,21 +153,22 @@ public class SubjectController extends HttpServlet {
             subject.setDescription(description);
 
             int n = dao.updateSubject(subject);
+
             if (n > 0) {
-                response.sendRedirect(request.getContextPath() + "/SubjectController?service=listSubject");
+                // Update thành công
+                response.sendRedirect(request.getContextPath() + "/staff/SubjectController?service=listSubject");
             } else {
-                request.setAttribute("error", "Cập nhật subject thất bại!");
-                request.setAttribute("subject", subject);
-                request.getRequestDispatcher("/staff/updateSubject.jsp").forward(request, response);
+                // Lỗi → lưu vào session rồi redirect
+                HttpSession session = request.getSession();
+                session.setAttribute("error", "Update subject fail!");
+                response.sendRedirect(request.getContextPath() + "/staff/SubjectController?service=listSubject");
             }
+
         } catch (SQLException ex) {
             Logger.getLogger(SubjectController.class.getName()).log(Level.SEVERE, "Database error", ex);
-            request.setAttribute("error", "Lỗi cơ sở dữ liệu: " + ex.getMessage());
-            request.getRequestDispatcher("/staff/updateSubject.jsp").forward(request, response);
         }
     }
 
-    // Xử lý xóa subject
     private void handleDeleteSubject(HttpServletRequest request, HttpServletResponse response, DAOSubject dao)
             throws ServletException, IOException {
         String subjectIDStr = request.getParameter("subjectID");
@@ -184,17 +186,16 @@ public class SubjectController extends HttpServlet {
         }
 
         try {
-                int n = dao.deleteSubject(subjectID);
-                if (n > 0) {
-                    response.sendRedirect(request.getContextPath() + "/SubjectController?service=listSubject");
-                } else {
-                    request.setAttribute("error", "Xóa subject thất bại!");
-                    request.getRequestDispatcher("/staff/subject.jsp").forward(request, response);
-                }
+            int n = dao.deleteSubject(subjectID);
+            if (n > 0) {
+                response.sendRedirect(request.getContextPath() + "/staff/SubjectController?service=listSubject");
+            } else {
+                HttpSession session = request.getSession();
+                session.setAttribute("error", "Delete subject fail!");
+                response.sendRedirect(request.getContextPath() + "/staff/SubjectController?service=listSubject");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(SubjectController.class.getName()).log(Level.SEVERE, "Database error", ex);
-            request.setAttribute("error", "Lỗi cơ sở dữ liệu: " + ex.getMessage());
-            request.getRequestDispatcher("/staff/subject.jsp").forward(request, response);
         }
     }
 

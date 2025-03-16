@@ -1,9 +1,3 @@
-<%-- 
-    Document   : updateBlog
-    Created on : Mar 3, 2025, 12:54:00 PM
-    Author     : minht
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -26,7 +20,7 @@
                 <div class="alert alert-danger">${error}</div>
             </c:if>
 
-            <form action="BlogController" method="post">
+            <form action="${pageContext.request.contextPath}/staff/BlogController" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="service" value="updateBlog">
                 <input type="hidden" name="blogID" value="${blog.blogID}">
 
@@ -57,16 +51,15 @@
                     </script>
                 </div>
 
-                <!-- Trường thumbnail (chuỗi URL) -->
+                <!-- Trường thumbnail (upload file) -->
                 <div class="form-group">
-                    <label for="thumbnail">Thumbnail (URL):</label>
-                    <input type="text" class="form-control" id="thumbnail" name="thumbnail" 
-                           value="${blog.thumbnail}" placeholder="URL img" required>
+                    <label for="thumbnail">Thumbnail (Image File):</label>
+                    <input type="file" class="form-control" id="thumbnail" name="thumbnail" accept="image/*">
                 </div>
 
                 <!-- Nút submit -->
-                <button type="submit" name="submit" value="update" class="btn btn-primary">Update</button>
-                <a href="BlogController?service=listBlog" class="btn btn-secondary">Return blogs list</a> 
+                <button type="submit" name="submit" value="publish" class="btn btn-primary">Update</button>
+                <a href="${pageContext.request.contextPath}/staff/BlogController?service=listBlog" class="btn btn-secondary">Back</a>
             </form>
         </div>
 
