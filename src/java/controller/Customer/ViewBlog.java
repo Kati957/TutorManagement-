@@ -45,7 +45,7 @@ public class ViewBlog extends HttpServlet {
             throws ServletException, IOException {
         DAOBlog dao = new DAOBlog();
         try {
-            int pageSize = 5; // 5 blog mỗi trang
+            int pageSize = 6; // 6 blog mỗi trang
             String pageStr = request.getParameter("page");
             int page = (pageStr == null || pageStr.isEmpty()) ? 1 : Integer.parseInt(pageStr);
             List<Blog> recentBlogs = dao.getRecentBlogs(3); // Lấy 3 blog cho Recent Posts
@@ -73,7 +73,7 @@ public class ViewBlog extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(ViewBlog.class.getName()).log(Level.SEVERE, null, ex);
             request.setAttribute("error", "error: " + ex.getMessage());
-            response.sendRedirect("error-404.html"); // Redirect nếu không có bài viết hoặc lỗi
+            response.sendRedirect("error-404.jsp"); // Redirect nếu không có bài viết hoặc lỗi
         }
     }
 

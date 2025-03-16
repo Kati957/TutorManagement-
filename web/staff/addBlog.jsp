@@ -16,15 +16,16 @@
 
             <%-- Hiển thị thông báo lỗi nếu có --%>
             <%
-                String error = (String) request.getAttribute("error");
+                String error = (String) session.getAttribute("error");
                 if (error != null) {
             %>
             <div class="alert alert-danger"><%= error%></div>
             <%
+                    session.removeAttribute("error"); // Xóa sau khi hiển thị
                 }
             %>
 
-            <form action="BlogController" method="post">
+            <form action="${pageContext.request.contextPath}/staff/BlogController" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="service" value="addBlog">
 
                 <!-- Trường tiêu đề -->
@@ -47,21 +48,19 @@
                         CKEDITOR.replace('content', {
                             autoParagraph: false, // Tắt tự động bọc nội dung trong <p>
                             enterMode: CKEDITOR.ENTER_BR, // Khi nhấn Enter sẽ tạo <br> thay vì <p>
-                            // Bạn có thể thêm các tùy chọn khác nếu cần
                         });
                     </script>
                 </div>
 
-
-                <!-- Trường thumbnail (chuỗi URL) -->
+                <!-- Trường thumbnail (upload file) -->
                 <div class="form-group">
-                    <label for="thumbnail">Thumbnail (URL):</label>
-                    <input type="text" class="form-control" id="thumbnail" name="thumbnail" placeholder="URL img" required>
+                    <label for="thumbnail">Thumbnail (Image File):</label>
+                    <input type="file" class="form-control" id="thumbnail" name="thumbnail" accept="image/*" required>
                 </div>
 
                 <!-- Nút submit -->
                 <button type="submit" name="submit" value="publish" class="btn btn-primary">Upload</button>
-                <a href="BlogController" class="btn btn-secondary">Back</a>
+                <a href="${pageContext.request.contextPath}/staff/BlogController" class="btn btn-secondary">Back</a>
             </form>
         </div>
 

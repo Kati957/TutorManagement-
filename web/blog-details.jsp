@@ -2,6 +2,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="entity.Blog" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <html lang="en">
 
     <head>
@@ -89,7 +91,7 @@
                                     <li>
                                         <div class="ttr-header-submenu">
                                             <ul>
-                                                                                                <li>
+                                                <li>
                                                     <a href="profile" class="ttr-material-button ttr-submenu-toggle">
                                                         <span class="ttr-user-avatar">
                                                             <img alt="" 
@@ -209,7 +211,7 @@
                                         </div>
                                         <div class="info-bx">
                                             <ul class="media-post">
-                                                <li><a href="#"><i class="fa fa-calendar"></i> <%= blog.getCreatedAt() != null ? blog.getCreatedAt() : "N/A"%></a></li>
+                                                <li><i class="fa fa-calendar"></i> <%= blog.getCreatedAt() != null ? blog.getCreatedAt() : "N/A"%></li>
                                                 <li><a href="#"><i class="fa fa-user"></i> By <%= blog.getAuthorName() != null ? blog.getAuthorName() : "Unknown"%></a></li>
                                             </ul>
                                             <h5 class="post-title">
@@ -279,8 +281,8 @@
                                                             </h6>
                                                         </div>
                                                         <ul class="media-post">
-                                                            <li><a href="#"><i class="fa fa-calendar"></i> <%= blog1.getCreatedAt()%></a></li>
-                                                            <li><a href="#"><i class="fa fa-comments-o"></i> 15 Comment</a></li>
+                                                            <li><i class="fa fa-calendar"></i> <%= blog1.getCreatedAt()%></li>
+                                                            <li><a href="#"><i class="fa fa-comments-o"></i><%= blog1.getAuthorName()%></a></li>
                                                         </ul>
                                                     </div>
                                                 </div>

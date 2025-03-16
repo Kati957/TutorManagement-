@@ -1224,21 +1224,20 @@
 .ttr-post-text p:last-child {
     margin: 0;
 }
-
 .gallery-list {
     list-style: none;
     padding: 0;
 }
 .gallery-img {
-    width: 100%;
-    height: auto;
+    width: 50px;
+    height: 40px;
+    object-fit: contain;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease; /* Hỗ trợ hiệu ứng hover */
 }
 .gallery-img:hover {
     transform: scale(1.1);
 }
-
 /* CSS cho image viewer */
 .image-viewer {
     display: none;
@@ -3108,6 +3107,10 @@ button.back-to-top {
     color: #6f42c1;
     font-weight: 600;
 }
+.table-responsive {
+    overflow-x: auto;
+}
+
 .add-btn {
     background-color: #6f42c1;
     color: white;

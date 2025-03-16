@@ -219,7 +219,8 @@
                                         <div class="post action-card col-xl-6 col-lg-6 col-md-12 col-xs-12 m-b40">
                                             <div class="recent-news">
                                                 <div class="action-box">
-                                                    <img src="<%= blog.getThumbnail()%>" alt="thumbnail">
+                                                    <img src="${pageContext.request.contextPath}/<%= blog.getThumbnail()%>" alt="thumbnail" 
+                                                         style="width: 400px; height: 250px; object-fit: contain;" />
                                                 </div>
                                                 <div class="info-bx">
                                                     <ul class="media-post">
@@ -338,15 +339,16 @@
                                                 <c:forEach var="img" items="${galleryBlogs}">
                                                     <li>
                                                         <div>
-                                                            <img src="${img.thumbnail}" alt="${img.title}" class="gallery-img" onclick="openImageViewer('${img.thumbnail}', '${img.title}')">
+                                                            <img src="${pageContext.request.contextPath}/${img.thumbnail}" alt="${img.title}" class="gallery-img" 
+                                                                 onclick="openImageViewer('${pageContext.request.contextPath}/${img.thumbnail}', '${img.title}')">
                                                         </div>
                                                     </li>
                                                 </c:forEach>
                                                 <c:if test="${empty galleryBlogs}">
-                                                    <li><div><p>null gallery</p></div></li>
+                                                    <li><div><p>no gallery</p></div></li>
                                                             </c:if>
                                             </ul>
-                                        </div
+                                        </div>
 
                                         <!-- Modal hiển thị ảnh lớn -->
                                         <div id="imageViewer" class="image-viewer">
