@@ -364,18 +364,26 @@ public class DAOUser extends DBConnect {
     }
 
     // Xóa user theo UserID
-    public int deleteUser(int userId) {
+    public boolean deleteUser(int userId) {
         if (conn == null) {
             Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Database connection is null");
-            return 0;
+            return false;
         }
+
         String sql = "DELETE FROM Users WHERE UserID = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, userId);
-            return ps.executeUpdate();
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "User with ID " + userId + " deleted successfully");
+                return true;
+            } else {
+                Logger.getLogger(DAOUser.class.getName()).log(Level.WARNING, "No user found with ID " + userId + " to delete");
+                return false;
+            }
         } catch (SQLException e) {
-            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error deleting user", e);
-            return 0;
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error deleting user with ID " + userId, e);
+            return false;
         }
     }
 
@@ -399,7 +407,7 @@ public class DAOUser extends DBConnect {
                             rs.getString("Email"),
                             rs.getString("FullName"),
                             rs.getString("Phone"),
-                            rs.getDate("CreateAt"),
+                            rs.getDate("CreatedAt"),
                             rs.getInt("IsActive"),
                             rs.getDate("Dob"),
                             rs.getString("Address"),

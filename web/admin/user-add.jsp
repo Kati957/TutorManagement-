@@ -153,7 +153,7 @@
                                     <a href="${pageContext.request.contextPath}/admin/UserList" class="ttr-material-button"><span class="ttr-label">User List</span></a>
                                 </li>
                                 <li>
-                                    <a href="${pageContext.request.contextPath}/admin/UserRegister" class="ttr-material-button"><span class="ttr-label">Add New User</span></a>
+                                    <a href="${pageContext.request.contextPath}/admin/UserManage" class="ttr-material-button"><span class="ttr-label">Add New User</span></a>
                                 </li>
                                 <li>
                                     <a href="#" class="ttr-material-button"><span class="ttr-label">Review Profile</span></a>
@@ -197,22 +197,21 @@
                 <!-- sidebar menu end -->
             </div>
         </div>
-    <!-- Main content -->
     <main class="ttr-wrapper">
         <div class="container-fluid">
             <div class="db-breadcrumb">
-                <h4 class="breadcrumb-title">${editUser != null ? 'Edit Staff' : 'Add New Staff'}</h4>
+                <h4 class="breadcrumb-title">${editUser != null ? 'Edit User' : 'Add New User'}</h4>
             </div>	
             <div class="row">
                 <div class="col-lg-12 m-b30">
                     <div class="widget-box">
                         <div class="wc-title">
-                            <h4>${editUser != null ? 'Edit Staff' : 'Add New Staff'}</h4>
+                            <h4>${editUser != null ? 'Edit User' : 'Add New User'}</h4>
                         </div>
                         <div class="widget-inner">
-                            <form action="${pageContext.request.contextPath}/admin/StaffRegister" method="POST" class="contact-bx" enctype="multipart/form-data">
+                            <form action="${pageContext.request.contextPath}/admin/UserManage" method="POST" class="contact-bx" enctype="multipart/form-data">
                                 <input type="hidden" name="UserID" value="${editUser.userID}">
-                                <input type="hidden" name="RoleID" value="4">
+                                <input type="hidden" name="RoleID" value="2">
                                 <input type="hidden" name="IsActive" value="1">
                                 <div class="row placeani">
                                     <c:if test="${not empty requestScope.error}">
@@ -277,7 +276,7 @@
                                     </div>
                                     <div class="col-lg-12 m-b30">
                                         <button type="submit" class="btn btn-primary">Save</button>
-                                        <a href="${pageContext.request.contextPath}/admin/StaffList" class="btn btn-secondary">Cancel</a>
+                                        <a href="${pageContext.request.contextPath}/admin/UserList" class="btn btn-secondary">Cancel</a>
                                     </div>
                                 </div>
                             </form>
@@ -288,7 +287,6 @@
         </div>
     </main>
     <div class="ttr-overlay"></div>
-    <!-- External JavaScripts -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
     <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>

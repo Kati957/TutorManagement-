@@ -30,6 +30,24 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="assets/css/dashboard.css">
     <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
+        <style>
+        .password-toggle-btn { 
+            background: none; 
+            border: none; 
+            cursor: pointer; 
+            padding: 0; 
+            margin-left: 5px; 
+            color: #007bff; 
+        }
+        .password-toggle-btn:hover { color: #0056b3; }
+        .view-more-btn { 
+            background: none; 
+            border: none; 
+            color: #28a745; 
+            cursor: pointer; 
+        }
+        .view-more-btn:hover { color: #218838; }
+    </style>
 </head>
 <body class="ttr-opened-sidebar ttr-pinned-sidebar">
     <!-- Header -->
@@ -153,7 +171,7 @@
                                     <a href="${pageContext.request.contextPath}/admin/UserList" class="ttr-material-button"><span class="ttr-label">User List</span></a>
                                 </li>
                                 <li>
-                                    <a href="${pageContext.request.contextPath}/admin/UserRegister" class="ttr-material-button"><span class="ttr-label">Add New User</span></a>
+                                    <a href="${pageContext.request.contextPath}/admin/UserManage" class="ttr-material-button"><span class="ttr-label">Add New User</span></a>
                                 </li>
                                 <li>
                                     <a href="#" class="ttr-material-button"><span class="ttr-label">Review Profile</span></a>
@@ -197,90 +215,93 @@
                 <!-- sidebar menu end -->
             </div>
         </div>
-    <!-- Main content -->
     <main class="ttr-wrapper">
         <div class="container-fluid">
             <div class="db-breadcrumb">
-                <h4 class="breadcrumb-title">${editUser != null ? 'Edit Staff' : 'Add New Staff'}</h4>
+                <h4 class="breadcrumb-title">User List</h4>
             </div>	
             <div class="row">
                 <div class="col-lg-12 m-b30">
                     <div class="widget-box">
                         <div class="wc-title">
-                            <h4>${editUser != null ? 'Edit Staff' : 'Add New Staff'}</h4>
+                            <h4>User List</h4>
                         </div>
                         <div class="widget-inner">
-                            <form action="${pageContext.request.contextPath}/admin/StaffRegister" method="POST" class="contact-bx" enctype="multipart/form-data">
-                                <input type="hidden" name="UserID" value="${editUser.userID}">
-                                <input type="hidden" name="RoleID" value="4">
-                                <input type="hidden" name="IsActive" value="1">
-                                <div class="row placeani">
-                                    <c:if test="${not empty requestScope.error}">
-                                        <div class="col-lg-12"><p class="text-danger">${requestScope.error}</p></div>
-                                    </c:if>
-                                    <c:if test="${not empty sessionScope.success}">
-                                        <div class="col-lg-12"><p class="text-success">${sessionScope.success}</p></div>
-                                        <c:remove var="success" scope="session"/>
-                                    </c:if>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label>Email</label>
-                                            <input type="email" name="Email" class="form-control" value="${editUser.email}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label>Full Name</label>
-                                            <input type="text" name="FullName" class="form-control" value="${editUser.fullName}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label>Phone</label>
-                                            <input type="text" name="Phone" class="form-control" value="${editUser.phone}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label>Date of Birth</label>
-                                            <input type="date" name="Dob" class="form-control" value="${editUser.dob}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label>Address</label>
-                                            <input type="text" name="Address" class="form-control" value="${editUser.address}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label>Avatar</label>
-                                            <c:if test="${not empty editUser.avatar}">
-                                                <div>
-                                                    <img src="${pageContext.request.contextPath}/${editUser.avatar}" alt="Current Avatar" width="100" class="img-thumbnail">
+                            <table class="table table-striped user-table">
+                                <thead>
+                                    <tr>
+                                        <th>Avatar</th>
+                                        <th>Full Name</th>
+                                        <th>Email</th>
+                                        <th>Created At</th>
+                                        <th>Actions</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="user" items="${userList}">
+                                        <tr>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${not empty user.avatar}">
+                                                        <img src="${pageContext.request.contextPath}/${user.avatar}" alt="Avatar" width="50" class="img-thumbnail">
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <img src="${pageContext.request.contextPath}/uploads/default_avatar.jpg" alt="Default Avatar" width="50" class="img-thumbnail">
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                            <td>${user.fullName}</td>
+                                            <td>${user.email}</td>
+                                            <td>${user.createAt}</td>
+                                            <td>
+                                                <a href="${pageContext.request.contextPath}/admin/UserManage?edit=${user.userID}" class="btn btn-primary btn-sm">Edit</a>
+                                                <button class="btn btn-danger btn-sm deleteUserBtn" data-id="${user.userID}">Delete</button>
+                                            </td>
+                                            <td>
+                                                <button class="view-more-btn" data-toggle="modal" data-target="#userModal-${user.userID}">
+                                                    <i class="fa fa-info-circle"></i> View More
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <div class="modal fade" id="userModal-${user.userID}" tabindex="-1" role="dialog" aria-labelledby="userModalLabel-${user.userID}" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="userModalLabel-${user.userID}">User Details: ${user.fullName}</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p><strong>Email:</strong> ${user.email}</p>
+                                                        <p><strong>Full Name:</strong> ${user.fullName}</p>
+                                                        <p><strong>Phone:</strong> ${user.phone != null ? user.phone : 'N/A'}</p>
+                                                        <p><strong>Created At:</strong> ${user.createAt}</p>
+                                                        <p><strong>Status:</strong> ${user.isActive == 1 ? 'Active' : 'Inactive'}</p>
+                                                        <p><strong>Date of Birth:</strong> ${user.dob != null ? user.dob : 'N/A'}</p>
+                                                        <p><strong>Address:</strong> ${user.address != null ? user.address : 'N/A'}</p>
+                                                        <p><strong>Username:</strong> ${user.userName}</p>
+                                                        <p>
+                                                            <strong>Password:</strong> 
+                                                            <span class="password-text" data-password="${user.password}">••••••••</span>
+                                                            <button class="password-toggle-btn" title="Toggle Password">
+                                                                <i class="fa fa-eye"></i>
+                                                            </button>
+                                                        </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
                                                 </div>
-                                            </c:if>
-                                            <input type="file" name="avatar" class="form-control-file" accept="image/*">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label>Username</label>
-                                            <input type="text" name="UserName" class="form-control" value="${editUser.userName}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label>Password</label>
-                                            <input type="password" name="Password" class="form-control" value="${editUser.password}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 m-b30">
-                                        <button type="submit" class="btn btn-primary">Save</button>
-                                        <a href="${pageContext.request.contextPath}/admin/StaffList" class="btn btn-secondary">Cancel</a>
-                                    </div>
-                                </div>
-                            </form>
+                                    </c:forEach>
+                                    <c:if test="${empty userList}">
+                                        <tr><td colspan="6">No users found.</td></tr>
+                                    </c:if>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -288,7 +309,6 @@
         </div>
     </main>
     <div class="ttr-overlay"></div>
-    <!-- External JavaScripts -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
     <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
@@ -308,5 +328,41 @@
     <script src="assets/vendors/calendar/moment.min.js"></script>
     <script src="assets/vendors/calendar/fullcalendar.js"></script>
     <script src="assets/vendors/switcher/switcher.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.deleteUserBtn').on('click', function() {
+                if (confirm('Are you sure you want to delete this user?')) {
+                    const userId = $(this).data('id');
+                    $.post('${pageContext.request.contextPath}/admin/UserList', 
+                        { action: 'delete', userId: userId }, 
+                        function(response) {
+                            if (response.success) {
+                                alert(response.message);
+                                location.reload();
+                            } else {
+                                alert(response.message);
+                            }
+                        }, 'json')
+                    .fail(function() {
+                        alert('Error connecting to server. Please try again.');
+                    });
+                }
+            });
+
+            $('.password-toggle-btn').on('click', function() {
+                const passwordSpan = $(this).siblings('.password-text');
+                const realPassword = passwordSpan.data('password');
+                const currentText = passwordSpan.text();
+
+                if (currentText === '••••••••') {
+                    passwordSpan.text(realPassword);
+                    $(this).find('i').removeClass('fa-eye').addClass('fa-eye-slash');
+                } else {
+                    passwordSpan.text('••••••••');
+                    $(this).find('i').removeClass('fa-eye-slash').addClass('fa-eye');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
