@@ -383,7 +383,7 @@
                                                         <form class="edit-profile">
                                                             <div class="">
                                                                 <!-- Email -->
-                                                                <div class="form-group row" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
+                                                                <div class="form-group row" style="padding-left: 30px;padding-right: 10px;padding-top: 10px;">
                                                                     <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Email</label>
                                                                     <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                                         <input class="form-control" type="email" value="<%= user.getEmail()%>" readonly>
@@ -391,7 +391,7 @@
                                                                 </div>
 
                                                                 <!-- Full Name -->
-                                                                <div class="form-group row" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
+                                                                <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
                                                                     <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Full Name</label>
                                                                     <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                                         <input class="form-control" type="text" value="<%= user.getFullName()%>" readonly>
@@ -399,7 +399,7 @@
                                                                 </div>
 
                                                                 <!-- Phone Number -->
-                                                                <div class="form-group row" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
+                                                                <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
                                                                     <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Phone</label>
                                                                     <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                                         <input class="form-control" type="text" value="<%= user.getPhone()%>" readonly>
@@ -407,7 +407,7 @@
                                                                 </div>
 
                                                                 <!-- Date of Birth -->
-                                                                <div class="form-group row" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
+                                                                <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
                                                                     <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Date of Birth</label>
                                                                     <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                                         <input class="form-control" type="date" value="<%= user.getDob()%>" readonly>
@@ -415,7 +415,7 @@
                                                                 </div>
 
                                                                 <!-- Address -->
-                                                                <div class="form-group row" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
+                                                                <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
                                                                     <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Address</label>
                                                                     <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                                         <input class="form-control" type="text" value="<%= user.getAddress()%>" readonly>
@@ -432,31 +432,31 @@
                                                             <input type="hidden" name="action" value="editProfile">
 
                                                             <!-- Các trường thông tin cá nhân -->
-                                                            <div class="form-group row" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
+                                                            <div class="form-group row" style="padding-left: 30px;padding-right: 10px;padding-top: 10px;">
                                                                 <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Full Name</label>
                                                                 <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                                     <input class="form-control" type="text" name="fullName" value="<%= user.getFullName()%>">
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group row" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
+                                                            <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
                                                                 <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Phone</label>
                                                                 <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                                     <input class="form-control" type="text" name="phone" value="<%= user.getPhone()%>">
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group row" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
+                                                            <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
                                                                 <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Date of Birth</label>
                                                                 <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                                     <input class="form-control" type="date" name="dob" value="<%= user.getDob()%>">
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group row" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
+                                                            <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
                                                                 <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Avatar</label>
                                                                 <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                                     <input class="form-control" type="file" name="avatar" accept="image/*">
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group row" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
+                                                            <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
                                                                 <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Address</label>
                                                                 <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                                     <input class="form-control" type="text" name="address" value="<%= user.getAddress()%>">
@@ -464,7 +464,7 @@
                                                             </div>
 
                                                             <!-- Nút Submit -->
-                                                            <div class="row" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
+                                                            <div class="row" style="padding-left: 30px;padding-right: 10px;padding-bottom: 10px;">
                                                                 <div class="col-12 col-sm-3 col-md-3 col-lg-2"></div>
                                                                 <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                                     <button type="submit" class="btn btn-primary">Save changes</button>
@@ -481,19 +481,19 @@
                                                             <input type="hidden" name="action" value="changePassword">
 
                                                             <!-- Các trường mật khẩu -->
-                                                            <div class="form-group row" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
+                                                            <div class="form-group row" style="padding-left: 30px;padding-right: 10px;padding-top: 10px;">
                                                                 <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">Current Password</label>
                                                                 <div class="col-12 col-sm-8 col-md-8 col-lg-7">
                                                                     <input class="form-control" type="password" name="currentPassword" required>
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group row" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
+                                                            <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
                                                                 <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">New Password</label>
                                                                 <div class="col-12 col-sm-8 col-md-8 col-lg-7">
                                                                     <input class="form-control" type="password" name="newPassword" required>
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group row" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
+                                                            <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
                                                                 <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">Re Type New Password</label>
                                                                 <div class="col-12 col-sm-8 col-md-8 col-lg-7">
                                                                     <input class="form-control" type="password" name="confirmPassword" required>
@@ -501,7 +501,7 @@
                                                             </div>
 
                                                             <!-- Nút Submit -->
-                                                            <div class="row" style="padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;">
+                                                            <div class="row" style="padding-left: 30px;padding-right: 10px;padding-bottom: 10px;">
                                                                 <div class="col-12 col-sm-4 col-md-4 col-lg-3"></div>
                                                                 <div class="col-12 col-sm-8 col-md-8 col-lg-7">
                                                                     <button type="submit" class="btn">Save changes</button>

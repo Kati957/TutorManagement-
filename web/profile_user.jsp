@@ -368,7 +368,7 @@
                                                         <div class="col-12 col-sm-4 col-md-4 col-lg-3"></div>
                                                         <div class="col-12 col-sm-8 col-md-8 col-lg-7">
                                                             <button type="submit" class="btn">Save changes</button>
-                                                            <button type="reset" class="btn-secondry">Cancel</button>
+                                                            <button type="reset" class="btn">Cancel</button>
                                                         </div>
                                                     </div>
                                                 </form>
