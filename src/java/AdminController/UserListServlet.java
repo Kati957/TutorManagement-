@@ -1,6 +1,3 @@
-/*
- * StaffListServlet: Hiển thị danh sách nhân viên (Staff) với RoleID = 4.
- */
 package AdminController;
 
 import entity.User;
@@ -15,31 +12,28 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet(name = "StaffListServlet", urlPatterns = {"/admin/StaffList"})
-public class StaffListServlet extends HttpServlet {
+@WebServlet(name = "UserListServlet", urlPatterns = {"/admin/UserList"})
+public class UserListServlet extends HttpServlet {
 
-    private static final String STAFF_LIST_PAGE = "/admin/staff-list.jsp";
+    private static final String USER_LIST_PAGE = "/admin/user-list.jsp";
     private static final String LOGIN_PAGE = "login.jsp";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false); // Không tạo session mới nếu chưa có
+        HttpSession session = request.getSession(false);
         User currentUser = (User) session.getAttribute("user");
 
-        // Kiểm tra đăng nhập
         if (currentUser == null) {
             response.sendRedirect(LOGIN_PAGE);
             return;
         }
 
-        // Lấy danh sách staff từ DAO
         DAOUser daoUser = new DAOUser();
-        List<User> staffList = daoUser.getUsersByRole(4); // RoleID = 4 cho Staff
+        List<User> userList = daoUser.getUsersByRole(2); // RoleID = 2 cho User
 
-        // Set attribute và forward tới JSP
-        request.setAttribute("staffList", staffList);
-        request.getRequestDispatcher(STAFF_LIST_PAGE).forward(request, response);
+        request.setAttribute("userList", userList);
+        request.getRequestDispatcher(USER_LIST_PAGE).forward(request, response);
     }
 
     @Override
@@ -71,9 +65,9 @@ public class StaffListServlet extends HttpServlet {
             }
 
             if (daoUser.deleteUser(userId)) {
-                out.write("{\"success\": true, \"message\": \"Staff deleted successfully!\"}");
+                out.write("{\"success\": true, \"message\": \"User deleted successfully!\"}");
             } else {
-                out.write("{\"success\": false, \"message\": \"Failed to delete staff or staff not found!\"}");
+                out.write("{\"success\": false, \"message\": \"Failed to delete user or user not found!\"}");
             }
             out.flush();
             return;
