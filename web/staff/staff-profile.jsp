@@ -20,7 +20,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
 
         <!-- PAGE TITLE HERE ============================================= -->
-        <title>G4 SmartTutor - Admin Profile</title>
+        <title>G4 SmartTutor - Staff Profile</title>
 
         <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -81,7 +81,7 @@
                             </a>
                             <div class="ttr-header-submenu">
                                 <ul>
-                                    <li><a href="${pageContext.request.contextPath}/admin/adminprofile">My Profile</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/staff/staffprofile">My Profile</a></li>
                                     <li><a href="list-view-calendar.jsp">Activity</a></li>
                                     <li><a href="mailbox.jsp">Messages</a></li>
                                     <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
@@ -91,121 +91,44 @@
                     </ul>
                     <!-- header right menu end -->
                 </div>
-                <!--header search panel start -->
-                <div class="ttr-search-bar">
-                    <form class="ttr-search-form">
-                        <div class="ttr-search-input-wrapper">
-                            <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
-                            <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
-                        </div>
-                        <span class="ttr-search-close ttr-search-toggle">
-                            <i class="ti-close"></i>
-                        </span>
-                    </form>
-                </div>
-                <!--header search panel end -->
             </div>
         </header>
         <!-- header end -->
         <!-- Left sidebar menu start -->
         <div class="ttr-sidebar">
             <div class="ttr-sidebar-wrapper content-scroll">
-                <!-- Side menu logo start -->
                 <div class="ttr-sidebar-logo">
                     <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
-                    <div class="ttr-sidebar-toggle-button">
-                        <i class="ti-arrow-left"></i>
-                    </div>
+                    <div class="ttr-sidebar-toggle-button"><i class="ti-arrow-left"></i></div>
                 </div>
-                <!-- Side menu logo end -->
-                <!-- Sidebar menu start -->
                 <nav class="ttr-sidebar-navi">
                     <ul>
+                        <li><a href="index_staff.jsp" class="ttr-material-button"><span class="ttr-icon"><i class="ti-home"></i></span><span class="ttr-label">Dashboard</span></a></li>
                         <li>
-                            <a href="index.jsp" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-home"></i></span>
-                                <span class="ttr-label">Dashboard</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-briefcase"></i></span>
-                                <span class="ttr-label">Tutor Management</span>
-                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
-                            </a>
+                            <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-briefcase"></i></span><span class="ttr-label">Tutor Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
                             <ul>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Courses</span></a>
-                                </li>
-                                <li>
-                                    <a href="RequestCV" class="ttr-material-button"><span class="ttr-label">Status CV</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Edit Subject</span></a>
-                                </li>
+                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a></li>
+                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a></li>
+                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Booking</span></a></li>
+                                <li><a href="SubjectController" class="ttr-material-button"><span class="ttr-label">Control Subject</span></a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-user"></i></span>
-                                <span class="ttr-label">Staff Management</span>
-                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
-                            </a>
-                            <ul>
-                                <li><a href="${pageContext.request.contextPath}/admin/StaffList" class="ttr-material-button"><span class="ttr-label">Staff List</span></a></li>
-                                <li><a href="${pageContext.request.contextPath}/admin/StaffManage" class="ttr-material-button"><span class="ttr-label">Add New Staff</span></a></li>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Reports</span></a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-id-badge"></i></span>
-                                <span class="ttr-label">User Management</span>
-                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
-                            </a>
-                            <ul>
-                                <li><a href="${pageContext.request.contextPath}/admin/UserList" class="ttr-material-button"><span class="ttr-label">User List</span></a></li>
-                                <li><a href="${pageContext.request.contextPath}/admin/UserRegister" class="ttr-material-button"><span class="ttr-label">Add New User</span></a></li>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Profile</span></a></li>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Tutor</span></a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-credit-card"></i></span>
-                                <span class="ttr-label">Payment</span>
-                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
-                            </a>
+                            <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-credit-card"></i></span><span class="ttr-label">Payment</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
                             <ul>
                                 <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a></li>
                                 <li><a href="#" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-book"></i></span>
-                                <span class="ttr-label">Content Management</span>
-                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
-                            </a>
+                            <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-book"></i></span><span class="ttr-label">Content Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
                             <ul>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">Blog</span></a></li>
+                                <li><a href="BlogController?service=listBlog" class="ttr-label">Blog</a></li>
+                                <li><a href="BlogController?service=addBlog" class="ttr-label">Add Blog</a></li>
                             </ul>
-                        </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/admin/historyLog" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-clipboard"></i></span>
-                                <span class="ttr-label">History Log</span>
-                            </a>
                         </li>
                         <li class="ttr-seperate"></li>
                     </ul>
-                    <!-- Sidebar menu end -->
                 </nav>
             </div>
         </div>
@@ -214,7 +137,7 @@
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-                    <h4 class="breadcrumb-title">Admin Profile</h4>
+                    <h4 class="breadcrumb-title">Staff Profile</h4>
                 </div>	
                 <div class="row">
                     <div class="col-lg-12 m-b30">
@@ -255,7 +178,6 @@
                                                         <li class="nav-item">
                                                             <a class="nav-link" data-toggle="tab" href="#change-password"><i class="ti-lock"></i>Change Password</a>
                                                         </li>
-
                                                     </ul>
                                                 </div>
                                             </div>
@@ -297,7 +219,7 @@
                                                                 <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
                                                                     <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Date of Birth</label>
                                                                     <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                                        <input class="form-control" type="date" value="<%= user.getDob()%>" readonly>
+                                                                        <input class="form-control" type="date" value="<%= user.getDob() != null ? user.getDob() : ""%>" readonly>
                                                                     </div>
                                                                 </div>
 
@@ -305,7 +227,7 @@
                                                                 <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
                                                                     <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Address</label>
                                                                     <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                                        <input class="form-control" type="text" value="<%= user.getAddress()%>" readonly>
+                                                                        <input class="form-control" type="text" value="<%= user.getAddress() != null ? user.getAddress() : ""%>" readonly>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -315,7 +237,7 @@
                                                         <div class="profile-head">
                                                             <h3>Edit Profile</h3>
                                                         </div>
-                                                        <form class="edit-profile" action="adminprofile" method="POST" enctype="multipart/form-data">
+                                                        <form class="edit-profile" action="staffprofile" method="POST" enctype="multipart/form-data">
                                                             <input type="hidden" name="action" value="editProfile">
 
                                                             <!-- Các trường thông tin cá nhân -->
@@ -334,7 +256,7 @@
                                                             <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
                                                                 <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Date of Birth</label>
                                                                 <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                                    <input class="form-control" type="date" name="dob" value="<%= user.getDob()%>">
+                                                                    <input class="form-control" type="date" name="dob" value="<%= user.getDob() != null ? user.getDob() : ""%>">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
@@ -346,7 +268,7 @@
                                                             <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
                                                                 <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Address</label>
                                                                 <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                                    <input class="form-control" type="text" name="address" value="<%= user.getAddress()%>">
+                                                                    <input class="form-control" type="text" name="address" value="<%= user.getAddress() != null ? user.getAddress() : ""%>">
                                                                 </div>
                                                             </div>
 
@@ -364,7 +286,7 @@
                                                         <div class="profile-head">
                                                             <h3>Change Password</h3>
                                                         </div>
-                                                        <form class="edit-profile" action="adminprofile" method="POST">
+                                                        <form class="edit-profile" action="staffprofile" method="POST">
                                                             <input type="hidden" name="action" value="changePassword">
 
                                                             <!-- Các trường mật khẩu -->
@@ -391,8 +313,8 @@
                                                             <div class="row" style="padding-left: 30px;padding-right: 10px;padding-bottom: 10px;">
                                                                 <div class="col-12 col-sm-4 col-md-4 col-lg-3"></div>
                                                                 <div class="col-12 col-sm-8 col-md-8 col-lg-7">
-                                                                    <button type="submit" class="btn">Save changes</button>
-                                                                    <button type="reset" class="btn">Cancel</button>
+                                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                    <button type="reset" class="btn btn-secondary">Cancel</button>
                                                                 </div>
                                                             </div>
                                                         </form>

@@ -99,7 +99,7 @@
                                      onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'"></a>
                                 <div class="ttr-header-submenu">
                                     <ul>
-                                        <li><a href="${pageContext.request.contextPath}/profile">My profile</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/staff/staffprofile">My profile</a></li>
                                         <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
                                     </ul>
                                 </div>

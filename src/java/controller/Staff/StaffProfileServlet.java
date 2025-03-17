@@ -1,4 +1,8 @@
-package AdminController;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
+package controller.Staff;
 
 import entity.User;
 import model.DAOUser;
@@ -15,13 +19,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
-@WebServlet(name = "AdminProfileServlet", urlPatterns = {"/admin/adminprofile"})
+@WebServlet(name = "StaffProfileServlet", urlPatterns = {"/staff/staffprofile"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB
         maxRequestSize = 1024 * 1024 * 50) // 50MB
-public class AdminProfileServlet extends HttpServlet {
+public class StaffProfileServlet extends HttpServlet {
 
-    private static final String PROFILE_PAGE = "/admin/admin-profile.jsp";
+    private static final String PROFILE_PAGE = "/staff/staff-profile.jsp"; // Đường dẫn đến JSP của Staff
     private static final String LOGIN_PAGE = "login.jsp";
     private static final int MIN_PASSWORD_LENGTH = 8;
 
@@ -36,9 +40,9 @@ public class AdminProfileServlet extends HttpServlet {
             return;
         }
 
-        // Kiểm tra nếu user không phải admin (RoleID != 4)
-        if (currentUser.getRoleID() != 1) {
-            response.sendRedirect(request.getContextPath() + "/home"); // Chuyển hướng về trang home nếu không phải admin
+        // Kiểm tra nếu user không phải staff (RoleID != 4)
+        if (currentUser.getRoleID() != 4) {
+            response.sendRedirect(request.getContextPath() + "/home"); // Chuyển hướng về trang home nếu không phải staff
             return;
         }
 
@@ -57,8 +61,8 @@ public class AdminProfileServlet extends HttpServlet {
             return;
         }
 
-        // Kiểm tra nếu user không phải admin (RoleID != 4)
-        if (currentUser.getRoleID() != 1) {
+        // Kiểm tra nếu user không phải staff (RoleID != 4)
+        if (currentUser.getRoleID() != 4) {
             response.sendRedirect(request.getContextPath() + "/home");
             return;
         }
@@ -105,7 +109,7 @@ public class AdminProfileServlet extends HttpServlet {
         } catch (Exception e) {
             setError(session, "Lỗi khi xử lý mật khẩu: " + e.getMessage());
         } finally {
-            response.sendRedirect(request.getContextPath() + "/admin/adminprofile"); // Cập nhật redirect
+            response.sendRedirect(request.getContextPath() + "/staff/staffprofile"); // Cập nhật redirect
         }
     }
 
@@ -119,7 +123,7 @@ public class AdminProfileServlet extends HttpServlet {
         java.sql.Date sqlDob = parseDateOfBirth(dobParam, session);
 
         if (sqlDob == null && session.getAttribute("error") != null) {
-            response.sendRedirect(request.getContextPath() + "/admin/adminprofile"); // Cập nhật redirect
+            response.sendRedirect(request.getContextPath() + "/staff/staffprofile"); // Cập nhật redirect
             return;
         }
 
@@ -127,12 +131,12 @@ public class AdminProfileServlet extends HttpServlet {
             try {
                 if (daoUser.isPhoneExist(phone, userId)) {
                     setError(session, "Số điện thoại đã được sử dụng bởi người dùng khác.");
-                    response.sendRedirect(request.getContextPath() + "/admin/adminprofile"); // Cập nhật redirect
+                    response.sendRedirect(request.getContextPath() + "/staff/staffprofile"); // Cập nhật redirect
                     return;
                 }
             } catch (SQLException e) {
                 setError(session, "Lỗi khi kiểm tra số điện thoại: " + e.getMessage());
-                response.sendRedirect(request.getContextPath() + "/admin/adminprofile"); // Cập nhật redirect
+                response.sendRedirect(request.getContextPath() + "/staff/staffprofile"); // Cập nhật redirect
                 return;
             }
         }
@@ -148,7 +152,7 @@ public class AdminProfileServlet extends HttpServlet {
         } else {
             setError(session, "Cập nhật hồ sơ thất bại.");
         }
-        response.sendRedirect(request.getContextPath() + "/admin/adminprofile"); // Cập nhật redirect
+        response.sendRedirect(request.getContextPath() + "/staff/staffprofile"); // Cập nhật redirect
     }
 
     private java.sql.Date parseDateOfBirth(String dobParam, HttpSession session) {
