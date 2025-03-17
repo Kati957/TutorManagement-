@@ -1,16 +1,18 @@
 package UserController;
 
-import model.DAOUser;
-import entity.GoogleAccount;
-import entity.User;
-import UserController.GoogleLogin;
-import java.io.IOException;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import model.DAOHistoryLog; // Đã có
+import model.DAOUser; // Đã có
+import entity.GoogleAccount; // Đã có
+import entity.User; // Đã có
+import UserController.GoogleLogin; // Đã có
+import java.io.IOException; // Đã có
+import java.sql.SQLException; // Thêm import này để sử dụng SQLException
+import jakarta.servlet.ServletException; // Đã có
+import jakarta.servlet.annotation.WebServlet; // Đã có
+import jakarta.servlet.http.HttpServlet; // Đã có
+import jakarta.servlet.http.HttpServletRequest; // Đã có
+import jakarta.servlet.http.HttpServletResponse; // Đã có
+import jakarta.servlet.http.HttpSession; // Đã có
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
@@ -21,6 +23,7 @@ public class LoginServlet extends HttpServlet {
 
         HttpSession session = request.getSession(true);
         DAOUser dao = new DAOUser();
+        DAOHistoryLog logDAO = new DAOHistoryLog(); // Thêm DAOHistoryLog
 
         String service = request.getParameter("service");
 
@@ -30,11 +33,11 @@ public class LoginServlet extends HttpServlet {
 
         switch (service) {
             case "googleLogin":
-                handleGoogleLogin(request, response, session, dao);
+                handleGoogleLogin(request, response, session, dao, logDAO);
                 break;
 
             case "loginUser":
-                handleUserLogin(request, response, session, dao);
+                handleUserLogin(request, response, session, dao, logDAO);
                 break;
 
             default:
@@ -44,7 +47,7 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    private void handleGoogleLogin(HttpServletRequest request, HttpServletResponse response, HttpSession session, DAOUser dao)
+    private void handleGoogleLogin(HttpServletRequest request, HttpServletResponse response, HttpSession session, DAOUser dao, DAOHistoryLog logDAO)
             throws ServletException, IOException {
         String code = request.getParameter("code");
         String error = request.getParameter("error");
@@ -69,6 +72,11 @@ public class LoginServlet extends HttpServlet {
                 } else {
                     session.setAttribute("user", user);
                     session.setAttribute("userId", user.getUserID());
+                    try {
+                        logDAO.logLogin(user.getUserID()); // Ghi log đăng nhập
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     redirectBasedOnRole(user, request, response);
                 }
             } else {
@@ -80,7 +88,7 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    private void handleUserLogin(HttpServletRequest request, HttpServletResponse response, HttpSession session, DAOUser dao)
+    private void handleUserLogin(HttpServletRequest request, HttpServletResponse response, HttpSession session, DAOUser dao, DAOHistoryLog logDAO)
             throws ServletException, IOException {
         String submit = request.getParameter("submit");
         if (submit == null) {
@@ -96,26 +104,27 @@ public class LoginServlet extends HttpServlet {
             } else {
                 session.setAttribute("user", user);
                 session.setAttribute("userId", user.getUserID());
+                try {
+                    logDAO.logLogin(user.getUserID()); // Ghi log đăng nhập
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 redirectBasedOnRole(user, request, response);
             }
         }
     }
 
-    // Phương thức điều hướng dựa trên RoleID
     private void redirectBasedOnRole(User user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         int roleId = user.getRoleID();
-        String contextPath = request.getContextPath(); // Lấy context path động
+        String contextPath = request.getContextPath();
         
-        // RoleID trong DB: Admin = 1, User = 2
         if (roleId == 1) { // Admin
             response.sendRedirect(contextPath + "/admin/index.jsp");
         } else if (roleId == 2) { // User
             response.sendRedirect(contextPath + "/home");
-        }else if(roleId==4){
+        } else if (roleId == 4) { // Staff
             response.sendRedirect("staff/index_staff.jsp");
-        }
-        else {
-            // Trường hợp RoleID không xác định, về trang mặc định
+        } else {
             response.sendRedirect(contextPath + "/home.jsp");
         }
     }
