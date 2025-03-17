@@ -1172,7 +1172,7 @@
         9. BLOG
 =========================*/
 .blog-post{
-    position: relative;
+    poblogsition: relative;
     margin-bottom: 30px;
 }
 .ttr-post-title {
@@ -3271,6 +3271,45 @@ button.back-to-top {
 .grid-row-break {
     grid-column: 1 / -1;
     height: 0;
+}
+.sort-options {
+    background-color: #F5F5F5;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #E0E0E0;
+}
+.sort-options label {
+    font-weight: bold;
+    color: #111111;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #E0E0E0;
+}
+th {
+    background-color: #6F42C0;
+    color: white;
+}
+tr:nth-child(even) {
+    background-color: #F5F5F5;
+}
+tr:hover {
+    background-color: #E3F2FD;
+}
+a {
+    color: #4FC1E9;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
 }
 
 @media (max-width: 768px) {

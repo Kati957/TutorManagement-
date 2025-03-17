@@ -3334,6 +3334,7 @@ label {
     text-decoration: none;
     color: #fff;
 }
+
 @media only screen and (max-width: 1200px) {
     .cours-more-info .review{
         padding: 8px 12px;

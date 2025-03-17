@@ -18,6 +18,6 @@
     <p><strong>Rating:</strong> ${rating.rating}</p>
     <p><strong>Comment:</strong> ${rating.comment}</p>
     <p><strong>Rating Date:</strong> ${rating.ratingDate}</p>
-    <a href="TutorRatingController">Quay lại danh sách</a>
+    <a href="ListRated">Quay lại danh sách</a>
 </body>
 </html>

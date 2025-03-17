@@ -36,6 +36,7 @@ public class DBConnect {
         }
     }
 
+
     public DBConnect() {
 
         this("jdbc:sqlserver://localhost:1433;databaseName=test", "sa", "123");

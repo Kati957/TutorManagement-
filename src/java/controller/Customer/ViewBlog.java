@@ -103,7 +103,7 @@ public class ViewBlog extends HttpServlet {
                 Logger.getLogger(ViewBlog.class.getName()).log(Level.SEVERE, "Invalid blogID", ex);
             }
         }
-        response.sendRedirect("error-404.html"); // Redirect nếu không có bài viết hoặc lỗi
+        response.sendRedirect("error-404.jsp"); // Redirect nếu không có bài viết hoặc lỗi
     }
 
     // Xử lý tìm kiếm blog và lọc trong blogList
@@ -129,7 +129,7 @@ public class ViewBlog extends HttpServlet {
             request.getRequestDispatcher("blog-classic-sidebar.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(ViewBlog.class.getName()).log(Level.SEVERE, null, ex);
-            response.sendRedirect("error-404.html");
+            response.sendRedirect("error-404.jsp");
         }
     }
 
