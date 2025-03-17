@@ -90,8 +90,6 @@
                 </div>
                 <div class="ttr-header-right ttr-with-seperator">
                     <ul class="ttr-header-navigation">
-                        <li><a href="#" class="ttr-material-button ttr-search-toggle"><i class="fa fa-search"></i></a></li>
-                        <li><a href="#" class="ttr-material-button ttr-submenu-toggle"><i class="fa fa-bell"></i></a></li>
                         <li>
                             <a href="profile" class="ttr-material-button ttr-submenu-toggle">
                                 <span class="ttr-user-avatar">
@@ -103,14 +101,13 @@
                             </a>
                             <div class="ttr-header-submenu">
                                 <ul>
-                                    <li><a href="${pageContext.request.contextPath}/admin/myprofile">My Profile</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/admin/adminprofile">My Profile</a></li>
                                     <li><a href="list-view-calendar.jsp">Activity</a></li>
                                     <li><a href="mailbox.jsp">Messages</a></li>
                                     <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
                                 </ul>
                             </div>
                         </li>
-                        <li class="ttr-hide-on-mobile"><a href="#" class="ttr-material-button"><i class="ti-layout-grid3-alt"></i></a></li>
                     </ul>
                 </div>
                 <div class="ttr-search-bar">
@@ -127,25 +124,21 @@
         <!-- Sidebar -->
         <div class="ttr-sidebar">
             <div class="ttr-sidebar-wrapper content-scroll">
-                <!-- side menu logo start -->
+                <!-- Side menu logo start -->
                 <div class="ttr-sidebar-logo">
                     <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
-                    <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
-                            <i class="material-icons ttr-fixed-icon">gps_fixed</i>
-                            <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
-                    </div> -->
                     <div class="ttr-sidebar-toggle-button">
                         <i class="ti-arrow-left"></i>
                     </div>
                 </div>
-                <!-- side menu logo end -->
-                <!-- sidebar menu start -->
+                <!-- Side menu logo end -->
+                <!-- Sidebar menu start -->
                 <nav class="ttr-sidebar-navi">
                     <ul>
                         <li>
                             <a href="index.jsp" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-home"></i></span>
-                                <span class="ttr-label">Dashborad</span> 
+                                <span class="ttr-label">Dashboard</span>
                             </a>
                         </li>
                         <li>
@@ -191,19 +184,10 @@
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/admin/UserList" class="ttr-material-button"><span class="ttr-label">User List</span></a>
-                                </li>
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/admin/UserRegister" class="ttr-material-button"><span class="ttr-label">Add New User</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Profile</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Tutor</span></a>
-                                </li>
+                                <li><a href="${pageContext.request.contextPath}/admin/UserList" class="ttr-material-button"><span class="ttr-label">User List</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/UserRegister" class="ttr-material-button"><span class="ttr-label">Add New User</span></a></li>
+                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Profile</span></a></li>
+                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Tutor</span></a></li>
                             </ul>
                         </li>
                         <li>
@@ -213,12 +197,8 @@
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a>
-                                </li>
+                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a></li>
+                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a></li>
                             </ul>
                         </li>
                         <li>
@@ -228,16 +208,19 @@
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Blog</span></a>
-                                </li>
+                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">Blog</span></a></li>
                             </ul>
+                        </li>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/admin/historyLog" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-clipboard"></i></span>
+                                <span class="ttr-label">History Log</span>
+                            </a>
                         </li>
                         <li class="ttr-seperate"></li>
                     </ul>
-                    <!-- sidebar menu end -->
+                    <!-- Sidebar menu end -->
                 </nav>
-                <!-- sidebar menu end -->
             </div>
         </div>
         <!-- Main content -->

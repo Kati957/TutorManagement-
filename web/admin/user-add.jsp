@@ -8,35 +8,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <!-- META -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="" />
-    <meta name="author" content="" />
-    <meta name="robots" content="" />
-    <meta name="description" content="G4 SmartTutor : Smart tutor, effective learning." />
-    <meta property="og:title" content="G4 SmartTutor : Smart tutor, effective learning." />
-    <meta property="og:description" content="G4 SmartTutor : Smart tutor, effective learning." />
-    <meta property="og:image" content="" />
-    <meta name="format-detection" content="telephone=no">
-    <link rel="icon" href="../error-404.jsp" type="image/x-icon" />
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
-    <title>G4 SmartTutor</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="assets/css/assets.css">
-    <link rel="stylesheet" type="text/css" href="assets/vendors/calendar/fullcalendar.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/typography.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/shortcodes/shortcodes.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/dashboard.css">
-    <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
-</head>
-<body class="ttr-opened-sidebar ttr-pinned-sidebar">
-    <%
-        User user = (User) session.getAttribute("user");
-    %>
-    <!-- Header -->
+    <head>
+        <!-- META -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+        <meta name="robots" content="" />
+        <meta name="description" content="G4 SmartTutor : Smart tutor, effective learning." />
+        <meta property="og:title" content="G4 SmartTutor : Smart tutor, effective learning." />
+        <meta property="og:description" content="G4 SmartTutor : Smart tutor, effective learning." />
+        <meta property="og:image" content="" />
+        <meta name="format-detection" content="telephone=no">
+        <link rel="icon" href="../error-404.jsp" type="image/x-icon" />
+        <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
+        <title>G4 SmartTutor</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="assets/css/assets.css">
+        <link rel="stylesheet" type="text/css" href="assets/vendors/calendar/fullcalendar.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/typography.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/shortcodes/shortcodes.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/dashboard.css">
+        <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
+    </head>
+    <body class="ttr-opened-sidebar ttr-pinned-sidebar">
+        <%
+            User user = (User) session.getAttribute("user");
+        %>
+        <!-- Header -->
         <header class="ttr-header">
             <div class="ttr-header-wrapper">
                 <div class="ttr-toggle-sidebar ttr-material-button">
@@ -68,8 +68,6 @@
                 </div>
                 <div class="ttr-header-right ttr-with-seperator">
                     <ul class="ttr-header-navigation">
-                        <li><a href="#" class="ttr-material-button ttr-search-toggle"><i class="fa fa-search"></i></a></li>
-                        <li><a href="#" class="ttr-material-button ttr-submenu-toggle"><i class="fa fa-bell"></i></a></li>
                         <li>
                             <a href="profile" class="ttr-material-button ttr-submenu-toggle">
                                 <span class="ttr-user-avatar">
@@ -81,14 +79,13 @@
                             </a>
                             <div class="ttr-header-submenu">
                                 <ul>
-                                    <li><a href="${pageContext.request.contextPath}/admin/myprofile">My Profile</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/admin/adminprofile">My Profile</a></li>
                                     <li><a href="list-view-calendar.jsp">Activity</a></li>
                                     <li><a href="mailbox.jsp">Messages</a></li>
                                     <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
                                 </ul>
                             </div>
                         </li>
-                        <li class="ttr-hide-on-mobile"><a href="#" class="ttr-material-button"><i class="ti-layout-grid3-alt"></i></a></li>
                     </ul>
                 </div>
                 <div class="ttr-search-bar">
@@ -102,28 +99,24 @@
                 </div>
             </div>
         </header>
-    <!-- Sidebar -->
+        <!-- Sidebar -->
         <div class="ttr-sidebar">
             <div class="ttr-sidebar-wrapper content-scroll">
-                <!-- side menu logo start -->
+                <!-- Side menu logo start -->
                 <div class="ttr-sidebar-logo">
                     <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
-                    <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
-                            <i class="material-icons ttr-fixed-icon">gps_fixed</i>
-                            <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
-                    </div> -->
                     <div class="ttr-sidebar-toggle-button">
                         <i class="ti-arrow-left"></i>
                     </div>
                 </div>
-                <!-- side menu logo end -->
-                <!-- sidebar menu start -->
+                <!-- Side menu logo end -->
+                <!-- Sidebar menu start -->
                 <nav class="ttr-sidebar-navi">
                     <ul>
                         <li>
                             <a href="index.jsp" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-home"></i></span>
-                                <span class="ttr-label">Dashborad</span> 
+                                <span class="ttr-label">Dashboard</span>
                             </a>
                         </li>
                         <li>
@@ -158,7 +151,7 @@
                             </a>
                             <ul>
                                 <li><a href="${pageContext.request.contextPath}/admin/StaffList" class="ttr-material-button"><span class="ttr-label">Staff List</span></a></li>
-                                <li><a href="${pageContext.request.contextPath}/admin/StaffRegister" class="ttr-material-button"><span class="ttr-label">Add New Staff</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/StaffManage" class="ttr-material-button"><span class="ttr-label">Add New Staff</span></a></li>
                                 <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Reports</span></a></li>
                             </ul>
                         </li>
@@ -169,19 +162,10 @@
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/admin/UserList" class="ttr-material-button"><span class="ttr-label">User List</span></a>
-                                </li>
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/admin/UserManage" class="ttr-material-button"><span class="ttr-label">Add New User</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Profile</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Tutor</span></a>
-                                </li>
+                                <li><a href="${pageContext.request.contextPath}/admin/UserList" class="ttr-material-button"><span class="ttr-label">User List</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/UserRegister" class="ttr-material-button"><span class="ttr-label">Add New User</span></a></li>
+                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Profile</span></a></li>
+                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Tutor</span></a></li>
                             </ul>
                         </li>
                         <li>
@@ -191,12 +175,8 @@
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a>
-                                </li>
+                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a></li>
+                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a></li>
                             </ul>
                         </li>
                         <li>
@@ -206,126 +186,129 @@
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Blog</span></a>
-                                </li>
+                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">Blog</span></a></li>
                             </ul>
+                        </li>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/admin/historyLog" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-clipboard"></i></span>
+                                <span class="ttr-label">History Log</span>
+                            </a>
                         </li>
                         <li class="ttr-seperate"></li>
                     </ul>
-                    <!-- sidebar menu end -->
+                    <!-- Sidebar menu end -->
                 </nav>
-                <!-- sidebar menu end -->
             </div>
         </div>
-    <main class="ttr-wrapper">
-        <div class="container-fluid">
-            <div class="db-breadcrumb">
-                <h4 class="breadcrumb-title">${editUser != null ? 'Edit User' : 'Add New User'}</h4>
-            </div>	
-            <div class="row">
-                <div class="col-lg-12 m-b30">
-                    <div class="widget-box">
-                        <div class="wc-title">
-                            <h4>${editUser != null ? 'Edit User' : 'Add New User'}</h4>
-                        </div>
-                        <div class="widget-inner">
-                            <form action="${pageContext.request.contextPath}/admin/UserManage" method="POST" class="contact-bx" enctype="multipart/form-data">
-                                <input type="hidden" name="UserID" value="${editUser.userID}">
-                                <input type="hidden" name="RoleID" value="2">
-                                <input type="hidden" name="IsActive" value="1">
-                                <div class="row placeani">
-                                    <c:if test="${not empty requestScope.error}">
-                                        <div class="col-lg-12"><p class="text-danger">${requestScope.error}</p></div>
-                                    </c:if>
-                                    <c:if test="${not empty sessionScope.success}">
-                                        <div class="col-lg-12"><p class="text-success">${sessionScope.success}</p></div>
-                                        <c:remove var="success" scope="session"/>
-                                    </c:if>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label>Email</label>
-                                            <input type="email" name="Email" class="form-control" value="${editUser.email}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label>Full Name</label>
-                                            <input type="text" name="FullName" class="form-control" value="${editUser.fullName}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label>Phone</label>
-                                            <input type="text" name="Phone" class="form-control" value="${editUser.phone}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label>Date of Birth</label>
-                                            <input type="date" name="Dob" class="form-control" value="${editUser.dob}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label>Address</label>
-                                            <input type="text" name="Address" class="form-control" value="${editUser.address}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label>Avatar</label>
-                                            <c:if test="${not empty editUser.avatar}">
-                                                <div>
-                                                    <img src="${pageContext.request.contextPath}/${editUser.avatar}" alt="Current Avatar" width="100" class="img-thumbnail">
-                                                </div>
+        <main class="ttr-wrapper">
+            <div class="container-fluid">
+                <div class="db-breadcrumb">
+                    <h4 class="breadcrumb-title">${editUser != null ? 'Edit User' : 'Add New User'}</h4>
+                </div>	
+                <div class="row">
+                    <div class="col-lg-12 m-b30">
+                        <div class="widget-box">
+                            <div class="wc-title">
+                                <h4>${editUser != null ? 'Edit User' : 'Add New User'}</h4>
+                            </div>
+                            <div class="widget-inner">
+                                <form action="${pageContext.request.contextPath}/admin/UserManage" method="POST" class="contact-bx" enctype="multipart/form-data">
+                                    <input type="hidden" name="UserID" value="${editUser.userID}">
+                                    <input type="hidden" name="RoleID" value="2">
+                                    <input type="hidden" name="IsActive" value="1">
+                                    <div class="row placeani">
+                                        <c:if test="${not empty requestScope.error}">
+                                            <div class="col-lg-12"><p class="text-danger">${requestScope.error}</p></div>
                                             </c:if>
-                                            <input type="file" name="avatar" class="form-control-file" accept="image/*">
+                                            <c:if test="${not empty sessionScope.success}">
+                                            <div class="col-lg-12"><p class="text-success">${sessionScope.success}</p></div>
+                                                <c:remove var="success" scope="session"/>
+                                            </c:if>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input type="email" name="Email" class="form-control" value="${editUser.email}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label>Full Name</label>
+                                                <input type="text" name="FullName" class="form-control" value="${editUser.fullName}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label>Phone</label>
+                                                <input type="text" name="Phone" class="form-control" value="${editUser.phone}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label>Date of Birth</label>
+                                                <input type="date" name="Dob" class="form-control" value="${editUser.dob}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label>Address</label>
+                                                <input type="text" name="Address" class="form-control" value="${editUser.address}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label>Avatar</label>
+                                                <c:if test="${not empty editUser.avatar}">
+                                                    <div>
+                                                        <img src="${pageContext.request.contextPath}/${editUser.avatar}" alt="Current Avatar" width="100" class="img-thumbnail">
+                                                    </div>
+                                                </c:if>
+                                                <input type="file" name="avatar" class="form-control-file" accept="image/*">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label>Username</label>
+                                                <input type="text" name="UserName" class="form-control" value="${editUser.userName}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label>Password</label>
+                                                <input type="password" name="Password" class="form-control" value="${editUser.password}" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 m-b30">
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                            <a href="${pageContext.request.contextPath}/admin/UserList" class="btn btn-secondary">Cancel</a>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label>Username</label>
-                                            <input type="text" name="UserName" class="form-control" value="${editUser.userName}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="form-group">
-                                            <label>Password</label>
-                                            <input type="password" name="Password" class="form-control" value="${editUser.password}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 m-b30">
-                                        <button type="submit" class="btn btn-primary">Save</button>
-                                        <a href="${pageContext.request.contextPath}/admin/UserList" class="btn btn-secondary">Cancel</a>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </main>
-    <div class="ttr-overlay"></div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
-    <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-    <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-    <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
-    <script src="assets/vendors/counter/waypoints-min.js"></script>
-    <script src="assets/vendors/counter/counterup.min.js"></script>
-    <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
-    <script src="assets/vendors/masonry/masonry.js"></script>
-    <script src="assets/vendors/masonry/filter.js"></script>
-    <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
-    <script src="assets/vendors/scroll/scrollbar.min.js"></script>
-    <script src="assets/js/functions.js"></script>
-    <script src="assets/vendors/chart/chart.min.js"></script>
-    <script src="assets/js/admin.js"></script>
-    <script src="assets/vendors/calendar/moment.min.js"></script>
-    <script src="assets/vendors/calendar/fullcalendar.js"></script>
-    <script src="assets/vendors/switcher/switcher.js"></script>
-</body>
+        </main>
+        <div class="ttr-overlay"></div>
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
+        <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+        <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
+        <script src="assets/vendors/counter/waypoints-min.js"></script>
+        <script src="assets/vendors/counter/counterup.min.js"></script>
+        <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
+        <script src="assets/vendors/masonry/masonry.js"></script>
+        <script src="assets/vendors/masonry/filter.js"></script>
+        <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
+        <script src="assets/vendors/scroll/scrollbar.min.js"></script>
+        <script src="assets/js/functions.js"></script>
+        <script src="assets/vendors/chart/chart.min.js"></script>
+        <script src="assets/js/admin.js"></script>
+        <script src="assets/vendors/calendar/moment.min.js"></script>
+        <script src="assets/vendors/calendar/fullcalendar.js"></script>
+        <script src="assets/vendors/switcher/switcher.js"></script>
+    </body>
 </html>

@@ -1,132 +1,127 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.List, entity.HistoryLog, entity.User, java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="en">
-    <%@page import="entity.User,java.sql.ResultSet"%>
-    <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:10:19 GMT -->
     <head>
-
-        <!-- META ============================================= -->
+        <!-- META -->
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="keywords" content="" />
         <meta name="author" content="" />
         <meta name="robots" content="" />
-
-        <!-- DESCRIPTION -->
         <meta name="description" content="G4 SmartTutor : Smart tutor, effective learning." />
-
-        <!-- OG -->
         <meta property="og:title" content="G4 SmartTutor : Smart tutor, effective learning." />
         <meta property="og:description" content="G4 SmartTutor : Smart tutor, effective learning." />
         <meta property="og:image" content="" />
         <meta name="format-detection" content="telephone=no">
 
-        <!-- FAVICONS ICON ============================================= -->
+        <!-- FAVICONS ICON -->
         <link rel="icon" href="../error-404.jsp" type="image/x-icon" />
         <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
 
-        <!-- PAGE TITLE HERE ============================================= -->
-        <title>G4 SmartTutor</title>
+        <!-- PAGE TITLE -->
+        <title>G4 SmartTutor - History Log</title>
 
-        <!-- MOBILE SPECIFIC ============================================= -->
+        <!-- MOBILE SPECIFIC -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!--[if lt IE 9]>
-        <script src="assets/js/html5shiv.min.js"></script>
-        <script src="assets/js/respond.min.js"></script>
-        <![endif]-->
-
-        <!-- All PLUGINS CSS ============================================= -->
+        <!-- CSS -->
         <link rel="stylesheet" type="text/css" href="assets/css/assets.css">
         <link rel="stylesheet" type="text/css" href="assets/vendors/calendar/fullcalendar.css">
-
-        <!-- TYPOGRAPHY ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets/css/typography.css">
-
-        <!-- SHORTCODES ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets/css/shortcodes/shortcodes.css">
-
-        <!-- STYLESHEETS ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
         <link rel="stylesheet" type="text/css" href="assets/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
 
+        <!-- CSS cho bảng và thông báo -->
+        <style>
+            .table-bordered {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            .table-bordered th, .table-bordered td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+            .table-bordered th {
+                background-color: #f4f4f4;
+            }
+            .text-center {
+                text-align: center;
+            }
+            .alert {
+                padding: 15px;
+                margin-bottom: 20px;
+                border: 1px solid transparent;
+                border-radius: 4px;
+            }
+            .alert-danger {
+                color: #a94442;
+                background-color: #f2dede;
+                border-color: #ebccd1;
+            }
+        </style>
     </head>
-    <%
-        ResultSet rsCv = (ResultSet) request.getAttribute("rsCv");
-    %>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
+        <%
+            User user = (User) session.getAttribute("user");
+            if (user == null || user.getRoleID() != 1) {
+                response.sendRedirect(request.getContextPath() + "/login.jsp");
+                return;
+            }
 
-        <!-- header start -->
+            List<HistoryLog> logs = (List<HistoryLog>) request.getAttribute("logs");
+            if (logs == null) {
+                logs = new ArrayList<>();
+            }
+            String error = (String) request.getAttribute("error");
+        %>
+        <!-- Header start -->
         <header class="ttr-header">
             <div class="ttr-header-wrapper">
-                <!--sidebar menu toggler start -->
+                <!-- Sidebar menu toggler start -->
                 <div class="ttr-toggle-sidebar ttr-material-button">
                     <i class="ti-close ttr-open-icon"></i>
                     <i class="ti-menu ttr-close-icon"></i>
                 </div>
-                <!--sidebar menu toggler end -->
-                <!--logo start -->
+                <!-- Sidebar menu toggler end -->
+                <!-- Logo start -->
                 <div class="ttr-logo-box">
                     <div>
                         <a href="index.jsp" class="ttr-logo">
-                            <img alt="" class="ttr-logo-mobile" src="assets/images/logo-mobile.png" width="30" height="30">
-                            <img alt="" class="ttr-logo-desktop" src="assets/images/logo-white.png" width="160" height="27">
+                            <img class="ttr-logo-mobile" alt="" src="assets/images/logo-mobile.png" width="30" height="30">
+                            <img class="ttr-logo-desktop" alt="" src="assets/images/logo-white.png" width="160" height="27">
                         </a>
                     </div>
                 </div>
-                <!--logo end -->
-                <div class="ttr-header-menu">
-                    <!-- header left menu start -->
-                    <ul class="ttr-header-navigation">
-                        <li>
-                            <a href="../index.jsp" class="ttr-material-button ttr-submenu-toggle">HOME</a>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i class="fa fa-angle-down"></i></a>
-                            <div class="ttr-header-submenu">
-                                <ul>
-                                    <li><a href="../courses.jsp">Our Courses</a></li>
-                                    <li><a href="../event.jsp">New Event</a></li>
-                                    <li><a href="../membership.jsp">Membership</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                    <!-- header left menu end -->
-                </div>
+                <!-- Logo end -->
                 <div class="ttr-header-right ttr-with-seperator">
-                    <!-- header right menu start -->
+                    <!-- Header right menu start -->
                     <ul class="ttr-header-navigation">
                         <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
+                            <a href="profile" class="ttr-material-button ttr-submenu-toggle">
+                                <span class="ttr-user-avatar">
+                                    <img alt="" src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" width="32" height="32" onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
+                                </span>
+                            </a>
                             <div class="ttr-header-submenu">
                                 <ul>
                                     <li><a href="${pageContext.request.contextPath}/admin/adminprofile">My Profile</a></li>
                                     <li><a href="list-view-calendar.jsp">Activity</a></li>
                                     <li><a href="mailbox.jsp">Messages</a></li>
-                                    <li><a href="../login.jsp">Logout</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
                                 </ul>
                             </div>
                         </li>
                     </ul>
-                    <!-- header right menu end -->
+                    <!-- Header right menu end -->
                 </div>
-                <!--header search panel start -->
-                <div class="ttr-search-bar">
-                    <form class="ttr-search-form">
-                        <div class="ttr-search-input-wrapper">
-                            <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
-                            <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
-                        </div>
-                        <span class="ttr-search-close ttr-search-toggle">
-                            <i class="ti-close"></i>
-                        </span>
-                    </form>
-                </div>
-                <!--header search panel end -->
             </div>
         </header>
-        <!-- header end -->
+        <!-- Header end -->
+
         <!-- Left sidebar menu start -->
         <div class="ttr-sidebar">
             <div class="ttr-sidebar-wrapper content-scroll">
@@ -231,51 +226,66 @@
         </div>
         <!-- Left sidebar menu end -->
 
-        <!--Main container start -->
+        <!-- Main container start -->
         <main class="ttr-wrapper">
-            <form action="RequestCV">
-                <div class="container-fluid">
-                    <div class="db-breadcrumb">
-                        <h4 class="breadcrumb-title">Courses</h4>
-                        <ul class="db-breadcrumb-list">
-                            <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
-                            <li>Courses</li>
-                        </ul>
-                    </div>	
-                    <div class="row">
-                        <table border=1  >
-                            <tr>
-                                <th>ID</th>
-                                <th>Full name</th>
-                                <th>Education</th>
-                                <th>SubjectName</th>
-                                <th>Status</th>
-                                <th>View CV</th>
-                            </tr>
-                            <%while (rsCv.next()) {%>
-                            <tr>
-                                <td><%=rsCv.getInt(1)%></td>
-                                <td><%=rsCv.getString(2)%></td>
-                                <td><%=rsCv.getString(3)%></td>
-                                <td><%=rsCv.getString(5)%></td>
-                                <td>
-                                    <form action="RequestCV" method="post">
-                                        <input type="hidden" name="cvId" value="<%= rsCv.getInt(1)%>">
-                                        <input type="hidden" name="subject" value="<%= rsCv.getInt("SubjectID")%>">
-                                        <select name="status" onchange="this.form.submit()">
-                                            <option value="Pending" <%= "Pending".equals(rsCv.getString("Status")) ? "selected" : ""%>>Pending</option>
-                                            <option value="Approved" <%= "Approved".equals(rsCv.getString("Status")) ? "selected" : ""%>>Approved</option>
-                                            <option value="Rejected" <%= "Rejected".equals(rsCv.getString("Status")) ? "selected" : ""%>>Rejected</option>
-                                        </select>
-                                    </form>
-                                </td>
-                                <td><a href="viewCV?cvid=<%=rsCv.getInt(1)%>">View CV</a></td>
-                            </tr>
-                            <%}%>
-                        </table>
+            <div class="container-fluid">
+                <div class="db-breadcrumb">
+                    <h4 class="breadcrumb-title">History Log</h4>
+                    <ul class="db-breadcrumb-list">
+                        <li><a href="${pageContext.request.contextPath}/admin/index.jsp"><i class="fa fa-home"></i>Home</a></li>
+                        <li>History Log</li>
+                    </ul>
+                </div>
+                <!-- Hiển thị thông báo lỗi -->
+                <% if (error != null) {%>
+                <div class="alert alert-danger">
+                    <%= error%>
+                </div>
+                <% } %>
+                <!-- Bảng hiển thị log -->
+                <div class="row">
+                    <div class="col-lg-12 m-b30">
+                        <div class="widget-box">
+                            <div class="wc-title">
+                                <h4>Access Log History</h4>
+                            </div>
+                            <div class="widget-inner">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Role Name</th> <!-- Thay User ID bằng Role Name -->
+                                            <th>Full Name</th>
+                                            <th>Email</th>
+                                            <th>Action Type</th>
+                                            <th>Target ID</th>
+                                            <th>Details</th>
+                                            <th>Log Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%
+                                            for (HistoryLog log : logs) {
+                                        %>
+                                        <tr>
+                                            <td><%= log.getRoleName() != null ? log.getRoleName() : "N/A"%></td>
+                                            <td><%= log.getFullName() != null ? log.getFullName() : "N/A"%></td>
+                                            <td><%= log.getEmail() != null ? log.getEmail() : "N/A"%></td>
+                                            <td><%= log.getActionType()%></td>
+                                            <td><%= log.getTargetId() != null ? log.getTargetId() : "N/A"%></td>
+                                            <td><%= log.getDetails()%></td>
+                                            <td><%= log.getLogDate()%></td>
+                                        </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                                <% if (logs.isEmpty()) { %>
+                                <p class="text-center">No log records found.</p>
+                                <% }%>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </main>
         <div class="ttr-overlay"></div>
 
@@ -296,8 +306,8 @@
         <script src="assets/js/functions.js"></script>
         <script src="assets/vendors/chart/chart.min.js"></script>
         <script src="assets/js/admin.js"></script>
+        <script src='assets/vendors/calendar/moment.min.js'></script>
+        <script src='assets/vendors/calendar/fullcalendar.js'></script>
         <script src='assets/vendors/switcher/switcher.js'></script>
     </body>
-
-    <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:11:35 GMT -->
 </html>
