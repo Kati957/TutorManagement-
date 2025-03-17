@@ -30,8 +30,6 @@ public class AuthorizationFilter implements Filter {
             "/tutor"
     );
 
- 
-
     private FilterConfig filterConfig = null;
 
     @Override
@@ -53,14 +51,17 @@ public class AuthorizationFilter implements Filter {
             return;
         }
 
-        HttpSession session = httpRequest.getSession(false);
-        User user = (User) session.getAttribute("user");
+        User user = (User) httpRequest.getSession(false).getAttribute("user");
 
-        boolean hasAccess = switch (user.getRoleID()) {
-            case 4 -> isAllowed(STAFF_URLS, path);
-            case 3 -> isAllowed(TUTOR_URLS, path);
-            case 1 -> isAllowed(ADMIN_URLS, path);
-            default -> false;
+        boolean hasAccess = switch (user != null ? user.getRoleID() : 0) {
+            case 4 ->
+                isAllowed(STAFF_URLS, path);
+            case 3 ->
+                isAllowed(TUTOR_URLS, path);
+            case 1 ->
+                isAllowed(ADMIN_URLS, path);
+            default ->
+                false;
         };
 
         if (!hasAccess) {

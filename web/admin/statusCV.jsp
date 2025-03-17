@@ -98,82 +98,6 @@
                     <!-- header right menu start -->
                     <ul class="ttr-header-navigation">
                         <li>
-                            <a href="#" class="ttr-material-button ttr-search-toggle"><i class="fa fa-search"></i></a>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><i class="fa fa-bell"></i></a>
-                            <div class="ttr-header-submenu noti-menu">
-                                <div class="ttr-notify-header">
-                                    <span class="ttr-notify-text-top">9 New</span>
-                                    <span class="ttr-notify-text">User Notifications</span>
-                                </div>
-                                <div class="noti-box-list">
-                                    <ul>
-                                        <li>
-                                            <span class="notification-icon dashbg-gray">
-                                                <i class="fa fa-check"></i>
-                                            </span>
-                                            <span class="notification-text">
-                                                <span>Sneha Jogi</span> sent you a message.
-                                            </span>
-                                            <span class="notification-time">
-                                                <a href="#" class="fa fa-close"></a>
-                                                <span> 02:14</span>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="notification-icon dashbg-yellow">
-                                                <i class="fa fa-shopping-cart"></i>
-                                            </span>
-                                            <span class="notification-text">
-                                                <a href="#">Your order is placed</a> sent you a message.
-                                            </span>
-                                            <span class="notification-time">
-                                                <a href="#" class="fa fa-close"></a>
-                                                <span> 7 Min</span>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="notification-icon dashbg-red">
-                                                <i class="fa fa-bullhorn"></i>
-                                            </span>
-                                            <span class="notification-text">
-                                                <span>Your item is shipped</span> sent you a message.
-                                            </span>
-                                            <span class="notification-time">
-                                                <a href="#" class="fa fa-close"></a>
-                                                <span> 2 May</span>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="notification-icon dashbg-green">
-                                                <i class="fa fa-comments-o"></i>
-                                            </span>
-                                            <span class="notification-text">
-                                                <a href="#">Sneha Jogi</a> sent you a message.
-                                            </span>
-                                            <span class="notification-time">
-                                                <a href="#" class="fa fa-close"></a>
-                                                <span> 14 July</span>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="notification-icon dashbg-primary">
-                                                <i class="fa fa-file-word-o"></i>
-                                            </span>
-                                            <span class="notification-text">
-                                                <span>Sneha Jogi</span> sent you a message.
-                                            </span>
-                                            <span class="notification-time">
-                                                <a href="#" class="fa fa-close"></a>
-                                                <span> 15 Min</span>
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
                             <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
                             <div class="ttr-header-submenu">
                                 <ul>
@@ -182,35 +106,6 @@
                                     <li><a href="mailbox.jsp">Messages</a></li>
                                     <li><a href="../login.jsp">Logout</a></li>
                                 </ul>
-                            </div>
-                        </li>
-                        <li class="ttr-hide-on-mobile">
-                            <a href="#" class="ttr-material-button"><i class="ti-layout-grid3-alt"></i></a>
-                            <div class="ttr-header-submenu ttr-extra-menu">
-                                <a href="#">
-                                    <i class="fa fa-music"></i>
-                                    <span>Musics</span>
-                                </a>
-                                <a href="#">
-                                    <i class="fa fa-youtube-play"></i>
-                                    <span>Videos</span>
-                                </a>
-                                <a href="#">
-                                    <i class="fa fa-envelope"></i>
-                                    <span>Emails</span>
-                                </a>
-                                <a href="#">
-                                    <i class="fa fa-book"></i>
-                                    <span>Reports</span>
-                                </a>
-                                <a href="#">
-                                    <i class="fa fa-smile-o"></i>
-                                    <span>Persons</span>
-                                </a>
-                                <a href="#">
-                                    <i class="fa fa-picture-o"></i>
-                                    <span>Pictures</span>
-                                </a>
                             </div>
                         </li>
                     </ul>
@@ -235,25 +130,21 @@
         <!-- Left sidebar menu start -->
         <div class="ttr-sidebar">
             <div class="ttr-sidebar-wrapper content-scroll">
-                <!-- side menu logo start -->
+                <!-- Side menu logo start -->
                 <div class="ttr-sidebar-logo">
                     <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
-                    <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
-                            <i class="material-icons ttr-fixed-icon">gps_fixed</i>
-                            <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
-                    </div> -->
                     <div class="ttr-sidebar-toggle-button">
                         <i class="ti-arrow-left"></i>
                     </div>
                 </div>
-                <!-- side menu logo end -->
-                <!-- sidebar menu start -->
+                <!-- Side menu logo end -->
+                <!-- Sidebar menu start -->
                 <nav class="ttr-sidebar-navi">
                     <ul>
                         <li>
                             <a href="index.jsp" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-home"></i></span>
-                                <span class="ttr-label">Dashborad</span> 
+                                <span class="ttr-label">Dashboard</span>
                             </a>
                         </li>
                         <li>
@@ -287,12 +178,9 @@
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Staff Management</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View Reports</span></a>
-                                </li>
+                                <li><a href="${pageContext.request.contextPath}/admin/StaffList" class="ttr-material-button"><span class="ttr-label">Staff List</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/StaffManage" class="ttr-material-button"><span class="ttr-label">Add New Staff</span></a></li>
+                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Reports</span></a></li>
                             </ul>
                         </li>
                         <li>
@@ -302,12 +190,10 @@
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Profile</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Tutor</span></a>
-                                </li>
+                                <li><a href="${pageContext.request.contextPath}/admin/UserList" class="ttr-material-button"><span class="ttr-label">User List</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/UserRegister" class="ttr-material-button"><span class="ttr-label">Add New User</span></a></li>
+                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Profile</span></a></li>
+                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Tutor</span></a></li>
                             </ul>
                         </li>
                         <li>
@@ -317,12 +203,8 @@
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a>
-                                </li>
+                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a></li>
+                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a></li>
                             </ul>
                         </li>
                         <li>
@@ -332,16 +214,19 @@
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-                                <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Blog</span></a>
-                                </li>
+                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">Blog</span></a></li>
                             </ul>
+                        </li>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/admin/historyLog" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-clipboard"></i></span>
+                                <span class="ttr-label">History Log</span>
+                            </a>
                         </li>
                         <li class="ttr-seperate"></li>
                     </ul>
-                    <!-- sidebar menu end -->
+                    <!-- Sidebar menu end -->
                 </nav>
-                <!-- sidebar menu end -->
             </div>
         </div>
         <!-- Left sidebar menu end -->

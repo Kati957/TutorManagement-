@@ -1,36 +1,41 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-
 package UserController;
 
-import java.io.IOException;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import entity.User; // Đảm bảo import entity User
+import model.DAOHistoryLog; // Đã có
+import java.io.IOException; // Đã có
+import java.sql.SQLException; // Thêm import này để sử dụng SQLException
+import jakarta.servlet.ServletException; // Đã có
+import jakarta.servlet.annotation.WebServlet; // Đã có
+import jakarta.servlet.http.HttpServlet; // Đã có
+import jakarta.servlet.http.HttpServletRequest; // Đã có
+import jakarta.servlet.http.HttpServletResponse; // Đã có
+import jakarta.servlet.http.HttpSession; // Đã có
+import entity.User; // Đã có
 
-@WebServlet("/logout") // Giữ nguyên ánh xạ chung.
+@WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        String redirectUrl = request.getContextPath() + "/login.jsp"; // Mặc định về login.jsp
+        String redirectUrl = request.getContextPath() + "/login.jsp";
 
         if (session != null) {
-            User user = (User) session.getAttribute("user"); // Lấy thông tin user từ session
-            if (user != null && user.getRoleID() == 1) { // Giả sử RoleID = 2 là admin
-                redirectUrl = request.getContextPath() + "/login.jsp"; // Admin logout về login
-            } else {
-                redirectUrl = request.getContextPath() + "/home.jsp"; // User logout về home
+            User user = (User) session.getAttribute("user");
+            if (user != null) {
+                try {
+                    DAOHistoryLog logDAO = new DAOHistoryLog();
+                    logDAO.logLogout(user.getUserID()); // Ghi log đăng xuất
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                if (user.getRoleID() == 1) { // Admin
+                    redirectUrl = request.getContextPath() + "/login.jsp";
+                } else {
+                    redirectUrl = request.getContextPath() + "/home.jsp";
+                }
             }
-            session.invalidate(); // Hủy session sau khi lấy thông tin
+            session.invalidate();
         }
 
-        response.sendRedirect(redirectUrl); // Điều hướng dựa trên role
+        response.sendRedirect(redirectUrl);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

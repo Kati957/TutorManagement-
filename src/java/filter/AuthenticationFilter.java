@@ -97,25 +97,21 @@ public class AuthenticationFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        // Thêm header chống cache để tránh trình duyệt hiển thị trang cũ sau logout
+        // Thêm header chống cache
         httpResponse.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         httpResponse.setHeader("Pragma", "no-cache");
         httpResponse.setDateHeader("Expires", 0);
 
-        // Lấy đường dẫn sau context path
         String path = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
 
-        // Nếu URL thuộc public, cho request đi tiếp
         if (isPublic(path)) {
             chain.doFilter(request, response);
             doAfterProcessing(request, response);
             return;
         }
 
-        // Nếu URL bắt đầu bằng /admin/ hoặc nằm trong danh sách PROTECTED_URLS thì kiểm tra đăng nhập
         if (path.startsWith("/admin/") || isProtected(path)) {
-            HttpSession session = httpRequest.getSession(false);
-            if (session == null || session.getAttribute("user") == null) {
+            if (httpRequest.getSession(false) == null || httpRequest.getSession(false).getAttribute("user") == null) {
                 httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.jsp");
                 return;
             }
