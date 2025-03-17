@@ -101,7 +101,7 @@
                             </a>
                             <div class="ttr-header-submenu">
                                 <ul>
-                                    <li><a href="${pageContext.request.contextPath}/admin/myprofile">My Profile</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/admin/adminprofile">My Profile</a></li>
                                     <li><a href="list-view-calendar.jsp">Activity</a></li>
                                     <li><a href="mailbox.jsp">Messages</a></li>
                                     <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
