@@ -60,7 +60,7 @@
                 <!--logo start -->
                 <div class="ttr-logo-box">
                     <div>
-                        <a href="index.jsp" class="ttr-logo">
+                        <a href="index" class="ttr-logo">
                             <img class="ttr-logo-mobile" alt="" src="${pageContext.request.contextPath}/assets/images/logo-mobile.png" width="30" height="30">
                             <img class="ttr-logo-desktop" alt="" src="${pageContext.request.contextPath}/assets/images/logo-white.png" width="160" height="27">
                         </a>
@@ -122,7 +122,7 @@
                 <nav class="ttr-sidebar-navi">
                     <ul>
                         <li>
-                            <a href="index.jsp" class="ttr-material-button">
+                            <a href="index" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-home"></i></span>
                                 <span class="ttr-label">Dashboard</span>
                             </a>

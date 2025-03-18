@@ -94,7 +94,7 @@ public class UserRegister extends HttpServlet {
             // Tạo đối tượng User
             User newUser = new User(
                     0, 2, email, fullName, phone, null, 1, Date.valueOf(dob),
-                    address, avatarPath != null ? avatarPath : "default_avatar.jpg",
+                    address, avatarPath != null ? avatarPath : "uploads/default_avatar.jpg",
                     userName, password
             );
 

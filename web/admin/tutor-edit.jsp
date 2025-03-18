@@ -1,5 +1,11 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.List, entity.HistoryLog, entity.User, java.util.ArrayList" %>
+<%-- 
+    Document   : tutor-edit
+    Created on : Mar 18, 2025
+    Author     : Heizxje
+--%>
+<%@page import="entity.User"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14,18 +20,10 @@
         <meta property="og:description" content="G4 SmartTutor : Smart tutor, effective learning." />
         <meta property="og:image" content="" />
         <meta name="format-detection" content="telephone=no">
-
-        <!-- FAVICONS ICON -->
         <link rel="icon" href="../error-404.jsp" type="image/x-icon" />
         <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
-
-        <!-- PAGE TITLE -->
-        <title>G4 SmartTutor - History Log</title>
-
-        <!-- MOBILE SPECIFIC -->
+        <title>G4 SmartTutor</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <!-- CSS -->
         <link rel="stylesheet" type="text/css" href="assets/css/assets.css">
         <link rel="stylesheet" type="text/css" href="assets/vendors/calendar/fullcalendar.css">
         <link rel="stylesheet" type="text/css" href="assets/css/typography.css">
@@ -33,61 +31,43 @@
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
         <link rel="stylesheet" type="text/css" href="assets/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
-
-        <!-- CSS cho bảng và thông báo -->
         <style>
-            .table-bordered {
+            .form-group {
+                margin-bottom: 15px;
+            }
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+            }
+            .form-group input, .form-group textarea, .form-group select {
                 width: 100%;
-                border-collapse: collapse;
-            }
-            .table-bordered th, .table-bordered td {
-                border: 1px solid #ddd;
                 padding: 8px;
-                text-align: left;
+                box-sizing: border-box;
             }
-            .table-bordered th {
-                background-color: #f4f4f4;
+            .error {
+                color: red;
             }
-            .text-center {
-                text-align: center;
+            .success {
+                color: green;
             }
-            .alert {
-                padding: 15px;
-                margin-bottom: 20px;
-                border: 1px solid transparent;
-                border-radius: 4px;
-            }
-            .alert-danger {
-                color: #a94442;
-                background-color: #f2dede;
-                border-color: #ebccd1;
+            .preview-image {
+                max-width: 150px;
+                max-height: 150px;
+                margin-top: 10px;
             }
         </style>
     </head>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
         <%
             User user = (User) session.getAttribute("user");
-            if (user == null || user.getRoleID() != 1) {
-                response.sendRedirect(request.getContextPath() + "/login.jsp");
-                return;
-            }
-
-            List<HistoryLog> logs = (List<HistoryLog>) request.getAttribute("logs");
-            if (logs == null) {
-                logs = new ArrayList<>();
-            }
-            String error = (String) request.getAttribute("error");
         %>
-        <!-- Header start -->
+        <!-- Header -->
         <header class="ttr-header">
             <div class="ttr-header-wrapper">
-                <!-- Sidebar menu toggler start -->
                 <div class="ttr-toggle-sidebar ttr-material-button">
                     <i class="ti-close ttr-open-icon"></i>
                     <i class="ti-menu ttr-close-icon"></i>
                 </div>
-                <!-- Sidebar menu toggler end -->
-                <!-- Logo start -->
                 <div class="ttr-logo-box">
                     <div>
                         <a href="index" class="ttr-logo">
@@ -96,14 +76,30 @@
                         </a>
                     </div>
                 </div>
-                <!-- Logo end -->
+                <div class="ttr-header-menu">
+                    <ul class="ttr-header-navigation">
+                        <li><a href="../index" class="ttr-material-button ttr-submenu-toggle">HOME</a></li>
+                        <li>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i class="fa fa-angle-down"></i></a>
+                            <div class="ttr-header-submenu">
+                                <ul>
+                                    <li><a href="../courses.jsp">Our Courses</a></li>
+                                    <li><a href="../event.jsp">New Event</a></li>
+                                    <li><a href="../membership.jsp">Membership</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
                 <div class="ttr-header-right ttr-with-seperator">
-                    <!-- Header right menu start -->
                     <ul class="ttr-header-navigation">
                         <li>
                             <a href="profile" class="ttr-material-button ttr-submenu-toggle">
                                 <span class="ttr-user-avatar">
-                                    <img alt="" src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" width="32" height="32" onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
+                                    <img alt="" 
+                                         src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
+                                         width="32" height="32"
+                                         onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
                                 </span>
                             </a>
                             <div class="ttr-header-submenu">
@@ -116,13 +112,19 @@
                             </div>
                         </li>
                     </ul>
-                    <!-- Header right menu end -->
+                </div>
+                <div class="ttr-search-bar">
+                    <form class="ttr-search-form">
+                        <div class="ttr-search-input-wrapper">
+                            <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
+                            <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
+                        </div>
+                        <span class="ttr-search-close ttr-search-toggle"><i class="ti-close"></i></span>
+                    </form>
                 </div>
             </div>
         </header>
-        <!-- Header end -->
-
-        <!-- Left sidebar menu start -->
+        <!-- Sidebar -->
         <div class="ttr-sidebar">
             <div class="ttr-sidebar-wrapper content-scroll">
                 <!-- Side menu logo start -->
@@ -224,63 +226,69 @@
                 </nav>
             </div>
         </div>
-        <!-- Left sidebar menu end -->
-
-        <!-- Main container start -->
+        <!-- Main content -->
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-                    <h4 class="breadcrumb-title">History Log</h4>
-                    <ul class="db-breadcrumb-list">
-                        <li><a href="${pageContext.request.contextPath}/admin/index"><i class="fa fa-home"></i>Home</a></li>
-                        <li>History Log</li>
-                    </ul>
-                </div>
-                <!-- Hiển thị thông báo lỗi -->
-                <% if (error != null) {%>
-                <div class="alert alert-danger">
-                    <%= error%>
-                </div>
-                <% } %>
-                <!-- Bảng hiển thị log -->
+                    <h4 class="breadcrumb-title">Edit Tutor</h4>
+                </div>	
                 <div class="row">
                     <div class="col-lg-12 m-b30">
                         <div class="widget-box">
                             <div class="wc-title">
-                                <h4>Access Log History</h4>
+                                <h4>Edit Tutor</h4>
                             </div>
                             <div class="widget-inner">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Role Name</th> <!-- Thay User ID bằng Role Name -->
-                                            <th>Full Name</th>
-                                            <th>Email</th>
-                                            <th>Action Type</th>
-                                            <th>Target ID</th>
-                                            <th>Details</th>
-                                            <th>Log Date</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <%
-                                            for (HistoryLog log : logs) {
-                                        %>
-                                        <tr>
-                                            <td><%= log.getRoleName() != null ? log.getRoleName() : "N/A"%></td>
-                                            <td><%= log.getFullName() != null ? log.getFullName() : "N/A"%></td>
-                                            <td><%= log.getEmail() != null ? log.getEmail() : "N/A"%></td>
-                                            <td><%= log.getActionType()%></td>
-                                            <td><%= log.getTargetId() != null ? log.getTargetId() : "N/A"%></td>
-                                            <td><%= log.getDetails()%></td>
-                                            <td><%= log.getLogDate()%></td>
-                                        </tr>
+                                <% String error = (String) request.getAttribute("error");
+                                   String success = (String) session.getAttribute("success");
+                                   User editUser = (User) request.getAttribute("editUser"); %>
+                                <% if (success != null) { %>
+                                    <div class="success"><%= success %></div>
+                                    <% session.removeAttribute("success"); %>
+                                <% } %>
+                                <% if (error != null) { %>
+                                    <div class="error"><%= error %></div>
+                                <% } %>
+                                <form action="${pageContext.request.contextPath}/admin/TutorManage" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="UserID" value="<%= editUser != null ? editUser.getUserID() : "" %>">
+                                    <div class="form-group">
+                                        <label for="Email">Email:</label>
+                                        <input type="email" id="Email" name="Email" value="<%= editUser != null ? editUser.getEmail() : "" %>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="FullName">Full Name:</label>
+                                        <input type="text" id="FullName" name="FullName" value="<%= editUser != null ? editUser.getFullName() : "" %>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Phone">Phone:</label>
+                                        <input type="text" id="Phone" name="Phone" value="<%= editUser != null ? editUser.getPhone() : "" %>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Dob">Date of Birth:</label>
+                                        <input type="date" id="Dob" name="Dob" value="<%= editUser != null ? (editUser.getDob() != null ? editUser.getDob().toString() : "") : "" %>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Address">Address:</label>
+                                        <textarea id="Address" name="Address" required><%= editUser != null ? (editUser.getAddress() != null ? editUser.getAddress() : "") : "" %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="UserName">Username:</label>
+                                        <input type="text" id="UserName" name="UserName" value="<%= editUser != null ? editUser.getUserName() : "" %>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Password">Password:</label>
+                                        <input type="password" id="Password" name="Password" value="<%= editUser != null ? editUser.getPassword() : "" %>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="avatar">Avatar:</label>
+                                        <input type="file" id="avatar" name="avatar" accept="image/*">
+                                        <% if (editUser != null && editUser.getAvatar() != null) { %>
+                                            <img src="${pageContext.request.contextPath}/<%= editUser.getAvatar() %>" alt="Current Avatar" class="preview-image" 
+                                                 onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
                                         <% } %>
-                                    </tbody>
-                                </table>
-                                <% if (logs.isEmpty()) { %>
-                                <p class="text-center">No log records found.</p>
-                                <% }%>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Update Tutor</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -288,7 +296,6 @@
             </div>
         </main>
         <div class="ttr-overlay"></div>
-
         <!-- External JavaScripts -->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
@@ -302,12 +309,12 @@
         <script src="assets/vendors/masonry/masonry.js"></script>
         <script src="assets/vendors/masonry/filter.js"></script>
         <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
-        <script src='assets/vendors/scroll/scrollbar.min.js'></script>
+        <script src="assets/vendors/scroll/scrollbar.min.js"></script>
         <script src="assets/js/functions.js"></script>
         <script src="assets/vendors/chart/chart.min.js"></script>
         <script src="assets/js/admin.js"></script>
-        <script src='assets/vendors/calendar/moment.min.js'></script>
-        <script src='assets/vendors/calendar/fullcalendar.js'></script>
-        <script src='assets/vendors/switcher/switcher.js'></script>
+        <script src="assets/vendors/calendar/moment.min.js"></script>
+        <script src="assets/vendors/calendar/fullcalendar.js"></script>
+        <script src="assets/vendors/switcher/switcher.js"></script>
     </body>
 </html>

@@ -20,7 +20,37 @@ public class DAOUser extends DBConnect {
         super(); // Gọi constructor của DBConnect để khởi tạo conn
     }
 
-    // Phương thức đăng nhập
+    // Phương thức lấy 5 người dùng mới nhất
+    public List<User> getNewUsers() throws SQLException {
+        List<User> newUsers = new ArrayList<>();
+        String sql = "SELECT TOP 5 * FROM Users WHERE RoleID = 2 ORDER BY CreatedAt DESC"; // Chỉ lấy RoleID = 2
+        Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "Executing query: {0}", sql);
+
+        if (conn == null) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Database connection is null");
+            throw new SQLException("Database connection is not initialized.");
+        }
+
+        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "Query executed successfully");
+            int rowCount = 0;
+            while (rs.next()) {
+                rowCount++;
+                User user = extractUserFromResultSet(rs);
+                newUsers.add(user);
+                Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "Added user: ID={0}, Name={1}, RoleID={2}",
+                        new Object[]{user.getUserID(), user.getFullName(), user.getRoleID()});
+            }
+            Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "Total rows fetched: {0}, Users list size: {1}",
+                    new Object[]{rowCount, newUsers.size()});
+        } catch (SQLException e) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error fetching new users: {0}", e.getMessage());
+            throw e;
+        }
+        return newUsers;
+    }
+
+    // Các phương thức hiện có giữ nguyên
     public User Login(String username, String password) {
         User user = null;
         String sql = "SELECT * FROM Users WHERE UserName = ? AND Password = ?";
@@ -72,7 +102,7 @@ public class DAOUser extends DBConnect {
             n = stmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error registering user", ex);
-            throw ex; // Ném lại ngoại lệ để xử lý ở tầng trên
+            throw ex;
         }
         return n;
     }
@@ -300,10 +330,7 @@ public class DAOUser extends DBConnect {
 
     public void updateUserRole(int userId) {
         String sql = "UPDATE Users SET RoleID = 3 WHERE UserID = ?";
-
-        try (
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, userId);
             int rowsUpdated = pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -335,7 +362,7 @@ public class DAOUser extends DBConnect {
 
     // Phương thức đóng kết nối
     public void closeConnection() {
-        if (conn != null) { // Sửa từ connection thành conn
+        if (conn != null) {
             try {
                 conn.close();
                 Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "Database connection closed");

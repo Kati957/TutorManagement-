@@ -119,7 +119,7 @@ public class LoginServlet extends HttpServlet {
         String contextPath = request.getContextPath();
         
         if (roleId == 1) { // Admin
-            response.sendRedirect(contextPath + "/admin/index.jsp");
+            response.sendRedirect(contextPath + "/admin/index");
         } else if (roleId == 2) { // User
             response.sendRedirect(contextPath + "/home");
         } else if (roleId == 4) { // Staff
