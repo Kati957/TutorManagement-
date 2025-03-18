@@ -98,7 +98,7 @@
                                         <div class="ttr-header-submenu">
                                             <ul>
                                                 <li>
-                                                    <a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle">
+                                                    <a href="profile" class="ttr-material-button ttr-submenu-toggle">
                                                         <span class="ttr-user-avatar">
                                                             <img alt="" 
                                                                  src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
@@ -446,7 +446,7 @@
                         <div class="container">
                             <div class="d-flex align-items-stretch">
                                 <div class="pt-logo mr-auto">
-                                    <a href="home.jsp"><img src="assets/images/logo-white.png" alt=""/></a>
+                                    <a href="home"><img src="assets/images/logo-white.png" alt=""/></a>
                                 </div>
                                 <div class="pt-social-link">
                                     <ul class="list-inline m-a0">
