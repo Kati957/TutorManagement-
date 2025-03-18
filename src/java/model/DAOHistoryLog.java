@@ -68,12 +68,12 @@ public class DAOHistoryLog {
         logAction(userId, "ACCESS_PAGE", null, "Accessed page: " + pageUrl);
     }
 
-    // Lấy tất cả log từ bảng HistoryLog với RoleID
+    // Lấy tất cả log từ bảng HistoryLog với RoleID (cho sidebar)
     public List<HistoryLog> getAllLogs() throws SQLException {
         List<HistoryLog> logs = new ArrayList<>();
-        String sql = "SELECT TOP 1000 hl.*, u.FullName, u.Email, u.RoleID " // Thêm u.RoleID
+        String sql = "SELECT TOP 1000 hl.*, u.FullName, u.Email, u.RoleID "
                 + "FROM HistoryLog hl "
-                + "LEFT JOIN Users u ON hl.UserID = u.UserID " // Giả định bảng là Users
+                + "LEFT JOIN Users u ON hl.UserID = u.UserID "
                 + "ORDER BY hl.LogDate DESC";
         try (ResultSet rs = dbConnect.getData(sql)) {
             while (rs.next()) {
@@ -91,11 +91,44 @@ public class DAOHistoryLog {
                 // Lấy thông tin từ Users
                 log.setFullName(rs.getString("FullName"));
                 log.setEmail(rs.getString("Email"));
-                log.setRoleId(rs.getInt("RoleID")); // Thêm RoleID
+                log.setRoleId(rs.getInt("RoleID"));
                 logs.add(log);
             }
         } catch (SQLException ex) {
             System.out.println("Error fetching logs: " + ex.getMessage());
+            throw ex;
+        }
+        return logs;
+    }
+
+    // Lấy 5 log mới nhất (cho dashboard)
+    public List<HistoryLog> getRecentLogs() throws SQLException {
+        List<HistoryLog> logs = new ArrayList<>();
+        String sql = "SELECT TOP 5 hl.*, u.FullName, u.Email, u.RoleID "
+                + "FROM HistoryLog hl "
+                + "LEFT JOIN Users u ON hl.UserID = u.UserID "
+                + "ORDER BY hl.LogDate DESC";
+        try (ResultSet rs = dbConnect.getData(sql)) {
+            while (rs.next()) {
+                HistoryLog log = new HistoryLog();
+                log.setLogId(rs.getInt("LogID"));
+                log.setUserId(rs.getInt("UserID"));
+                log.setActionType(rs.getString("ActionType"));
+                if (rs.getObject("TargetID") != null) {
+                    log.setTargetId(rs.getString("TargetID"));
+                } else {
+                    log.setTargetId(null);
+                }
+                log.setDetails(rs.getString("Details"));
+                log.setLogDate(rs.getTimestamp("LogDate"));
+                // Lấy thông tin từ Users
+                log.setFullName(rs.getString("FullName"));
+                log.setEmail(rs.getString("Email"));
+                log.setRoleId(rs.getInt("RoleID"));
+                logs.add(log);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error fetching recent logs: " + ex.getMessage());
             throw ex;
         }
         return logs;
@@ -120,9 +153,16 @@ public class DAOHistoryLog {
             dao.logLogin(1); // Test với UserID = 1
             dao.logLogout(1); // Test với UserID = 1
             dao.logPageAccess(1, "/admin-profile.jsp"); // Test với UserID = 1
-            List<HistoryLog> logs = dao.getAllLogs();
-            for (HistoryLog log : logs) {
-                System.out.println("Log ID: " + log.getLogId() + ", Action: " + log.getActionType() 
+            System.out.println("Testing getRecentLogs:");
+            List<HistoryLog> recentLogs = dao.getRecentLogs();
+            for (HistoryLog log : recentLogs) {
+                System.out.println("Log ID: " + log.getLogId() + ", Action: " + log.getActionType()
+                        + ", Date: " + log.getLogDate() + ", RoleID: " + log.getRoleId());
+            }
+            System.out.println("Testing getAllLogs:");
+            List<HistoryLog> allLogs = dao.getAllLogs();
+            for (HistoryLog log : allLogs) {
+                System.out.println("Log ID: " + log.getLogId() + ", Action: " + log.getActionType()
                         + ", Date: " + log.getLogDate() + ", RoleID: " + log.getRoleId());
             }
         } catch (SQLException e) {

@@ -1,5 +1,6 @@
 /*
- * StaffListServlet: Hiển thị danh sách nhân viên (Staff) với RoleID = 4.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package AdminController;
 
@@ -19,10 +20,10 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author Heizxje
  */
-@WebServlet(name = "StaffListServlet", urlPatterns = {"/admin/StaffList"})
-public class StaffListServlet extends HttpServlet {
+@WebServlet(name = "TutorListServlet", urlPatterns = {"/admin/TutorList"})
+public class TutorListServlet extends HttpServlet {
 
-    private static final String STAFF_LIST_PAGE = "/admin/staff-list.jsp";
+    private static final String TUTOR_LIST_PAGE = "/admin/tutor-list.jsp";
     private static final String LOGIN_PAGE = "login.jsp";
 
     @Override
@@ -37,13 +38,13 @@ public class StaffListServlet extends HttpServlet {
             return;
         }
 
-        // Lấy danh sách staff từ DAO
+        // Lấy danh sách tutor từ DAO
         DAOUser daoUser = new DAOUser();
-        List<User> staffList = daoUser.getUsersByRole(4); // RoleID = 4 cho Staff
+        List<User> tutorList = daoUser.getUsersByRole(3); // RoleID = 3 cho Tutor
 
         // Set attribute và forward tới JSP
-        request.setAttribute("staffList", staffList);
-        request.getRequestDispatcher(STAFF_LIST_PAGE).forward(request, response);
+        request.setAttribute("tutorList", tutorList);
+        request.getRequestDispatcher(TUTOR_LIST_PAGE).forward(request, response);
     }
 
     @Override
@@ -53,7 +54,7 @@ public class StaffListServlet extends HttpServlet {
         User currentUser = (User) session.getAttribute("user");
 
         if (currentUser == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect(LOGIN_PAGE);
             return;
         }
 
@@ -75,9 +76,9 @@ public class StaffListServlet extends HttpServlet {
             }
 
             if (daoUser.deleteUser(userId)) {
-                out.write("{\"success\": true, \"message\": \"Staff deleted successfully!\"}");
+                out.write("{\"success\": true, \"message\": \"Tutor deleted successfully!\"}");
             } else {
-                out.write("{\"success\": false, \"message\": \"Failed to delete staff or staff not found!\"}");
+                out.write("{\"success\": false, \"message\": \"Failed to delete tutor or tutor not found!\"}");
             }
             out.flush();
             return;
