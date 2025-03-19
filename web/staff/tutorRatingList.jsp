@@ -71,17 +71,19 @@
         <div class="ttr-sidebar">
             <div class="ttr-sidebar-wrapper content-scroll">
                 <div class="ttr-sidebar-logo">
-                    <a href="#"><img alt="" src="${pageContext.request.contextPath}/assets/images/logo.png" width="122" height="27"></a>
+                    <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
                     <div class="ttr-sidebar-toggle-button"><i class="ti-arrow-left"></i></div>
                 </div>
                 <nav class="ttr-sidebar-navi">
                     <ul>
-                        <li><a href="${pageContext.request.contextPath}/staff/index_staff.jsp" class="ttr-material-button"><span class="ttr-icon"><i class="ti-home"></i></span><span class="ttr-label">Dashboard</span></a></li>
+                        <li><a href="index_staff.jsp" class="ttr-material-button"><span class="ttr-icon"><i class="ti-home"></i></span><span class="ttr-label">Dashboard</span></a></li>
                         <li>
                             <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-briefcase"></i></span><span class="ttr-label">Tutor Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
                             <ul>
                                 <li><a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a></li>
                                 <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a></li>
+                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Booking</span></a></li>
+                                <li><a href="ListRated" class="ttr-material-button"><span class="ttr-label">Tutor Reviews</span></a></li>
                                 <li><a href="SubjectController" class="ttr-material-button"><span class="ttr-label">Control Subject</span></a></li>
                             </ul>
                         </li>
@@ -99,12 +101,17 @@
                                 <li><a href="BlogController?service=addBlog" class="ttr-label">Add Blog</a></li>
                             </ul>
                         </li>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/staff/historyLog" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-clipboard"></i></span>
+                                <span class="ttr-label">User & Tutor Logs</span>
+                            </a>
+                        </li>
                         <li class="ttr-seperate"></li>
                     </ul>
                 </nav>
             </div>
         </div>
-
         <!-- Main content -->
         <main class="ttr-wrapper">
             <h2>Tutor Ratings List</h2>
@@ -136,7 +143,7 @@
                 <button class="sort-button" onclick="toggleDropdown()" style="background-color: white; border: 1px solid #ccc; padding: 8px 16px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; width: 200px;">
                     <span id="currentSortLabel">Sort by: Average Rate</span>
                     <svg width="12" height="12" viewBox="0 0 24 24" style="margin-left: 10px;">
-                        <path d="M7 10l5 5 5-5z" fill="currentColor"></path>
+                    <path d="M7 10l5 5 5-5z" fill="currentColor"></path>
                     </svg>
                 </button>
                 <div id="sortOptions" class="dropdown-content" style="display: none; position: absolute; background-color: white; min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border-radius: 4px; margin-top: 2px;">
@@ -147,7 +154,7 @@
                        style="padding: 12px 16px; text-decoration: none; display: flex; align-items: center; justify-content: space-between; color: black;">
                         Highest rated first
                         <svg width="16" height="16" viewBox="0 0 24 24" style="color: #4CAF50; display: none;" class="check-icon">
-                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="currentColor"></path>
+                        <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="currentColor"></path>
                         </svg>
                     </a>
                     <a href="${pageContext.request.contextPath}/staff/ListRated?service=listTutorsByRating&order=ASC" 
@@ -157,7 +164,7 @@
                        style="padding: 12px 16px; text-decoration: none; display: flex; align-items: center; justify-content: space-between; color: black;">
                         Lowest rated first
                         <svg width="16" height="16" viewBox="0 0 24 24" style="color: #4CAF50; display: none;" class="check-icon">
-                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="currentColor"></path>
+                        <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="currentColor"></path>
                         </svg>
                     </a>
                 </div>
