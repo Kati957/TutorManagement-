@@ -98,8 +98,22 @@
                                     <li>
                                         <div class="ttr-header-submenu">
                                             <ul>
+<<<<<<< HEAD
                                                 <li><a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a></li>
                                                 <li><a href="profile_user.jsp">My profile</a></li>
+=======
+                                                <li>
+                                                    <a href="profile" class="ttr-material-button ttr-submenu-toggle">
+                                                        <span class="ttr-user-avatar">
+                                                            <img alt="" 
+                                                                 src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
+                                                                 width="32" height="32"
+                                                                 onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li><a href="profile">My profile</a></li>
+>>>>>>> main
                                                 <li><a href="list-view-calendar.html">Activity</a></li>
                                                 <li><a href="cv">Become a tutor</a></li>
                                                 <li><a href="logout">Logout</a></li>
@@ -117,7 +131,7 @@
                         <div class="container clearfix">
                             <!-- Header Logo ==== -->
                             <div class="menu-logo">
-                                <a href="home.jsp"><img src="assets/images/logo-white.png" alt=""></a>
+                                <a href="home"><img src="assets/images/logo-white.png" alt=""></a>
                             </div>
                             <!-- Mobile Nav Button ==== -->
                             <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -148,10 +162,10 @@
                             <!-- Navigation Menu ==== -->
                             <div class="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
                                 <div class="menu-logo">
-                                    <a href="home.jsp"><img src="assets/images/logo.png" alt=""></a>
+                                    <a href="home"><img src="assets/images/logo.png" alt=""></a>
                                 </div>
                                 <ul class="nav navbar-nav">	
-                                    <li><a href="home.jsp">Home</a>
+                                    <li><a href="home">Home</a>
                                     </li>
                                     <li class="add-mega-menu"><a href="Courses">Our Courses</a>
                                     </li>
@@ -186,7 +200,7 @@
                     <div class="container">
                         <ul class="list-inline">
                             <ul class="list-inline">
-                                <li><a href="home.jsp">Home</a></li>
+                                <li><a href="home">Home</a></li>
                                 <li><a href="ViewBlog">Blog</a></li>
                             </ul>
                     </div>
@@ -210,7 +224,8 @@
                                         <div class="post action-card col-xl-6 col-lg-6 col-md-12 col-xs-12 m-b40">
                                             <div class="recent-news">
                                                 <div class="action-box">
-                                                    <img src="<%= blog.getThumbnail()%>" alt="thumbnail">
+                                                    <img src="${pageContext.request.contextPath}/<%= blog.getThumbnail()%>" alt="thumbnail" 
+                                                         style="width: 400px; height: 250px; object-fit: contain;" />
                                                 </div>
                                                 <div class="info-bx">
                                                     <ul class="media-post">
@@ -329,15 +344,16 @@
                                                 <c:forEach var="img" items="${galleryBlogs}">
                                                     <li>
                                                         <div>
-                                                            <img src="${img.thumbnail}" alt="${img.title}" class="gallery-img" onclick="openImageViewer('${img.thumbnail}', '${img.title}')">
+                                                            <img src="${pageContext.request.contextPath}/${img.thumbnail}" alt="${img.title}" class="gallery-img" 
+                                                                 onclick="openImageViewer('${pageContext.request.contextPath}/${img.thumbnail}', '${img.title}')">
                                                         </div>
                                                     </li>
                                                 </c:forEach>
                                                 <c:if test="${empty galleryBlogs}">
-                                                    <li><div><p>null gallery</p></div></li>
+                                                    <li><div><p>no gallery</p></div></li>
                                                             </c:if>
                                             </ul>
-                                        </div
+                                        </div>
 
                                         <!-- Modal hiển thị ảnh lớn -->
                                         <div id="imageViewer" class="image-viewer">
@@ -365,7 +381,7 @@
                         <div class="container">
                             <div class="d-flex align-items-stretch">
                                 <div class="pt-logo mr-auto">
-                                    <a href="index.jsp"><img src="assets/images/logo-white.png" alt=""/></a>
+                                    <a href="home"><img src="assets/images/logo-white.png" alt=""/></a>
                                 </div>
                                 <div class="pt-social-link">
                                     <ul class="list-inline m-a0">

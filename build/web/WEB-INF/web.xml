@@ -4,7 +4,7 @@
         <servlet-name>HomePageServlet</servlet-name>
         <servlet-class>controller.Customer.HomePageServlet</servlet-class>
     </servlet>
-        <servlet>
+    <servlet>
         <servlet-name>ViewScheduleServlet</servlet-name>
         <servlet-class>controller.Customer.ViewScheduleServlet</servlet-class>
     </servlet>
@@ -30,4 +30,12 @@
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
+    <servlet>
+        <servlet-name>StaffListServlet</servlet-name>
+        <servlet-class>AdminController.StaffListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StaffListServlet</servlet-name>
+        <url-pattern>/admin/StaffList</url-pattern>
+    </servlet-mapping>
 </web-app>

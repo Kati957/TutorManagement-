@@ -97,8 +97,22 @@
                                     <li>
                                         <div class="ttr-header-submenu">
                                             <ul>
+<<<<<<< HEAD
                                                 <li><a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a></li>
                                                 <li><a href="profile_user.jsp">My profile</a></li>
+=======
+                                                <li>
+                                                    <a href="profile" class="ttr-material-button ttr-submenu-toggle">
+                                                        <span class="ttr-user-avatar">
+                                                            <img alt="" 
+                                                                 src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
+                                                                 width="32" height="32"
+                                                                 onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li><a href="profile">My profile</a></li>
+>>>>>>> main
                                                 <li><a href="list-view-calendar.html">Activity</a></li>
                                                 <li><a href="cv">Become a tutor</a></li>
                                                 <li><a href="logout">Logout</a></li>
@@ -373,7 +387,7 @@
                                                 </div>
                                                 <div class="info-bx text-center">
                                                     <h5><a href="#">${tutor.cv.user.fullName}</a></h5>
-                                                    <span>${tutor.cv.description}</span>
+                                                    
                                                 </div>
                                                 <div class="cours-more-info">
                                                     <div class="review">
@@ -388,7 +402,7 @@
                                                     </div>
                                                     <div class="price">
                                                         <small>${tutor.cv.user.email}</small>
-                                                        <h5>${tutor.cv.user.phone}</h5>
+                                                        <h5>${tutor.price}</h5>
                                                     </div>
                                                 </div>
                                             </div>
@@ -524,7 +538,7 @@
                         <div class="container">
                             <div class="d-flex align-items-stretch">
                                 <div class="pt-logo mr-auto">
-                                    <a href="home.jsp"><img src="assets/images/logo-white.png" alt=""/></a>
+                                    <a href="home"><img src="assets/images/logo-white.png" alt=""/></a>
                                 </div>
                                 <div class="pt-social-link">
                                     <ul class="list-inline m-a0">

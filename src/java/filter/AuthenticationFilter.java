@@ -24,39 +24,31 @@ public class AuthenticationFilter implements Filter {
 
     // Danh sách các URL yêu cầu đăng nhập (protected)
     private static final List<String> PROTECTED_URLS = Arrays.asList(
-            "/add-listing.jsp",
-            "/bookmark.jsp",
-            "/courses.jsp",
-            "/review.jsp",
-            "/teacher-profile.jsp",
-            "/user-profile.jsp",
-            "/basic-calendar.jsp",
-            "/list-view-calendar.jsp",
-            "/mailbox-compose.jsp",
-            "/mailbox-read.jsp",
-            "/mailbox.jsp",
-            "/admin/"
+            "/admin/",
+            "/staff/",
+            "/tutor/",
+            "profile_user.jsp",
+            "/sendCV.jsp"
     );
 
     // Danh sách các URL public không cần đăng nhập
     private static final List<String> PUBLIC_URLS = Arrays.asList(
             "/login.jsp", // sử dụng login.jsp (đồng nhất với redirect)
-            "/register.jsp",
+            "/home.jsp",
             "/forget-password.jsp",
-            "/index.jsp",
-            "/index-2.jsp",
+            "/blog-classic-sidebar.jsp",
+            "/blog-details.jsp",
+            "/register.jsp",
+            "/course.jsp",
             "/about-1.jsp",
             "/about-2.jsp",
-            "/assets/",
-            "/blog-",
-            "/contact-",
-            "/courses-details.jsp",
+            "/tutor-details.jsp",
             "/event.jsp",
             "/events-details.jsp",
             "/faq-1.jsp",
             "/faq-2.jsp",
             "/error-404.jsp",
-            "/home.jsp"
+            "/home"
     );
 
     private FilterConfig filterConfig = null;
@@ -105,25 +97,21 @@ public class AuthenticationFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        // Thêm header chống cache để tránh trình duyệt hiển thị trang cũ sau logout
+        // Thêm header chống cache
         httpResponse.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         httpResponse.setHeader("Pragma", "no-cache");
         httpResponse.setDateHeader("Expires", 0);
 
-        // Lấy đường dẫn sau context path
         String path = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
 
-        // Nếu URL thuộc public, cho request đi tiếp
         if (isPublic(path)) {
             chain.doFilter(request, response);
             doAfterProcessing(request, response);
             return;
         }
 
-        // Nếu URL bắt đầu bằng /admin/ hoặc nằm trong danh sách PROTECTED_URLS thì kiểm tra đăng nhập
         if (path.startsWith("/admin/") || isProtected(path)) {
-            HttpSession session = httpRequest.getSession(false);
-            if (session == null || session.getAttribute("user") == null) {
+            if (httpRequest.getSession(false) == null || httpRequest.getSession(false).getAttribute("user") == null) {
                 httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.jsp");
                 return;
             }

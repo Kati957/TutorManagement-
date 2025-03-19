@@ -15,6 +15,7 @@
 11. COUNTERUP
 12. FOOTER
 13. INNER CONTENT CSS
+14. Review
 ======================================
   * END TABLE CONTENT *  
 ======================================
@@ -1171,7 +1172,7 @@
         9. BLOG
 =========================*/
 .blog-post{
-    position: relative;
+    poblogsition: relative;
     margin-bottom: 30px;
 }
 .ttr-post-title {
@@ -1222,21 +1223,20 @@
 .ttr-post-text p:last-child {
     margin: 0;
 }
-
 .gallery-list {
     list-style: none;
     padding: 0;
 }
 .gallery-img {
-    width: 100%;
-    height: auto;
+    width: 50px;
+    height: 40px;
+    object-fit: contain;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease; /* Hỗ trợ hiệu ứng hover */
 }
 .gallery-img:hover {
     transform: scale(1.1);
 }
-
 /* CSS cho image viewer */
 .image-viewer {
     display: none;
@@ -3076,6 +3076,261 @@ button.back-to-top {
     font-size:16px;
     line-height:26px;
 }
+/*14. Review*/
+.reviews-section {
+    margin-top: 30px;
+    padding: 0 15px; /* Thêm padding để tránh dính lề ngoài */
+}
+
+.reviews-section h4 {
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center; /* Căn giữa tiêu đề */
+}
+
+.review-summary {
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: flex-start; /* Bắt đầu từ trái */
+    gap: 30px; /* Thêm khoảng cách cố định giữa .average-rating và .rating-distribution */
+    margin-bottom: 30px;
+    width: 100%; /* Đảm bảo chiếm toàn bộ chiều rộng */
+}
+
+.average-rating {
+    text-align: center;
+    margin-right: 0; /* Loại bỏ margin-right để dùng gap */
+    min-width: 150px; /* Đảm bảo kích thước cố định */
+}
+
+.average-rating h2 {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #f39c12;
+}
+
+.star-rating {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px 0;
+    display: flex; /* Sử dụng flex để căn sao */
+    justify-content: center; /* Căn giữa sao */
+}
+
+.star-rating li {
+    display: inline-block;
+    color: #ccc;
+    margin: 0 2px; /* Thêm khoảng cách giữa các sao */
+}
+
+.star-rating li.active {
+    color: #f1c40f;
+}
+
+.rating-distribution {
+    display: flex;
+    flex-direction: column; /* Giữ các hàng thẳng hàng */
+    flex-grow: 1; /* Chiếm không gian còn lại */
+    min-width: 0; /* Đảm bảo co giãn */
+}
+
+.rating-bar {
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    margin-bottom: 5px;
+    width: 100%; /* Đảm bảo chiếm toàn bộ chiều rộng */
+}
+
+.rating-bar span:first-child {
+    width: 60px; /* Tăng chiều rộng để chứa "5 stars" */
+    font-size: 14px;
+    text-align: left; /* Căn trái "stars" */
+    margin-right: 10px; /* Khoảng cách với thanh */
+}
+
+.rating-bar span:last-child {
+    width: 50px; /* Tăng chiều rộng để chứa số lượng lớn hơn như (100) */
+    font-size: 14px;
+    text-align: right; /* Căn phải số lượng */
+    margin-left: 10px; /* Khoảng cách với thanh */
+}
+
+.bar-container {
+    flex-grow: 1; /* Chiếm không gian còn lại */
+    height: 10px;
+    background-color: #eee;
+    border-radius: 5px;
+    margin: 0; /* Loại bỏ margin để khớp với hình ảnh */
+}
+
+.bar {
+    height: 100%;
+    background-color: #f39c12;
+    border-radius: 5px;
+}
+
+.student-reviews {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-flow: row; /* Quan trọng: đảm bảo sắp xếp theo hàng */
+    gap: 20px;
+    padding: 0 15px;
+    width: 100%;
+}
+
+.review-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-height: 200px;
+}
+
+.review-card .star-rating {
+    justify-content: flex-start; /* Căn trái sao trong .review-card */
+}
+
+.reviewer-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.reviewer-avatar img, .avatar-placeholder {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+    object-fit: cover;
+}
+
+.avatar-placeholder {
+    background: #f39c12;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.reviewer-details h5 {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.reviewer-details span {
+    font-size: 12px;
+    color: #666;
+}
+
+.review-card p {
+    margin: 10px 0 0;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+}
+
+.show-more {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+    display: inline-block; /* Đảm bảo căn lề đúng */
+    margin-top: 5px;
+}
+
+.show-more:hover {
+    text-decoration: underline;
+}
+
+.view-more-container, .collapse-container {
+    display: flex; /* Sử dụng flex để căn giữa nút */
+    justify-content: center; /* Căn giữa nút theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    grid-column: 1 / -1; /* Chiếm toàn bộ chiều rộng của lưới */
+    margin: 10px 0;
+}
+
+.btn {
+    padding: 5px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.radius-xl {
+    border-radius: 10px;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.grid-row-break {
+    grid-column: 1 / -1;
+    height: 0;
+}
+.sort-options {
+    background-color: #F5F5F5;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #E0E0E0;
+}
+.sort-options label {
+    font-weight: bold;
+    color: #111111;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+th, td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #E0E0E0;
+}
+th {
+    background-color: #6F42C0;
+    color: white;
+}
+tr:nth-child(even) {
+    background-color: #F5F5F5;
+}
+tr:hover {
+    background-color: #E3F2FD;
+}
+a {
+    color: #4FC1E9;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .review-bx {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .all-review {
+        margin-bottom: 20px;
+    }
+
+    .student-reviews {
+        grid-template-columns: 1fr;
+    }
+
+    .review-card {
+        min-height: auto;
+    }
+}
+
 @media only screen and (max-width: 1200px) {
     .cours-more-info .review{
         padding: 8px 12px;

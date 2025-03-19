@@ -4,6 +4,7 @@
     Author     : minht
 --%>
 
+<%@page import="entity.User"%>
 <%@ page import="java.util.List" %>
 <%@ page import="entity.Blog" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -62,6 +63,9 @@
         <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
 
     </head>
+    <%
+        User user = (User) session.getAttribute("user");
+    %>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
         <!-- header start -->
@@ -83,6 +87,7 @@
                     </div>
                 </div>
                 <!--logo end -->
+<<<<<<< HEAD
                 <div class="ttr-header-menu">
                     <!-- header left menu start -->
                     <ul class="ttr-header-navigation">
@@ -502,9 +507,93 @@
                                                 </div>
                                                 <!-- Side bar END -->
                                             </div>
+=======
+
+                <!-- header left menu end -->
+            </div>
+            <div class="ttr-header-right ttr-with-seperator">
+                <!-- header right menu start -->
+                <ul class="ttr-header-navigation">
+
+
+                    <li>
+                        <a href="index_staff.jsp" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar">
+                                <img alt="" 
+                                     src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
+                                     width="32" height="32"
+                                     onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'"></a>                        <div class="ttr-header-submenu">
+                                    <ul>
+                                        <li><a href="${pageContext.request.contextPath}/profile">My profile</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
+                                    </ul>
+                                </div>
+                                </li>
+                                </ul>
+                                <!-- header right menu end -->
+                                </div>
+                                <!--header search panel start -->
+                                <div class="ttr-search-bar">
+                                    <form class="ttr-search-form">
+                                        <div class="ttr-search-input-wrapper">
+                                            <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
+                                            <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
+>>>>>>> main
                                         </div>
+                                        <span class="ttr-search-close ttr-search-toggle">
+                                            <i class="ti-close"></i>
+                                        </span>
+                                    </form>
+                                </div>
+                                <!--header search panel end -->
+                                </header>
+                                <!-- header end -->
+                                <!-- Left sidebar menu start -->
+                                <!-- Sidebar -->
+                                <div class="ttr-sidebar">
+                                    <div class="ttr-sidebar-wrapper content-scroll">
+                                        <div class="ttr-sidebar-logo">
+                                            <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
+                                            <div class="ttr-sidebar-toggle-button"><i class="ti-arrow-left"></i></div>
+                                        </div>
+                                        <nav class="ttr-sidebar-navi">
+                                            <ul>
+                                                <li><a href="index_staff.jsp" class="ttr-material-button"><span class="ttr-icon"><i class="ti-home"></i></span><span class="ttr-label">Dashboard</span></a></li>
+                                                <li>
+                                                    <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-briefcase"></i></span><span class="ttr-label">Tutor Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
+                                                    <ul>
+                                                        <li><a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a></li>
+                                                        <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a></li>
+                                                        <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Booking</span></a></li>
+                                                        <li><a href="ListRated" class="ttr-material-button"><span class="ttr-label">Tutor Reviews</span></a></li>
+                                                        <li><a href="SubjectController" class="ttr-material-button"><span class="ttr-label">Control Subject</span></a></li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-credit-card"></i></span><span class="ttr-label">Payment</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
+                                                    <ul>
+                                                        <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a></li>
+                                                        <li><a href="#" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a></li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-book"></i></span><span class="ttr-label">Content Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
+                                                    <ul>
+                                                        <li><a href="BlogController?service=listBlog" class="ttr-label">Blog</a></li>
+                                                        <li><a href="BlogController?service=addBlog" class="ttr-label">Add Blog</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="${pageContext.request.contextPath}/staff/historyLog" class="ttr-material-button">
+                                                        <span class="ttr-icon"><i class="ti-clipboard"></i></span>
+                                                        <span class="ttr-label">User & Tutor Logs</span>
+                                                    </a>
+                                                </li>
+                                                <li class="ttr-seperate"></li>
+                                            </ul>
+                                        </nav>
                                     </div>
                                 </div>
+<<<<<<< HEAD
                             </div>
                         </div>
                     </div>
@@ -535,5 +624,186 @@
         <script src='assets/vendors/switcher/switcher.js'></script>
                                                                 
     </body>
+=======
+                                <!-- Left sidebar menu end -->
+                                <!-- Left sidebar menu end -->
+                                <!--Main container start -->
+                                <main class="ttr-wrapper">
+                                    <div class="container-fluid">
+                                        <div class="db-breadcrumb">
+                                            <h4 class="breadcrumb-title">Blog</h4>
+                                        </div>	
+                                        <div class="row">
+                                            <div class="col-lg-12 m-b30">
+                                                <div class="widget-box">
+                                                    <div class="widget-inner">
+                                                        <div class="content-block">
+                                                            <div class="section-area section-sp1">
+                                                                <div class="container">
+                                                                    <div class="row">
+                                                                        <!-- Left part start -->
+                                                                        <div class="col-lg-8 col-xl-8">
+                                                                            <!-- blog start -->
+                                                                            <div class="recent-news blog-lg">
+                                                                                <%
+                                                                                    Blog blog = (Blog) request.getAttribute("blog");
+                                                                                    if (blog != null) {
+                                                                                %>
+                                                                                <div class="action-box blog-lg">
+                                                                                    <img src="${pageContext.request.contextPath}/<%= blog.getThumbnail()%>" alt="thumbnail">
+                                                                                </div>
+                                                                                <div class="info-bx">
+                                                                                    <ul class="media-post">
+                                                                                        <li><i class="fa fa-calendar"></i> <%= blog.getCreatedAt() != null ? blog.getCreatedAt() : "N/A"%></li>
+                                                                                        <li><a href="#"><i class="fa fa-user"></i> By <%= blog.getAuthorName() != null ? blog.getAuthorName() : "Unknown"%></a></li>
+                                                                                    </ul>
+                                                                                    <h5 class="post-title"><%= blog.getTitle()%></h5>
+                                                                                    <p><%= blog.getContent() != null ? blog.getContent() : "No content available."%></p>
+                                                                                    <div class="ttr-divider bg-gray"><i class="icon-dot c-square"></i></div>
+                                                                                    <!-- Thêm nút Update và Delete tại đây -->
+                                                                                    <div class="action-buttons">
+                                                                                        <a href="BlogController?service=updateBlog&blogID=<%= blog.getBlogID()%>" class="btn-update">Update</a>
+                                                                                        <a href="BlogController?service=deleteBlog&blogID=<%= blog.getBlogID()%>" 
+                                                                                           class="btn-delete" 
+                                                                                           onclick="return confirm('Delete this blog?');">Delete</a>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <%
+                                                                                } else {
+                                                                                %>
+                                                                                <div class="info-bx">
+                                                                                    <p>no post.</p>
+                                                                                </div>
+                                                                                <%
+                                                                                    }
+                                                                                %>
+                                                                            </div>
+                                                                            <!-- blog END -->
+                                                                        </div>
+                                                                        <!-- Left part END -->
 
-</html>
+                                                                        <!-- Side bar start -->
+                                                                        <div class="col-lg-4 col-xl-4 col-md-5 sticky-top">
+                                                                            <aside class="side-bar sticky-top">
+                                                                                <div class="widget">
+                                                                                    <h6 class="widget-title">Search</h6>
+                                                                                    <div class="search-bx style-1">
+                                                                                        <form role="search" method="post" action="BlogController">
+
+                                                                                            <input type="hidden" name="service" value="searchBlog">
+                                                                                            <div class="input-group">
+                                                                                                <input name="text" class="form-control" 
+                                                                                                       placeholder="Enter your keywords..." 
+                                                                                                       type="text" 
+                                                                                                       value="${keyword != null ? keyword : ''}">
+                                                                                                <span class="input-group-btn">
+                                                                                                    <button type="submit" class="fa fa-search text-primary"></button>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+>>>>>>> main
+
+                                                                                <div class="widget recent-posts-entry">
+                                                                                    <h6 class="widget-title">Recent Posts</h6>
+                                                                                    <div class="widget-post-bx">
+                                                                                        <%
+                                                                                            List<Blog> recentBlogs = (List<Blog>) request.getAttribute("recentBlogs");
+                                                                                            if (recentBlogs != null && !recentBlogs.isEmpty()) {
+                                                                                                for (Blog blog1 : recentBlogs) {
+                                                                                        %>
+                                                                                        <div class="widget-post clearfix">
+                                                                                            <div class="ttr-post-media">
+                                                                                                <img src="${pageContext.request.contextPath}/<%= blog1.getThumbnail()%>" 
+                                                                                                     width="200" height="143" alt="<%= blog1.getTitle()%>">
+
+                                                                                            </div>
+                                                                                            <div class="ttr-post-info">
+                                                                                                <div class="ttr-post-header">
+                                                                                                    <h6 class="post-title">
+                                                                                                        <a href="BlogController?service=detailBlog&blogID=<%= blog1.getBlogID()%>">
+
+                                                                                                            <%= blog1.getTitle()%>
+                                                                                                        </a>
+                                                                                                    </h6>
+                                                                                                </div>
+                                                                                                <ul class="media-post">
+                                                                                                    <li><i class="fa fa-calendar"></i> <%= blog1.getCreatedAt()%></li>
+                                                                                                    <li><a href="#"><i class="fa fa-comments-o"></i><%= blog1.getAuthorName()%></a></li>
+                                                                                                </ul>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <%
+                                                                                            }
+                                                                                        } else {
+                                                                                        %>
+                                                                                        <p>no post.</p>
+                                                                                        <%
+                                                                                            }
+                                                                                        %>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="widget widget_gallery gallery-grid-4">
+                                                                                    <h6 class="widget-title">Our Gallery</h6>
+                                                                                    <ul class="gallery-list">
+                                                                                        <c:forEach var="img" items="${galleryBlogs}">
+                                                                                            <li>
+                                                                                                <div>
+                                                                                                    <img src="${pageContext.request.contextPath}/${img.thumbnail}" alt="${img.title}" class="gallery-img" 
+                                                                                                         onclick="openImageViewer('${pageContext.request.contextPath}/${img.thumbnail}', '${img.title}')">
+                                                                                                </div>
+                                                                                            </li>
+                                                                                        </c:forEach>
+                                                                                        <c:if test="${empty galleryBlogs}">
+                                                                                            <li><div><p>no gallery</p></div></li>
+                                                                                                    </c:if>
+                                                                                    </ul>
+                                                                                </div>
+
+                                                                                <!-- Modal hiển thị ảnh lớn -->
+                                                                                <div id="imageViewer" class="image-viewer">
+                                                                                    <span class="close-viewer" onclick="closeImageViewer()">×</span>
+                                                                                    <img id="fullImage" src="" alt="Full Image">
+                                                                                    <p id="imageCaption"></p>
+                                                                                </div>
+                                                                            </aside>
+                                                                        </div>
+                                                                        <!-- Side bar END -->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </main>
+                                <div class="ttr-overlay"></div>
+
+                                <!-- External JavaScripts -->
+                                <script src="assets/js/jquery.min.js"></script>
+                                <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
+                                <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
+                                <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+                                <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+                                <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
+                                <script src="assets/vendors/counter/waypoints-min.js"></script>
+                                <script src="assets/vendors/counter/counterup.min.js"></script>
+                                <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
+                                <script src="assets/vendors/masonry/masonry.js"></script>
+                                <script src="assets/vendors/masonry/filter.js"></script>
+                                <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
+                                <script src='assets/vendors/scroll/scrollbar.min.js'></script>
+                                <script src="assets/js/functions.js"></script>
+                                <script src="assets/vendors/chart/chart.min.js"></script>
+                                <script src="assets/js/admin.js"></script>
+                                <script src='assets/vendors/calendar/moment.min.js'></script>
+                                <script src='assets/vendors/calendar/fullcalendar.js'></script>
+                                <script src='assets/vendors/switcher/switcher.js'></script>
+
+                                </body>
+
+                                </html>

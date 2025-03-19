@@ -94,8 +94,22 @@
                                     <li>
                                         <div class="ttr-header-submenu">
                                             <ul>
+<<<<<<< HEAD
                                                 <li><a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/profile/pic1.jpg" width="32" height="32"></span></a></li>
                                                 <li><a href="profile_user.jsp">My profile</a></li>
+=======
+                                                <li>
+                                                    <a href="profile" class="ttr-material-button ttr-submenu-toggle">
+                                                        <span class="ttr-user-avatar">
+                                                            <img alt="" 
+                                                                 src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
+                                                                 width="32" height="32"
+                                                                 onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li><a href="profile">My profile</a></li>
+>>>>>>> main
                                                 <li><a href="list-view-calendar.jsp">Activity</a></li>
                                                 <li><a href="mailbox.jsp">Messages</a></li>
                                                 <li><a href="logout">Logout</a></li>
@@ -113,7 +127,7 @@
                         <div class="container clearfix">
                             <!-- Header Logo ==== -->
                             <div class="menu-logo">
-                                <a href="home.jsp"><img src="assets/images/logo.png" alt=""></a>
+                                <a href="home"><img src="assets/images/logo.png" alt=""></a>
                             </div>
                             <!-- Mobile Nav Button ==== -->
                             <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -144,10 +158,10 @@
                             <!-- Navigation Menu ==== -->
                             <div class="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
                                 <div class="menu-logo">
-                                    <a href="home.jsp"><img src="assets/images/logo.png" alt=""></a>
+                                    <a href="home"><img src="assets/images/logo.png" alt=""></a>
                                 </div>
                                 <ul class="nav navbar-nav">	
-                                    <li class="active"><a href="home.jsp">Home</a>
+                                    <li class="active"><a href="home">Home</a>
                                     </li>
                                     <li class="add-mega-menu"><a href="javascript:;">Our Courses</a>
                                     </li>
@@ -180,7 +194,7 @@
                 <div class="breadcrumb-row">
                     <div class="container">
                         <ul class="list-inline">
-                            <li><a href="home.jsp">Home</a></li>
+                            <li><a href="home">Home</a></li>
                             <li>Profile</li>
                         </ul>
                     </div>
@@ -351,7 +365,7 @@
                                                         <div class="col-12 col-sm-4 col-md-4 col-lg-3"></div>
                                                         <div class="col-12 col-sm-8 col-md-8 col-lg-7">
                                                             <button type="submit" class="btn">Save changes</button>
-                                                            <button type="reset" class="btn-secondry">Cancel</button>
+                                                            <button type="reset" class="btn">Cancel</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -393,7 +407,7 @@
                         <div class="container">
                             <div class="d-flex align-items-stretch">
                                 <div class="pt-logo mr-auto">
-                                    <a href="home.jsp"><img src="assets/images/logo-white.png" alt=""/></a>
+                                    <a href="home"><img src="assets/images/logo-white.png" alt=""/></a>
                                 </div>
                                 <div class="pt-social-link">
                                     <ul class="list-inline m-a0">

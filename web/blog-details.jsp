@@ -2,6 +2,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="entity.Blog" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <html lang="en">
 
     <head>
@@ -89,8 +91,22 @@
                                     <li>
                                         <div class="ttr-header-submenu">
                                             <ul>
+<<<<<<< HEAD
                                                 <li><a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a></li>
                                                 <li><a href="profile_user.jsp">My profile</a></li>
+=======
+                                                <li>
+                                                    <a href="profile" class="ttr-material-button ttr-submenu-toggle">
+                                                        <span class="ttr-user-avatar">
+                                                            <img alt="" 
+                                                                 src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
+                                                                 width="32" height="32"
+                                                                 onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li><a href="profile">My profile</a></li>
+>>>>>>> main
                                                 <li><a href="list-view-calendar.html">Activity</a></li>
                                                 <li><a href="cv">Become a tutor</a></li>
                                                 <li><a href="logout">Logout</a></li>
@@ -108,7 +124,7 @@
                         <div class="container clearfix">
                             <!-- Header Logo ==== -->
                             <div class="menu-logo">
-                                <a href="home.jsp"><img src="assets/images/logo-white.png" alt=""></a>
+                                <a href="home"><img src="assets/images/logo-white.png" alt=""></a>
                             </div>
                             <!-- Mobile Nav Button ==== -->
                             <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -139,10 +155,10 @@
                             <!-- Navigation Menu ==== -->
                             <div class="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
                                 <div class="menu-logo">
-                                    <a href="home.jsp"><img src="assets/images/logo.png" alt=""></a>
+                                    <a href="home"><img src="assets/images/logo.png" alt=""></a>
                                 </div>
                                 <ul class="nav navbar-nav">	
-                                    <li><a href="home.jsp">Home</a>
+                                    <li><a href="home">Home</a>
                                     </li>
                                     <li class="add-mega-menu"><a href="Courses">Our Courses</a>
                                     </li>
@@ -176,7 +192,7 @@
                     <div class="container">
                         <ul class="list-inline">
                             <ul class="list-inline">
-                                <li><a href="home.jsp">Home</a></li>
+                                <li><a href="home">Home</a></li>
                                 <li><a href="ViewBlog">Blog Classic Sidebar</a></li>
                                 <li>Blog Details</li>
                             </ul>
@@ -200,7 +216,7 @@
                                         </div>
                                         <div class="info-bx">
                                             <ul class="media-post">
-                                                <li><a href="#"><i class="fa fa-calendar"></i> <%= blog.getCreatedAt() != null ? blog.getCreatedAt() : "N/A"%></a></li>
+                                                <li><i class="fa fa-calendar"></i> <%= blog.getCreatedAt() != null ? blog.getCreatedAt() : "N/A"%></li>
                                                 <li><a href="#"><i class="fa fa-user"></i> By <%= blog.getAuthorName() != null ? blog.getAuthorName() : "Unknown"%></a></li>
                                             </ul>
                                             <h5 class="post-title">
@@ -270,8 +286,8 @@
                                                             </h6>
                                                         </div>
                                                         <ul class="media-post">
-                                                            <li><a href="#"><i class="fa fa-calendar"></i> <%= blog1.getCreatedAt()%></a></li>
-                                                            <li><a href="#"><i class="fa fa-comments-o"></i> 15 Comment</a></li>
+                                                            <li><i class="fa fa-calendar"></i> <%= blog1.getCreatedAt()%></li>
+                                                            <li><a href="#"><i class="fa fa-comments-o"></i><%= blog1.getAuthorName()%></a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -324,7 +340,7 @@
                         <div class="container">
                             <div class="d-flex align-items-stretch">
                                 <div class="pt-logo mr-auto">
-                                    <a href="index.jsp"><img src="assets/images/logo-white.png" alt=""/></a>
+                                    <a href="home"><img src="assets/images/logo-white.png" alt=""/></a>
                                 </div>
                                 <div class="pt-social-link">
                                     <ul class="list-inline m-a0">

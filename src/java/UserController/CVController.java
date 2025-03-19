@@ -5,6 +5,7 @@
 package UserController;
 
 import entity.Cv;
+import entity.Subject;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,9 +17,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.DAOCv;
+import model.DAOSubject;
 
 /**
  *
@@ -45,8 +48,9 @@ public class CVController extends HttpServlet {
             String error = "";
             String submit = request.getParameter("submit");
             if (submit == null) {
-                ResultSet rsSub = dao.getData("SELECT [SubjectID],[SubjectName] FROM [test].[dbo].[Subject]");
-                request.setAttribute("rsSub", rsSub);
+                DAOSubject dao2= new DAOSubject();
+                List<Subject> listSub= dao2.getAllSubjects();
+                request.setAttribute("listSub", listSub);
                 request.getRequestDispatcher("/sendCV.jsp").forward(request, response);
             }
             if (submit != null) {

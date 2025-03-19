@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import model.DAOCv;
 import model.DAOTutor;
 import model.DAOTutorSubject;
+import model.DAOUser;
 
 /**
  *
@@ -43,6 +44,7 @@ public class RequestTutor extends HttpServlet {
             DAOCv dao = new DAOCv();
             DAOTutor dao2 = new DAOTutor();
             DAOTutorSubject dao3= new DAOTutorSubject();
+            DAOUser dao4= new DAOUser();
             String error = "";
             int CvID = 0;
             String cvid = request.getParameter("cvid");
@@ -51,12 +53,15 @@ public class RequestTutor extends HttpServlet {
             String status = request.getParameter("status");
             ResultSet rsCv = dao.getData("SELECT [CVID],[Fullname],[Education],[Status],[SubjectName] FROM [dbo].[CV]\n"
                         + "join Subject on CV.SubjectId=Subject.SubjectID\n"
-                        + "join Users on Users.UserID=CV.UserID");
+                        + "join Users on Users.UserID=CV.UserID\n"
+                    + "Where [Status]='Pending'");
             if (cvId != null && status != null) {
                 CvID = Integer.parseInt(cvId);
                 if (!dao2.isCVExists(CvID)) {
                     dao.updateCVStatus(CvID, status);
                     if (status.equals("Approved")) {
+                        Cv cv= dao.getCVbyId(CvID);
+                        int n= dao4.updateRole(cv.getUserId(), 3);
                         dao2.addTutor(new Tutor(0, CvID, 5));
                         Tutor tutor= dao2.getTutorByCVid(CvID);
                         dao3.addTutorSubject(tutor.getTutorID(), CvID);
