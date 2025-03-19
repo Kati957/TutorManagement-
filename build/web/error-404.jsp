@@ -60,7 +60,7 @@
 	<div id="loading-icon-bx"></div>
 	<div class="account-form">
 		<div class="account-head" style="background-image:url(assets/images/background/bg2.jpg);">
-			<a href="index.jsp"><img src="assets/images/logo-white-2.png" alt=""></a>
+			<a href="home"><img src="assets/images/logo-white-2.png" alt=""></a>
 		</div>
 		<div class="account-form-inner">
 			<div class="account-container">
@@ -70,8 +70,8 @@
 					<h5>The Page you were looking for, couldn't be found.</h5>
 					<p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
 					<div class="">
-						<a href="index.jsp" class="btn m-r5">Preview</a>
-						<a href="index.jsp" class="btn outline black">Back To Home</a>
+						<a href="home" class="btn m-r5">Preview</a>
+						<a href="home" class="btn outline black">Back To Home</a>
 					</div>
 				</div>
 			</div>

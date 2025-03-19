@@ -1,0 +1,178 @@
+[33m401c432[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Revert "Merge remote-tracking branch 'origin/HungNv'"
+[33me8ab42d[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge remote-tracking branch 'origin/HungNv'
+[33me851528[m Merge pull request #60 from Kati957/DungDv
+[33m0bf8c40[m[33m ([m[1;31morigin/DungDv[m[33m)[m update statusCv
+[33m697d7d8[m Cập nhật Staff ( HistoryLog )
+[33mcc73c73[m[33m ([m[1;31morigin/HaiLV[m[33m)[m Cập nhật Staff ( HistoryLog )
+[33m4ea77ad[m Merge pull request #58 from Kati957/DungDv
+[33m439221b[m update statusCv
+[33m6e65d92[m Beta 1
+[33ma09228a[m Merge pull request #57 from Kati957/TuanMinh
+[33md97df68[m[33m ([m[1;31morigin/TuanMinh[m[33m)[m merge
+[33m91c143a[m merge
+[33m15f9aab[m Cập nhật Admin ( Tutor Manage + Dashboard )
+[33m15e8929[m Cập nhật Admin ( Tutor Manage + Dashboard )
+[33mf518355[m Cập nhật Admin ( Tutor Manage + Dashboard )
+[33m7dcac14[m Cập nhật Admin ( Tutor Manage + Dashboard )
+[33mae7501e[m Cập nhật Admin ( Tutor Manage + Dashboard )
+[33m8f7a6d1[m Cập nhật Admin ( Tutor Manage + Dashboard )
+[33m95a3c5b[m Merge pull request #53 from Kati957/TuanMinh
+[33mfd3523d[m Merge branch 'main' into TuanMinh
+[33md594afc[m merge
+[33me0339b8[m Cập nhật Staff ( Profile Detail )
+[33ma25260b[m Cập nhật Staff ( Profile Detail )
+[33m679961e[m Cập nhật Admin ( History Log )
+[33m6b36ddc[m Cập nhật Admin ( History Log )
+[33mabeefe4[m Cập nhật Admin ( Staff Manage + User Manage + Profile Detail )
+[33mf461142[m Cập nhật Admin ( Staff Manage + User Manage + Profile Detail )
+[33mfa30c27[m Cập nhật Admin ( Staff Manage + User Manage + Profile Detail )
+[33m80821b3[m Cập nhật Admin ( Staff Manage + User Manage + Profile Detail )
+[33m6380c3e[m Cập nhật Admin ( Staff Manage + User Manage )
+[33m04e60a4[m Cập nhật Admin ( Staff Manage + User Manage )
+[33m5d09857[m Merge pull request #47 from Kati957/TuanMinh
+[33m5756779[m merge
+[33m4ea5e79[m Cập nhật Admin ( Staff Manage )
+[33m71b3496[m Merge branch 'main' into HaiLV
+[33m1f24d62[m Cập nhật Admin ( Staff Manage )
+[33mfa90fdb[m Merge pull request #45 from Kati957/TuanMinh
+[33mf308c37[m merge
+[33m0ce03d2[m[33m ([m[1;31morigin/HungNv[m[33m)[m Merge branch 'main' into HungNv
+[33m3bbed28[m update main
+[33mfac0789[m update book
+[33m508ba92[m Merge pull request #44 from Kati957/DungDv
+[33m9153470[m Beta 10(update booking)
+[33mee608cb[m Merge pull request #43 from Kati957/DungDv
+[33me1d82f9[m Beta 9(cập nhật Cv)
+[33m8b180ae[m Cập nhật Profile ( Upload Avatar )
+[33mb478c20[m Cập nhật Profile ( Upload Avatar )
+[33m3418299[m Merge pull request #41 from Kati957/TuanMinh
+[33mb343189[m sửa lại subject
+[33md8732fb[m Merge pull request #40 from Kati957/DungDv
+[33mcfd88e6[m Beta 9(cập nhật statusCv)
+[33ma9af031[m Cập nhật FE ( G4 - SMARTTUTOR )
+[33m43293f3[m Merge origin/main into HaiLV
+[33m19b98bd[m Cập nhật FE ( G4 - SMARTTUTOR )
+[33m99f82b3[m Merge pull request #39 from Kati957/TuanMinh
+[33mfc1d7a5[m merge
+[33mbab26f0[m Cập nhật FE ( G4 - SMARTTUTOR )
+[33m463f0d5[m Cập nhật FE ( G4 - SMARTTUTOR )
+[33ma7602fe[m Cập nhật FE ( G4 - SMARTTUTOR )
+[33m5d2c233[m Merge branch 'main' into HaiLV
+[33m0a7e8f8[m Cập nhật FE ( G4 - SMARTTUTOR )
+[33m0deaa06[m Merge pull request #36 from Kati957/DungDv
+[33m956280b[m Beta 9(cập nhật statusCv)
+[33m8eb6615[m Beta 9(cập nhật statusCv)
+[33m6e27c0b[m Merge pull request #35 from Kati957/TuanMinh
+[33mbb66f1f[m Merge branch 'main' into TuanMinh
+[33m7db993d[m update list subject
+[33maef3fb8[m ok
+[33mc8431fc[m Cập nhật FE ( G4 - SMARTTUTOR )
+[33m7bc75a7[m Cập nhật FE ( G4 - SMARTTUTOR )
+[33m19c5d49[m Cập nhật FE ( G4 - SMARTTUTOR )
+[33m9930ebf[m Cập nhật FE ( G4 - SMARTTUTOR )
+[33mc576b92[m Cập nhật logo ( G4 - SMARTTUTOR )
+[33mc1778e8[m Cập nhật logo ( G4 - SMARTTUTOR )
+[33m21f23ac[m Merge branch 'HungNv'
+[33m44bb190[m Merge pull request #31 from Kati957/DungDv
+[33mefa72af[m Beta 8(viewCV)
+[33m2cb3724[m add: Book Schedules
+[33mad9d3f5[m Merge branch 'HungNv'
+[33m7855c77[m View schedule ver 1.0 using calendar
+[33m36e487c[m Sửa đường dẫn
+[33mcc37518[m Sửa đường dẫn
+[33m85408fa[m Merge branch 'main' into HungNv
+[33m9d82730[m update View MY schedules using calendar
+[33m318c766[m Mới nhất
+[33m6ef140b[m Merge branch 'main' into HaiLV
+[33me152af5[m Mới nhất
+[33m4076416[m Mới nhất
+[33m4488edd[m Mới nhất
+[33mde21f3b[m Add files via upload
+[33mc4031b4[m Merge pull request #28 from Kati957/DungDv
+[33m4ba95e8[m Beta 8(Fix Courses)
+[33m1a56f0d[m Merge pull request #27 from Kati957/DungDv
+[33mfee72cb[m Beta 8(Fix Courses)
+[33mc51ed5a[m merge
+[33m25cb6d2[m Mới nhất
+[33m890969e[m Merge origin/HaiLV into HaiLV
+[33m9296269[m Mới nhất
+[33m7f10a75[m Mới nhất
+[33mc592bde[m Merge branch 'main' into HaiLV
+[33m93e5edc[m Mới nhất
+[33ma4f06ea[m Mới nhất
+[33ma306a07[m Delete build.xml
+[33me7aacb8[m Delete .gitignore
+[33m02c242b[m Delete web directory
+[33m5b87af1[m Delete src directory
+[33m6603954[m Delete nbproject directory
+[33m76cef54[m Delete lib directory
+[33mc0c530b[m Add files via upload
+[33m76df766[m Add files via upload
+[33m11ae0a8[m Delete .gitignore
+[33m4e312f9[m Delete TutorManagement-.iml
+[33me88c57b[m Delete build.xml
+[33m09a139d[m Delete web directory
+[33m603da11[m Delete src directory
+[33m1e98fdb[m Delete nbproject directory
+[33m6e7727d[m Mới nhất
+[33m0c82cfb[m Mới nhất
+[33m7334de3[m Delete build.xml
+[33m10c9f84[m Delete .gitignore
+[33mfbda517[m Delete web directory
+[33mad64788[m Delete src directory
+[33mea30eb2[m Delete nbproject directory
+[33m6dc0920[m Delete lib directory
+[33m3a34c94[m Add files via upload
+[33mf55017d[m Newest
+[33m03d5abe[m Delete web directory
+[33m03f982e[m Delete src directory
+[33m3b928f2[m Delete nbproject directory
+[33mebfccfc[m Merge branch 'main' into HungNv
+[33m5d06461[m update DAO schedule
+[33m98638a3[m Beta 7 (Staff Management)
+[33m991b204[m Beta 7(Tutor List, sendCV)
+[33m1f3fe6c[m Merge pull request #20 from Kati957/TuanMinh
+[33md7ca85b[m merge
+[33mda2dc81[m update database
+[33m63c9151[m Merge branch 'HungNv'
+[33mcd2c4ba[m update book
+[33m7744e28[m Merge pull request #18 from Kati957/TuanMinh
+[33m0f230ef[m resolve cònlict
+[33mf6d1618[m Merge pull request #17 from Kati957/TuanMinh
+[33me639a65[m Merge branch 'main' into TuanMinh
+[33m1bc5dc9[m resolve cònlict
+[33me1478b2[m resolve cònlict
+[33m7fa33d5[m  resolve cònlict
+[33mc528a76[m update 1: authentication + authorization
+[33mb993503[m update 1: authentication + authorization
+[33m308339a[m booking schedule
+[33mac74c9e[m Upload lib
+[33m59a981e[m Add files via upload
+[33m0c3e765[m Beta 7(Tutor List, sendCV)
+[33m2c9654f[m Update myschedule.jsp
+[33m22f2a69[m view schedules, search schedules, pagination, list subject
+[33me713bff[m Merge branch 'main' into HungNv
+[33m8d2f4cd[m update lib
+[33m4e9d6f1[m Merge pull request #15 from Kati957/HaiLV
+[33m946c631[m Beta 6 (Admin login, logout)
+[33m6d2501f[m Beta 6 (Admin login, logout)
+[33m0c7d636[m Beta 6 (Admin login, logout)
+[33mdde3a15[m Merge pull request #13 from Kati957/HaiLV
+[33m0fa979c[m Merge branch 'main' into HaiLV
+[33me218d9c[m Update index.html
+[33m1c6f927[m Create index.html
+[33m985cbd1[m Update index.html
+[33mdfcd463[m Update index.html
+[33mf3aeeaf[m Update DBConnect.java
+[33md5c68a7[m Update AuthorizationFilter.java
+[33mccc125a[m Update AuthenticationFilter.java
+[33ma7bfb1b[m Update project.properties
+[33m732a303[m Update private.xml
+[33ma1d62ef[m Update private.xml
+[33m934e639[m Update private.xml
+[33m61a1565[m Update genfiles.properties
+[33m14bbfe6[m Beta 6 (Admin login, logout)
+[33m82033b4[m Beta 6 (Admin login, logout)
+[33m17b0407[m Beta 6 (Admin login, logout)
+[33m2fa652f[m Beta 6 (Admin login, logout)
+[33m21959
