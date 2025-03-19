@@ -452,5 +452,17 @@ public class DAOUser extends DBConnect {
         }
         return users;
     }
+       public int updateRole(int userID, int newRoleID) {
+           int n=0;
+        String sql = "UPDATE Users SET RoleID = ? WHERE UserID = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, newRoleID);
+            ps.setInt(2, userID);
+            return ps.executeUpdate();// Trả về true nếu có ít nhất một bản ghi được cập nhật
+        } catch (SQLException e) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error fetching users by role: " + e.getMessage(), e);
+        }
+        return n;
+    }
 
 }

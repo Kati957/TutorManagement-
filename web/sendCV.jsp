@@ -1,5 +1,6 @@
 
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="entity.User,java.sql.ResultSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -20,7 +21,6 @@
     </head>
     <%
         User user = (User) session.getAttribute("user");
-        ResultSet rsSub = (ResultSet) request.getAttribute("rsSub");
     %>
     <body id="bg">
         <div class="page-wraper">
@@ -35,31 +35,31 @@
                             <div class="form-group row">
                                 <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Full Name</label>
                                 <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                    <input class="form-control" type="text" name="fullName" value="<%= user.getFullName()%>">
+                                    <input class="form-control" type="text" name="fullName" value="<%= user.getFullName()%>" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Email</label>
                                 <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                    <input class="form-control" type="email" name="email" value="<%= user.getEmail()%>">
+                                    <input class="form-control" type="email" name="email" value="<%= user.getEmail()%>" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Phone</label>
                                 <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                    <input class="form-control" type="text" name="phone" value="<%= user.getPhone()%>">
+                                    <input class="form-control" type="text" name="phone" value="<%= user.getPhone()%>" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Date of Birth</label>
                                 <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                    <input class="form-control" type="date" name="dob" value="<%= user.getDob()%>">
+                                    <input class="form-control" type="date" name="dob" value="<%= user.getDob()%>" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Address</label>
                                 <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                    <input class="form-control" type="text" name="address" value="<%= user.getAddress()%>">
+                                    <input class="form-control" type="text" name="address" value="<%= user.getAddress()%>" readonly>
                                 </div>
                             </div>
                             <div class="row placeani">
@@ -94,13 +94,9 @@
                                         <div class="input-group">
                                             <label>Subject</label>
                                             <select name="Subject" id="Subject">
-                                                <% if (rsSub != null) {
-                                                        while (rsSub.next()) {%>
-                                                <option value="<%=rsSub.getInt(1)%>"><%=rsSub.getString(2)%></option>
-                                                <%  }
-                                                } else { %>
-                                                <option value="">No subjects available</option>
-                                                <% }%>
+                                                <c:forEach var="a" items="${listSub}">
+                                                <option value="${a.getSubjectID()}">${a.getSubjectName()}</option>
+                                                </c:forEach>
                                             </select>
                                         </div>
                                     </div>
