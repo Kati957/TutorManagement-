@@ -382,7 +382,7 @@
                                                 </div>
                                                 <div class="info-bx text-center">
                                                     <h5><a href="#">${tutor.cv.user.fullName}</a></h5>
-                                                    <span>${tutor.cv.description}</span>
+                                                    
                                                 </div>
                                                 <div class="cours-more-info">
                                                     <div class="review">
@@ -397,7 +397,7 @@
                                                     </div>
                                                     <div class="price">
                                                         <small>${tutor.cv.user.email}</small>
-                                                        <h5>${tutor.cv.user.phone}</h5>
+                                                        <h5>${tutor.price}</h5>
                                                     </div>
                                                 </div>
                                             </div>

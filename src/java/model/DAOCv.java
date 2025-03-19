@@ -54,4 +54,26 @@ public class DAOCv extends DBConnect {
             Logger.getLogger(DAOCv.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public Cv getCVbyId(int cvId) {
+        String sql = "SELECT CVID, UserID, Education, Experience, Certificates, Status, SubjectId, Desciption FROM CV WHERE CVID = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, cvId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Cv(
+                    rs.getInt("CVID"),
+                    rs.getInt("UserID"),
+                    rs.getString("Education"),
+                    rs.getString("Experience"),
+                    rs.getString("Certificates"),
+                    rs.getString("Status"),
+                    rs.getInt("SubjectId"),
+                    rs.getString("Desciption")
+                );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOCv.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null; 
+    }
 }

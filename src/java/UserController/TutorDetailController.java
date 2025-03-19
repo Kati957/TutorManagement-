@@ -28,14 +28,12 @@ public class TutorDetailController extends HttpServlet {
 "                    where TutorID="+tutor);
             request.setAttribute("rsTutor", rsTutor);
 
-            // Lấy data
             ResultSet rsReviews = dao.getData("SELECT StudentID, Rating, Comment, RatingDate " +
                     "FROM TutorRating " +
                     "WHERE TutorID = " + tutor + " " +
                     "ORDER BY RatingDate DESC");
             request.setAttribute("rsReviews", rsReviews);
 
-            // Điểm trung bình
             int[] ratingDistribution = new int[5]; // For 1 to 5 stars
             double totalRating = 0;
             int reviewCount = 0;
