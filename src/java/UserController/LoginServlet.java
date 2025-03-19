@@ -121,13 +121,13 @@ public class LoginServlet extends HttpServlet {
         if (roleId == 1) { // Admin
             response.sendRedirect(contextPath + "/admin/index");
         } else if (roleId == 2) { // User
-<<<<<<< HEAD
+
             response.sendRedirect(contextPath + "/home.jsp");
         }else if(roleId==3){
-=======
+
             response.sendRedirect(contextPath + "/home");
         } else if (roleId == 4) { // Staff
->>>>>>> main
+
             response.sendRedirect("staff/index_staff.jsp");
         } else {
             response.sendRedirect(contextPath + "/home.jsp");

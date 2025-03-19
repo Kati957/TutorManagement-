@@ -36,15 +36,11 @@ public class DBConnect {
         }
     }
 
-<<<<<<< HEAD
-        this("jdbc:sqlserver://localhost:1433;databaseName=test", "sa","123456");
-=======
 
     public DBConnect() {
 
         this("jdbc:sqlserver://localhost:1433;databaseName=test", "sa", "123456");
 
->>>>>>> main
     }
 
     public ResultSet getData(String sql) {

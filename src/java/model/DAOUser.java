@@ -327,8 +327,6 @@ public class DAOUser extends DBConnect {
         }
         return false;
     }
-<<<<<<< HEAD
-=======
 
     public void updateUserRole(int userId) {
         String sql = "UPDATE Users SET RoleID = 3 WHERE UserID = ?";
@@ -339,7 +337,7 @@ public class DAOUser extends DBConnect {
             e.printStackTrace();
         }
     }
->>>>>>> main
+
 
     // Phương thức main để kiểm tra
     public static void main(String[] args) {
