@@ -262,11 +262,13 @@
                                     <form action="RequestCV" method="post">
                                         <input type="hidden" name="cvId" value="<%= rsCv.getInt(1)%>">
                                         <input type="hidden" name="subject" value="<%= rsCv.getInt("SubjectID")%>">
-                                        <select name="status" onchange="this.form.submit()">
-                                            <option value="Pending" <%= "Pending".equals(rsCv.getString("Status")) ? "selected" : ""%>>Pending</option>
-                                            <option value="Approved" <%= "Approved".equals(rsCv.getString("Status")) ? "selected" : ""%>>Approved</option>
-                                            <option value="Rejected" <%= "Rejected".equals(rsCv.getString("Status")) ? "selected" : ""%>>Rejected</option>
-                                        </select>
+                                        <button type="submit" name="status" value="Approved"
+                                                style="background-color: green; color: white; padding: 8px 15px; border: none; cursor: pointer; border-radius: 5px;"
+                                                <%= "Approved".equals(rsCv.getString("Status")) ? "disabled" : ""%>>Approve</button>
+
+                                        <button type="submit" name="status" value="Rejected"
+                                                style="background-color: red; color: white; padding: 8px 15px; border: none; cursor: pointer; border-radius: 5px;"
+                                                <%= "Rejected".equals(rsCv.getString("Status")) ? "disabled" : ""%>>Reject</button>
                                     </form>
                                 </td>
                                 <td><a href="viewCV?cvid=<%=rsCv.getInt(1)%>">View CV</a></td>
@@ -274,6 +276,7 @@
                             <%}%>
                         </table>
                     </div>
+                        <h1>${error}</h1>
                 </div>
             </form>
         </main>

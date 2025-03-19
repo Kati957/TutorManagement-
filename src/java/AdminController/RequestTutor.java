@@ -54,7 +54,8 @@ public class RequestTutor extends HttpServlet {
             String status = request.getParameter("status");
             ResultSet rsCv = dao.getData("SELECT [CVID],[Fullname],[Education],[Status],[SubjectName],Subject.SubjectID FROM [dbo].[CV]\n"
                         + "join Subject on CV.SubjectId=Subject.SubjectID\n"
-                        + "join Users on Users.UserID=CV.UserID");
+                        + "join Users on Users.UserID=CV.UserID\n"
+                    + "Where [Status]='Pending'");
             if (cvId != null && status != null) {
                 CvID = Integer.parseInt(cvId);
                 int subjectId= Integer.parseInt(subject);
