@@ -6,6 +6,7 @@
 package controller.Staff;
 
 import entity.Schedule;
+import entity.ScheduleTemp;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -74,14 +75,14 @@ public class ViewSchedule extends HttpServlet {
         ScheduleDAO scheduleDAO = new ScheduleDAO();
 
         // Lấy danh sách các lịch dạy cho trang yêu cầu
-        List<Schedule> schedules = scheduleDAO.getSchedulesWithPaginationStatusPending(pageNumber);
+        List<ScheduleTemp> schedules = scheduleDAO.getSchedulesWithPaginationStatusPending(pageNumber);
 
         // Gửi danh sách lịch dạy tới JSP để hiển thị
         request.setAttribute("schedules", schedules);
         request.setAttribute("currentPage", pageNumber);
 
         // Chuyển tiếp đến trang dashboard.jsp
-        RequestDispatcher dispatcher = request.getRequestDispatcher("schedule/scheduleDashBoard.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("staff/viewschedule.jsp");
         dispatcher.forward(request, response);
     } 
 
@@ -95,7 +96,17 @@ public class ViewSchedule extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        int scheduleID = Integer.parseInt(request.getParameter("scheduleID"));
+
+        ScheduleDAO dao = new ScheduleDAO();
+        boolean isApproved = dao.approveSchedule(scheduleID);
+
+        if (isApproved) {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("staff/viewschedule.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error approving schedule");
+        }
     }
 
     /** 

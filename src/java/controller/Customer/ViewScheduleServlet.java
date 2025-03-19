@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import entity.Schedule;
 import entity.Subject;
 import entity.User;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import model.DAOSchedule;
 import model.DAOSubject;
+import model.ScheduleDAO;
 
 public class ViewScheduleServlet extends HttpServlet {
 
@@ -57,7 +59,7 @@ public class ViewScheduleServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     /**

@@ -3,7 +3,6 @@ package model;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import entity.Schedule;
 import entity.ScheduleTemp;
 import java.time.LocalDateTime;
 
@@ -17,7 +16,7 @@ public class ScheduleDAO {
     }
 
     // Thêm lịch dạy mới vào cơ sở dữ liệu
-    public int createSchedule(Schedule schedule) {
+    public int createSchedule(ScheduleTemp schedule) {
         String sql = "INSERT INTO dbo.Schedule (TutorID, StartTime, EndTime, IsBooked, SubjectID) VALUES (?, ?, ?, 0, ?)";
         try (Connection conn = dbConnect.conn; PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, schedule.getTutorID());
@@ -38,13 +37,13 @@ public class ScheduleDAO {
     }
 
     // Lấy tất cả lịch chưa được đặt
-    public List<Schedule> getAvailableSchedules() {
-        List<Schedule> schedules = new ArrayList<>();
+    public List<ScheduleTemp> getAvailableSchedules() {
+        List<ScheduleTemp> schedules = new ArrayList<>();
         String sql = "SELECT * FROM dbo.Schedule WHERE IsBooked = 0";
         try (Connection conn = dbConnect.conn; PreparedStatement stmt = conn.prepareStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Schedule schedule = new Schedule();
+                ScheduleTemp schedule = new ScheduleTemp();
                 schedule.setScheduleID(rs.getInt("ScheduleID"));
                 schedule.setTutorID(rs.getInt("TutorID"));
                 schedule.setStartTime(rs.getTimestamp("StartTime").toLocalDateTime());
@@ -86,14 +85,14 @@ public boolean approveSchedule(int scheduleID) {
         return false;
     }
 
-    public List<Schedule> getSchedulesByUserId(int userId) {
-        List<Schedule> schedules = new ArrayList<>();
+    public List<ScheduleTemp> getSchedulesByUserId(int userId) {
+        List<ScheduleTemp> schedules = new ArrayList<>();
         String sql = "SELECT * FROM dbo.Schedule WHERE TutorID = ?";
         try (Connection conn = dbConnect.conn; PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Schedule schedule = new Schedule();
+                ScheduleTemp schedule = new ScheduleTemp();
                 schedule.setScheduleID(rs.getInt("ScheduleID"));
                 schedule.setTutorID(rs.getInt("TutorID"));
                 schedule.setStartTime(rs.getTimestamp("StartTime").toLocalDateTime());
@@ -108,8 +107,8 @@ public boolean approveSchedule(int scheduleID) {
         return schedules;
     }
 
-public List<Schedule> getSchedulesWithPaginationStatusPending(int pageNumber) {
-    List<Schedule> schedules = new ArrayList<>();
+public List<ScheduleTemp> getSchedulesWithPaginationStatusPending(int pageNumber) {
+    List<ScheduleTemp> schedules = new ArrayList<>();
     
     // Xác định số lượng bản ghi mỗi trang và offset
     int pageSize = 10;
@@ -146,8 +145,8 @@ public List<Schedule> getSchedulesWithPaginationStatusPending(int pageNumber) {
 
 public static void main(String[] args) {
     ScheduleDAO dao = new ScheduleDAO();
-    List<Schedule> list = dao.getSchedulesWithPaginationStatusPending(1); // Lấy dữ liệu trang 1
-    for (Schedule schedule : list) {
+    List<ScheduleTemp> list = dao.getSchedulesWithPaginationStatusPending(1); // Lấy dữ liệu trang 1
+    for (ScheduleTemp schedule : list) {
         System.out.println(schedule);
     }
 }

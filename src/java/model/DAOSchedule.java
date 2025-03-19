@@ -133,39 +133,5 @@ public class DAOSchedule extends DBConnect {
         return false;
     }
 }
-public List<Schedule> getSchedulesWithPaginationStatusPending(int pageNumber) {
-    List<Schedule> schedules = new ArrayList<>();
-    
-    // Xác định số lượng bản ghi mỗi trang và offset
-    int pageSize = 10;
-    int offset = (pageNumber - 1) * pageSize;
 
-    // Câu lệnh SQL phân trang
-    String sql = "SELECT * " +
-                 "FROM dbo.Schedule " +
-                 "WHERE status = 'Pending' " +
-                 "ORDER BY ScheduleID " +
-                 "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY"; // Sử dụng dấu hỏi cho giá trị OFFSET và FETCH
-
-    try (Connection conn = dbConnect.conn; PreparedStatement stmt = conn.prepareStatement(sql)) {
-        // Đặt giá trị cho OFFSET và FETCH
-        stmt.setInt(1, offset);  // Đặt giá trị OFFSET
-        stmt.setInt(2, pageSize); // Đặt giá trị FETCH NEXT
-
-        ResultSet rs = stmt.executeQuery();
-        while (rs.next()) {
-            Schedule schedule = new Schedule();
-            schedule.setScheduleID(rs.getInt("ScheduleID"));
-            schedule.setTutorID(rs.getInt("TutorID"));
-            schedule.setStartTime(rs.getTimestamp("StartTime").toLocalDateTime());
-            schedule.setEndTime(rs.getTimestamp("EndTime").toLocalDateTime());
-            schedule.setBooked(rs.getBoolean("IsBooked"));
-            schedule.setSubjectID(rs.getInt("SubjectID"));
-            schedules.add(schedule);
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return schedules;
-}
 }
