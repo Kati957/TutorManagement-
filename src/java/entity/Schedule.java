@@ -7,8 +7,9 @@ public class Schedule {
     private int tutorID;    
     private Date startTime;
     private Date endTime;
-    private String isBooked;
+    private boolean isBooked;
     private int subjectId;
+    private String status;
     
     private Tutor tutor; 
     private Subject subject;
@@ -17,7 +18,7 @@ public class Schedule {
     public Schedule() {
     }
 
-    public Schedule(int scheduleID, int tutorID, Date startTime, Date endTime, String isBooked, int subjectId) {
+    public Schedule(int scheduleID, int tutorID, Date startTime, Date endTime, boolean isBooked, int subjectId) {
         this.scheduleID = scheduleID;
         this.tutorID = tutorID;
         this.startTime = startTime;
@@ -58,11 +59,11 @@ public class Schedule {
         this.endTime = endTime;
     }
 
-    public String getIsBooked() {
+    public boolean getIsBooked() {
         return isBooked;
     }
 
-    public void setIsBooked(String isBooked) {
+    public void setIsBooked(boolean isBooked) {
         this.isBooked = isBooked;
     }
 
@@ -96,6 +97,14 @@ public class Schedule {
 
     public void setSlot(Slot slot) {
         this.slot = slot;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
     
 }

@@ -205,8 +205,6 @@
                         </div>
                     </form>
 
-                    <a href="bookschedule" class="btn btn-primary mb-3">Book A Schedule</a>
-
                     <!-- Hiển thị Calendar -->
                     <div id="calendar"></div>
                 </div>
@@ -255,8 +253,19 @@
 
                         console.log("Mảng events sau khi xử lý:", events);
 
+                        $('#calendar').html('<p class="text-center text-danger">Bạn không có lịch nào hiện tại</p>');
                         if (events.length === 0) {
-                            $('#calendar').html('<p class="text-center text-muted">Bạn không có lịch nào hiện tại để hiển thị</p>');
+                            $('#calendar').fullCalendar({
+                                header: {
+                                    left: 'prev,next today',
+                                    center: 'title',
+                                    right: 'month,agendaWeek,agendaDay,listWeek'
+                                },
+                                editable: true,
+                                eventLimit: true,
+                                events: events
+                            });
+                        
                         } else {
                             $('#calendar').fullCalendar({
                                 header: {

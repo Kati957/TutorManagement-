@@ -1,14 +1,9 @@
-<%-- 
-    Document   : home
-    Created on : Feb 13, 2025, 4:41:09 PM
-    Author     : dvdung
---%>
 
 <%@page import="entity.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -162,7 +157,7 @@
                                     <li class="active"><a href="home">Home</a> </li>
                                     <li class="add-mega-menu"><a href="Courses">Our Courses</a></li>
                                     <li><a href="ViewBlog">Blog</a> </li>
-                                    <c:if test="${sessionScope.user != null and sessionScope.user.roleID == 3}">
+                                        <c:if test="${sessionScope.user != null and sessionScope.user.roleID == 3}">
                                         <li><a href="CreateSchedule">View Schedule</a></li>
                                         </c:if>
                                 </ul>
@@ -309,133 +304,82 @@
                     </div>  
                 </div>  
                 <!-- Main Slider -->
-                <div class="content-block">
+                <div class="container mt-5">
+                    <h2 class="text-center">Tạo Lịch Dạy</h2>
+                    <c:if test="${not empty message}">
+                        <div class="alert ${message.contains('thành công') ? 'alert-success' : 'alert-danger'}">
+                            ${message}
+                        </div>
+                    </c:if>
 
-                    <!-- Our Services -->
-                    <div class="section-area content-inner service-info-bx">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                    <div class="service-bx">
-                                        <div class="action-box">
-                                            <img src="assets/images/our-services/pic1.jpg" alt="">
-                                        </div>
-                                        <div class="info-bx text-center">
-                                            <div class="feature-box-sm radius bg-white">
-                                                <i class="fa fa-bank text-primary"></i>
-                                            </div>
-                                            <h4><a href="#">All Tutors</a></h4>
-                                            <a href="#" class="btn radius-xl">View More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-6">
-                                    <div class="service-bx">
-                                        <div class="action-box">
-                                            <img src="assets/images/our-services/pic2.jpg" alt="">
-                                        </div>
-                                        <div class="info-bx text-center">
-                                            <div class="feature-box-sm radius bg-white">
-                                                <i class="fa fa-book text-primary"></i>
-                                            </div>
-                                            <h4><a href="#">All Subjects</a></h4>
-                                            <a href="#" class="btn radius-xl">View More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-12">
-                                    <div class="service-bx m-b0">
-                                        <div class="action-box">
-                                            <img src="assets/images/our-services/pic3.jpg" alt="">
-                                        </div>
-                                        <div class="info-bx text-center">
-                                            <div class="feature-box-sm radius bg-white">
-                                                <i class="fa fa-file-text-o text-primary"></i>
-                                            </div>
-                                            <h4><a href="myschedule">My Schedule</a></h4>
-                                            <a href="myschedule" class="btn radius-xl">View More</a>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="card p-4 shadow mb-5">
+                        <form action="CreateSchedule" method="POST">
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Môn học:</label>
+                                <select class="form-select" name="subject" id="subject">
+                                    <c:choose>
+                                        <c:when test="${not empty subjectList}">
+                                            <c:forEach var="subject" items="${subjectList}">
+                                                <option value="${subject.subjectID}">${subject.subjectName}</option>
+                                            </c:forEach>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="">Không có môn học nào</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </select>
                             </div>
-                        </div>
-                    </div>
-                    <!-- Our Services END -->
 
-                    <!-- Popular Courses -->
-                    <div class="section-area section-sp2 popular-courses-bx">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12 heading-bx left">
-                                    <h2 class="title-head">Top <span>Tutors</span></h2>
-                                    <p>Những Gia sư hàng đầu của chúng tôi:</p>
-                                </div>
+                            <div class="mb-3">
+                                <label for="startTime" class="form-label">Thời gian bắt đầu:</label>
+                                <input type="datetime-local" class="form-control" name="startTime" id="startTime">
                             </div>
-                            <div class="row">
-                                <div class="courses-carousel owl-carousel owl-btn-1 col-12 p-lr0">
-                                    <c:forEach var="tutor" items="${topTutors}">
-                                        <div class="item">
-                                            <div class="cours-bx">
-                                                <div class="action-box">
-                                                    <img src="${tutor.cv.user.avatar}" alt="Avatar">
-                                                    <a href="#" class="btn">Read More</a>
-                                                </div>
-                                                <div class="info-bx text-center">
-                                                    <h5><a href="#">${tutor.cv.user.fullName}</a></h5>
-                                                    
-                                                </div>
-                                                <div class="cours-more-info">
-                                                    <div class="review">
-                                                        <span>${tutor.rating} Rating</span>
-                                                        <ul class="cours-star">
-                                                            <c:forEach begin="1" end="5" var="i">
-                                                                <li class="${i <= tutor.rating ? 'active' : ''}">
-                                                                    <i class="fa fa-star"></i>
-                                                                </li>
-                                                            </c:forEach>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="price">
-                                                        <small>${tutor.cv.user.email}</small>
-                                                        <h5>${tutor.price}</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </c:forEach>
-                                </div>
+                            <div class="mb-3">
+                                <label for="startTime" class="form-label">Thời lượng: 60 phút</label>
                             </div>
-                        </div>
+
+                            <button type="submit" class="btn btn-primary w-100">Tạo Lịch</button>
+                        </form>
                     </div>
-                    <!-- Popular Courses END -->
-                    <!-- Testimonials -->
-                    <div class="section-area section-sp2 bg-fix ovbl-dark" style="background-image:url(assets/images/background/bg1.jpg);">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12 text-white heading-bx left">
-                                    <h2 class="title-head text-uppercase">Top Subjects <span>have the most Bookings</span></h2>
-                                    <p>Những môn học nhận được nhiều lượt booking nhất của chúng tôi:</p>
-                                </div>
-                            </div>
-                            <div class="testimonial-carousel owl-carousel owl-btn-1 col-12 p-lr0">
-                                <c:forEach var="subject" items="${topSubjects}" varStatus="status">
-                                    <div class="item">
-                                        <div class="testimonial-bx">
-                                            <div class="testimonial-info">
-                                                <a href="#"><h5 class="name">Top ${status.index + 1}:  ${subject.subjectName}</h5></a>
-                                                <p>Booking Count: ${subject.bookingCount} </p>
-                                            </div>
-                                            <div class="testimonial-content">
-                                                <p>Description: ${subject.description}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </c:forEach>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Testimonials END -->
                 </div>
+                <h2 class="text-center">Lịch Dạy Của Bạn</h2>
+                <div class="card p-4 shadow container">
+                    <table class="table table-bordered">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Môn học</th>
+                                <th>Bắt đầu</th>
+                                <th>Kết thúc</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:choose>
+                                <c:when test="${not empty scheduleList}">
+                                    <c:forEach var="schedule" items="${scheduleList}">
+                                        <tr>
+                                            <td>${schedule.subject.subjectName}</td>
+                                            <td>
+                                                <fmt:formatDate value="${schedule.startTime}" pattern="HH:mm 'ngày' dd/MM/yyyy" />
+                                            </td>
+                                            <td>
+                                                <fmt:formatDate value="${schedule.endTime}" pattern="HH:mm 'ngày' dd/MM/yyyy" />
+                                            </td>
+
+                                            <td>${schedule.status}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <tr>
+                                        <td colspan="3" class="text-center">Chưa có lịch dạy nào</td>
+                                    </tr>
+                                </c:otherwise>
+                            </c:choose>
+                        </tbody>
+                    </table>
+                </div>
+
                 <!-- contact area END -->
             </div>
             <!-- Content END-->

@@ -277,4 +277,24 @@ public class DAOTutor extends DBConnect {
         return false;
     }
 
+    public int getTutorIdByUserId(int userId) {
+        int tutorId = -1;
+        String sql = """
+        SELECT t.TutorID 
+        FROM Tutor t
+        JOIN CV c ON t.CVIID = c.CVID
+        JOIN Users u ON c.UserID = u.UserID
+        WHERE u.UserID = ?
+    """;
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                tutorId = rs.getInt("TutorID");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tutorId;
+    }
 }

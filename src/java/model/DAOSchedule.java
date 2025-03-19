@@ -77,4 +77,61 @@ public class DAOSchedule extends DBConnect {
         }
         return schedules;
     }
+    public List<Schedule> getSchedulesByTutorId(int tutorId) {
+    List<Schedule> schedules = new ArrayList<>();
+    String query = """
+        SELECT s.*, sub.SubjectName
+        FROM Schedule s
+        INNER JOIN Subject sub ON s.SubjectID = sub.SubjectID
+        WHERE s.TutorID = ?
+        Order by s.StartTime DESC
+    """;
+
+    try (PreparedStatement ps = conn.prepareStatement(query)) {
+        ps.setInt(1, tutorId);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Schedule schedule = new Schedule();
+            schedule.setScheduleID(rs.getInt("ScheduleID"));
+            schedule.setTutorID(rs.getInt("TutorID"));
+            schedule.setStartTime(rs.getTimestamp("StartTime"));
+            schedule.setEndTime(rs.getTimestamp("EndTime"));
+            schedule.setIsBooked(rs.getBoolean("IsBooked"));
+            schedule.setSubjectId(rs.getInt("SubjectID"));
+            schedule.setStatus(rs.getString("Status"));
+            
+            Subject subject = new Subject();
+            subject.setSubjectName(rs.getString("SubjectName"));
+            
+            schedule.setSubject(subject);
+
+            schedules.add(schedule);
+        }
+    } catch (SQLException e) {
+        System.out.println("Lỗi khi lấy danh sách lịch trình của tutor: " + e.getMessage());
+        e.printStackTrace();
+    }
+    return schedules;
+}
+    public boolean insertSchedule(Schedule schedule) {
+    String query = """
+        INSERT INTO Schedule (TutorID, StartTime, EndTime, IsBooked, SubjectID, Status)
+        VALUES (?, ?, ?, ?, ?, ?)
+    """;
+    try (PreparedStatement ps = conn.prepareStatement(query)) {
+        ps.setInt(1, schedule.getTutorID());
+        ps.setTimestamp(2, new Timestamp(schedule.getStartTime().getTime()));
+        ps.setTimestamp(3, new Timestamp(schedule.getEndTime().getTime()));
+        ps.setBoolean(4, schedule.getIsBooked());
+        ps.setInt(5, schedule.getSubjectId());
+        ps.setString(6, schedule.getStatus());
+
+        return ps.executeUpdate() > 0;
+    } catch (SQLException e) {
+        System.out.println("Lỗi khi thêm lịch dạy: " + e.getMessage());
+        e.printStackTrace();
+        return false;
+    }
+}
+
 }

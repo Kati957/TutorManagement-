@@ -15,6 +15,8 @@
 11. COUNTERUP
 12. FOOTER
 13. INNER CONTENT CSS
+14. Subject
+15. Blog
 ======================================
   * END TABLE CONTENT *  
 ======================================
@@ -1222,21 +1224,20 @@
 .ttr-post-text p:last-child {
     margin: 0;
 }
-
 .gallery-list {
     list-style: none;
     padding: 0;
 }
 .gallery-img {
-    width: 100%;
-    height: auto;
+    width: 50px;
+    height: 40px;
+    object-fit: contain;
     cursor: pointer;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease; /* Hỗ trợ hiệu ứng hover */
 }
 .gallery-img:hover {
     transform: scale(1.1);
 }
-
 /* CSS cho image viewer */
 .image-viewer {
     display: none;
@@ -3106,6 +3107,10 @@ button.back-to-top {
     color: #6f42c1;
     font-weight: 600;
 }
+.table-responsive {
+    overflow-x: auto;
+}
+
 .add-btn {
     background-color: #6f42c1;
     color: white;
@@ -3285,6 +3290,51 @@ label {
     background-color: #5a32a3;
     transform: translateY(-2px);
 }
+/*=================================
+        15. Blog
+=================================*/
+/* Style for the action buttons container */
+.action-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px; /* Space between buttons */
+}
+
+/* General button styling */
+.btn-update, .btn-delete {
+    padding: 10px 20px;
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    transition: all 0.3s ease;
+    color: #fff; /* White text for contrast */
+}
+
+/* Update button */
+.btn-update {
+    background-color: #4CAF50; /* Green shade for update */
+    border: 1px solid #4CAF50;
+}
+
+.btn-update:hover {
+    background-color: #45a049; /* Darker green on hover */
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Delete button */
+.btn-delete {
+    background-color: #f44336; /* Red shade for delete */
+    border: 1px solid #f44336;
+}
+
+.btn-delete:hover {
+    background-color: #da190b; /* Darker red on hover */
+    text-decoration: none;
+    color: #fff;
+}
+
 @media only screen and (max-width: 1200px) {
     .cours-more-info .review{
         padding: 8px 12px;

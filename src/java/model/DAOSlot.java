@@ -67,7 +67,7 @@ public class DAOSlot extends DBConnect {
                 schedule.setTutorID(rs.getInt("TutorID"));
                 schedule.setStartTime(rs.getTimestamp("StartTime"));
                 schedule.setEndTime(rs.getTimestamp("EndTime"));
-                schedule.setIsBooked(rs.getString("IsBooked"));
+                schedule.setIsBooked(rs.getBoolean("IsBooked"));
                 schedule.setSubjectId(rs.getInt("SubjectId"));
 
                 slot.setSchedule(schedule);

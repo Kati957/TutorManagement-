@@ -101,6 +101,31 @@ public class DAOSubject extends DBConnect {
         }
         return subjectList;
     }
+    
+    public List<Subject> getTutorSubjects(int id) throws SQLException {
+    List<Subject> subjectList = new ArrayList<>();
+    String sql = """
+                 SELECT CV.SubjectId, SubjectName, Tutor.TutorID 
+                 FROM dbo.Subject 
+                 JOIN dbo.CV ON CV.SubjectId = Subject.SubjectID
+                 JOIN dbo.Tutor ON Tutor.CVIID = CV.CVID
+                 JOIN dbo.Users ON Users.UserID = CV.UserID
+                 WHERE CV.UserID = ?
+                 """;
+
+    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        stmt.setInt(1, id); // Truyền giá trị id vào tham số ?
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                int tutorID = rs.getInt("TutorID");
+                int subjectID = rs.getInt("SubjectId");
+                String subjectName = rs.getString("SubjectName");
+                subjectList.add(new Subject(subjectID, subjectName, tutorID));
+            }
+        }
+    }
+    return subjectList;
+}
 
     // dang su dung: Hungnv tai homepage
     // join: Subject, booking

@@ -4,6 +4,9 @@
     Author     : Heizxje
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.DAOCv"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.ResultSet,entity.User,entity.Subject,java.util.List"%>
 <!DOCTYPE html>
@@ -95,7 +98,7 @@
                                         <div class="ttr-header-submenu">
                                             <ul>
                                                 <li>
-                                                    <a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle">
+                                                    <a href="profile" class="ttr-material-button ttr-submenu-toggle">
                                                         <span class="ttr-user-avatar">
                                                             <img alt="" 
                                                                  src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
@@ -104,7 +107,7 @@
                                                         </span>
                                                     </a>
                                                 </li>
-                                                <li><a href="profile_user.jsp">My profile</a></li>
+                                                <li><a href="profile">My profile</a></li>
                                                 <li><a href="list-view-calendar.jsp">Activity</a></li>
                                                 <li><a href="cv">Become a tutor</a></li>
                                                 <li><a href="logout">Logout</a></li>
@@ -122,7 +125,7 @@
                         <div class="container clearfix">
                             <!-- Header Logo ==== -->
                             <div class="menu-logo">
-                                <a href="index.jsp"><img src="assets/images/logo.png" alt=""></a>
+                                <a href="home"><img src="assets/images/logo.png" alt=""></a>
                             </div>
                             <!-- Mobile Nav Button ==== -->
                             <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -153,10 +156,10 @@
                             <!-- Navigation Menu ==== -->
                             <div class="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
                                 <div class="menu-logo">
-                                    <a href="index.jsp"><img src="assets/images/logo.png" alt=""></a>
+                                    <a href="home"><img src="assets/images/logo.png" alt=""></a>
                                 </div>
                                 <ul class="nav navbar-nav">	
-                                    <li><a href="home.jsp">Home</a>
+                                    <li><a href="home">Home</a>
                                     </li>
                                     <li class="active" class="add-mega-menu"><a href="Courses">Our Courses</a>
                                     </li>
@@ -218,14 +221,23 @@
                                         </div>
                                         <div class="cours-more-info">
                                             <div class="review">
-                                                <span>3 Review</span>
+                                                <span><%= request.getAttribute("reviewCount")%> reviews</span>
                                                 <ul class="cours-star">
-                                                    <%for (int i = 0; i < rsTutor.getInt(4); i++) {%>
+                                                    <%
+                                                        double avgRating = (Double) request.getAttribute("averageRating");
+                                                        int soSao = (int) Math.floor(avgRating);
+                                                        soSao = Math.max(0, Math.min(5, soSao));
+                                                        for (int i = 0; i < soSao; i++) {
+                                                    %>
                                                     <li class="active"><i class="fa fa-star"></i></li>
-                                                        <%}%>
-                                                        <%for (int i = 0; i < 5 - rsTutor.getInt(4); i++) {%>
-                                                    <li><i class="fa fa-star"></i></li>                                    
-                                                        <%}%>
+                                                        <%
+                                                            }
+                                                            for (int i = 0; i < 5 - soSao; i++) {
+                                                        %>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                        <%
+                                                            }
+                                                        %>
                                                 </ul>
                                             </div>
                                             <div class="price categories">
@@ -274,78 +286,260 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="" id="reviews">
-                                        <h4>Reviews</h4>
+                                    <div class="reviews-section" id="reviews">
+                                        <h4>WHAT MY STUDENTS SAY</h4>
                                         <div class="review-bx">
                                             <div class="all-review">
-                                                <h2 class="rating-type">3</h2>
+                                                <h2 class="rating-type"><%= String.format("%.1f", request.getAttribute("averageRating"))%></h2>
                                                 <ul class="cours-star">
-                                                    <%for (int i = 0; i < rsTutor.getInt(4); i++) {%>
+                                                    <%
+                                                        for (int i = 0; i < 5; i++) {
+                                                            if (i < Math.floor(avgRating)) {
+                                                    %>
                                                     <li class="active"><i class="fa fa-star"></i></li>
-                                                        <%}%>
-                                                        <%for (int i = 0; i < 5 - rsTutor.getInt(4); i++) {%>
-                                                    <li><i class="fa fa-star"></i></li>                                    
-                                                        <%}%>
+                                                        <%
+                                                        } else {
+                                                        %>
+                                                    <li><i class="fa fa-star"></i></li>
+                                                        <%
+                                                                }
+                                                            }
+                                                        %>
                                                 </ul>
-                                                <span>3 Rating</span>
+                                                <span><%= request.getAttribute("reviewCount")%> reviews</span>
+                                            </div>
+                                            <div class="rating-distribution">
+                                                <%
+                                                    int[] ratingDist = (int[]) request.getAttribute("ratingDistribution");
+                                                    int reviewCount = (Integer) request.getAttribute("reviewCount");
+                                                    for (int i = 4; i >= 0; i--) {
+                                                        int count = ratingDist[i];
+                                                        double percentage = reviewCount > 0 ? (double) count / reviewCount * 100 : 0;
+                                                %>
+                                                <div class="rating-bar">
+                                                    <span><%= (i + 1)%> stars</span>
+                                                    <div class="bar-container">
+                                                        <div class="bar" style="width: <%= percentage%>%;"></div>
+                                                    </div>
+                                                    <span>(<%= count%>)</span>
+                                                </div>
+                                                <%
+                                                    }
+                                                %>
                                             </div>
                                         </div>
+                                        <div class="student-reviews" id="student-reviews">
+                                            <%
+                                                ResultSet rsReviews = (ResultSet) request.getAttribute("rsReviews");
+                                                DAOCv dao = new DAOCv();
+                                                List<Object[]> reviews = new ArrayList<>();
+
+                                                // Lưu tất cả đánh giá vào danh sách
+                                                while (rsReviews.next()) {
+                                                    int studentId = rsReviews.getInt("StudentID");
+                                                    int rating = rsReviews.getInt("Rating");
+                                                    String comment = rsReviews.getString("Comment");
+                                                    String ratingDate = rsReviews.getString("RatingDate");
+
+                                                    ResultSet rsStudent = dao.getData("SELECT FullName, Avatar FROM users WHERE UserID = " + studentId);
+                                                    String reviewerName = "";
+                                                    String reviewerAvatar = "";
+                                                    if (rsStudent.next()) {
+                                                        reviewerName = rsStudent.getString("FullName");
+                                                        reviewerAvatar = rsStudent.getString("Avatar");
+                                                    }
+
+                                                    boolean isLongReview = comment.length() > 100;
+                                                    String displayText = isLongReview ? comment.substring(0, 100) + "..." : comment;
+
+                                                    // Lưu thông tin vào mảng để tái sử dụng
+                                                    reviews.add(new Object[]{studentId, rating, comment, ratingDate, reviewerName, reviewerAvatar, isLongReview, displayText});
+                                                }
+
+                                                // Hiển thị tối đa 6 đánh giá đầu tiên
+                                                int displayLimit = Math.min(6, reviews.size());
+                                                for (int i = 0; i < displayLimit; i++) {
+                                                    Object[] review = reviews.get(i);
+                                                    int studentId = (int) review[0];
+                                                    int rating = (int) review[1];
+                                                    String comment = (String) review[2];
+                                                    String ratingDate = (String) review[3];
+                                                    String reviewerName = (String) review[4];
+                                                    String reviewerAvatar = (String) review[5];
+                                                    boolean isLongReview = (boolean) review[6];
+                                                    String displayText = (String) review[7];
+                                            %>
+                                            <div class="review-card">
+                                                <div class="reviewer-info">
+                                                    <div class="reviewer-avatar">
+                                                        <% if (reviewerAvatar != null && !reviewerAvatar.isEmpty()) {%>
+                                                        <img src="${pageContext.request.contextPath}/<%= reviewerAvatar%>" alt="<%= reviewerName%>" width="32" height="32" onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
+                                                        <% } else {%>
+                                                        <div class="avatar-placeholder"><%= reviewerName.charAt(0)%></div>
+                                                        <% }%>
+                                                    </div>
+                                                    <div class="reviewer-details">
+                                                        <h5><%= reviewerName%></h5>
+                                                        <span><%= ratingDate%></span>
+                                                    </div>
+                                                </div>
+                                                <ul class="cours-star">
+                                                    <% for (int j = 0; j < 5; j++) {%>
+                                                    <li class="<%= j < rating ? "active" : ""%>"><i class="fa fa-star"></i></li>
+                                                        <% }%>
+                                                </ul>
+                                                <p><%= displayText%>
+                                                    <% if (isLongReview) {%>
+                                                    <a href="javascript:void(0);" class="show-more" data-fulltext="<%= comment%>">SHOW MORE</a>
+                                                    <% } %>
+                                                </p>
+                                            </div>
+                                            <%
+                                                }
+                                            %>
+                                            <!-- Nút "Xem thêm" -->
+                                            <% if (reviews.size() > 6) { %>
+                                            <div class="view-more-container text-center">
+                                                <button id="view-more-btn" class="btn radius-xl text-uppercase">SHOW MORE</button>
+                                            </div>
+                                            <div class="grid-row-break"></div>
+                                            <!-- Container để hiển thị các đánh giá còn lại khi nhấn "Xem thêm" -->
+                                            <div id="hidden-reviews" style="display: none;">
+                                                <%
+                                                    for (int i = 6; i < reviews.size(); i++) {
+                                                        Object[] review = reviews.get(i);
+                                                        int studentId = (int) review[0];
+                                                        int rating = (int) review[1];
+                                                        String comment = (String) review[2];
+                                                        String ratingDate = (String) review[3];
+                                                        String reviewerName = (String) review[4];
+                                                        String reviewerAvatar = (String) review[5];
+                                                        boolean isLongReview = (boolean) review[6];
+                                                        String displayText = (String) review[7];
+                                                %>
+                                                <div class="review-card">
+                                                    <div class="reviewer-info">
+                                                        <div class="reviewer-avatar">
+                                                            <% if (reviewerAvatar != null && !reviewerAvatar.isEmpty()) {%>
+                                                            <img src="${pageContext.request.contextPath}/<%= reviewerAvatar%>" alt="<%= reviewerName%>" width="32" height="32" onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
+                                                            <% } else {%>
+                                                            <div class="avatar-placeholder"><%= reviewerName.charAt(0)%></div>
+                                                            <% }%>
+                                                        </div>
+                                                        <div class="reviewer-details">
+                                                            <h5><%= reviewerName%></h5>
+                                                            <span><%= ratingDate%></span>
+                                                        </div>
+                                                    </div>
+                                                    <ul class="cours-star">
+                                                        <% for (int j = 0; j < 5; j++) {%>
+                                                        <li class="<%= j < rating ? "active" : ""%>"><i class="fa fa-star"></i></li>
+                                                            <% }%>
+                                                    </ul>
+                                                    <p><%= displayText%>
+                                                        <% if (isLongReview) {%>
+                                                        <a href="javascript:void(0);" class="show-more" data-fulltext="<%= comment%>">SHOW MORE</a>
+                                                        <% } %>
+                                                    </p>
+                                                </div>
+                                                <%
+                                                    }
+                                                %>
+                                            </div>
+                                            <!-- Nút "Rút lại" đặt ở cuối -->
+                                            <div class="collapse-container text-center">
+                                                <button id="collapse-btn" class="btn radius-xl text-uppercase" style="display: none;">COLLAPSE</button>
+                                            </div>
+                                            <% }%>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const viewMoreBtn = document.getElementById('view-more-btn');
+                            const collapseBtn = document.getElementById('collapse-btn');
+                            const hiddenReviews = document.getElementById('hidden-reviews');
+
+                            if (viewMoreBtn && collapseBtn && hiddenReviews) {
+                                viewMoreBtn.addEventListener('click', function () {
+                                    hiddenReviews.style.display = 'contents'; // Hiển thị các đánh giá ẩn
+                                    viewMoreBtn.style.display = 'none';      // Ẩn nút "Xem thêm"
+                                    collapseBtn.style.display = 'inline-block'; // Hiển thị nút "Rút lại"
+                                    console.log('Đã hiển thị đánh giá ẩn');
+                                });
+
+                                collapseBtn.addEventListener('click', function () {
+                                    hiddenReviews.style.display = 'none';    // Ẩn các đánh giá bổ sung
+                                    viewMoreBtn.style.display = 'inline-block'; // Hiển thị lại nút "Xem thêm"
+                                    collapseBtn.style.display = 'none';      // Ẩn nút "Rút lại"
+                                    console.log('Đã rút lại đánh giá');
+                                });
+                            }
+
+                            // Xử lý nút "SHOW MORE" cho từng đánh giá
+                            document.querySelectorAll('.show-more').forEach(link => {
+                                link.addEventListener('click', function () {
+                                    const fullText = this.getAttribute('data-fulltext');
+                                    const reviewText = this.parentElement;
+                                    reviewText.innerHTML = fullText;
+                                });
+                            });
+                        });
+                    </script>
+
+                    <!-- contact area END -->
+
+                </div>
+                <!-- Content END-->
+                <!-- Footer ==== -->
+                <footer>
+                    <div class="footer-top">
+                        <div class="pt-exebar">
+                            <div class="container">
+                                <div class="d-flex align-items-stretch">
+                                    <div class="pt-logo mr-auto">
+                                        <a href="home"><img src="assets/images/logo-white.png" alt=""/></a>
+                                    </div>
+                                    <div class="pt-social-link">
+                                        <ul class="list-inline m-a0">
+                                            <li><a href="#" class="btn-link"><i class="fa fa-facebook"></i></a></li>
+                                            <li><a href="#" class="btn-link"><i class="fa fa-twitter"></i></a></li>
+                                            <li><a href="#" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
+                                            <li><a href="#" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="pt-btn-join">
+                                        <a href="#" class="btn ">Join Now</a>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- contact area END -->
-
+                </footer>
+                <!-- Footer END ==== -->
+                <button class="back-to-top fa fa-chevron-up" ></button>
             </div>
-            <!-- Content END-->
-            <!-- Footer ==== -->
-            <footer>
-                <div class="footer-top">
-                    <div class="pt-exebar">
-                        <div class="container">
-                            <div class="d-flex align-items-stretch">
-                                <div class="pt-logo mr-auto">
-                                    <a href="index.jsp"><img src="assets/images/logo-white.png" alt=""/></a>
-                                </div>
-                                <div class="pt-social-link">
-                                    <ul class="list-inline m-a0">
-                                        <li><a href="#" class="btn-link"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#" class="btn-link"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href="#" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
-                                        <li><a href="#" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="pt-btn-join">
-                                    <a href="#" class="btn ">Join Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-            <!-- Footer END ==== -->
-            <button class="back-to-top fa fa-chevron-up" ></button>
-        </div>
-        <!-- External JavaScripts -->
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
-        <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-        <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-        <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
-        <script src="assets/vendors/counter/waypoints-min.js"></script>
-        <script src="assets/vendors/counter/counterup.min.js"></script>
-        <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
-        <script src="assets/vendors/masonry/masonry.js"></script>
-        <script src="assets/vendors/masonry/filter.js"></script>
-        <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
-        <script src="assets/js/jquery.scroller.js"></script>
-        <script src="assets/js/functions.js"></script>
-        <script src="assets/js/contact.js"></script>
-        <script src="assets/vendors/switcher/switcher.js"></script>
+            <!-- External JavaScripts -->
+            <script src="assets/js/jquery.min.js"></script>
+            <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
+            <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
+            <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+            <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+            <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
+            <script src="assets/vendors/counter/waypoints-min.js"></script>
+            <script src="assets/vendors/counter/counterup.min.js"></script>
+            <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
+            <script src="assets/vendors/masonry/masonry.js"></script>
+            <script src="assets/vendors/masonry/filter.js"></script>
+            <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
+            <script src="assets/js/jquery.scroller.js"></script>
+            <script src="assets/js/functions.js"></script>
+            <script src="assets/js/contact.js"></script>
+            <script src="assets/vendors/switcher/switcher.js"></script>
     </body>
 
 </html>

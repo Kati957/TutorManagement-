@@ -98,7 +98,7 @@
                                         <div class="ttr-header-submenu">
                                             <ul>
                                                 <li>
-                                                    <a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle">
+                                                    <a href="profile" class="ttr-material-button ttr-submenu-toggle">
                                                         <span class="ttr-user-avatar">
                                                             <img alt="" 
                                                                  src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
@@ -159,12 +159,12 @@
                                     <a href="home"><img src="assets/images/logo.png" alt=""></a>
                                 </div>
                                 <ul class="nav navbar-nav">	
-                                    <li class="active"><a href="home">Home</a>
-                                    </li>
-                                    <li class="add-mega-menu"><a href="Courses">Our Courses</a>
-                                    </li>
-                                    <li><a href="ViewBlog">Blog</a>
-                                    </li>
+                                    <li class="active"><a href="home">Home</a> </li>
+                                    <li class="add-mega-menu"><a href="Courses">Our Courses</a></li>
+                                    <li><a href="ViewBlog">Blog</a> </li>
+                                    <c:if test="${sessionScope.user != null and sessionScope.user.roleID == 3}">
+                                        <li><a href="CreateSchedule">View Schedule</a></li>
+                                        </c:if>
                                 </ul>
                                 <div class="nav-social-link">
                                     <a href="javascript:;"><i class="fa fa-facebook"></i></a>
@@ -382,7 +382,7 @@
                                                 </div>
                                                 <div class="info-bx text-center">
                                                     <h5><a href="#">${tutor.cv.user.fullName}</a></h5>
-                                                    <span>${tutor.cv.description}</span>
+                                                    
                                                 </div>
                                                 <div class="cours-more-info">
                                                     <div class="review">
@@ -397,7 +397,7 @@
                                                     </div>
                                                     <div class="price">
                                                         <small>${tutor.cv.user.email}</small>
-                                                        <h5>${tutor.cv.user.phone}</h5>
+                                                        <h5>${tutor.price}</h5>
                                                     </div>
                                                 </div>
                                             </div>
@@ -446,7 +446,7 @@
                         <div class="container">
                             <div class="d-flex align-items-stretch">
                                 <div class="pt-logo mr-auto">
-                                    <a href="home.jsp"><img src="assets/images/logo-white.png" alt=""/></a>
+                                    <a href="home"><img src="assets/images/logo-white.png" alt=""/></a>
                                 </div>
                                 <div class="pt-social-link">
                                     <ul class="list-inline m-a0">
