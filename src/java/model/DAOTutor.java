@@ -264,7 +264,7 @@ public class DAOTutor extends DBConnect {
     }
 
     public boolean isCVExists(int cvid) {
-        String sql = "SELECT COUNT(*) FROM Tutor WHERE CVIIID = ?";
+        String sql = "SELECT COUNT(*) FROM Tutor WHERE CVIID = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, cvid);
             ResultSet rs = stmt.executeQuery();
