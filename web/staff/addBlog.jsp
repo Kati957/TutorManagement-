@@ -13,7 +13,6 @@
     <body>
         <div class="container">
             <h2 class="mb-4">Add New Blog</h2>
-
             <%-- Hiển thị thông báo lỗi nếu có --%>
             <%
                 String error = (String) session.getAttribute("error");
@@ -24,46 +23,41 @@
                     session.removeAttribute("error"); // Xóa sau khi hiển thị
                 }
             %>
-
             <form action="${pageContext.request.contextPath}/staff/BlogController" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="service" value="addBlog">
-
                 <!-- Trường tiêu đề -->
                 <div class="form-group">
                     <label for="title">Title:</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="Enter title" required>
                 </div>
-
                 <!-- Trường tóm tắt -->
                 <div class="form-group">
                     <label for="summary">Summary:</label>
                     <textarea class="form-control" id="summary" name="summary" rows="3" placeholder="Enter summary" required></textarea>
                 </div>
-
                 <!-- Trường nội dung -->
                 <div class="form-group">
                     <label for="content">Content:</label>
                     <textarea class="form-control" id="content" name="content" rows="8" placeholder="Enter content" required></textarea>
                     <script>
                         CKEDITOR.replace('content', {
-                            autoParagraph: false, // Tắt tự động bọc nội dung trong <p>
-                            enterMode: CKEDITOR.ENTER_BR, // Khi nhấn Enter sẽ tạo <br> thay vì <p>
+                            filebrowserUploadUrl: '${pageContext.request.contextPath}/staff/BlogController?service=uploadImage',
+                            extraPlugins: 'uploadimage',
+                            height: 300
                         });
                     </script>
+                    </script>
                 </div>
-
                 <!-- Trường thumbnail (upload file) -->
                 <div class="form-group">
                     <label for="thumbnail">Thumbnail (Image File):</label>
                     <input type="file" class="form-control" id="thumbnail" name="thumbnail" accept="image/*" required>
                 </div>
-
                 <!-- Nút submit -->
                 <button type="submit" name="submit" value="publish" class="btn btn-primary">Upload</button>
                 <a href="${pageContext.request.contextPath}/staff/BlogController" class="btn btn-secondary">Back</a>
             </form>
         </div>
-
         <!-- Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
