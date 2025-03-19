@@ -110,6 +110,7 @@
                                 <li><a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a></li>
                                 <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a></li>
                                 <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Booking</span></a></li>
+                                <li><a href="ListRated" class="ttr-material-button"><span class="ttr-label">Tutor Reviews</span></a></li>
                                 <li><a href="SubjectController" class="ttr-material-button"><span class="ttr-label">Control Subject</span></a></li>
                             </ul>
                         </li>
@@ -126,6 +127,12 @@
                                 <li><a href="BlogController?service=listBlog" class="ttr-label">Blog</a></li>
                                 <li><a href="BlogController?service=addBlog" class="ttr-label">Add Blog</a></li>
                             </ul>
+                        </li>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/staff/historyLog" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-clipboard"></i></span>
+                                <span class="ttr-label">User & Tutor Logs</span>
+                            </a>
                         </li>
                         <li class="ttr-seperate"></li>
                     </ul>

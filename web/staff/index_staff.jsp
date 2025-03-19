@@ -119,8 +119,6 @@
                                         </span>
                                     </form>
                                 </div>
-                                <!--header search panel end -->
-                                </div>
                                 </header>
                                 <!-- header end -->
                                 <!-- Left sidebar menu start -->
@@ -157,6 +155,12 @@
                                                         <li><a href="BlogController?service=listBlog" class="ttr-label">Blog</a></li>
                                                         <li><a href="BlogController?service=addBlog" class="ttr-label">Add Blog</a></li>
                                                     </ul>
+                                                </li>
+                                                <li>
+                                                    <a href="${pageContext.request.contextPath}/staff/historyLog" class="ttr-material-button">
+                                                        <span class="ttr-icon"><i class="ti-clipboard"></i></span>
+                                                        <span class="ttr-label">User & Tutor Logs</span>
+                                                    </a>
                                                 </li>
                                                 <li class="ttr-seperate"></li>
                                             </ul>

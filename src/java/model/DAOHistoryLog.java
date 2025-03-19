@@ -134,6 +134,40 @@ public class DAOHistoryLog {
         return logs;
     }
 
+    // Lấy tất cả log của User (RoleID = 2) và Tutor (RoleID = 3) cho Staff xem
+    public List<HistoryLog> getUserAndTutorLogs() throws SQLException {
+        List<HistoryLog> logs = new ArrayList<>();
+        String sql = "SELECT TOP 1000 hl.*, u.FullName, u.Email, u.RoleID "
+                + "FROM HistoryLog hl "
+                + "LEFT JOIN Users u ON hl.UserID = u.UserID "
+                + "WHERE u.RoleID IN (2, 3) "
+                + "ORDER BY hl.LogDate DESC";
+        try (ResultSet rs = dbConnect.getData(sql)) {
+            while (rs.next()) {
+                HistoryLog log = new HistoryLog();
+                log.setLogId(rs.getInt("LogID"));
+                log.setUserId(rs.getInt("UserID"));
+                log.setActionType(rs.getString("ActionType"));
+                if (rs.getObject("TargetID") != null) {
+                    log.setTargetId(rs.getString("TargetID"));
+                } else {
+                    log.setTargetId(null);
+                }
+                log.setDetails(rs.getString("Details"));
+                log.setLogDate(rs.getTimestamp("LogDate"));
+                // Lấy thông tin từ Users
+                log.setFullName(rs.getString("FullName"));
+                log.setEmail(rs.getString("Email"));
+                log.setRoleId(rs.getInt("RoleID"));
+                logs.add(log);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error fetching user and tutor logs: " + ex.getMessage());
+            throw ex;
+        }
+        return logs;
+    }
+
     // Đóng kết nối (nếu cần)
     public void closeConnection() {
         if (dbConnect != null && dbConnect.conn != null) {
