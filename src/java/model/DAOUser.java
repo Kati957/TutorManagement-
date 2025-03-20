@@ -409,20 +409,55 @@ public class DAOUser extends DBConnect {
             return false;
         }
 
-        String sql = "DELETE FROM Users WHERE UserID = ?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, userId);
-            int rowsAffected = ps.executeUpdate();
-            if (rowsAffected > 0) {
-                Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "User with ID " + userId + " deleted successfully");
-                return true;
-            } else {
-                Logger.getLogger(DAOUser.class.getName()).log(Level.WARNING, "No user found with ID " + userId + " to delete");
-                return false;
+        // Xóa các bản ghi liên quan trong HistoryLog trước
+        String deleteHistorySql = "DELETE FROM HistoryLog WHERE UserID = ?";
+        String deleteUserSql = "DELETE FROM Users WHERE UserID = ?";
+
+        try {
+            // Bắt đầu giao dịch
+            conn.setAutoCommit(false);
+
+            // 1. Xóa bản ghi trong HistoryLog
+            try (PreparedStatement psHistory = conn.prepareStatement(deleteHistorySql)) {
+                psHistory.setInt(1, userId);
+                int historyRowsAffected = psHistory.executeUpdate();
+                Logger.getLogger(DAOUser.class.getName()).log(Level.INFO,
+                        "Deleted " + historyRowsAffected + " history logs for UserID: " + userId);
+            }
+
+            // 2. Xóa bản ghi trong Users
+            try (PreparedStatement psUser = conn.prepareStatement(deleteUserSql)) {
+                psUser.setInt(1, userId);
+                int userRowsAffected = psUser.executeUpdate();
+                if (userRowsAffected > 0) {
+                    Logger.getLogger(DAOUser.class.getName()).log(Level.INFO,
+                            "User with ID " + userId + " deleted successfully");
+                    conn.commit();
+                    return true;
+                } else {
+                    Logger.getLogger(DAOUser.class.getName()).log(Level.WARNING,
+                            "No user found with ID " + userId + " to delete");
+                    conn.rollback();
+                    return false;
+                }
             }
         } catch (SQLException e) {
-            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error deleting user with ID " + userId, e);
+            try {
+                conn.rollback();
+                Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE,
+                        "Error deleting user with ID " + userId + ", rolled back", e);
+            } catch (SQLException rollbackEx) {
+                Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE,
+                        "Error during rollback", rollbackEx);
+            }
             return false;
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE,
+                        "Error resetting auto-commit", ex);
+            }
         }
     }
 
