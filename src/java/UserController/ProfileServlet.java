@@ -6,6 +6,7 @@ package UserController;
 
 import entity.User;
 import model.DAOUser;
+import model.DAOHistoryLog; // Đảm bảo import này
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.sql.SQLException;
@@ -22,6 +23,11 @@ import java.time.LocalDate;
 import java.sql.Date;
 import java.security.MessageDigest;
 
+/**
+ * Servlet xử lý đăng ký người dùng.
+ *
+ * @author Heizxje
+ */
 @WebServlet(name = "ProfileServlet", urlPatterns = {"/profile"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB
@@ -31,6 +37,14 @@ public class ProfileServlet extends HttpServlet {
     private static final String PROFILE_PAGE = "/profile_user.jsp";
     private static final String LOGIN_PAGE = "login.jsp";
     private static final int MIN_PASSWORD_LENGTH = 8;
+    private DAOUser daoUser;
+    private DAOHistoryLog daoLog;
+
+    @Override
+    public void init() throws ServletException {
+        daoUser = new DAOUser();
+        daoLog = new DAOHistoryLog();
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -75,30 +89,40 @@ public class ProfileServlet extends HttpServlet {
         String confirmPassword = request.getParameter("confirmPassword");
 
         try {
+            // Kiểm tra mật khẩu hiện tại
             if (!currentUser.getPassword().equals(currentPassword)) {
                 setError(session, "Mật khẩu hiện tại không đúng.");
+                response.sendRedirect("profile");
                 return;
             }
 
+            // Kiểm tra mật khẩu mới và xác nhận
             if (!newPassword.equals(confirmPassword)) {
                 setError(session, "Mật khẩu mới và xác nhận mật khẩu không khớp.");
+                response.sendRedirect("profile");
                 return;
             }
 
             if (newPassword.length() < MIN_PASSWORD_LENGTH) {
                 setError(session, "Mật khẩu mới phải có ít nhất " + MIN_PASSWORD_LENGTH + " ký tự.");
+                response.sendRedirect("profile");
                 return;
             }
 
+            // Cập nhật mật khẩu
             currentUser.setPassword(newPassword);
             if (daoUser.updateUser(currentUser)) {
                 session.setAttribute("user", currentUser);
+                // Ghi log thay đổi mật khẩu
+                daoLog.logUserProfileUpdate(currentUser.getUserID(), "Password");
                 setMessage(session, "Đổi mật khẩu thành công!");
             } else {
                 setError(session, "Đổi mật khẩu thất bại.");
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             setError(session, "Lỗi khi xử lý mật khẩu: " + e.getMessage());
+        } catch (Exception e) {
+            setError(session, "Lỗi không xác định: " + e.getMessage());
         } finally {
             response.sendRedirect("profile");
         }
@@ -137,11 +161,37 @@ public class ProfileServlet extends HttpServlet {
                 currentUser.getCreateAt(), currentUser.getIsActive(), sqlDob, address,
                 avatarPath, currentUser.getUserName(), currentUser.getPassword());
 
-        if (daoUser.updateUser(updatedUser)) {
-            session.setAttribute("user", updatedUser);
-            setMessage(session, "Cập nhật hồ sơ thành công!");
-        } else {
-            setError(session, "Cập nhật hồ sơ thất bại.");
+        // So sánh để xác định các trường đã thay đổi
+        StringBuilder updatedFields = new StringBuilder();
+        if (!currentUser.getFullName().equals(fullName)) {
+            updatedFields.append("FullName, ");
+        }
+        if (!currentUser.getPhone().equals(phone)) {
+            updatedFields.append("Phone, ");
+        }
+        if (currentUser.getDob() != null && !currentUser.getDob().equals(sqlDob)) {
+            updatedFields.append("DateOfBirth, ");
+        }
+        if (!currentUser.getAddress().equals(address)) {
+            updatedFields.append("Address, ");
+        }
+        if (!currentUser.getAvatar().equals(avatarPath)) {
+            updatedFields.append("Avatar, ");
+        }
+
+        try {
+            if (daoUser.updateUser(updatedUser)) {
+                if (updatedFields.length() > 0) {
+                    updatedFields.setLength(updatedFields.length() - 2);
+                    daoLog.logUserProfileUpdate(userId, updatedFields.toString());
+                }
+                session.setAttribute("user", updatedUser);
+                setMessage(session, "Cập nhật hồ sơ thành công!");
+            } else {
+                setError(session, "Cập nhật hồ sơ thất bại.");
+            }
+        } catch (SQLException e) {
+            setError(session, "Lỗi khi cập nhật hồ sơ: " + e.getMessage());
         }
         response.sendRedirect("profile");
     }
@@ -172,7 +222,7 @@ public class ProfileServlet extends HttpServlet {
                 filePart.write(uploadPath + fileName);
                 return "uploads/" + fileName;
             } else {
-                return currentAvatar; // Giữ nguyên avatar hiện tại nếu file không hợp lệ
+                return currentAvatar;
             }
         }
         return currentAvatar;
