@@ -20,10 +20,48 @@ public class DAOUser extends DBConnect {
         super(); // Gọi constructor của DBConnect để khởi tạo conn
     }
 
+    // Phương thức đăng ký người dùng mới
+    public int registerUser(User user) throws SQLException {
+        if (conn == null) {
+            throw new SQLException("Database connection is not initialized.");
+        }
+        String sql = "INSERT INTO Users (RoleID, Email, FullName, Phone, CreatedAt, IsActive, Dob, Address, Avatar, UserName, Password) "
+                + "VALUES (?, ?, ?, ?, GETDATE(), 1, ?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            stmt.setInt(1, user.getRoleID());
+            stmt.setString(2, user.getEmail());
+            stmt.setString(3, user.getFullName());
+            stmt.setString(4, user.getPhone());
+            stmt.setDate(5, user.getDob());
+            stmt.setString(6, user.getAddress());
+            stmt.setString(7, user.getAvatar());
+            stmt.setString(8, user.getUserName());
+            stmt.setString(9, user.getPassword());
+
+            // Thực thi INSERT
+            int rowsAffected = stmt.executeUpdate();
+            Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "Rows affected: " + rowsAffected);
+
+            // Lấy UserID từ generated keys
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    int userId = rs.getInt(1);
+                    Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "Generated UserID: " + userId);
+                    return userId;
+                }
+            }
+            Logger.getLogger(DAOUser.class.getName()).log(Level.WARNING, "No generated keys returned");
+            return 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error registering user", ex);
+            throw ex;
+        }
+    }
+
     // Phương thức lấy 5 người dùng mới nhất
     public List<User> getNewUsers() throws SQLException {
         List<User> newUsers = new ArrayList<>();
-        String sql = "SELECT TOP 5 * FROM Users WHERE RoleID = 2 ORDER BY CreatedAt DESC"; // Chỉ lấy RoleID = 2
+        String sql = "SELECT TOP 5 * FROM Users WHERE RoleID = 2 ORDER BY CreatedAt DESC";
         Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "Executing query: {0}", sql);
 
         if (conn == null) {
@@ -50,7 +88,7 @@ public class DAOUser extends DBConnect {
         return newUsers;
     }
 
-    // Các phương thức hiện có giữ nguyên
+    // Phương thức đăng nhập
     public User Login(String username, String password) {
         User user = null;
         String sql = "SELECT * FROM Users WHERE UserName = ? AND Password = ?";
@@ -81,33 +119,7 @@ public class DAOUser extends DBConnect {
         return user;
     }
 
-    // Phương thức đăng ký người dùng mới
-    public int registerUser(User user) throws SQLException {
-        if (conn == null) {
-            throw new SQLException("Database connection is not initialized.");
-        }
-        int n = 0;
-        String sql = "INSERT INTO Users (RoleID, Email, FullName, Phone, CreatedAt, IsActive, Dob, Address, Avatar, UserName, Password) "
-                + "VALUES (?, ?, ?, ?, GETDATE(), 1, ?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, user.getRoleID());
-            stmt.setString(2, user.getEmail());
-            stmt.setString(3, user.getFullName());
-            stmt.setString(4, user.getPhone());
-            stmt.setDate(5, user.getDob());
-            stmt.setString(6, user.getAddress());
-            stmt.setString(7, user.getAvatar());
-            stmt.setString(8, user.getUserName());
-            stmt.setString(9, user.getPassword());
-            n = stmt.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error registering user", ex);
-            throw ex;
-        }
-        return n;
-    }
-
-    // Phương thức lấy thông tin người dùng bằng email
+    // Phương thức lấy thông tin người dùng bằng Email
     public User getUserByEmail(String email) {
         if (conn == null) {
             Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Database connection is null");
@@ -397,20 +409,55 @@ public class DAOUser extends DBConnect {
             return false;
         }
 
-        String sql = "DELETE FROM Users WHERE UserID = ?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, userId);
-            int rowsAffected = ps.executeUpdate();
-            if (rowsAffected > 0) {
-                Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "User with ID " + userId + " deleted successfully");
-                return true;
-            } else {
-                Logger.getLogger(DAOUser.class.getName()).log(Level.WARNING, "No user found with ID " + userId + " to delete");
-                return false;
+        // Xóa các bản ghi liên quan trong HistoryLog trước
+        String deleteHistorySql = "DELETE FROM HistoryLog WHERE UserID = ?";
+        String deleteUserSql = "DELETE FROM Users WHERE UserID = ?";
+
+        try {
+            // Bắt đầu giao dịch
+            conn.setAutoCommit(false);
+
+            // 1. Xóa bản ghi trong HistoryLog
+            try (PreparedStatement psHistory = conn.prepareStatement(deleteHistorySql)) {
+                psHistory.setInt(1, userId);
+                int historyRowsAffected = psHistory.executeUpdate();
+                Logger.getLogger(DAOUser.class.getName()).log(Level.INFO,
+                        "Deleted " + historyRowsAffected + " history logs for UserID: " + userId);
+            }
+
+            // 2. Xóa bản ghi trong Users
+            try (PreparedStatement psUser = conn.prepareStatement(deleteUserSql)) {
+                psUser.setInt(1, userId);
+                int userRowsAffected = psUser.executeUpdate();
+                if (userRowsAffected > 0) {
+                    Logger.getLogger(DAOUser.class.getName()).log(Level.INFO,
+                            "User with ID " + userId + " deleted successfully");
+                    conn.commit();
+                    return true;
+                } else {
+                    Logger.getLogger(DAOUser.class.getName()).log(Level.WARNING,
+                            "No user found with ID " + userId + " to delete");
+                    conn.rollback();
+                    return false;
+                }
             }
         } catch (SQLException e) {
-            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error deleting user with ID " + userId, e);
+            try {
+                conn.rollback();
+                Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE,
+                        "Error deleting user with ID " + userId + ", rolled back", e);
+            } catch (SQLException rollbackEx) {
+                Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE,
+                        "Error during rollback", rollbackEx);
+            }
             return false;
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE,
+                        "Error resetting auto-commit", ex);
+            }
         }
     }
 
@@ -452,17 +499,17 @@ public class DAOUser extends DBConnect {
         }
         return users;
     }
-       public int updateRole(int userID, int newRoleID) {
-           int n=0;
+
+    public int updateRole(int userID, int newRoleID) {
+        int n = 0;
         String sql = "UPDATE Users SET RoleID = ? WHERE UserID = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, newRoleID);
             ps.setInt(2, userID);
-            return ps.executeUpdate();// Trả về true nếu có ít nhất một bản ghi được cập nhật
+            return ps.executeUpdate();
         } catch (SQLException e) {
-            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error fetching users by role: " + e.getMessage(), e);
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error updating role: " + e.getMessage(), e);
         }
         return n;
     }
-
 }

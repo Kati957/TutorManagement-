@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
 package AdminController;
 
 import model.DAOHistoryLog;
@@ -16,8 +20,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * Servlet xử lý đăng ký người dùng.
+ *
+ * @author Heizxje
+ */
 @WebServlet("/admin/historyLog")
 public class HistoryLogServlet extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
