@@ -7,8 +7,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Dashboard - Schedule List</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-        <a href="CreateSchedule.jsp" >Create Schedule</a>
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap-theme.min.css" integrity="sha384-sA6NtfjXTdNyJjgLvwnxyuH08R/O4ONnjq8nlZMZz5VxC0E+IbbVdd+mjMVb+aSk" crossorigin="anonymous">
 
         <style>
             body {
@@ -77,17 +80,10 @@
             }
         </style>
 
-        <script type="text/javascript">
-            function confirmApprove(event) {
-                // Hiển thị hộp thoại xác nhận
-                var confirmAction = confirm("Are you sure you want to approve this schedule?");
-                if (!confirmAction) {
-                    event.preventDefault(); // Nếu người dùng hủy, ngừng gửi form
-                }
-            }
-        </script>
+
     </head>
     <body>
+        <a style="margin-left: 150px" href="${pageContext.request.contextPath}/staff/index_staff.jsp" class="btn btn-primary">Dashboard</a>
         <h2>Available Schedules</h2>
 
         <table>
@@ -124,16 +120,31 @@
         </table>
 
         <!-- Hiển thị phân trang -->
-        <div class="pagination">
-            <!-- Hiển thị nút "Previous" nếu không phải là trang đầu -->
-            <c:if test="${currentPage > 1}">
-                <a href="dashboard?page=${currentPage - 1}">Previous</a>
-            </c:if>
+        <div class="d-flex justify-content-center">
+<div class="pagination">
+    <c:if test="${currentPage > 1}">
+        <a href="ViewSchedule?page=${currentPage - 1}">Previous</a>
+    </c:if>
 
-            <!-- Hiển thị nút "Next" nếu có lịch dạy để chuyển sang trang tiếp theo -->
-            <c:if test="${not empty schedules}">
-                <a href="dashboard?page=${currentPage + 1}">Next</a>
-            </c:if>
-        </div>
+    <c:forEach var="i" begin="1" end="${totalPages}">
+        <a href="ViewSchedule?page=${i}" class="${i == currentPage ? 'active' : ''}">${i}</a>
+    </c:forEach>
+
+    <c:if test="${currentPage < totalPages}">
+        <a href="ViewSchedule?page=${currentPage + 1}">Next</a>
+    </c:if>
+</div>
+</div>
+
+
     </body>
 </html>
+<script type="text/javascript">
+    function confirmApprove(event) {
+        // Hiển thị hộp thoại xác nhận
+        var confirmAction = confirm("Are you sure you want to approve this schedule?");
+        if (!confirmAction) {
+            event.preventDefault(); // Nếu người dùng hủy, ngừng gửi form
+        }
+    }
+</script>

@@ -68,6 +68,12 @@
     <body id="bg">
         <%
             User user = (User) session.getAttribute("user");
+            if (session.getAttribute("redirected") == null) {
+        session.setAttribute("redirected", true);
+        response.sendRedirect("home");
+    } else {
+        session.removeAttribute("redirected"); 
+    }
         %>
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
@@ -162,7 +168,7 @@
                                     <li class="active"><a href="home">Home</a> </li>
                                     <li class="add-mega-menu"><a href="Courses">Our Courses</a></li>
                                     <li><a href="ViewBlog">Blog</a> </li>
-                                    <c:if test="${sessionScope.user != null and sessionScope.user.roleID == 3}">
+                                        <c:if test="${sessionScope.user != null and sessionScope.user.roleID == 3}">
                                         <li><a href="CreateSchedule">View Schedule</a></li>
                                         </c:if>
                                 </ul>
@@ -382,7 +388,7 @@
                                                 </div>
                                                 <div class="info-bx text-center">
                                                     <h5><a href="#">${tutor.cv.user.fullName}</a></h5>
-                                                    
+
                                                 </div>
                                                 <div class="cours-more-info">
                                                     <div class="review">

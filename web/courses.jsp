@@ -181,7 +181,7 @@
                 <div class="breadcrumb-row">
                     <div class="container">
                         <ul class="list-inline">
-                            <li><a href="#">Home</a></li>
+                            <li><a href="home">Home</a></li>
                             <li>Our Courses</li>
                         </ul>
                     </div>
@@ -207,7 +207,7 @@
                                     <div class="widget widget_archive">
                                         <h5 class="widget-title style-1">All Courses</h5>
                                         <ul>
-                                            <li class="active"><a href="#">General</a></li>
+                                            <li class="active"><a href="Courses">General</a></li>
                                                 <c:forEach var="g" items="${list}">
                                                 <li><a href="Courses?Subjectname=${g.subjectName}">${g.subjectName}</a></li>
                                                 </c:forEach>

@@ -40,10 +40,7 @@ public class HomePageServlet extends HttpServlet {
                 }
             }
         } catch (Exception e) {
-            user = daoUser.getUserById(21);
-            if (user != null) {
-                session.setAttribute("user", user);
-            }
+            e.printStackTrace();
         }
 
         List<Tutor> topTutors = daoTutor.getTopTutors(5);

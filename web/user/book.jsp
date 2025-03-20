@@ -211,7 +211,7 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <p><strong>Avatar:</strong> <img src="${selectedTutor.cv.user.avatar}" alt="Avatar" style="width:100px; height:100px; border-radius:5%;" /></p>
-                                                    <p><strong>Email:</strong> ${selectedTutor.cv.user.email}</p>
+                                                    <p><strong>Email:</strong> <strong> ${selectedTutor.cv.user.email}</strong></p>
                                                     <p><strong>Phone:</strong> ${selectedTutor.cv.user.phone}</p>
                                                     <p><strong>Rating:</strong> ${selectedTutor.rating}</p>
                                                 </div>

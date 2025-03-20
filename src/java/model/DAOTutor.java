@@ -182,7 +182,7 @@ public class DAOTutor extends DBConnect {
     public Tutor getTutorBySubject(int tutorID, int subjectID) {
         Tutor tutor = null;
         String sql = """
-        SELECT t.tutorID, t.CVIID, t.rating, 
+        SELECT t.tutorID, t.CVIID, t.rating, t.Price,
                u.FullName, u.Email, u.Phone, u.Avatar, 
                c.Education, c.Experience, c.Certificates, c.Status, c.Desciption
         FROM Tutor t

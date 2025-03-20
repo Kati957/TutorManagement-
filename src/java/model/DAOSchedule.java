@@ -56,7 +56,7 @@ public class DAOSchedule extends DBConnect {
         String query = """
         SELECT *
         FROM Schedule s
-        WHERE TutorID = ? and SubjectID = ? and IsBooked = 0  AND StartTime > GETDATE()
+        WHERE TutorID = ? and SubjectID = ? and IsBooked = 0  AND StartTime > GETDATE() and Status != 'pending'
     """;
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setInt(1, tutorId);
