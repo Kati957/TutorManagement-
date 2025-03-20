@@ -112,6 +112,7 @@
                                 <div class="col-lg-12 m-b30">
                                     <button type="submit" class="btn button-md" name="submit">Send</button>
                                 </div>
+                                <a>${mess}</a>
                             </div>
                         </form>
                     </div>

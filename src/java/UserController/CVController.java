@@ -45,7 +45,7 @@ public class CVController extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             DAOCv dao = new DAOCv();
-            String error = "";
+            String mess = "";
             String submit = request.getParameter("submit");
             if (submit == null) {
                 DAOSubject dao2= new DAOSubject();
@@ -54,13 +54,20 @@ public class CVController extends HttpServlet {
                 request.getRequestDispatcher("/sendCV.jsp").forward(request, response);
             }
             if (submit != null) {
+                int n=0;
                 int userID = Integer.parseInt(request.getParameter("userId"));
                 String education = request.getParameter("education");
                 String experience = request.getParameter("experience");
                 String certificates = request.getParameter("certificates");
                 int subjectId = Integer.parseInt(request.getParameter("Subject"));
                 String description = request.getParameter("Description");
-                int n = dao.sendCv(new Cv(0, userID, education, experience, certificates, "Pending", subjectId, description));
+                n = dao.sendCv(new Cv(0, userID, education, experience, certificates, "Pending", subjectId, description));
+                if(n!=0){
+                    mess="CV Successfully";
+                }else{
+                    mess="Send CV failed, please try again";
+                }
+                request.setAttribute("mess", mess);
                 request.getRequestDispatcher("/sendCV.jsp").forward(request, response);
             }
         }
