@@ -22,7 +22,7 @@ public class DAOCv extends DBConnect {
         String sql = "INSERT INTO CV (UserID, Education, Experience, Certificates, Status, SubjectId, Desciption) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, cv.getCvId());
+            stmt.setInt(1, cv.getUserId());
             stmt.setString(2, cv.getEducation());
             stmt.setString(3, cv.getExperience());
             stmt.setString(4, cv.getCertificates());
