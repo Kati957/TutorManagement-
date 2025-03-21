@@ -162,7 +162,7 @@
                                 <ul class="nav navbar-nav">	
                                     <li><a href="home">Home</a>
                                     </li>
-                                    <li class="add-mega-menu"><a href="Courses">Our Courses</a>
+                                    <li class="add-mega-menu"><a href="Tutor">Our Tutor</a>
                                     </li>
 
                                     <li class="active"><a href="ViewBlog">Blog</a>

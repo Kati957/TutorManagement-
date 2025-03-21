@@ -89,7 +89,7 @@
                                     </li>
                                     <% if (user == null) { %>
                                     <li><a href="login">Login</a></li>
-                                    <li><a href="user?service=registerUser">Register</a></li>
+                                    <li><a href="User?service=registerUser">Register</a></li>
                                         <%} else {%>
                                     <li>
                                         <div class="ttr-header-submenu">
@@ -105,8 +105,8 @@
                                                     </a>
                                                 </li>
                                                 <li><a href="profile">My profile</a></li>
-                                                <li><a href="list-view-calendar.jsp">Activity</a></li>
-                                                <li><a href="mailbox.jsp">Messages</a></li>
+                                                <li><a href="list-view-calendar.html">Activity</a></li>
+                                                <li><a href="cv">Become a tutor</a></li>
                                                 <li><a href="logout">Logout</a></li>
                                             </ul>
                                         </div>
