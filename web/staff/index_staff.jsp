@@ -232,74 +232,6 @@
                 </div>
                 <% request.removeAttribute("error"); %>
                 <% }%>
-                <!-- Card -->
-                <div class="row">
-                    <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12">
-                        <div class="widget-card widget-bg1">
-                            <div class="wc-item">
-                                <h4 class="wc-title">Total Earnings</h4>
-                                <span class="wc-des">Tutor Earnings</span>
-                                <span class="wc-stats">$<span class="counter">15</span>K</span>
-                                <div class="progress wc-progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <span class="wc-progress-bx">
-                                    <span class="wc-change">Change</span>
-                                    <span class="wc-number ml-auto">70%</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12">
-                        <div class="widget-card widget-bg2">
-                            <div class="wc-item">
-                                <h4 class="wc-title">New Bookings</h4>
-                                <span class="wc-des">Recent Bookings</span>
-                                <span class="wc-stats counter">85</span>
-                                <div class="progress wc-progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <span class="wc-progress-bx">
-                                    <span class="wc-change">Change</span>
-                                    <span class="wc-number ml-auto">60%</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12">
-                        <div class="widget-card widget-bg3">
-                            <div class="wc-item">
-                                <h4 class="wc-title">Pending Schedules</h4>
-                                <span class="wc-des">Awaiting Approval</span>
-                                <span class="wc-stats counter">30</span>
-                                <div class="progress wc-progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <span class="wc-progress-bx">
-                                    <span class="wc-change">Change</span>
-                                    <span class="wc-number ml-auto">50%</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12">
-                        <div class="widget-card widget-bg4">
-                            <div class="wc-item">
-                                <h4 class="wc-title">New Tutors</h4>
-                                <span class="wc-des">Joined Tutors</span>
-                                <span class="wc-stats counter"><%= newUsers.size() %></span>
-                                <div class="progress wc-progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <span class="wc-progress-bx">
-                                    <span class="wc-change">Change</span>
-                                    <span class="wc-number ml-auto">80%</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Card END -->
                 <div class="row">
                     <!-- New Tutors -->
                     <div class="col-lg-6 m-b30">
@@ -313,7 +245,7 @@
                                         <%
                                             for (User newUser : newUsers) {
                                                 String roleName = "Tutor"; // Vì getNewUsers() chỉ lấy RoleID = 2
-                                        %>
+%>
                                         <li>
                                             <span class="new-users-pic">
                                                 <img src="${pageContext.request.contextPath}/<%= newUser.getAvatar() != null ? newUser.getAvatar() : "uploads/default_avatar.jpg"%>" 
@@ -321,8 +253,8 @@
                                                      onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'" />
                                             </span>
                                             <span class="new-users-text">
-                                                <a href="${pageContext.request.contextPath}/profile?userID=<%= newUser.getUserID()%>" class="new-users-name"><%= newUser.getFullName() %></a>
-                                                <span class="new-users-info"><%= roleName %></span>
+                                                <a href="${pageContext.request.contextPath}/profile?userID=<%= newUser.getUserID()%>" class="new-users-name"><%= newUser.getFullName()%></a>
+                                                <span class="new-users-info"><%= roleName%></span>
                                             </span>
                                             <span class="new-users-btn">
                                                 <a href="${pageContext.request.contextPath}/profile?userID=<%= newUser.getUserID()%>" class="btn button-sm outline">View</a>
@@ -331,7 +263,7 @@
                                         <% } %>
                                         <% if (newUsers.isEmpty()) { %>
                                         <li>No new tutors found.</li>
-                                        <% } %>
+                                            <% }%>
                                     </ul>
                                 </div>
                             </div>

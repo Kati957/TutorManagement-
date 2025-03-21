@@ -114,7 +114,7 @@
                 </div>
                 <div class="ttr-logo-box">
                     <div>
-                        <a href="${pageContext.request.contextPath}/staff/index_staff.jsp" class="ttr-logo">
+                        <a href="${pageContext.request.contextPath}/staff/dashboard" class="ttr-logo">
                             <img class="ttr-logo-mobile" alt="" src="assets/images/logo-mobile.png" width="30" height="30">
                             <img class="ttr-logo-desktop" alt="" src="assets/images/logo-white.png" width="160" height="27">
                         </a>
@@ -144,13 +144,13 @@
         <div class="ttr-sidebar">
             <div class="ttr-sidebar-wrapper content-scroll">
                 <div class="ttr-sidebar-logo">
-                    <a href="${pageContext.request.contextPath}/staff/index_staff.jsp"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
+                    <a href="${pageContext.request.contextPath}/staff/dashboard"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
                     <div class="ttr-sidebar-toggle-button"><i class="ti-arrow-left"></i></div>
                 </div>
                 <nav class="ttr-sidebar-navi">
                     <ul>
                         <li>
-                            <a href="${pageContext.request.contextPath}/staff/index_staff.jsp" class="ttr-material-button">
+                            <a href="${pageContext.request.contextPath}/staff/dashboard" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-home"></i></span>
                                 <span class="ttr-label">Dashboard</span>
                             </a>
@@ -209,7 +209,7 @@
                 <div class="db-breadcrumb">
                     <h4 class="breadcrumb-title">Schedule List</h4>
                     <ul class="db-breadcrumb-list">
-                        <li><a href="${pageContext.request.contextPath}/staff/index_staff.jsp"><i class="fa fa-home"></i>Home</a></li>
+                        <li><a href="${pageContext.request.contextPath}/staff/dashboard"><i class="fa fa-home"></i>Home</a></li>
                         <li>Schedule List</li>
                     </ul>
                 </div>

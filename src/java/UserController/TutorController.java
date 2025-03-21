@@ -21,8 +21,8 @@ import model.DAOUser;
  *
  * @author dvdung
  */
-@WebServlet(name = "CoursesController", urlPatterns = {"/Courses"})
-public class CoursesController extends HttpServlet {
+@WebServlet(name = "TutorController", urlPatterns = {"/Tutor"})
+public class TutorController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -60,7 +60,7 @@ public class CoursesController extends HttpServlet {
             rs=dao.getData(sql);
             request.setAttribute("list", list);
             request.setAttribute("rs", rs);
-            request.getRequestDispatcher("/courses.jsp").forward(request, response);
+            request.getRequestDispatcher("/tutor.jsp").forward(request, response);
         }
     }
 

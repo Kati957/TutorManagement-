@@ -158,9 +158,9 @@
                                 <ul class="nav navbar-nav">	
                                     <li class="active"><a href="home">Home</a>
                                     </li>
-                                    <li class="add-mega-menu"><a href="javascript:;">Our Courses</a>
+                                    <li class="add-mega-menu"><a href="Tutor">Our Tutor</a>
                                     </li>
-                                    <li><a href="blog-classic-grid.jsp">Blog</a>
+                                    <li><a href="ViewBlog">Blog</a>
                                     </li>
                                 </ul>
                                 <div class="nav-social-link">
