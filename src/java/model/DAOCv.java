@@ -11,17 +11,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.ResultSet;
 
-/**
- *
- * @author dvdung
- */
 public class DAOCv extends DBConnect {
 
     public int sendCv(Cv cv) {
         int n = 0;
         String sql = "INSERT INTO CV (UserID, Education, Experience, Certificates, Status, SubjectId, Desciption) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (
-                PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, cv.getUserId());
             stmt.setString(2, cv.getEducation());
             stmt.setString(3, cv.getExperience());
@@ -38,9 +33,7 @@ public class DAOCv extends DBConnect {
 
     public void updateCVStatus(int cvId, String newStatus) {
         String sql = "UPDATE [dbo].[CV] SET [Status] = ? WHERE [CVID] = ?";
-
-        try ( 
-            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, newStatus);
             pstmt.setInt(2, cvId);
             int rowsUpdated = pstmt.executeUpdate();
@@ -48,6 +41,7 @@ public class DAOCv extends DBConnect {
             Logger.getLogger(DAOCv.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     public Cv getCVbyId(int cvId) {
         String sql = "SELECT CVID, UserID, Education, Experience, Certificates, Status, SubjectId, Desciption FROM CV WHERE CVID = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -68,6 +62,21 @@ public class DAOCv extends DBConnect {
         } catch (SQLException ex) {
             Logger.getLogger(DAOCv.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null; 
+        return null;
+    }
+
+    // Kiểm tra xem người dùng có CV nào ở trạng thái "Pending" hoặc "Approved" không
+    public boolean hasPendingOrApprovedCv(int userId) {
+        String sql = "SELECT COUNT(*) FROM CV WHERE UserID = ? AND Status IN ('Pending', 'Approved')";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Trả về true nếu có ít nhất 1 CV "Pending" hoặc "Approved"
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOCv.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }
