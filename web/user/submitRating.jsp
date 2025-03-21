@@ -1,14 +1,10 @@
-<%-- 
-    Document   : submitRating
-    Created on : Mar 15, 2025, 2:05:02 PM
-    Author     : minht
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<html lang="${sessionScope.locale != null ? sessionScope.locale : 'en'}">
 <head>
-    <title>Tutor Rating</title>
+    <title>G4 SmartTutor : <fmt:message key="rate_tutor"/></title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -91,20 +87,18 @@
     </style>
 </head>
 <body>
+    <fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en'}"/>
+    <fmt:setBundle basename="messages"/>
+
     <div class="container">
-        <h2>Rate Your Tutor</h2>
-        
-        <%-- Display error message if any --%>
+        <h2><fmt:message key="rate_tutor"/></h2>
         <c:if test="${not empty error}">
             <p class="error">${error}</p>
         </c:if>
-
         <form id="ratingForm" action="${pageContext.request.contextPath}/TutorRatingController?service=addRating" method="post">
-            <%-- Booking ID passed from URL or servlet --%>
             <input type="hidden" name="bookingId" value="${param.bookingId != null ? param.bookingId : ''}">
-
             <div class="form-group">
-                <label>Rating (1-5 stars):</label>
+                <label><fmt:message key="rating_score"/> (1-5 <fmt:message key="stars"/>):</label>
                 <div class="star-rating">
                     <input type="radio" id="star5" name="rating" value="5" required>
                     <label for="star5">★</label>
@@ -118,34 +112,30 @@
                     <label for="star1">★</label>
                 </div>
             </div>
-
             <div class="form-group">
-                <label for="comment">Comment:</label>
-                <textarea name="comment" id="comment" placeholder="Write your comment..." required></textarea>
+                <label for="comment"><fmt:message key="comment"/>:</label>
+                <textarea name="comment" id="comment" placeholder="<fmt:message key='write_your_comment'/>" required></textarea>
             </div>
-
-            <button type="submit" name="submit" value="submit">Submit Rating</button>
+            <button type="submit" name="submit" value="submit"><fmt:message key="submit_rating"/></button>
         </form>
     </div>
-
-    <%-- JavaScript for form validation --%>
     <script>
         document.getElementById('ratingForm').addEventListener('submit', function(event) {
             var rating = document.querySelector('input[name="rating"]:checked');
             var comment = document.getElementById('comment').value.trim();
 
             if (!rating) {
-                alert('Please select a rating!');
+                alert('<fmt:message key="please_select_rating"/>');
                 event.preventDefault();
                 return false;
             }
             if (comment === '') {
-                alert('Please enter a comment!');
+                alert('<fmt:message key="please_enter_comment"/>');
                 event.preventDefault();
                 return false;
             }
             if (comment.length < 10) {
-                alert('Comment must be at least 10 characters long!');
+                alert('<fmt:message key="comment_min_length"/>');
                 event.preventDefault();
                 return false;
             }

@@ -3,16 +3,17 @@
     Created on : Mar 15, 2025, 2:05:02 PM
     Author     : minht
 --%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<html lang="${sessionScope.locale != null ? sessionScope.locale : 'en'}">
 <head>
-    <title>Đánh giá gia sư</title>
+    <title>G4 SmartTutor</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            position: relative; /* Để hỗ trợ định vị language-switcher */
         }
         h2 {
             color: #333;
@@ -58,10 +59,35 @@
             color: red;
             margin-bottom: 15px;
         }
+        .language-switcher {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+        .language-switcher select {
+            padding: 5px;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #ccc;
+        }
     </style>
 </head>
 <body>
-    <h2>Đánh giá gia sư</h2>
+    <!-- Thiết lập Locale và Resource Bundle -->
+    <fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en'}"/>
+    <fmt:setBundle basename="messages"/>
+
+    <!-- Thêm phần chuyển ngôn ngữ -->
+    <div class="language-switcher">
+        <select class="header-lang-bx" onchange="window.location.href='LanguageServlet?lang=' + this.value;">
+            <option value="en" ${sessionScope.locale == null || sessionScope.locale == 'en' ? 'selected' : ''}><fmt:message key="english"/></option>
+            <option value="vi" ${sessionScope.locale == 'vi' ? 'selected' : ''}><fmt:message key="vietnamese"/></option>
+        </select>
+    </div>
+
+    <h2><fmt:message key="rate_tutor"/></h2>
     
     <%-- Hiển thị thông báo lỗi nếu có --%>
     <c:if test="${not empty error}">
@@ -73,20 +99,20 @@
             <%-- Booking ID được truyền từ URL hoặc servlet --%>
             <input type="hidden" name="bookingId" value="${param.bookingId != null ? param.bookingId : ''}">
 
-            <label for="rating">Điểm đánh giá (1-5):</label>
+            <label for="rating"><fmt:message key="rating_score"/> (1-5):</label>
             <select name="rating" id="rating" required>
-                <option value="">Chọn điểm</option>
-                <option value="1">1 - Kém</option>
-                <option value="2">2 - Trung bình</option>
-                <option value="3">3 - Khá</option>
-                <option value="4">4 - Tốt</option>
-                <option value="5">5 - Xuất sắc</option>
+                <option value=""><fmt:message key="select_score"/></option>
+                <option value="1">1 - <fmt:message key="poor"/></option>
+                <option value="2">2 - <fmt:message key="average"/></option>
+                <option value="3">3 - <fmt:message key="good"/></option>
+                <option value="4">4 - <fmt:message key="very_good"/></option>
+                <option value="5">5 - <fmt:message key="excellent"/></option>
             </select>
 
-            <label for="comment">Nhận xét:</label>
-            <textarea name="comment" id="comment" placeholder="Viết nhận xét của bạn..." required></textarea>
+            <label for="comment"><fmt:message key="comment"/></label>
+            <textarea name="comment" id="comment" placeholder="<fmt:message key='write_your_comment'/>" required></textarea>
 
-            <button type="submit" name="submit" value="submit">Gửi đánh giá</button>
+            <button type="submit" name="submit" value="submit"><fmt:message key="submit_rating"/></button>
         </form>
     </div>
 
@@ -97,17 +123,17 @@
             var comment = document.getElementById('comment').value.trim();
 
             if (rating === '') {
-                alert('Vui lòng chọn điểm đánh giá!');
+                alert('<fmt:message key="please_select_rating"/>');
                 event.preventDefault();
                 return false;
             }
             if (comment === '') {
-                alert('Vui lòng nhập nhận xét!');
+                alert('<fmt:message key="please_enter_comment"/>');
                 event.preventDefault();
                 return false;
             }
             if (comment.length < 10) {
-                alert('Nhận xét phải có ít nhất 10 ký tự!');
+                alert('<fmt:message key="comment_min_length"/>');
                 event.preventDefault();
                 return false;
             }
