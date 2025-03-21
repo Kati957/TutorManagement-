@@ -110,8 +110,9 @@ public class AuthenticationFilter implements Filter {
             return;
         }
 
-        if (path.startsWith("/admin/") || isProtected(path)) {
-            if (httpRequest.getSession(false) == null || httpRequest.getSession(false).getAttribute("user") == null) {
+        HttpSession session = httpRequest.getSession(false);
+        if (isProtected(path)) {
+            if (session == null || session.getAttribute("user") == null) {
                 httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.jsp");
                 return;
             }

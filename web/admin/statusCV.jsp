@@ -259,24 +259,20 @@
                                 <td><%=rsCv.getString(3)%></td>
                                 <td><%=rsCv.getString(5)%></td>
                                 <td>
-                                    <form action="RequestCV" method="post">
-                                        <input type="hidden" name="cvId" value="<%= rsCv.getInt(1)%>">
-                                        <input type="hidden" name="subject" value="<%= rsCv.getInt("SubjectID")%>">
-                                        <button type="submit" name="status" value="Approved"
-                                                style="background-color: green; color: white; padding: 8px 15px; border: none; cursor: pointer; border-radius: 5px;"
-                                                <%= "Approved".equals(rsCv.getString("Status")) ? "disabled" : ""%>>Approve</button>
+                                        <a href="RequestCV?cvId=<%= rsCv.getInt(1)%>&subject=<%= rsCv.getInt("SubjectID")%>&status=Approved"
+                                           style="background-color: green; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; display: inline-block;"
+                                           >Approve</a>
 
-                                        <button type="submit" name="status" value="Rejected"
-                                                style="background-color: red; color: white; padding: 8px 15px; border: none; cursor: pointer; border-radius: 5px;"
-                                                <%= "Rejected".equals(rsCv.getString("Status")) ? "disabled" : ""%>>Reject</button>
-                                    </form>
+                                        <a href="RequestCV?cvId=<%= rsCv.getInt(1)%>&subject=<%= rsCv.getInt("SubjectID")%>&status=Rejected"
+                                           style="background-color: red; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; display: inline-block;"
+                                           >Reject</a>
                                 </td>
                                 <td><a href="viewCV?cvid=<%=rsCv.getInt(1)%>">View CV</a></td>
                             </tr>
                             <%}%>
                         </table>
                     </div>
-                        <h1>${error}</h1>
+                    <h1>${error}</h1>
                 </div>
             </form>
         </main>

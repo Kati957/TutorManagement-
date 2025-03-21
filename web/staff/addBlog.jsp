@@ -56,8 +56,67 @@
                 <!-- Nút submit -->
                 <button type="submit" name="submit" value="publish" class="btn btn-primary">Upload</button>
                 <a href="${pageContext.request.contextPath}/staff/BlogController" class="btn btn-secondary">Back</a>
+                <button type="button" class="btn btn-info" onclick="previewBlog()">Preview</button>
+                <!-- Modal Xem trước -->
+                <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="previewModalLabel">Blog Preview</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Tiêu đề -->
+                                <h3 id="previewTitle" class="mb-3"></h3>
+                                <!-- Tóm tắt -->
+                                <p id="previewSummary" class="text-muted mb-3"></p>
+                                <!-- Hình ảnh thumbnail -->
+                                <div id="previewThumbnail" class="mb-3">
+                                    <img id="thumbnailImage" src="" alt="Thumbnail Preview" style="max-width: 100%; height: auto; display: none;">
+                                </div>
+                                <!-- Nội dung -->
+                                <div id="previewContent"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
+        <script>
+            function previewBlog() {
+                // Lấy giá trị từ các trường
+                const title = document.getElementById('title').value;
+                const summary = document.getElementById('summary').value;
+                const content = CKEDITOR.instances.content.getData(); // Lấy nội dung từ CKEditor
+                const thumbnailInput = document.getElementById('thumbnail');
+                const thumbnailImage = document.getElementById('thumbnailImage');
+
+                // Hiển thị tiêu đề, tóm tắt và nội dung trong modal
+                document.getElementById('previewTitle').innerText = title || 'No Title';
+                document.getElementById('previewSummary').innerText = summary || 'No Summary';
+                document.getElementById('previewContent').innerHTML = content || 'No Content';
+
+                // Hiển thị hình ảnh thumbnail nếu có
+                if (thumbnailInput.files && thumbnailInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        thumbnailImage.src = e.target.result;
+                        thumbnailImage.style.display = 'block';
+                    };
+                    reader.readAsDataURL(thumbnailInput.files[0]);
+                } else {
+                    thumbnailImage.style.display = 'none';
+                }
+
+                // Hiển thị modal
+                $('#previewModal').modal('show');
+            }
+        </script>
         <!-- Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
