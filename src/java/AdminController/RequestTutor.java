@@ -43,8 +43,8 @@ public class RequestTutor extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             DAOCv dao = new DAOCv();
             DAOTutor dao2 = new DAOTutor();
-            DAOTutorSubject dao3= new DAOTutorSubject();
-            DAOUser dao4= new DAOUser();
+            DAOTutorSubject dao3 = new DAOTutorSubject();
+            DAOUser dao4 = new DAOUser();
             String error = "";
             int CvID = 0;
             String cvid = request.getParameter("cvid");
@@ -52,37 +52,31 @@ public class RequestTutor extends HttpServlet {
             String submit = request.getParameter("submit");
             String subject = request.getParameter("subject");
             String status = request.getParameter("status");
-            ResultSet rsCv = dao.getData("SELECT [CVID],[Fullname],[Education],[Status],[SubjectName],Subject.SubjectID FROM [dbo].[CV]\n"
-                        + "join Subject on CV.SubjectId=Subject.SubjectID\n"
-                        + "join Users on Users.UserID=CV.UserID\n"
-                    + "Where [Status]='Pending'");
+            ResultSet rsCv = null;
             if (cvId != null && status != null) {
                 CvID = Integer.parseInt(cvId);
-                int subjectId= Integer.parseInt(subject);
+                int subjectId = Integer.parseInt(subject);
                 if (!dao2.isCVExists(CvID)) {
                     dao.updateCVStatus(CvID, status);
                     if (status.equals("Approved")) {
-                        Cv cv= dao.getCVbyId(CvID);
-                        int n= dao4.updateRole(cv.getUserId(), 3);
+                        Cv cv = dao.getCVbyId(CvID);
+                        int n = dao4.updateRole(cv.getUserId(), 3);
                         dao2.addTutor(new Tutor(0, CvID, 5));
-                        Tutor tutor= dao2.getTutorByCVid(CvID);
-                        dao3.addTutorSubject(tutor.getTutorID(),subjectId);
+                        Tutor tutor = dao2.getTutorByCVid(CvID);
+                        dao3.addTutorSubject(tutor.getTutorID(), subjectId);
                     }
                 } else {
                     error = "This CV used";
                 }
             }
-            if (cvid != null) {
-                CvID = Integer.parseInt(cvid);
-                 rsCv = dao.getData("SELECT * FROM [dbo].[CV]\n"
-                        + "join Subject on CV.SubjectId=Subject.SubjectID\n"
-                        + "join Users on Users.UserID=CV.UserID"
-                        + "where [CVID]=" + CvID);
-            }
-                request.setAttribute("error", error);
-                request.setAttribute("rsCv", rsCv);
-                request.getRequestDispatcher("//admin/statusCV.jsp").forward(request, response);
-            }
+            rsCv = dao.getData("SELECT [CVID],[Fullname],[Education],[Status],[SubjectName],Subject.SubjectID FROM [dbo].[CV]\n"
+                    + "join Subject on CV.SubjectId=Subject.SubjectID\n"
+                    + "join Users on Users.UserID=CV.UserID\n"
+                    + "Where [Status]='Pending'");
+            request.setAttribute("error", error);
+            request.setAttribute("rsCv", rsCv);
+            request.getRequestDispatcher("/admin/statusCV.jsp").forward(request, response);
+        }
         }
     
 
@@ -123,6 +117,7 @@ public class RequestTutor extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }
 }
+
+
