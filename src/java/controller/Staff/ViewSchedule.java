@@ -23,7 +23,7 @@ import model.ScheduleDAO;
  *
  * @author xuant
  */
-@WebServlet(name = "ViewSchedule", urlPatterns = {"/ViewSchedule"})
+@WebServlet(name = "ViewSchedule", urlPatterns = {"/staff/ViewSchedule"})
 public class ViewSchedule extends HttpServlet {
 
     /**
@@ -86,7 +86,7 @@ public class ViewSchedule extends HttpServlet {
         request.setAttribute("totalPages", result.get("totalPages"));
         request.setAttribute("currentPage", pageNumber);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("staff/viewschedule.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/staff/viewschedule.jsp");
         dispatcher.forward(request, response);
     }
 

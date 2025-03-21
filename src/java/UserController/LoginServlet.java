@@ -129,7 +129,7 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect(contextPath + "/tutor/indextutor.jsp");
                 break;
             case 4: // Staff
-                response.sendRedirect(contextPath + "/staff/index_staff.jsp");
+                response.sendRedirect(contextPath + "/staff/dashboard");
                 break;
             default:
                 response.sendRedirect(contextPath + "/home.jsp");
