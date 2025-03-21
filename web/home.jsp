@@ -166,7 +166,7 @@
                                 </div>
                                 <ul class="nav navbar-nav">	
                                     <li class="active"><a href="home">Home</a> </li>
-                                    <li class="add-mega-menu"><a href="Courses">Our Courses</a></li>
+                                    <li class="add-mega-menu"><a href="Tutor">Our Tutor</a></li>
                                     <li><a href="ViewBlog">Blog</a> </li>
                                         <c:if test="${sessionScope.user != null and sessionScope.user.roleID == 3}">
                                         <li><a href="CreateSchedule">View Schedule</a></li>
@@ -330,8 +330,8 @@
                                             <div class="feature-box-sm radius bg-white">
                                                 <i class="fa fa-bank text-primary"></i>
                                             </div>
-                                            <h4><a href="#">All Tutors</a></h4>
-                                            <a href="#" class="btn radius-xl">View More</a>
+                                            <h4><a href="Tutor">All Tutors</a></h4>
+                                            <a href="Tutor" class="btn radius-xl">View More</a>
                                         </div>
                                     </div>
                                 </div>
@@ -344,8 +344,8 @@
                                             <div class="feature-box-sm radius bg-white">
                                                 <i class="fa fa-book text-primary"></i>
                                             </div>
-                                            <h4><a href="#">All Subjects</a></h4>
-                                            <a href="#" class="btn radius-xl">View More</a>
+                                            <h4><a href="Tutor">All Subjects</a></h4>
+                                            <a href="Tutor" class="btn radius-xl">View More</a>
                                         </div>
                                     </div>
                                 </div>

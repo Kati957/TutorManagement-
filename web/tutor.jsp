@@ -27,7 +27,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
 
         <!-- PAGE TITLE HERE ============================================= -->
-        <title>G4 SmartTutor : Courses</title>
+        <title>G4 SmartTutor : Tutor</title>
 
         <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -150,7 +150,7 @@
                                 <ul class="nav navbar-nav">	
                                     <li><a href="home">Home</a>
                                     </li>
-                                    <li class="active" class="add-mega-menu"><a href="Courses">Our Courses</a>
+                                    <li class="active" class="add-mega-menu"><a href="Tutor">Our Tutor</a>
                                     </li>
                                     <li><a href="ViewBlog">Blog</a>
                                     </li>
@@ -173,7 +173,7 @@
                 <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
                     <div class="container">
                         <div class="page-banner-entry">
-                            <h1 class="text-white">Our Courses</h1>
+                            <h1 class="text-white">Our Tutor</h1>
                         </div>
                     </div>
                 </div>
@@ -182,7 +182,7 @@
                     <div class="container">
                         <ul class="list-inline">
                             <li><a href="home">Home</a></li>
-                            <li>Our Courses</li>
+                            <li>Our Tutor</li>
                         </ul>
                     </div>
                 </div>
@@ -197,7 +197,7 @@
                                     <div class="widget courses-search-bx placeani">
                                         <div class="form-group">
                                             <div class="input-group">
-                                                <form action="Courses" method="get">
+                                                <form action="Tutor" method="get">
                                                     <label>Search Tutor</label>
                                                     <input name="dzName" type="text" required class="form-control">
                                                 </form>
@@ -205,11 +205,11 @@
                                         </div>
                                     </div>
                                     <div class="widget widget_archive">
-                                        <h5 class="widget-title style-1">All Courses</h5>
+                                        <h5 class="widget-title style-1">All Tutor</h5>
                                         <ul>
-                                            <li class="active"><a href="Courses">General</a></li>
+                                            <li class="active"><a href="Tutor">General</a></li>
                                                 <c:forEach var="g" items="${list}">
-                                                <li><a href="Courses?Subjectname=${g.subjectName}">${g.subjectName}</a></li>
+                                                <li><a href="Tutor?Subjectname=${g.subjectName}">${g.subjectName}</a></li>
                                                 </c:forEach>
                                         </ul>
                                     </div>
@@ -312,5 +312,4 @@
         <script src="assets/js/contact.js"></script>
         <script src='assets/vendors/switcher/switcher.js'></script>
     </body>
-
 </html>

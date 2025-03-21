@@ -40,7 +40,7 @@
                 </div>
                 <div class="ttr-logo-box">
                     <div>
-                        <a href="${pageContext.request.contextPath}/staff/index_staff.jsp" class="ttr-logo">
+                        <a href="${pageContext.request.contextPath}/staff/dashboard" class="ttr-logo">
                             <img class="ttr-logo-mobile" alt="" src="${pageContext.request.contextPath}/assets/images/logo-mobile.png" width="30" height="30">
                             <img class="ttr-logo-desktop" alt="" src="${pageContext.request.contextPath}/assets/images/logo-white.png" width="160" height="27">
                         </a>
@@ -50,7 +50,7 @@
             <div class="ttr-header-right ttr-with-seperator">
                 <ul class="ttr-header-navigation">
                     <li>
-                        <a href="${pageContext.request.contextPath}/staff/index_staff.jsp" class="ttr-material-button ttr-submenu-toggle">
+                        <a href="${pageContext.request.contextPath}/staff/dashboard" class="ttr-material-button ttr-submenu-toggle">
                             <span class="ttr-user-avatar">
                                 <img alt="" src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
                                      width="32" height="32" onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
@@ -76,7 +76,7 @@
                 </div>
                 <nav class="ttr-sidebar-navi">
                     <ul>
-                        <li><a href="index_staff.jsp" class="ttr-material-button"><span class="ttr-icon"><i class="ti-home"></i></span><span class="ttr-label">Dashboard</span></a></li>
+                        <li><a href="dashboard" class="ttr-material-button"><span class="ttr-icon"><i class="ti-home"></i></span><span class="ttr-label">Dashboard</span></a></li>
                         <li>
                             <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-briefcase"></i></span><span class="ttr-label">Tutor Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
                             <ul>
