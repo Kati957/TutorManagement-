@@ -57,7 +57,7 @@ public class AdminProfileServlet extends HttpServlet {
             return;
         }
 
-        // Kiểm tra nếu user không phải admin (RoleID != 4)
+        // Kiểm tra nếu user không phải admin (RoleID != 1)
         if (currentUser.getRoleID() != 1) {
             response.sendRedirect(request.getContextPath() + "/home");
             return;

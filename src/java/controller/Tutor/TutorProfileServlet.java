@@ -6,9 +6,7 @@ package controller.Tutor;
 
 import entity.User;
 import model.DAOUser;
-import model.DAOHistoryLog;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -30,15 +28,8 @@ import java.sql.Date;
 public class TutorProfileServlet extends HttpServlet {
 
     private static final String TUTOR_PROFILE_PAGE = "/tutor/tutor-profile.jsp";
-    private static final String LOGIN_PAGE = "/login";
+    private static final String LOGIN_PAGE = "login.jsp";
     private static final int MIN_PASSWORD_LENGTH = 8;
-    private DAOUser daoUser;
-    private DAOHistoryLog daoLog;
-
-    @Override
-    public void init() throws ServletException {
-        daoUser = new DAOUser();
-    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -46,9 +37,8 @@ public class TutorProfileServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("user");
 
-        // Kiểm tra quyền truy cập: chỉ tutor (RoleID = 3) được vào
         if (currentUser == null || currentUser.getRoleID() != 3) {
-            response.sendRedirect(request.getContextPath() + LOGIN_PAGE);
+            response.sendRedirect(LOGIN_PAGE);
             return;
         }
 
@@ -62,69 +52,59 @@ public class TutorProfileServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("user");
 
-        // Kiểm tra quyền truy cập: chỉ tutor (RoleID = 3) được vào
         if (currentUser == null || currentUser.getRoleID() != 3) {
-            response.sendRedirect(request.getContextPath() + LOGIN_PAGE);
+            response.sendRedirect(LOGIN_PAGE);
             return;
         }
 
         String action = request.getParameter("action");
+        DAOUser daoUser = new DAOUser();
 
         if ("changePassword".equals(action)) {
-            handleChangePassword(request, response, session, currentUser);
+            handleChangePassword(request, response, session, currentUser, daoUser);
         } else {
-            handleUpdateProfile(request, response, session, currentUser);
+            handleUpdateProfile(request, response, session, currentUser, daoUser);
         }
     }
 
     private void handleChangePassword(HttpServletRequest request, HttpServletResponse response,
-            HttpSession session, User currentUser) throws IOException {
+            HttpSession session, User currentUser, DAOUser daoUser) throws IOException {
         String currentPassword = request.getParameter("currentPassword");
         String newPassword = request.getParameter("newPassword");
         String confirmPassword = request.getParameter("confirmPassword");
 
         try {
-            // Kiểm tra mật khẩu hiện tại
             if (!currentUser.getPassword().equals(currentPassword)) {
                 setError(session, "Mật khẩu hiện tại không đúng.");
-                response.sendRedirect(request.getContextPath() + "/tutor/tutorprofile");
                 return;
             }
 
-            // Kiểm tra mật khẩu mới và xác nhận
             if (!newPassword.equals(confirmPassword)) {
                 setError(session, "Mật khẩu mới và xác nhận mật khẩu không khớp.");
-                response.sendRedirect(request.getContextPath() + "/tutor/tutorprofile");
                 return;
             }
 
             if (newPassword.length() < MIN_PASSWORD_LENGTH) {
                 setError(session, "Mật khẩu mới phải có ít nhất " + MIN_PASSWORD_LENGTH + " ký tự.");
-                response.sendRedirect(request.getContextPath() + "/tutor/tutorprofile");
                 return;
             }
 
-            // Cập nhật mật khẩu
             currentUser.setPassword(newPassword);
             if (daoUser.updateUser(currentUser)) {
                 session.setAttribute("user", currentUser);
-                // Ghi log thay đổi mật khẩu
-                daoLog.logUserProfileUpdate(currentUser.getUserID(), "Password");
                 setMessage(session, "Đổi mật khẩu thành công!");
             } else {
                 setError(session, "Đổi mật khẩu thất bại.");
             }
-        } catch (SQLException e) {
-            setError(session, "Lỗi khi xử lý mật khẩu: " + e.getMessage());
         } catch (Exception e) {
-            setError(session, "Lỗi không xác định: " + e.getMessage());
+            setError(session, "Lỗi khi xử lý mật khẩu: " + e.getMessage());
         } finally {
             response.sendRedirect(request.getContextPath() + "/tutor/tutorprofile");
         }
     }
 
     private void handleUpdateProfile(HttpServletRequest request, HttpServletResponse response,
-            HttpSession session, User currentUser) throws IOException, ServletException {
+            HttpSession session, User currentUser, DAOUser daoUser) throws IOException, ServletException {
         int userId = currentUser.getUserID();
         String fullName = request.getParameter("fullName");
         String phone = request.getParameter("phone");
@@ -144,7 +124,7 @@ public class TutorProfileServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/tutor/tutorprofile");
                     return;
                 }
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 setError(session, "Lỗi khi kiểm tra số điện thoại: " + e.getMessage());
                 response.sendRedirect(request.getContextPath() + "/tutor/tutorprofile");
                 return;
@@ -156,37 +136,11 @@ public class TutorProfileServlet extends HttpServlet {
                 currentUser.getCreateAt(), currentUser.getIsActive(), sqlDob, address,
                 avatarPath, currentUser.getUserName(), currentUser.getPassword());
 
-        // So sánh để xác định các trường đã thay đổi
-        StringBuilder updatedFields = new StringBuilder();
-        if (!currentUser.getFullName().equals(fullName)) {
-            updatedFields.append("FullName, ");
-        }
-        if (!currentUser.getPhone().equals(phone)) {
-            updatedFields.append("Phone, ");
-        }
-        if (currentUser.getDob() != null && !currentUser.getDob().equals(sqlDob)) {
-            updatedFields.append("DateOfBirth, ");
-        }
-        if (!currentUser.getAddress().equals(address)) {
-            updatedFields.append("Address, ");
-        }
-        if (!currentUser.getAvatar().equals(avatarPath)) {
-            updatedFields.append("Avatar, ");
-        }
-
-        try {
-            if (daoUser.updateUser(updatedUser)) {
-                if (updatedFields.length() > 0) {
-                    updatedFields.setLength(updatedFields.length() - 2);
-                    daoLog.logUserProfileUpdate(userId, updatedFields.toString());
-                }
-                session.setAttribute("user", updatedUser);
-                setMessage(session, "Cập nhật hồ sơ thành công!");
-            } else {
-                setError(session, "Cập nhật hồ sơ thất bại.");
-            }
-        } catch (SQLException e) {
-            setError(session, "Lỗi khi cập nhật hồ sơ: " + e.getMessage());
+        if (daoUser.updateUser(updatedUser)) {
+            session.setAttribute("user", updatedUser);
+            setMessage(session, "Cập nhật hồ sơ thành công!");
+        } else {
+            setError(session, "Cập nhật hồ sơ thất bại.");
         }
         response.sendRedirect(request.getContextPath() + "/tutor/tutorprofile");
     }
@@ -217,7 +171,7 @@ public class TutorProfileServlet extends HttpServlet {
                 filePart.write(uploadPath + fileName);
                 return "uploads/" + fileName;
             } else {
-                return currentAvatar;
+                return currentAvatar; // Giữ nguyên avatar hiện tại nếu file không hợp lệ
             }
         }
         return currentAvatar;

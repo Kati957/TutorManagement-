@@ -68,15 +68,6 @@ public class DAOHistoryLog {
         logAction(userId, "ACCESS_PAGE", null, "Accessed page: " + pageUrl);
     }
 
-    // Phương thức tiện ích để ghi log chỉnh sửa thông tin User
-    public void logUserProfileUpdate(int userId, String updatedFields) throws SQLException {
-        logAction(userId, "UPDATE", userId, "Updated profile: " + updatedFields);
-    }
-    // Ghi log khi đăng ký tài khoản
-    public void logUserRegister(int userId, String email) throws SQLException {
-        logAction(userId, "CREATE", userId, "User registered with email: " + email);
-    }
-
     // Lấy tất cả log từ bảng HistoryLog với RoleID (cho sidebar)
     public List<HistoryLog> getAllLogs() throws SQLException {
         List<HistoryLog> logs = new ArrayList<>();
@@ -193,10 +184,9 @@ public class DAOHistoryLog {
     public static void main(String[] args) {
         DAOHistoryLog dao = new DAOHistoryLog();
         try {
-            dao.logLogin(1);
-            dao.logLogout(1);
-            dao.logPageAccess(1, "/admin-profile.jsp");
-            dao.logUserProfileUpdate(1, "FullName, Email"); // Test log chỉnh sửa
+            dao.logLogin(1); // Test với UserID = 1
+            dao.logLogout(1); // Test với UserID = 1
+            dao.logPageAccess(1, "/admin-profile.jsp"); // Test với UserID = 1
             System.out.println("Testing getRecentLogs:");
             List<HistoryLog> recentLogs = dao.getRecentLogs();
             for (HistoryLog log : recentLogs) {
@@ -206,12 +196,6 @@ public class DAOHistoryLog {
             System.out.println("Testing getAllLogs:");
             List<HistoryLog> allLogs = dao.getAllLogs();
             for (HistoryLog log : allLogs) {
-                System.out.println("Log ID: " + log.getLogId() + ", Action: " + log.getActionType()
-                        + ", Date: " + log.getLogDate() + ", RoleID: " + log.getRoleId());
-            }
-            System.out.println("Testing getUserAndTutorLogs:");
-            List<HistoryLog> userTutorLogs = dao.getUserAndTutorLogs();
-            for (HistoryLog log : userTutorLogs) {
                 System.out.println("Log ID: " + log.getLogId() + ", Action: " + log.getActionType()
                         + ", Date: " + log.getLogDate() + ", RoleID: " + log.getRoleId());
             }

@@ -28,7 +28,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
 
     <!-- PAGE TITLE HERE ============================================= -->
-    <title>G4 SmartTutor - Tutor Dashboard</title>
+    <title>G4 SmartTutor - Home</title>
 
     <!-- MOBILE SPECIFIC ============================================= -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -143,10 +143,8 @@
                                 <a href="indextutor.jsp"><img src="assets/images/logo.png" alt=""></a>
                             </div>
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="tutor-home">Tutor Dashboard</a></li>
+                                <li class="active"><a href="tutor-home">Home</a></li>
                                 <li><a href="CreateSchedule">My Schedule</a></li>
-                                <li><a href="tutor-courses">My Courses</a></li>
-                                <li><a href="ViewBlog">Blog</a></li>
                             </ul>
                             <div class="nav-social-link">
                                 <a href="javascript:;"><i class="fa fa-facebook"></i></a>
@@ -180,7 +178,7 @@
                                     data-fsmasterspeed="1500" 
                                     data-fsslotamount="7" 
                                     data-saveperformance="off" 
-                                    data-title="Tutor Dashboard" 
+                                    data-title="Home" 
                                     data-description="Manage your teaching schedule and courses efficiently">
                                     <!-- MAIN IMAGE -->
                                     <img src="assets/images/slider/slide1.jpg" alt="" 
