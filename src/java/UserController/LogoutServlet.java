@@ -1,15 +1,15 @@
 package UserController;
 
-import model.DAOHistoryLog; // Đã có
-import java.io.IOException; // Đã có
-import java.sql.SQLException; // Thêm import này để sử dụng SQLException
-import jakarta.servlet.ServletException; // Đã có
-import jakarta.servlet.annotation.WebServlet; // Đã có
-import jakarta.servlet.http.HttpServlet; // Đã có
-import jakarta.servlet.http.HttpServletRequest; // Đã có
-import jakarta.servlet.http.HttpServletResponse; // Đã có
-import jakarta.servlet.http.HttpSession; // Đã có
-import entity.User; // Đã có
+import model.DAOHistoryLog;
+import java.io.IOException;
+import java.sql.SQLException;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import entity.User;
 
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
@@ -22,19 +22,26 @@ public class LogoutServlet extends HttpServlet {
             if (user != null) {
                 try {
                     DAOHistoryLog logDAO = new DAOHistoryLog();
-                    logDAO.logLogout(user.getUserID()); // Ghi log đăng xuất
+                    logDAO.logLogout(user.getUserID());
                 } catch (SQLException e) {
                     e.printStackTrace();
+                    System.err.println("Error logging logout for user " + user.getUserID() + ": " + e.getMessage());
                 }
                 if (user.getRoleID() == 1) { // Admin
                     redirectUrl = request.getContextPath() + "/login.jsp";
                 } else {
-                    redirectUrl = request.getContextPath() + "/home.jsp";
+                    redirectUrl = request.getContextPath() + "/login.jsp"; // Hoặc "/indextutor.jsp" tùy yêu cầu
                 }
             }
+            session.removeAttribute("userId");
+            session.removeAttribute("user");
             session.invalidate();
         }
 
+        // Ngăn caching
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
         response.sendRedirect(redirectUrl);
     }
 

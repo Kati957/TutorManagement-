@@ -1,18 +1,18 @@
 package UserController;
 
-import model.DAOHistoryLog; // Đã có
-import model.DAOUser; // Đã có
-import entity.GoogleAccount; // Đã có
-import entity.User; // Đã có
-import UserController.GoogleLogin; // Đã có
-import java.io.IOException; // Đã có
-import java.sql.SQLException; // Thêm import này để sử dụng SQLException
-import jakarta.servlet.ServletException; // Đã có
-import jakarta.servlet.annotation.WebServlet; // Đã có
-import jakarta.servlet.http.HttpServlet; // Đã có
-import jakarta.servlet.http.HttpServletRequest; // Đã có
-import jakarta.servlet.http.HttpServletResponse; // Đã có
-import jakarta.servlet.http.HttpSession; // Đã có
+import model.DAOHistoryLog;
+import model.DAOUser;
+import entity.GoogleAccount;
+import entity.User;
+import UserController.GoogleLogin;
+import java.io.IOException;
+import java.sql.SQLException;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
@@ -23,7 +23,7 @@ public class LoginServlet extends HttpServlet {
 
         HttpSession session = request.getSession(true);
         DAOUser dao = new DAOUser();
-        DAOHistoryLog logDAO = new DAOHistoryLog(); // Thêm DAOHistoryLog
+        DAOHistoryLog logDAO = new DAOHistoryLog();
 
         String service = request.getParameter("service");
 
@@ -117,15 +117,23 @@ public class LoginServlet extends HttpServlet {
     private void redirectBasedOnRole(User user, HttpServletRequest request, HttpServletResponse response) throws IOException {
         int roleId = user.getRoleID();
         String contextPath = request.getContextPath();
-        
-        if (roleId == 1) { // Admin
-            response.sendRedirect(contextPath + "/admin/index");
-        } else if (roleId == 2) { // User
-            response.sendRedirect(contextPath + "/home");
-        } else if (roleId == 4) { // Staff
-            response.sendRedirect("staff/index_staff.jsp");
-        } else {
-            response.sendRedirect(contextPath + "/home.jsp");
+
+        switch (roleId) {
+            case 1: // Admin
+                response.sendRedirect(contextPath + "/admin/index");
+                break;
+            case 2: // User (Student)
+                response.sendRedirect(contextPath + "/home");
+                break;
+            case 3: // Tutor
+                response.sendRedirect(contextPath + "/tutor/indextutor.jsp");
+                break;
+            case 4: // Staff
+                response.sendRedirect(contextPath + "/staff/index_staff.jsp");
+                break;
+            default:
+                response.sendRedirect(contextPath + "/home.jsp");
+                break;
         }
     }
 

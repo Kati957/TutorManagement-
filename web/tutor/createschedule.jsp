@@ -26,8 +26,8 @@
         <meta name="format-detection" content="telephone=no">
 
         <!-- FAVICONS ICON ============================================= -->
-        <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
-        <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
+        <link rel="icon" href="${pageContext.request.contextPath}/error-404.jsp" type="image/x-icon" />
+        <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
 
         <!-- PAGE TITLE HERE ============================================= -->
         <title>G4 SmartTutor</title>
@@ -85,15 +85,11 @@
                                             <option data-icon="flag flag-us">English US</option>
                                         </select>
                                     </li>
-                                    <% if (user == null) { %>
-                                    <li><a href="login">Login</a></li>
-                                    <li><a href="User?service=registerUser">Register</a></li>
-                                        <%} else {%>
                                     <li>
                                         <div class="ttr-header-submenu">
                                             <ul>
                                                 <li>
-                                                    <a href="profile" class="ttr-material-button ttr-submenu-toggle">
+                                                    <a href="tutorprofile" class="ttr-material-button ttr-submenu-toggle">
                                                         <span class="ttr-user-avatar">
                                                             <img alt="" 
                                                                  src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
@@ -102,14 +98,12 @@
                                                         </span>
                                                     </a>
                                                 </li>
-                                                <li><a href="profile">My profile</a></li>
-                                                <li><a href="list-view-calendar.html">Activity</a></li>
-                                                <li><a href="cv">Become a tutor</a></li>
-                                                <li><a href="logout">Logout</a></li>
+                                                <li><a href="tutorprofile">My Profile</a></li>
+                                                <li><a href="tutor-schedule">View Schedule</a></li>
+                                                <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
                                             </ul>
                                         </div>
                                     </li>
-                                    <%}%>
                                 </ul>
                             </div>
                         </div>
@@ -120,7 +114,7 @@
                         <div class="container clearfix">
                             <!-- Header Logo ==== -->
                             <div class="menu-logo">
-                                <a href="home"><img src="assets/images/logo-white.png" alt=""></a>
+                                <a href="indextutor.jsp"><img src="assets/images/logo-white.png" alt=""></a>
                             </div>
                             <!-- Mobile Nav Button ==== -->
                             <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -135,7 +129,6 @@
                                         <li><a href="javascript:;" class="btn-link"><i class="fa fa-facebook"></i></a></li>
                                         <li><a href="javascript:;" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
                                         <li><a href="javascript:;" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
-                                        <!-- Search Button ==== -->
                                         <li class="search-btn"><button id="quik-search-btn" type="button" class="btn-link"><i class="fa fa-search"></i></button></li>
                                     </ul>
                                 </div>
@@ -151,15 +144,13 @@
                             <!-- Navigation Menu ==== -->
                             <div class="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
                                 <div class="menu-logo">
-                                    <a href="home"><img src="assets/images/logo.png" alt=""></a>
+                                    <a href="indextutor.jsp"><img src="assets/images/logo.png" alt=""></a>
                                 </div>
-                                <ul class="nav navbar-nav">	
-                                    <li class="active"><a href="home">Home</a> </li>
-                                    <li class="add-mega-menu"><a href="Courses">Our Courses</a></li>
-                                    <li><a href="ViewBlog">Blog</a> </li>
-                                        <c:if test="${sessionScope.user != null and sessionScope.user.roleID == 3}">
-                                        <li><a href="CreateSchedule">View Schedule</a></li>
-                                        </c:if>
+                                <ul class="nav navbar-nav">
+                                    <li><a href="indextutor.jsp">Tutor Dashboard</a></li>
+                                    <li class="active"><a href="CreateSchedule">My Schedule</a></li>
+                                    <li><a href="tutor-courses">My Courses</a></li>
+                                    <li><a href="ViewBlog">Blog</a></li>
                                 </ul>
                                 <div class="nav-social-link">
                                     <a href="javascript:;"><i class="fa fa-facebook"></i></a>
@@ -170,140 +161,17 @@
                             <!-- Navigation Menu END ==== -->
                         </div>
                     </div>
-                </div>
             </header>
             <!-- Header Top END ==== -->
             <!-- Content -->
             <div class="page-content bg-white">
-                <!-- Main Slider -->
-                <div class="rev-slider">
-                    <div id="rev_slider_486_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container" data-alias="news-gallery36" data-source="gallery" style="margin:0px auto;background-color:#ffffff;padding:0px;margin-top:0px;margin-bottom:0px;">
-                        <!-- START REVOLUTION SLIDER 5.3.0.2 fullwidth mode -->
-                        <div id="rev_slider_486_1" class="rev_slider fullwidthabanner" style="display:none;" data-version="5.3.0.2">
-                            <ul>	<!-- SLIDE  -->
-                                <li data-index="rs-100" 
-                                    data-transition="parallaxvertical" 
-                                    data-slotamount="default" 
-                                    data-hideafterloop="0" 
-                                    data-hideslideonmobile="off" 
-                                    data-easein="default" 
-                                    data-easeout="default" 
-                                    data-masterspeed="default" 
-                                    data-thumb="error-404.html" 
-                                    data-rotate="0" 
-                                    data-fstransition="fade" 
-                                    data-fsmasterspeed="1500" 
-                                    data-fsslotamount="7" 
-                                    data-saveperformance="off" 
-                                    data-title="A STUDY ON HAPPINESS" 
-                                    data-param1="" data-param2="" 
-                                    data-param3="" data-param4="" 
-                                    data-param5="" data-param6="" 
-                                    data-param7="" data-param8="" 
-                                    data-param9="" data-param10="" 
-                                    data-description="Science says that Women are generally happier">
-                                    <!-- MAIN IMAGE -->
-                                    <img src="assets/images/slider/slide1.jpg" alt="" 
-                                         data-bgposition="center center" 
-                                         data-bgfit="cover" 
-                                         data-bgrepeat="no-repeat" 
-                                         data-bgparallax="10" 
-                                         class="rev-slidebg" 
-                                         data-no-retina />
-
-                                    <!-- LAYER NR. 1 -->
-                                    <div class="tp-caption tp-shape tp-shapewrapper " 
-                                         id="slide-100-layer-1" 
-                                         data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
-                                         data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']" 
-                                         data-width="full"
-                                         data-height="full"
-                                         data-whitespace="nowrap"
-                                         data-type="shape" 
-                                         data-basealign="slide" 
-                                         data-responsive_offset="off" 
-                                         data-responsive="off"
-                                         data-frames='[{"from":"opacity:0;","speed":1,"to":"o:1;","delay":0,"ease":"Power4.easeOut"},{"delay":"wait","speed":1,"to":"opacity:0;","ease":"Power4.easeOut"}]'
-                                         data-textAlign="['left','left','left','left']"
-                                         data-paddingtop="[0,0,0,0]"
-                                         data-paddingright="[0,0,0,0]"
-                                         data-paddingbottom="[0,0,0,0]"
-                                         data-paddingleft="[0,0,0,0]"
-                                         style="z-index: 5;background-color:rgba(2, 0, 11, 0.80);border-color:rgba(0, 0, 0, 0);border-width:0px;"> </div>	
-                                    <!-- LAYER NR. 2 -->
-                                    <div class="tp-caption Newspaper-Title   tp-resizeme" 
-                                         id="slide-100-layer-2" 
-                                         data-x="['center','center','center','center']" 
-                                         data-hoffset="['0','0','0','0']" 
-                                         data-y="['top','top','top','top']" 
-                                         data-voffset="['250','250','250','240']" 
-                                         data-fontsize="['50','50','50','30']"
-                                         data-lineheight="['55','55','55','35']"
-                                         data-width="full"
-                                         data-height="none"
-                                         data-whitespace="normal"
-                                         data-type="text" 
-                                         data-responsive_offset="on" 
-                                         data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
-                                         data-textAlign="['center','center','center','center']"
-                                         data-paddingtop="[0,0,0,0]"
-                                         data-paddingright="[0,0,0,0]"
-                                         data-paddingbottom="[10,10,10,10]"
-                                         data-paddingleft="[0,0,0,0]"
-                                         style="z-index: 6; font-family:rubik; font-weight:700; text-align:center; white-space: normal;">
-                                        Welcome To G4 SmartTutor
-                                    </div>
-
-                                    <!-- LAYER NR. 3 -->
-                                    <div class="tp-caption Newspaper-Subtitle   tp-resizeme" 
-                                         id="slide-100-layer-3" 
-                                         data-x="['center','center','center','center']" 
-                                         data-hoffset="['0','0','0','0']" 
-                                         data-y="['top','top','top','top']" 
-                                         data-voffset="['210','210','210','210']" 
-                                         data-width="none"
-                                         data-height="none"
-                                         data-whitespace="nowrap"
-                                         data-type="text" 
-                                         data-responsive_offset="on"
-                                         data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
-                                         data-textAlign="['left','left','left','left']"
-                                         data-paddingtop="[0,0,0,0]"
-                                         data-paddingright="[0,0,0,0]"
-                                         data-paddingbottom="[0,0,0,0]"
-                                         data-paddingleft="[0,0,0,0]"
-                                         style="z-index: 7; white-space: nowrap; color:#fff; font-family:rubik; font-size:18px; font-weight:400;">
-                                        Better Education For A Better Future 
-                                    </div>
-
-                                    <!-- LAYER NR. 3 -->
-                                    <div class="tp-caption Newspaper-Subtitle   tp-resizeme" 
-                                         id="slide-100-layer-4" 
-                                         data-x="['center','center','center','center']" 
-                                         data-hoffset="['0','0','0','0']" 
-                                         data-y="['top','top','top','top']" 
-                                         data-voffset="['320','320','320','290']" 
-                                         data-width="['800','800','700','420']"
-                                         data-height="['100','100','100','120']"
-                                         data-whitespace="unset"
-                                         data-type="text" 
-                                         data-responsive_offset="on"
-                                         data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
-                                         data-textAlign="['center','center','center','center']"
-                                         data-paddingtop="[0,0,0,0]"
-                                         data-paddingright="[0,0,0,0]"
-                                         data-paddingbottom="[0,0,0,0]"
-                                         data-paddingleft="[0,0,0,0]"
-                                         style="z-index: 7; text-transform:capitalize; white-space: unset; color:#fff; font-family:rubik; font-size:18px; line-height:28px; font-weight:400;">
-                                        G4 SmartTutor connects students with professional tutors, offering personalized learning for better results.
-                                    </div>
-                                </li>
-                                <!-- SLIDE  -->
-                            </ul>
-                        </div><!-- END REVOLUTION SLIDER -->  
-                    </div>  
-                </div>  
-                <!-- Main Slider -->
+                <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner1.jpg);">
+                    <div class="container">
+                        <div class="page-banner-entry">
+                            <h1 class="text-white">My Schedule</h1>
+                        </div>
+                    </div>
+                </div>
                 <div class="container mt-5">
                     <h2 class="text-center">Tạo Lịch Dạy</h2>
                     <c:if test="${not empty message}">
@@ -311,7 +179,6 @@
                             ${message}
                         </div>
                     </c:if>
-
                     <div class="card p-4 shadow mb-5">
                         <form action="CreateSchedule" method="POST">
                             <div class="mb-3">
@@ -329,7 +196,6 @@
                                     </c:choose>
                                 </select>
                             </div>
-
                             <div class="mb-3">
                                 <label for="startTime" class="form-label">Thời gian bắt đầu:</label>
                                 <input type="datetime-local" class="form-control" name="startTime" id="startTime">
@@ -337,7 +203,6 @@
                             <div class="mb-3">
                                 <label for="startTime" class="form-label">Thời lượng: 60 phút</label>
                             </div>
-
                             <button type="submit" class="btn btn-primary w-100">Tạo Lịch</button>
                         </form>
                     </div>
@@ -365,22 +230,19 @@
                                             <td>
                                                 <fmt:formatDate value="${schedule.endTime}" pattern="HH:mm 'ngày' dd/MM/yyyy" />
                                             </td>
-
                                             <td>${schedule.status}</td>
                                         </tr>
                                     </c:forEach>
                                 </c:when>
                                 <c:otherwise>
                                     <tr>
-                                        <td colspan="3" class="text-center">Chưa có lịch dạy nào</td>
+                                        <td colspan="4" class="text-center">Chưa có lịch dạy nào</td>
                                     </tr>
                                 </c:otherwise>
                             </c:choose>
                         </tbody>
                     </table>
                 </div>
-
-                <!-- contact area END -->
             </div>
             <!-- Content END-->
             <!-- Footer ==== -->
@@ -390,7 +252,7 @@
                         <div class="container">
                             <div class="d-flex align-items-stretch">
                                 <div class="pt-logo mr-auto">
-                                    <a href="home"><img src="assets/images/logo-white.png" alt=""/></a>
+                                    <a href="indextutor.jsp"><img src="assets/images/logo-white.png" alt=""/></a>
                                 </div>
                                 <div class="pt-social-link">
                                     <ul class="list-inline m-a0">
@@ -409,7 +271,7 @@
                 </div>
             </footer>
             <!-- Footer END ==== -->
-            <button class="back-to-top fa fa-chevron-up" ></button>
+            <button class="back-to-top fa fa-chevron-up"></button>
         </div>
 
         <!-- External JavaScripts -->
@@ -431,7 +293,6 @@
         <!-- Revolution JavaScripts Files -->
         <script src="assets/vendors/revolution/js/jquery.themepunch.tools.min.js"></script>
         <script src="assets/vendors/revolution/js/jquery.themepunch.revolution.min.js"></script>
-        <!-- Slider revolution 5.0 Extensions  (Load Extensions only on Local File Systems !  The following part can be removed on Server for On Demand Loading) -->
         <script src="assets/vendors/revolution/js/extensions/revolution.extension.actions.min.js"></script>
         <script src="assets/vendors/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
         <script src="assets/vendors/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
@@ -466,8 +327,7 @@
                                 swipe_min_touches: 1,
                                 swipe_direction: "horizontal",
                                 drag_block_vertical: false
-                            }
-                            ,
+                            },
                             arrows: {
                                 style: "uranus",
                                 enable: true,
@@ -486,8 +346,7 @@
                                     h_offset: 10,
                                     v_offset: 0
                                 }
-                            },
-
+                            }
                         },
                         viewPort: {
                             enable: true,
@@ -505,7 +364,7 @@
                             origo: "enterpoint",
                             speed: 400,
                             levels: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 46, 47, 48, 49, 50, 55],
-                            type: "scroll",
+                            type: "scroll"
                         },
                         shadow: 0,
                         spinner: "off",
@@ -522,12 +381,11 @@
                         fallbacks: {
                             simplifyAll: "off",
                             nextSlideOnWindowFocus: "off",
-                            disableFocusListener: false,
+                            disableFocusListener: false
                         }
                     });
                 }
             });
         </script>
     </body>
-
 </html>
