@@ -2,7 +2,6 @@ package UserController;
 
 import entity.User;
 import model.DAOUser;
-import model.DAOHistoryLog;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -31,14 +30,6 @@ public class UserRegister extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(UserRegister.class.getName());
     private static final String REGISTER_JSP = "/register.jsp";
     private static final String LOGIN_JSP = "login.jsp";
-    private DAOUser dao;
-    private DAOHistoryLog daoLog;
-
-    @Override
-    public void init() throws ServletException {
-        dao = new DAOUser();
-        daoLog = new DAOHistoryLog();
-    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -69,6 +60,8 @@ public class UserRegister extends HttpServlet {
             return;
         }
 
+        // Khởi tạo DAOUser
+        DAOUser dao = new DAOUser();
         if (!dao.isConnected()) {
             LOGGER.log(Level.SEVERE, "Database connection is null");
             request.setAttribute("error", "Không thể kết nối cơ sở dữ liệu. Vui lòng thử lại sau.");
@@ -82,6 +75,7 @@ public class UserRegister extends HttpServlet {
         String phone = request.getParameter("Phone");
         String dob = request.getParameter("Dob");
         String address = request.getParameter("Address");
+        String avatar = request.getParameter("Avatar");
         String userName = request.getParameter("UserName");
         String password = request.getParameter("Password");
 
@@ -104,19 +98,12 @@ public class UserRegister extends HttpServlet {
                     userName, password
             );
 
-            int userId = dao.registerUser(newUser);
-            LOGGER.log(Level.INFO, "Returned UserID from registerUser: " + userId);
-            if (userId > 0) {
-                try {
-                    daoLog.logUserRegister(userId, email);
-                    LOGGER.log(Level.INFO, "User registered and logged with UserID: " + userId);
-                } catch (SQLException logEx) {
-                    LOGGER.log(Level.SEVERE, "Error logging user registration for UserID: " + userId, logEx);
-                }
+            // Đăng ký người dùng
+            int result = dao.registerUser(newUser);
+            if (result > 0) {
                 session.setAttribute("success", "Đăng ký thành công! Vui lòng đăng nhập.");
                 response.sendRedirect(LOGIN_JSP);
             } else {
-                LOGGER.log(Level.WARNING, "Registration failed despite data being inserted, UserID: " + userId);
                 request.setAttribute("error", "Đăng ký thất bại. Vui lòng thử lại.");
                 request.getRequestDispatcher(REGISTER_JSP).forward(request, response);
             }
@@ -129,7 +116,7 @@ public class UserRegister extends HttpServlet {
 
     private String handleFileUpload(HttpServletRequest request) throws IOException, ServletException {
         try {
-            Part filePart = request.getPart("avatar");
+            Part filePart = request.getPart("avatar"); // Tên field trong form phải là "avatar"
             if (filePart != null && filePart.getSize() > 0) {
                 String fileName = extractFileName(filePart);
                 if (fileName != null && isImageFile(fileName)) {

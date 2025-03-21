@@ -143,10 +143,8 @@
                                 <a href="indextutor.jsp"><img src="assets/images/logo.png" alt=""></a>
                             </div>
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="tutor-home">Tutor Dashboard</a></li>
+                                <li><a href="tutor-home">Home</a></li>
                                 <li><a href="CreateSchedule">My Schedule</a></li>
-                                <li><a href="tutor-courses">My Courses</a></li>
-                                <li><a href="ViewBlog">Blog</a></li>
                             </ul>
                             <div class="nav-social-link">
                                 <a href="javascript:;"><i class="fa fa-facebook"></i></a>
