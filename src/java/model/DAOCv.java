@@ -43,13 +43,7 @@ public class DAOCv extends DBConnect {
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, newStatus);
             pstmt.setInt(2, cvId);
-
             int rowsUpdated = pstmt.executeUpdate();
-            if (rowsUpdated > 0) {
-                System.out.println("Cập nhật trạng thái CV thành công!");
-            } else {
-                System.out.println("Không tìm thấy CV với ID: " + cvId);
-            }
         } catch (SQLException ex) {
             Logger.getLogger(DAOCv.class.getName()).log(Level.SEVERE, null, ex);
         }
