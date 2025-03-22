@@ -167,7 +167,7 @@
             <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner1.jpg);">
                 <div class="container">
                     <div class="page-banner-entry">
-                        <h1 class="text-white"><fmt:message key="cv"/></h1>
+                        <h1 class="text-white"><fmt:message key="become_a_tutor"/></h1>
                     </div>
                 </div>
             </div>
@@ -175,7 +175,7 @@
                 <div class="container">
                     <ul class="list-inline">
                         <li><a href="home"><fmt:message key="home"/></a></li>
-                        <li><fmt:message key="cv"/></li>
+                        <li><fmt:message key="become_a_tutor"/></li>
                     </ul>
                 </div>
             </div>
