@@ -27,8 +27,12 @@ public class AuthenticationFilter implements Filter {
             "/admin/",
             "/staff/",
             "/tutor/",
-            "profile_user.jsp",
-            "/sendCV.jsp"
+            "/user/",
+            "/Booking",
+            "/CreateSchedule",
+            "/myschedule",
+            "/cv",
+            "/bookschedule"
     );
 
     // Danh sách các URL public không cần đăng nhập
@@ -47,8 +51,7 @@ public class AuthenticationFilter implements Filter {
             "/events-details.jsp",
             "/faq-1.jsp",
             "/faq-2.jsp",
-            "/error-404.jsp",
-            "/home"
+            "/error-404.jsp"
     );
 
     private FilterConfig filterConfig = null;
