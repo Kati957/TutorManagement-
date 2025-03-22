@@ -129,17 +129,17 @@
             <div class="ttr-sidebar-wrapper content-scroll">
                 <!-- Side menu logo start -->
                 <div class="ttr-sidebar-logo">
-                    <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
+                    <a href="${pageContext.request.contextPath}/admin/index"><img alt="" src="${pageContext.request.contextPath}/assets/images/logo.png" width="122" height="27"></a>
                     <div class="ttr-sidebar-toggle-button">
                         <i class="ti-arrow-left"></i>
                     </div>
                 </div>
                 <!-- Side menu logo end -->
-                <!-- Sidebar menu start -->
+                <!-- Sidebar -->
                 <nav class="ttr-sidebar-navi">
                     <ul>
                         <li>
-                            <a href="index" class="ttr-material-button">
+                            <a href="${pageContext.request.contextPath}/admin/index" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-home"></i></span>
                                 <span class="ttr-label">Dashboard</span>
                             </a>
@@ -152,7 +152,10 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Courses</span></a>
+                                    <a href="${pageContext.request.contextPath}/admin/TutorList" class="ttr-material-button"><span class="ttr-label">Tutor List</span></a>
+                                </li>
+                                <li>
+                                    <a href="AdminListRated" class="ttr-material-button"><span class="ttr-label">Tutor Reviews</span></a>
                                 </li>
                                 <li>
                                     <a href="RequestCV" class="ttr-material-button"><span class="ttr-label">Status CV</span></a>
@@ -161,10 +164,10 @@
                                     <a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a>
+                                    <a href="AdminViewSchedule" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Edit Subject</span></a>
+                                    <a href="AdminSubjectController" class="ttr-material-button"><span class="ttr-label">Subject Management</span></a>
                                 </li>
                             </ul>
                         </li>
@@ -240,52 +243,52 @@
                             </div>
                             <div class="widget-inner">
                                 <% String error = (String) request.getAttribute("error");
-                                   String success = (String) session.getAttribute("success");
-                                   User editUser = (User) request.getAttribute("editUser"); %>
-                                <% if (success != null) { %>
-                                    <div class="success"><%= success %></div>
-                                    <% session.removeAttribute("success"); %>
+                                    String success = (String) session.getAttribute("success");
+                                    User editUser = (User) request.getAttribute("editUser"); %>
+                                <% if (success != null) {%>
+                                <div class="success"><%= success%></div>
+                                <% session.removeAttribute("success"); %>
                                 <% } %>
-                                <% if (error != null) { %>
-                                    <div class="error"><%= error %></div>
-                                <% } %>
+                                <% if (error != null) {%>
+                                <div class="error"><%= error%></div>
+                                <% }%>
                                 <form action="${pageContext.request.contextPath}/admin/TutorManage" method="post" enctype="multipart/form-data">
-                                    <input type="hidden" name="UserID" value="<%= editUser != null ? editUser.getUserID() : "" %>">
+                                    <input type="hidden" name="UserID" value="<%= editUser != null ? editUser.getUserID() : ""%>">
                                     <div class="form-group">
                                         <label for="Email">Email:</label>
-                                        <input type="email" id="Email" name="Email" value="<%= editUser != null ? editUser.getEmail() : "" %>" required>
+                                        <input type="email" id="Email" name="Email" value="<%= editUser != null ? editUser.getEmail() : ""%>" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="FullName">Full Name:</label>
-                                        <input type="text" id="FullName" name="FullName" value="<%= editUser != null ? editUser.getFullName() : "" %>" required>
+                                        <input type="text" id="FullName" name="FullName" value="<%= editUser != null ? editUser.getFullName() : ""%>" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="Phone">Phone:</label>
-                                        <input type="text" id="Phone" name="Phone" value="<%= editUser != null ? editUser.getPhone() : "" %>" required>
+                                        <input type="text" id="Phone" name="Phone" value="<%= editUser != null ? editUser.getPhone() : ""%>" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="Dob">Date of Birth:</label>
-                                        <input type="date" id="Dob" name="Dob" value="<%= editUser != null ? (editUser.getDob() != null ? editUser.getDob().toString() : "") : "" %>" required>
+                                        <input type="date" id="Dob" name="Dob" value="<%= editUser != null ? (editUser.getDob() != null ? editUser.getDob().toString() : "") : ""%>" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="Address">Address:</label>
-                                        <textarea id="Address" name="Address" required><%= editUser != null ? (editUser.getAddress() != null ? editUser.getAddress() : "") : "" %></textarea>
+                                        <textarea id="Address" name="Address" required><%= editUser != null ? (editUser.getAddress() != null ? editUser.getAddress() : "") : ""%></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="UserName">Username:</label>
-                                        <input type="text" id="UserName" name="UserName" value="<%= editUser != null ? editUser.getUserName() : "" %>" required>
+                                        <input type="text" id="UserName" name="UserName" value="<%= editUser != null ? editUser.getUserName() : ""%>" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="Password">Password:</label>
-                                        <input type="password" id="Password" name="Password" value="<%= editUser != null ? editUser.getPassword() : "" %>" required>
+                                        <input type="password" id="Password" name="Password" value="<%= editUser != null ? editUser.getPassword() : ""%>" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="avatar">Avatar:</label>
                                         <input type="file" id="avatar" name="avatar" accept="image/*">
-                                        <% if (editUser != null && editUser.getAvatar() != null) { %>
-                                            <img src="${pageContext.request.contextPath}/<%= editUser.getAvatar() %>" alt="Current Avatar" class="preview-image" 
-                                                 onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
-                                        <% } %>
+                                        <% if (editUser != null && editUser.getAvatar() != null) {%>
+                                        <img src="${pageContext.request.contextPath}/<%= editUser.getAvatar()%>" alt="Current Avatar" class="preview-image" 
+                                             onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
+                                        <% }%>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Update Tutor</button>
                                 </form>

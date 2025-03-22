@@ -3,12 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package entity;
+
 import java.sql.Date;
+
 /**
  *
  * @author Heizxje
  */
 public class User {
+
     private int userID;
     private int roleID;
     private String email;
@@ -21,8 +24,13 @@ public class User {
     private String avatar;
     private String userName;
     private String password;
-
+    private String subjectName; // Thêm thuộc tính này
+    private int cvID; // Thêm thuộc tính này
+    private String education;    // Thêm
+    private String experience;   // Thêm
+    private String certificates; // Thêm
     // Constructor mặc định
+
     public User() {
     }
 
@@ -148,22 +156,62 @@ public class User {
         this.password = password;
     }
 
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
+
+    public int getCvID() {
+        return cvID;
+    }
+
+    public void setCvID(int cvID) {
+        this.cvID = cvID;
+    }
+
+    public String getEducation() {
+        return education;
+    }
+
+    public void setEducation(String education) {
+        this.education = education;
+    }
+
+    public String getExperience() {
+        return experience;
+    }
+
+    public void setExperience(String experience) {
+        this.experience = experience;
+    }
+
+    public String getCertificates() {
+        return certificates;
+    }
+
+    public void setCertificates(String certificates) {
+        this.certificates = certificates;
+    }
+
     @Override
     public String toString() {
-        return "User{" +
-                "userID=" + userID +
-                ", roleID=" + roleID +
-                ", email='" + email + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", phone='" + phone + '\'' +
-                ", createAt=" + createAt +
-                ", isActive=" + isActive +
-                ", dob=" + dob +
-                ", address='" + address + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+        return "User{"
+                + "userID=" + userID
+                + ", roleID=" + roleID
+                + ", email='" + email + '\''
+                + ", fullName='" + fullName + '\''
+                + ", phone='" + phone + '\''
+                + ", createAt=" + createAt
+                + ", isActive=" + isActive
+                + ", dob=" + dob
+                + ", address='" + address + '\''
+                + ", avatar='" + avatar + '\''
+                + ", userName='" + userName + '\''
+                + ", password='" + password + '\''
+                + '}';
     }
 
     public Object getImage() {

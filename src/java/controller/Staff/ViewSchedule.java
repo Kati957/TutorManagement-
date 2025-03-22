@@ -21,7 +21,7 @@ import model.ScheduleDAO;
 
 /**
  *
- * @author xuant
+ * @author Heizxje
  */
 @WebServlet(name = "ViewSchedule", urlPatterns = {"/staff/ViewSchedule"})
 public class ViewSchedule extends HttpServlet {

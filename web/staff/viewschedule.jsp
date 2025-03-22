@@ -1,7 +1,7 @@
 <%-- 
     Document   : scheduleList
     Created on : Mar 21, 2025
-    Author     : [Your Name]
+    Author     : Heizxje
 --%>
 
 <%@page import="entity.User"%>
