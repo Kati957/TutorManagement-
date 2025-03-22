@@ -27,7 +27,12 @@ public class AuthorizationFilter implements Filter {
     );
 
     private static final Set<String> TUTOR_URLS = Set.of(
-            "/tutor"
+            "/tutor","/CreateSchedule"
+    );
+    private static final Set<String> USER_URLS = Set.of(
+            "/user","/Booking",
+            "/myschedule",
+            "/bookschedule"
     );
 
     private FilterConfig filterConfig = null;
@@ -58,6 +63,8 @@ public class AuthorizationFilter implements Filter {
                 isAllowed(STAFF_URLS, path);
             case 3 ->
                 isAllowed(TUTOR_URLS, path);
+            case 2 ->
+                isAllowed(USER_URLS, path);
             case 1 ->
                 isAllowed(ADMIN_URLS, path);
             default ->
@@ -86,7 +93,7 @@ public class AuthorizationFilter implements Filter {
     // Kiểm tra nếu path thuộc bất kỳ URL nào cần được bảo vệ
     private boolean isRestricted(String path) {
         return isAllowed(ADMIN_URLS, path) || isAllowed(STAFF_URLS, path)
-                || isAllowed(TUTOR_URLS, path);
+                || isAllowed(TUTOR_URLS, path)||isAllowed(USER_URLS, path);
     }
 
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
