@@ -105,6 +105,24 @@
                     </div>
                 </div>
                 <!-- Logo end -->
+                <div class="ttr-header-menu">
+                    <!-- header left menu start -->
+                    <ul class="ttr-header-navigation">
+                        <li>
+                            <a href="index" class="ttr-material-button ttr-submenu-toggle">HOME</a>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle">Language <i class="fa fa-angle-down"></i></a>
+                            <div class="ttr-header-submenu">
+                                <ul>
+                                    <li><a href="#">Tiếng Việt</a></li>
+                                    <li><a href="#">English</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- header left menu end -->
+                </div>
                 <div class="ttr-header-right ttr-with-seperator">
                     <!-- Header right menu start -->
                     <ul class="ttr-header-navigation">
@@ -129,19 +147,6 @@
                     </ul>
                     <!-- Header right menu end -->
                 </div>
-                <!-- Header search panel start -->
-                <div class="ttr-search-bar">
-                    <form class="ttr-search-form">
-                        <div class="ttr-search-input-wrapper">
-                            <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
-                            <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
-                        </div>
-                        <span class="ttr-search-close ttr-search-toggle">
-                            <i class="ti-close"></i>
-                        </span>
-                    </form>
-                </div>
-                <!-- Header search panel end -->
             </div>
         </header>
         <!-- Header end -->
@@ -157,7 +162,7 @@
                     </div>
                 </div>
                 <!-- Side menu logo end -->
-                <!-- Sidebar menu start -->
+                <!-- Sidebar -->
                 <nav class="ttr-sidebar-navi">
                     <ul>
                         <li>
@@ -174,7 +179,10 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Courses</span></a>
+                                    <a href="${pageContext.request.contextPath}/admin/TutorList" class="ttr-material-button"><span class="ttr-label">Tutor List</span></a>
+                                </li>
+                                <li>
+                                    <a href="AdminListRated" class="ttr-material-button"><span class="ttr-label">Tutor Reviews</span></a>
                                 </li>
                                 <li>
                                     <a href="RequestCV" class="ttr-material-button"><span class="ttr-label">Status CV</span></a>
@@ -183,13 +191,10 @@
                                     <a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a>
+                                    <a href="AdminViewSchedule" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Edit Subject</span></a>
-                                </li>
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/admin/TutorList" class="ttr-material-button"><span class="ttr-label">Tutor List</span></a>
+                                    <a href="AdminSubjectController" class="ttr-material-button"><span class="ttr-label">Subject Management</span></a>
                                 </li>
                             </ul>
                         </li>

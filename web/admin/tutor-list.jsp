@@ -126,17 +126,17 @@
             <div class="ttr-sidebar-wrapper content-scroll">
                 <!-- Side menu logo start -->
                 <div class="ttr-sidebar-logo">
-                    <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
+                    <a href="${pageContext.request.contextPath}/admin/index"><img alt="" src="${pageContext.request.contextPath}/assets/images/logo.png" width="122" height="27"></a>
                     <div class="ttr-sidebar-toggle-button">
                         <i class="ti-arrow-left"></i>
                     </div>
                 </div>
                 <!-- Side menu logo end -->
-                <!-- Sidebar menu start -->
+                <!-- Sidebar -->
                 <nav class="ttr-sidebar-navi">
                     <ul>
                         <li>
-                            <a href="index" class="ttr-material-button">
+                            <a href="${pageContext.request.contextPath}/admin/index" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-home"></i></span>
                                 <span class="ttr-label">Dashboard</span>
                             </a>
@@ -149,7 +149,10 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Courses</span></a>
+                                    <a href="${pageContext.request.contextPath}/admin/TutorList" class="ttr-material-button"><span class="ttr-label">Tutor List</span></a>
+                                </li>
+                                <li>
+                                    <a href="AdminListRated" class="ttr-material-button"><span class="ttr-label">Tutor Reviews</span></a>
                                 </li>
                                 <li>
                                     <a href="RequestCV" class="ttr-material-button"><span class="ttr-label">Status CV</span></a>
@@ -158,10 +161,10 @@
                                     <a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a>
+                                    <a href="AdminViewSchedule" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Edit Subject</span></a>
+                                    <a href="AdminSubjectController" class="ttr-material-button"><span class="ttr-label">Subject Management</span></a>
                                 </li>
                             </ul>
                         </li>
@@ -234,6 +237,9 @@
                         <div class="widget-box">
                             <div class="wc-title">
                                 <h4>Tutor List</h4>
+                                <c:if test="${not empty errorMessage}">
+                                    <div class="alert alert-warning">${errorMessage}</div>
+                                </c:if>
                             </div>
                             <div class="widget-inner">
                                 <table class="table table-striped tutor-table">
@@ -242,9 +248,10 @@
                                             <th>Avatar</th>
                                             <th>Full Name</th>
                                             <th>Email</th>
+                                            <th>Subject</th>
                                             <th>Created At</th>
                                             <th>Actions</th>
-                                            <th></th>
+                                            <th></th> <!-- Cột View More -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -262,6 +269,7 @@
                                                 </td>
                                                 <td>${user.fullName}</td>
                                                 <td>${user.email}</td>
+                                                <td>${user.subjectName != null ? user.subjectName : 'N/A'}</td>
                                                 <td>${user.createAt}</td>
                                                 <td>
                                                     <a href="${pageContext.request.contextPath}/admin/TutorManage?edit=${user.userID}" class="btn btn-primary btn-sm">Edit</a>
@@ -273,43 +281,47 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <!-- Modal cho từng tutor -->
-                                            <div class="modal fade" id="tutorModal-${user.userID}" tabindex="-1" role="dialog" aria-labelledby="tutorModalLabel-${user.userID}" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="tutorModalLabel-${user.userID}">Tutor Details: ${user.fullName}</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">×</span>
+                                            <!-- Modal cho View More -->
+                                        <div class="modal fade" id="tutorModal-${user.userID}" tabindex="-1" role="dialog" aria-labelledby="tutorModalLabel-${user.userID}" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="tutorModalLabel-${user.userID}">Tutor Details: ${user.fullName}</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p><strong>Email:</strong> ${user.email}</p>
+                                                        <p><strong>Full Name:</strong> ${user.fullName}</p>
+                                                        <p><strong>Phone:</strong> ${user.phone != null ? user.phone : 'N/A'}</p>
+                                                        <p><strong>Created At:</strong> ${user.createAt}</p>
+                                                        <p><strong>Status:</strong> ${user.isActive == 1 ? 'Active' : 'Inactive'}</p>
+                                                        <p><strong>Date of Birth:</strong> ${user.dob != null ? user.dob : 'N/A'}</p>
+                                                        <p><strong>Address:</strong> ${user.address != null ? user.address : 'N/A'}</p>
+                                                        <p><strong>Username:</strong> ${user.userName}</p>
+                                                        <p>
+                                                            <strong>Password:</strong> 
+                                                            <span class="password-text" data-password="${user.password}">••••••••</span>
+                                                            <button class="password-toggle-btn" title="Toggle Password">
+                                                                <i class="fa fa-eye"></i>
                                                             </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <p><strong>Email:</strong> ${user.email}</p>
-                                                            <p><strong>Full Name:</strong> ${user.fullName}</p>
-                                                            <p><strong>Phone:</strong> ${user.phone != null ? user.phone : 'N/A'}</p>
-                                                            <p><strong>Created At:</strong> ${user.createAt}</p>
-                                                            <p><strong>Status:</strong> ${user.isActive == 1 ? 'Active' : 'Inactive'}</p>
-                                                            <p><strong>Date of Birth:</strong> ${user.dob != null ? user.dob : 'N/A'}</p>
-                                                            <p><strong>Address:</strong> ${user.address != null ? user.address : 'N/A'}</p>
-                                                            <p><strong>Username:</strong> ${user.userName}</p>
-                                                            <p>
-                                                                <strong>Password:</strong> 
-                                                                <span class="password-text" data-password="${user.password}">••••••••</span>
-                                                                <button class="password-toggle-btn" title="Toggle Password">
-                                                                    <i class="fa fa-eye"></i>
-                                                                </button>
-                                                            </p>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        </div>
+                                                        </p>
+                                                        <p><strong>Subject:</strong> ${user.subjectName != null ? user.subjectName : 'N/A'}</p>
+                                                        <p><strong>Education:</strong> ${user.education != null ? user.education : 'N/A'}</p>
+                                                        <p><strong>Experience:</strong> ${user.experience != null ? user.experience : 'N/A'}</p>
+                                                        <p><strong>Certificates:</strong> ${user.certificates != null ? user.certificates : 'N/A'}</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </c:forEach>
-                                        <c:if test="${empty tutorList}">
-                                            <tr><td colspan="6">No tutors found.</td></tr>
-                                        </c:if>
+                                        </div>
+                                    </c:forEach>
+                                    <c:if test="${empty tutorList}">
+                                        <tr><td colspan="7">No approved tutors found.</td></tr>
+                                    </c:if>
                                     </tbody>
                                 </table>
                             </div>
@@ -345,20 +357,20 @@
                 $('.deleteTutorBtn').on('click', function () {
                     if (confirm('Are you sure you want to delete this tutor?')) {
                         const userId = $(this).data('id');
-                        console.log('Deleting user with ID: ' + userId); // Debug
+                        console.log('Deleting user with ID: ' + userId);
                         $.post('${pageContext.request.contextPath}/admin/TutorList',
                                 {action: 'delete', userId: userId},
                                 function (response) {
-                                    console.log('Delete response: ' + JSON.stringify(response)); // Debug
+                                    console.log('Delete response: ' + JSON.stringify(response));
                                     if (response.success) {
-                                        alert(response.message); // Hiển thị thông báo thành công
-                                        location.reload(); // Reload trang nếu thành công
+                                        alert(response.message);
+                                        location.reload();
                                     } else {
-                                        alert(response.message); // Hiển thị thông báo lỗi từ server
+                                        alert(response.message);
                                     }
-                                }, 'json') // Chỉ định kiểu dữ liệu trả về là JSON
+                                }, 'json')
                                 .fail(function (xhr, status, error) {
-                                    console.error('Delete failed: ' + status + ', ' + error); // Debug lỗi
+                                    console.error('Delete failed: ' + status + ', ' + error);
                                     alert('Error connecting to server. Please try again.');
                                 });
                     }
