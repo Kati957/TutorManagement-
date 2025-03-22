@@ -29,6 +29,7 @@ public class AuthenticationFilter implements Filter {
             "/tutor/",
             "/user/",
             "/Booking",
+            "/CreateSchedule",
             "/myschedule",
             "/cv",
             "/bookschedule"
