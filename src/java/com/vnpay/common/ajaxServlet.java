@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.vnpay.common;
 
 import entity.Payment;
@@ -27,51 +22,66 @@ import jakarta.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import model.DAOPayment;
 
-/**
- *
- * @author CTT VNPAY
- */
 public class ajaxServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        String totalBill = req.getParameter("totalBill");
+        if (totalBill == null) {
+            resp.sendRedirect("/home");
+            return;
+        }
+        req.getRequestDispatcher("payment.jsp").forward(req, resp);
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         String bankCode = req.getParameter("bankCode");
-        if (req.getParameter("totalBill") == null) {
+        String totalBill = req.getParameter("totalBill");
+        if (totalBill == null) {
             resp.sendRedirect("/home");
             return;
         }
-        double amountDouble = Double.parseDouble(req.getParameter("totalBill"));
+        double amountDouble = Double.parseDouble(totalBill);
         HttpSession session = req.getSession();
-        DAOPayment dao = new DAOPayment();
         User user = (User) session.getAttribute("user");
-        //phan id user se lay tu sesson (user dang login)
         if (user == null || user.getRoleID() != 2) {
             resp.sendRedirect(req.getContextPath() + "/error-403.jsp");
             return;
         }
+
+        String subjectId = (String) session.getAttribute("subjectId");
+        if (subjectId == null) {
+            resp.sendRedirect("payment.jsp?error=Missing subject information");
+            return;
+        }
+
+        // Tạo Payment với BookingID = 0
         Payment payment = new Payment();
         payment.setUserID(user.getUserID());
         payment.setAmount(amountDouble);
-        Timestamp createdAt = new Timestamp(System.currentTimeMillis());
-        payment.setPaymentDate(createdAt);
+        payment.setPaymentDate(new Timestamp(System.currentTimeMillis()));
         payment.setPaymentMethod("VNPAY");
-        payment.setSubjectID(2);
-        payment.setBookingID(55);
-        int paymentID = dao.insertPayment(payment);
+        payment.setSubjectID(Integer.parseInt(subjectId));
+        payment.setBookingID(0); // BookingID sẽ được cập nhật sau
 
+        DAOPayment dao = new DAOPayment();
+        int paymentID = dao.insertPayment(payment);
         if (paymentID < 1) {
             resp.sendRedirect("paymentResult.jsp");
             return;
         }
+
+        session.setAttribute("paymentID", paymentID);
+
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String orderType = "other";
-
         long amount = (long) (amountDouble * 100);
-        String vnp_TxnRef = payment.getPaymentID() + "";//dky ma rieng
+        String vnp_TxnRef = paymentID + "";
         String vnp_IpAddr = Config.getIpAddress(req);
-
         String vnp_TmnCode = Config.vnp_TmnCode;
 
         Map<String, String> vnp_Params = new HashMap<>();
@@ -115,11 +125,9 @@ public class ajaxServlet extends HttpServlet {
             String fieldName = (String) itr.next();
             String fieldValue = (String) vnp_Params.get(fieldName);
             if ((fieldValue != null) && (fieldValue.length() > 0)) {
-                //Build hash data
                 hashData.append(fieldName);
                 hashData.append('=');
                 hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
-                //Build query
                 query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII.toString()));
                 query.append('=');
                 query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
