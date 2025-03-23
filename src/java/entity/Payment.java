@@ -16,8 +16,8 @@ public class Payment {
     private int userID;
     private double amount;
     private String paymentMethod;
-    private String transactionID;
     private Date paymentDate;
+    private int promotionID;
     private int subjectID;
     private String status;
 
@@ -25,18 +25,36 @@ public class Payment {
     public Payment() {
     }
 
-    public Payment(int paymentID, int bookingID, int userID, double amount, String paymentMethod, String transactionID, Date paymentDate, int subjectID, String status) {
+    public Payment(int paymentID, int bookingID, int userID, double amount, String paymentMethod, Date paymentDate, int subjectID, String status) {
         this.paymentID = paymentID;
         this.bookingID = bookingID;
         this.userID = userID;
         this.amount = amount;
         this.paymentMethod = paymentMethod;
-        this.transactionID = transactionID;
         this.paymentDate = paymentDate;
         this.subjectID = subjectID;
         this.status = status;
     }
 
+    public Payment(int paymentID, int bookingID, int userID, double amount, String paymentMethod, Date paymentDate, int promotionID, int subjectID, String status) {
+        this.paymentID = paymentID;
+        this.bookingID = bookingID;
+        this.userID = userID;
+        this.amount = amount;
+        this.paymentMethod = paymentMethod;
+        this.paymentDate = paymentDate;
+        this.promotionID = promotionID;
+        this.subjectID = subjectID;
+        this.status = status;
+    }
+
+    public int getPromotionID() {
+        return promotionID;
+    }
+
+    public void setPromotionID(int promotionID) {
+        this.promotionID = promotionID;
+    }
     public int getPaymentID() {
         return paymentID;
     }
@@ -75,14 +93,6 @@ public class Payment {
 
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
-    }
-
-    public String getTransactionID() {
-        return transactionID;
-    }
-
-    public void setTransactionID(String transactionID) {
-        this.transactionID = transactionID;
     }
 
     public Date getPaymentDate() {

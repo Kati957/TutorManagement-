@@ -96,6 +96,51 @@ public class DAOTutor extends DBConnect {
         return tutors;
     }
 
+    public int getPriceByTutorId(int tutorId) {
+        int price = -1; // Giá trị mặc định nếu không tìm thấy hoặc có lỗi
+        String sql = """
+            SELECT Price 
+            FROM dbo.Users 
+            JOIN dbo.CV ON CV.UserID = Users.UserID
+            JOIN dbo.Tutor ON Tutor.CVIID = CV.CVID
+            WHERE TutorID = ?
+        """;
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, tutorId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                price = rs.getInt("Price");
+                // Kiểm tra nếu Price là NULL trong cơ sở dữ liệu
+                if (rs.wasNull()) {
+                    price = 0; // Gán giá trị mặc định nếu Price là NULL
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Lỗi khi lấy Price của Tutor theo TutorID: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return price;
+    }
+    
+    public String getFullNameByTutorId(int tutorID) {
+        String fullName = null;
+        String sql = "SELECT u.FullName "
+                + "FROM dbo.Users u "
+                + "JOIN dbo.CV cv ON cv.UserID = u.UserID "
+                + "JOIN dbo.Tutor t ON t.CVIID = cv.CVID "
+                + "WHERE t.TutorID = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, tutorID);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                fullName = rs.getString("FullName");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return fullName;
+    }
+
     public List<Tutor> getAllTutors() {
         List<Tutor> tutors = new ArrayList<>();
         String sql = """

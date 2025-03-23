@@ -1,91 +1,27 @@
 package controller.Customer;
 
-import entity.Booking;
-import entity.Schedule;
-import entity.Slot;
-import entity.Subject;
-import entity.Tutor;
 import entity.User;
-import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import model.DAOBooking;
-import model.DAOSchedule;
-import model.DAOSlot;
+import java.io.IOException;
 import model.DAOSubject;
 import model.DAOTutor;
+import model.DAOSchedule;
+import model.DAOSlot;
+import entity.Subject;
+import entity.Tutor;
+import entity.Schedule;
+import entity.Slot;
+import java.util.List;
 
 public class BookScheduleServlet extends HttpServlet {
 
-    // Servlet: processRequest
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        int studentID = user.getUserID();
-
-        String[] scheduleIds = request.getParameterValues("scheduleIds");
-        String tutorId = request.getParameter("tutorId");
-        String subjectId = request.getParameter("subjectId");
-
-        if (scheduleIds == null || tutorId == null || subjectId == null) {
-            response.sendRedirect("bookschedule?subjectId=" + subjectId + "&tutorId=" + tutorId + "&error=Missing information");
-            return;
-        }
-
-        DAOSlot daoSlot = new DAOSlot();
-        DAOBooking daoBooking = new DAOBooking();
-        List<Slot> slots = new ArrayList<>();
-        List<Booking> bookings = new ArrayList<>();
-
-        // Tạo danh sách Slot và Booking
-        for (String scheduleId : scheduleIds) {
-            Slot slot = new Slot();
-            slot.setScheduleID(Integer.parseInt(scheduleId));
-            slot.setStatus("Available"); // Đặt trạng thái mặc định
-
-            slots.add(slot);
-
-            Booking booking = new Booking();
-            booking.setStudentID(studentID);
-            booking.setTutorID(Integer.parseInt(tutorId));
-            booking.setBookingDate(new Date(System.currentTimeMillis()));
-            booking.setStatus("Pending");
-            booking.setSubjectID(Integer.parseInt(subjectId));
-
-            bookings.add(booking);
-        }
-
-        int result = daoBooking.addSlotsAndBookings(slots, bookings);
-
-        if (result == bookings.size()) {
-            response.sendRedirect("bookschedule?subjectId=" + subjectId + "&tutorId=" + tutorId + "&success=Booking successfully");
-        } else {
-            response.sendRedirect("bookschedule?subjectId=" + subjectId + "&tutorId=" + tutorId + "&error=Booking failed");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         DAOTutor daoTutor = new DAOTutor();
         DAOSubject daoSubject = new DAOSubject();
         DAOSlot daoSlot = new DAOSlot();
@@ -131,28 +67,38 @@ public class BookScheduleServlet extends HttpServlet {
         request.getRequestDispatcher("user/bookschedule.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        String[] scheduleIds = request.getParameterValues("scheduleIds");
+        String tutorId = request.getParameter("tutorId");
+        String subjectId = request.getParameter("subjectId");
+        String totalBill = request.getParameter("totalBill");
+
+        if (scheduleIds == null || tutorId == null || subjectId == null || totalBill == null) {
+            response.sendRedirect("bookschedule?subjectId=" + subjectId + "&tutorId=" + tutorId + "&error=Missing information");
+            return;
+        }
+
+        // Lưu thông tin vào session
+        session.setAttribute("scheduleIds", scheduleIds);
+        session.setAttribute("tutorId", tutorId);
+        session.setAttribute("subjectId", subjectId);
+        session.setAttribute("totalBill", totalBill);
+
+        // Chuyển hướng đến ajaxServlet để bắt đầu thanh toán
+        response.sendRedirect("ajaxServlet?totalBill=" + totalBill);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }
 }
