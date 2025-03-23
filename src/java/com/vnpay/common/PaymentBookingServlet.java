@@ -22,7 +22,7 @@ import jakarta.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import model.DAOPayment;
 
-public class ajaxServlet extends HttpServlet {
+public class PaymentBookingServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)

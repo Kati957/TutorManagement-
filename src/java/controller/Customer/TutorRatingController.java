@@ -84,14 +84,14 @@ public class TutorRatingController extends HttpServlet {
             // Kiểm tra Booking hợp lệ và quyền đánh giá
             TutorRating eligibility = dao.checkBookingEligibility(bookingId, user.getUserID());
             if (eligibility == null) {
-                request.setAttribute("error", "You dont have right to rate this lesson or the lesson hasn't started yet.");
+                request.setAttribute("error", "Bạn không có quyền đánh giá buổi học này hoặc buổi học này chưa bắt đầu.");
                 request.getRequestDispatcher("/user/submitRating.jsp").forward(request, response);
                 return;
             }
 
             // Kiểm tra đánh giá trùng lặp
             if (dao.isBookingRated(bookingId)) {
-                request.setAttribute("error", "The lesson has rated..");
+                request.setAttribute("error", "Bạn đã đánh giá buổi học này rồi..");
                 request.getRequestDispatcher("/user/submitRating.jsp").forward(request, response);
                 return;
             }
@@ -107,6 +107,7 @@ public class TutorRatingController extends HttpServlet {
 
             if (n > 0) {
                 int tutorId = eligibility.getTutorId(); // Lấy tutorId từ đối tượng eligibility
+                session.setAttribute("successMessage", "Đánh giá thành công"); // Thêm thông báo vào session
                 response.sendRedirect(request.getContextPath() + "/Tutordetail?tutorID=" + tutorId);
             } else {
                 request.setAttribute("error", "failed rating!");

@@ -38,6 +38,7 @@ public class DAOSchedule extends DBConnect {
             while (rs.next()) {
                 Map<String, Object> schedule = new HashMap<>();
                 schedule.put("id", rs.getInt("ScheduleID"));
+                schedule.put("bookingID", rs.getInt("BookingID")); // Thêm BookingID vào Map
                 schedule.put("title", rs.getString("SubjectName") + " - " + rs.getString("BookingStatus"));
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                 schedule.put("start", sdf.format(rs.getTimestamp("StartTime")));

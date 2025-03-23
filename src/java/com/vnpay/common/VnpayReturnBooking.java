@@ -21,7 +21,7 @@ import jakarta.servlet.http.HttpSession;
 import model.DAOBooking;
 import model.DAOPayment;
 
-public class VnpayReturn extends HttpServlet {
+public class VnpayReturnBooking extends HttpServlet {
     DAOPayment dao = new DAOPayment();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
