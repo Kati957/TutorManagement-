@@ -203,34 +203,78 @@
     <script src='admin/assets/vendors/calendar/moment.min.js'></script>
     <script src='admin/assets/vendors/calendar/fullcalendar.js'></script>
     <script src='admin/assets/vendors/switcher/switcher.js'></script>
-    <script>
-        $(document).ready(function () {
-            var events = [];
-            console.log("Dữ liệu schedules:", "${schedules}");
-            <c:forEach var="schedule" items="${schedules}" varStatus="loop">
-                console.log("Schedule:", "${schedule.title}", "${schedule.start}", "${schedule.end}");
-                events.push({
-                    title: "${schedule.title}",
-                    start: "${schedule.start}",
-                    end: "${schedule.end}"
-                });
-            </c:forEach>
-            console.log("Mảng events sau khi xử lý:", events);
-
-            if (events.length === 0) {
-                $('#calendar').html('<p class="text-center text-danger"><fmt:message key="no_schedule"/></p>');
-            }
-            $('#calendar').fullCalendar({
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay,listWeek'
-                },
-                editable: true,
-                eventLimit: true,
-                events: events
+<script>
+    $(document).ready(function () {
+        var events = [];
+        const contextPath = "${pageContext.request.contextPath}";
+        console.log("Dữ liệu schedules:", "${schedules}");
+        <c:forEach var="schedule" items="${schedules}" varStatus="loop">
+            console.log("Schedule:", "${schedule.title}", "${schedule.start}", "${schedule.end}", "${schedule.bookingStatus}");
+            events.push({
+                title: "${schedule.title}",
+                start: "${schedule.start}",
+                end: "${schedule.end}",
+                bookingID: "${schedule.bookingID}",
+                bookingStatus: "${schedule.bookingStatus}"
             });
+        </c:forEach>
+        console.log("Mảng events sau khi xử lý:", events);
+
+        if (events.length === 0) {
+            $('#calendar').html('<p class="text-center text-danger"><fmt:message key="no_schedule"/></p>');
+        }
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,listWeek'
+            },
+            editable: true,
+            eventLimit: true,
+            events: events,
+            eventRender: function(event, element, view) {
+                // Debug: Kiểm tra giá trị
+                console.log("View name:", view.name, "Event:", event.title, "Booking Status:", event.bookingStatus);
+                // Trích xuất trạng thái từ title
+                var titleParts = event.title.split(" - ");
+                var status = titleParts.length > 1 ? titleParts[titleParts.length - 1].trim().toLowerCase() : "";
+                console.log("Trích xuất status từ title:", status);
+                // Add "Review" link only in listWeek view and if status is "completed"
+                if (view.name === "listWeek" && status === "completed") {
+                    console.log("Điều kiện thỏa mãn, thêm nút Review cho sự kiện:", event.title);
+                    // Kiểm tra xem .fc-list-item-title có tồn tại không
+                    var titleElement = element.find('.fc-list-item-title');
+                    if (titleElement.length > 0) {
+                        console.log("Tìm thấy .fc-list-item-title, thêm liên kết...");
+                        titleElement.append(
+                            ' <a href="TutorRatingController?service=addRating&bookingId=' + event.bookingID + '" class="btn btn-primary btn-sm review-btn">Review</a>'
+                        );
+                    } else {
+                        console.log("Không tìm thấy .fc-list-item-title cho sự kiện:", event.title);
+                    }
+                } else {
+                    console.log("Điều kiện không thỏa mãn: View name =", view.name, "Status =", status);
+                }
+            }
         });
-    </script>
+    });
+</script>
+
+<style>
+    /* Đẩy nút "Review" sát bên phải */
+    .fc-list-item-title {
+        position: relative;
+        padding-right: 100px;
+    }
+    .review-btn {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        text-decoration: none; /* Bỏ gạch chân cho liên kết */
+    }
+</style>
+
+
 </body>
 </html>

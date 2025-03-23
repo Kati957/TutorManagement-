@@ -50,6 +50,17 @@
         ResultSet rs = (ResultSet) request.getAttribute("rs");
         User user = (User) session.getAttribute("user");
     %>
+    <% 
+    String successMessage = (String) session.getAttribute("successMessage");
+    if (successMessage != null) { 
+%>
+    <script>
+        alert("<%= successMessage %>");
+    </script>
+<% 
+        session.removeAttribute("successMessage"); // Xóa thông báo sau khi hiển thị
+    } 
+%>  
     <!-- Thiết lập Locale và Resource Bundle -->
     <fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en'}"/>
     <fmt:setBundle basename="messages"/>
@@ -181,7 +192,7 @@
                                         <h4 class="price"><%=rsTutor.getInt(6)%></h4>
                                     </div>	
                                     <div class="course-buy-now text-center">
-                                        <a href="Booking?subjectId=<%=rsTutor.getInt("SubjectID")%>&tutorId=<%=rsTutor.getInt("TutorID")%>" class="btn radius-xl text-uppercase"><fmt:message key="booking"/></a>
+                                        <a href="bookschedule?subjectId=<%=rsTutor.getInt("SubjectID")%>&tutorId=<%=rsTutor.getInt("TutorID")%>" class="btn radius-xl text-uppercase"><fmt:message key="booking"/></a>
                                     </div>
                                     <div class="cours-more-info">
                                         <div class="review">
