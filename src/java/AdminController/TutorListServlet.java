@@ -1,11 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package AdminController;
 
 import entity.User;
 import model.DAOUser;
+import model.DAOCv;
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.List;
@@ -16,10 +13,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-/**
- *
- * @author Heizxje
- */
 @WebServlet(name = "TutorListServlet", urlPatterns = {"/admin/TutorList"})
 public class TutorListServlet extends HttpServlet {
 
@@ -29,20 +22,17 @@ public class TutorListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false); // Không tạo session mới nếu chưa có
+        HttpSession session = request.getSession(false);
         User currentUser = (User) session.getAttribute("user");
 
-        // Kiểm tra đăng nhập
         if (currentUser == null) {
             response.sendRedirect(LOGIN_PAGE);
             return;
         }
 
-        // Lấy danh sách tutor từ DAO
-        DAOUser daoUser = new DAOUser();
-        List<User> tutorList = daoUser.getUsersByRole(3); // RoleID = 3 cho Tutor
-
-        // Set attribute và forward tới JSP
+        DAOCv daoCv = new DAOCv();
+        List<User> tutorList = daoCv.getApprovedTutors();
+        System.out.println("Tutor list size: " + tutorList.size());
         request.setAttribute("tutorList", tutorList);
         request.getRequestDispatcher(TUTOR_LIST_PAGE).forward(request, response);
     }

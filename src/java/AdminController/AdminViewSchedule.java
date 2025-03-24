@@ -4,22 +4,24 @@
  */
 package AdminController;
 
+import entity.Schedule;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.ResultSet;
-import model.DAOCv;
+import java.util.Map;
+import model.DAOSchedule;
+import model.ScheduleDAO;
 
 /**
  *
- * @author dvdung
+ * @author Heizxje
  */
-@WebServlet(name = "ViewCV", urlPatterns = {"/admin/viewCV"})
-public class ViewCv extends HttpServlet {
+@WebServlet(name = "AdminViewSchedule", urlPatterns = {"/admin/AdminViewSchedule"})
+public class AdminViewSchedule extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,24 +35,8 @@ public class ViewCv extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            DAOCv dao = new DAOCv();
-            int CvID = 0;
-            String cvid = request.getParameter("cvid");
-            if (cvid != null) {
-                CvID = Integer.parseInt(cvid);
-                ResultSet Cv = dao.getData("SELECT * FROM [dbo].[CV]\n"
-                        + "                     join Subject on CV.SubjectId=Subject.SubjectID\n"
-                        + "                        join Users on Users.UserID=CV.UserID\n"
-                        + "                        where [CVID]=" + CvID);
-                request.setAttribute("cv", Cv);
-                request.getRequestDispatcher("/admin/viewCV.jsp").forward(request, response);
-            }
-        }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -62,7 +48,30 @@ public class ViewCv extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int pageNumber = 1;
+        int pageSize = 5;
+        String pageParam = request.getParameter("page");
+        if (pageParam != null) {
+            try {
+                pageNumber = Integer.parseInt(pageParam);
+            } catch (NumberFormatException e) {
+                pageNumber = 1;
+            }
+        }
+
+        ScheduleDAO scheduleDAO = new ScheduleDAO();
+        Map<String, Object> result = scheduleDAO.getSchedulesWithPaginationStatusPending(pageNumber, pageSize);
+        
+        System.out.println("Current Page: " + pageNumber);
+        System.out.println("Total Pages: " + result.get("totalPages"));
+        System.out.println("Schedules: " + result.get("schedules"));
+        
+        request.setAttribute("schedules", result.get("schedules"));
+        request.setAttribute("totalPages", result.get("totalPages"));
+        request.setAttribute("currentPage", pageNumber);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/viewschedule.jsp");
+        dispatcher.forward(request, response);
     }
 
     /**
@@ -76,7 +85,16 @@ public class ViewCv extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int scheduleID = Integer.parseInt(request.getParameter("scheduleID"));
+
+        ScheduleDAO dao = new ScheduleDAO();
+        boolean isApproved = dao.approveSchedule(scheduleID);
+
+        if (isApproved) {
+            doGet(request, response);
+        } else {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error approving schedule");
+        }
     }
 
     /**
@@ -86,7 +104,6 @@ public class ViewCv extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+        return "Admin Schedule Management Servlet";
+    }
 }

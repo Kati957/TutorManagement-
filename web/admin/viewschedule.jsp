@@ -1,5 +1,13 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.List, entity.HistoryLog, entity.User, java.util.ArrayList" %>
+<%-- 
+    Document   : viewschedule
+    Created on : Mar 22, 2025
+    Author     : Heizxje
+--%>
+
+<%@page import="entity.User"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12,117 +20,126 @@
         <meta name="description" content="G4 SmartTutor : Smart tutor, effective learning." />
         <meta property="og:title" content="G4 SmartTutor : Smart tutor, effective learning." />
         <meta property="og:description" content="G4 SmartTutor : Smart tutor, effective learning." />
-        <meta property="og:image" content="" />
         <meta name="format-detection" content="telephone=no">
 
         <!-- FAVICONS ICON -->
         <link rel="icon" href="../error-404.jsp" type="image/x-icon" />
-        <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
+        <link rel="shortcut icon" type="image/x-icon" href="../assets/images/favicon.png" />
 
         <!-- PAGE TITLE -->
-        <title>G4 SmartTutor - History Log</title>
+        <title>G4 SmartTutor - Admin Schedule List</title>
 
         <!-- MOBILE SPECIFIC -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- CSS -->
-        <link rel="stylesheet" type="text/css" href="assets/css/assets.css">
-        <link rel="stylesheet" type="text/css" href="assets/vendors/calendar/fullcalendar.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/typography.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/shortcodes/shortcodes.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/dashboard.css">
-        <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
+        <link rel="stylesheet" type="text/css" href="../assets/css/assets.css">
+        <link rel="stylesheet" type="text/css" href="../assets/vendors/calendar/fullcalendar.css">
+        <link rel="stylesheet" type="text/css" href="../assets/css/typography.css">
+        <link rel="stylesheet" type="text/css" href="../assets/css/shortcodes/shortcodes.css">
+        <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+        <link rel="stylesheet" type="text/css" href="../assets/css/dashboard.css">
+        <link class="skin" rel="stylesheet" type="text/css" href="../assets/css/color/color-1.css">
 
-        <!-- CSS cho bảng và thông báo -->
+        <!-- Custom Styles -->
         <style>
-            .table-bordered {
+            .table-responsive table {
                 width: 100%;
                 border-collapse: collapse;
+                background-color: #fff;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             }
-            .table-bordered th, .table-bordered td {
-                border: 1px solid #ddd;
-                padding: 8px;
+            .table-responsive th, .table-responsive td {
+                padding: 12px 20px;
                 text-align: left;
+                border: 1px solid #ddd;
             }
-            .table-bordered th {
-                background-color: #f4f4f4;
+            .table-responsive th {
+                background-color: #2196F3;
+                color: white;
             }
-            .text-center {
+            .table-responsive tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+            .table-responsive tr:hover {
+                background-color: #ddd;
+            }
+            .pagination {
                 text-align: center;
+                margin-top: 20px;
             }
-            .alert {
-                padding: 15px;
-                margin-bottom: 20px;
-                border: 1px solid transparent;
-                border-radius: 4px;
+            .pagination a {
+                padding: 10px 20px;
+                margin: 0 5px;
+                text-decoration: none;
+                background-color: #2196F3;
+                color: white;
+                border-radius: 5px;
+                transition: background-color 0.3s;
             }
-            .alert-danger {
-                color: #a94442;
-                background-color: #f2dede;
-                border-color: #ebccd1;
+            .pagination a:hover {
+                background-color: #1976D2;
+            }
+            .pagination a.active {
+                background-color: #1976D2;
+                font-weight: bold;
+            }
+            .pagination a.disabled {
+                background-color: #ddd;
+                cursor: not-allowed;
+            }
+            .action-links button {
+                background-color: #2196F3;
+                color: white;
+                border: none;
+                padding: 5px 10px;
+                cursor: pointer;
+            }
+            .action-links button:hover {
+                background-color: #1976D2;
             }
         </style>
     </head>
+    <%
+        User user = (User) session.getAttribute("user");
+    %>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
-        <%
-            User user = (User) session.getAttribute("user");
-            if (user == null || user.getRoleID() != 1) {
-                response.sendRedirect(request.getContextPath() + "/login.jsp");
-                return;
-            }
-
-            List<HistoryLog> logs = (List<HistoryLog>) request.getAttribute("logs");
-            if (logs == null) {
-                logs = new ArrayList<>();
-            }
-            String error = (String) request.getAttribute("error");
-        %>
-        <!-- Header start -->
+        <!-- Header -->
         <header class="ttr-header">
             <div class="ttr-header-wrapper">
-                <!-- Sidebar menu toggler start -->
                 <div class="ttr-toggle-sidebar ttr-material-button">
                     <i class="ti-close ttr-open-icon"></i>
                     <i class="ti-menu ttr-close-icon"></i>
                 </div>
-                <!-- Sidebar menu toggler end -->
-                <!-- Logo start -->
                 <div class="ttr-logo-box">
                     <div>
-                        <a href="index" class="ttr-logo">
-                            <img class="ttr-logo-mobile" alt="" src="assets/images/logo-mobile.png" width="30" height="30">
-                            <img class="ttr-logo-desktop" alt="" src="assets/images/logo-white.png" width="160" height="27">
+                        <a href="${pageContext.request.contextPath}/admin/index" class="ttr-logo">
+                            <img class="ttr-logo-mobile" alt="" src="../assets/images/logo-mobile.png" width="30" height="30">
+                            <img class="ttr-logo-desktop" alt="" src="../assets/images/logo-white.png" width="160" height="27">
                         </a>
                     </div>
                 </div>
-                <!-- Logo end -->
-                <div class="ttr-header-right ttr-with-seperator">
-                    <!-- Header right menu start -->
-                    <ul class="ttr-header-navigation">
-                        <li>
-                            <a href="profile" class="ttr-material-button ttr-submenu-toggle">
-                                <span class="ttr-user-avatar">
-                                    <img alt="" src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" width="32" height="32" onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
-                                </span>
-                            </a>
-                            <div class="ttr-header-submenu">
-                                <ul>
-                                    <li><a href="${pageContext.request.contextPath}/admin/adminprofile">My Profile</a></li>
-                                    <li><a href="list-view-calendar.jsp">Activity</a></li>
-                                    <li><a href="mailbox.jsp">Messages</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                    <!-- Header right menu end -->
-                </div>
+            </div>
+            <div class="ttr-header-right ttr-with-seperator">
+                <ul class="ttr-header-navigation">
+                    <li>
+                        <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar">
+                                <img alt="" 
+                                     src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
+                                     width="32" height="32"
+                                     onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'"></span></a>
+                        <div class="ttr-header-submenu">
+                            <ul>
+                                <li><a href="${pageContext.request.contextPath}/profile">My profile</a></li>
+                                <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </header>
-        <!-- Header end -->
 
-        <!-- Left sidebar menu start -->
+        <!-- Sidebar -->
         <div class="ttr-sidebar">
             <div class="ttr-sidebar-wrapper content-scroll">
                 <!-- Side menu logo start -->
@@ -202,7 +219,7 @@
                             </a>
                             <ul>
                                 <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a></li>
-                                <li><a href="PaymentHistory" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a></li>
+                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a></li>
                             </ul>
                         </li>
                         <li>
@@ -227,90 +244,99 @@
                 </nav>
             </div>
         </div>
-        <!-- Left sidebar menu end -->
-
-        <!-- Main container start -->
+        <!-- Main content -->
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-                    <h4 class="breadcrumb-title">History Log</h4>
+                    <h4 class="breadcrumb-title">Schedule List</h4>
                     <ul class="db-breadcrumb-list">
                         <li><a href="${pageContext.request.contextPath}/admin/index"><i class="fa fa-home"></i>Home</a></li>
-                        <li>History Log</li>
+                        <li>Schedule List</li>
                     </ul>
                 </div>
-                <!-- Hiển thị thông báo lỗi -->
-                <% if (error != null) {%>
-                <div class="alert alert-danger">
-                    <%= error%>
-                </div>
-                <% } %>
-                <!-- Bảng hiển thị log -->
                 <div class="row">
                     <div class="col-lg-12 m-b30">
                         <div class="widget-box">
                             <div class="wc-title">
-                                <h4>Access Log History</h4>
+                                <h4>Available Schedules</h4>
                             </div>
-                            <div class="widget-inner">
-                                <table class="table table-bordered">
+                            <div class="table-responsive">
+                                <table>
                                     <thead>
                                         <tr>
-                                            <th>Role Name</th> <!-- Thay User ID bằng Role Name -->
-                                            <th>Full Name</th>
-                                            <th>Email</th>
-                                            <th>Action Type</th>
-                                            <th>Target ID</th>
-                                            <th>Details</th>
-                                            <th>Log Date</th>
+                                            <th>Schedule ID</th>
+                                            <th>Tutor ID</th>
+                                            <th>Start Time</th>
+                                            <th>End Time</th>
+                                            <th>Subject ID</th>
+                                            <th>Is Booked</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <%
-                                            for (HistoryLog log : logs) {
-                                        %>
-                                        <tr>
-                                            <td><%= log.getRoleName() != null ? log.getRoleName() : "N/A"%></td>
-                                            <td><%= log.getFullName() != null ? log.getFullName() : "N/A"%></td>
-                                            <td><%= log.getEmail() != null ? log.getEmail() : "N/A"%></td>
-                                            <td><%= log.getActionType()%></td>
-                                            <td><%= log.getTargetId() != null ? log.getTargetId() : "N/A"%></td>
-                                            <td><%= log.getDetails()%></td>
-                                            <td><%= log.getLogDate()%></td>
-                                        </tr>
-                                        <% } %>
+                                        <c:forEach var="schedule" items="${schedules}">
+                                            <tr>
+                                                <td>${schedule.scheduleID}</td>
+                                                <td>${schedule.tutorID}</td>
+                                                <td>${schedule.startTime}</td>
+                                                <td>${schedule.endTime}</td>
+                                                <td>${schedule.subjectID}</td>
+                                                <td>${schedule.booked ? 'Yes' : 'No'}</td>
+                                                <td class="action-links">
+                                                    <form action="${pageContext.request.contextPath}/admin/ViewSchedule" method="POST" onsubmit="return confirmApprove()">
+                                                        <input type="hidden" name="scheduleID" value="${schedule.scheduleID}">
+                                                        <button type="submit">Approve</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
-                                <% if (logs.isEmpty()) { %>
-                                <p class="text-center">No log records found.</p>
-                                <% }%>
+                            </div>
+                            <!-- Pagination -->
+                            <div class="pagination">
+                                <c:if test="${currentPage > 1}">
+                                    <a href="${pageContext.request.contextPath}/admin/ViewSchedule?page=${currentPage - 1}">Previous</a>
+                                </c:if>
+                                <c:forEach var="i" begin="1" end="${totalPages}">
+                                    <a href="${pageContext.request.contextPath}/admin/ViewSchedule?page=${i}" class="${i == currentPage ? 'active' : ''}">${i}</a>
+                                </c:forEach>
+                                <c:if test="${currentPage < totalPages}">
+                                    <a href="${pageContext.request.contextPath}/admin/ViewSchedule?page=${currentPage + 1}">Next</a>
+                                </c:if>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
+
         <div class="ttr-overlay"></div>
 
         <!-- External JavaScripts -->
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
-        <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-        <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-        <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
-        <script src="assets/vendors/counter/waypoints-min.js"></script>
-        <script src="assets/vendors/counter/counterup.min.js"></script>
-        <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
-        <script src="assets/vendors/masonry/masonry.js"></script>
-        <script src="assets/vendors/masonry/filter.js"></script>
-        <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
-        <script src='assets/vendors/scroll/scrollbar.min.js'></script>
-        <script src="assets/js/functions.js"></script>
-        <script src="assets/vendors/chart/chart.min.js"></script>
-        <script src="assets/js/admin.js"></script>
-        <script src='assets/vendors/calendar/moment.min.js'></script>
-        <script src='assets/vendors/calendar/fullcalendar.js'></script>
-        <script src='assets/vendors/switcher/switcher.js'></script>
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/vendors/bootstrap/js/popper.min.js"></script>
+        <script src="../assets/vendors/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="../assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+        <script src="../assets/vendors/magnific-popup/magnific-popup.js"></script>
+        <script src="../assets/vendors/counter/waypoints-min.js"></script>
+        <script src="../assets/vendors/counter/counterup.min.js"></script>
+        <script src="../assets/vendors/imagesloaded/imagesloaded.js"></script>
+        <script src="../assets/vendors/masonry/masonry.js"></script>
+        <script src="../assets/vendors/masonry/filter.js"></script>
+        <script src="../assets/vendors/owl-carousel/owl.carousel.js"></script>
+        <script src='../assets/vendors/scroll/scrollbar.min.js'></script>
+        <script src="../assets/js/functions.js"></script>
+        <script src="../assets/vendors/chart/chart.min.js"></script>
+        <script src="../assets/js/admin.js"></script>
+        <script src='../assets/vendors/calendar/moment.min.js'></script>
+        <script src='../assets/vendors/calendar/fullcalendar.js'></script>
+        <script src='../assets/vendors/switcher/switcher.js'></script>
+        <script type="text/javascript">
+                                                        function confirmApprove() {
+                                                            return confirm("Are you sure you want to approve this schedule?");
+                                                        }
+        </script>
     </body>
 </html>

@@ -1,12 +1,15 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Click nbfs://SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
 
 import entity.Cv;
+import entity.User;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.ResultSet;
@@ -49,14 +52,14 @@ public class DAOCv extends DBConnect {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return new Cv(
-                    rs.getInt("CVID"),
-                    rs.getInt("UserID"),
-                    rs.getString("Education"),
-                    rs.getString("Experience"),
-                    rs.getString("Certificates"),
-                    rs.getString("Status"),
-                    rs.getInt("SubjectId"),
-                    rs.getString("Desciption")
+                        rs.getInt("CVID"),
+                        rs.getInt("UserID"),
+                        rs.getString("Education"),
+                        rs.getString("Experience"),
+                        rs.getString("Certificates"),
+                        rs.getString("Status"),
+                        rs.getInt("SubjectId"),
+                        rs.getString("Desciption")
                 );
             }
         } catch (SQLException ex) {
@@ -65,18 +68,95 @@ public class DAOCv extends DBConnect {
         return null;
     }
 
-    // Kiểm tra xem người dùng có CV nào ở trạng thái "Pending" hoặc "Approved" không
     public boolean hasPendingOrApprovedCv(int userId) {
         String sql = "SELECT COUNT(*) FROM CV WHERE UserID = ? AND Status IN ('Pending', 'Approved')";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1) > 0; // Trả về true nếu có ít nhất 1 CV "Pending" hoặc "Approved"
+                return rs.getInt(1) > 0;
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOCv.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+
+    public List<User> getApprovedTutors() {
+        List<User> tutorList = new ArrayList<>();
+        String sql = "SELECT u.*, c.CVID, c.Education, c.Experience, c.Certificates, s.SubjectName "
+                + "FROM Users u "
+                + "INNER JOIN [test].[dbo].[CV] c ON u.UserID = c.UserID "
+                + "LEFT JOIN Subject s ON c.SubjectId = s.SubjectID "
+                + "WHERE u.RoleID = 3 AND c.Status = 'Approved'";
+        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                User user = new User();
+                user.setUserID(rs.getInt("UserID"));
+                user.setFullName(rs.getString("FullName"));
+                user.setEmail(rs.getString("Email"));
+                user.setAvatar(rs.getString("Avatar"));
+                user.setCreateAt(rs.getDate("CreatedAt"));
+                user.setPhone(rs.getString("Phone"));
+                user.setIsActive(rs.getInt("isActive"));
+                user.setDob(rs.getDate("Dob"));
+                user.setAddress(rs.getString("Address"));
+                user.setUserName(rs.getString("UserName"));
+                user.setPassword(rs.getString("Password"));
+                user.setSubjectName(rs.getString("SubjectName"));
+                user.setCvID(rs.getInt("CVID"));
+                user.setEducation(rs.getString("Education"));
+                user.setExperience(rs.getString("Experience"));
+                user.setCertificates(rs.getString("Certificates"));
+                tutorList.add(user);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOCv.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return tutorList;
+    }
+
+    public ResultSet getCVByCVId(int cvId) {
+        String sql = "SELECT u.FullName, u.Email, u.Phone, u.Address, u.Dob, "
+                + "c.Education, c.Experience, c.Desciption, u.Avatar, s.SubjectName "
+                + "FROM Users u "
+                + "INNER JOIN CV c ON u.UserID = c.UserID "
+                + "LEFT JOIN Subject s ON c.SubjectId = s.SubjectID "
+                + "WHERE c.CVID = ? AND c.Status = 'Approved'";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, cvId);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                System.out.println("No CV found for CVID: " + cvId);
+                return null;
+            }
+            rs.beforeFirst();
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOCv.class.getName()).log(Level.SEVERE, "SQL Error for CVID: " + cvId, ex);
+            return null;
+        }
+    }
+
+    public ResultSet getCVByCVIdSimple(int cvId) {
+        String sql = "SELECT * FROM [dbo].[CV] "
+                + "JOIN Subject ON CV.SubjectId = Subject.SubjectID "
+                + "JOIN Users ON Users.UserID = CV.UserID "
+                + "WHERE [CVID] = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, cvId);
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next()) {
+                System.out.println("No CV found for CVID: " + cvId);
+                return null;
+            }
+            rs.beforeFirst();
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOCv.class.getName()).log(Level.SEVERE, "SQL Error for CVID: " + cvId, ex);
+            return null;
+        }
     }
 }

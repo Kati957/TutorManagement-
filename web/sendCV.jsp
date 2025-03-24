@@ -162,17 +162,28 @@
                         </div>
                     </div>
                 </div>
-            </header>
-            <!-- Content -->
-            <div class="page-content bg-white">
-                <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner1.jpg);">
-                    <div class="container">
-                        <div class="page-banner-entry">
-                            <h1 class="text-white"><fmt:message key="cv"/></h1>
-                        </div>
+
+            </div>
+        </header>
+        <!-- Content -->
+        <div class="page-content bg-white">
+            <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner1.jpg);">
+                <div class="container">
+                    <div class="page-banner-entry">
+                        <h1 class="text-white"><fmt:message key="become_a_tutor"/></h1>
                     </div>
                 </div>
-                <div class="breadcrumb-row">
+            </div>
+            <div class="breadcrumb-row">
+                <div class="container">
+                    <ul class="list-inline">
+                        <li><a href="home"><fmt:message key="home"/></a></li>
+                        <li><fmt:message key="become_a_tutor"/></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content-block">
+                <div class="section-area section-sp1">
                     <div class="container">
                         <ul class="list-inline">
                             <li><a href="home"><fmt:message key="home"/></a></li>
