@@ -1,5 +1,6 @@
-package com.vnpay.common;
+package controller.Customer;
 
+import controller.Customer.Config;
 import entity.Booking;
 import entity.Payment;
 import entity.Slot;

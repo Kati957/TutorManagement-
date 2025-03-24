@@ -86,15 +86,6 @@ public class BookScheduleServlet extends HttpServlet {
             response.sendRedirect("bookschedule?subjectId=" + subjectId + "&tutorId=" + tutorId + "&error=Missing information");
             return;
         }
-
-        // Lưu thông tin vào session
-        session.setAttribute("scheduleIds", scheduleIds);
-        session.setAttribute("tutorId", tutorId);
-        session.setAttribute("subjectId", subjectId);
-        session.setAttribute("totalBill", totalBill);
-
-        // Chuyển hướng đến ajaxServlet để bắt đầu thanh toán
-        response.sendRedirect("ajaxServlet?totalBill=" + totalBill);
     }
 
     @Override
