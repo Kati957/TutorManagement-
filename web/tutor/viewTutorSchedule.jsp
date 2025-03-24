@@ -80,8 +80,6 @@
                                                     </a>
                                                 </li>
                                                 <li><a href="profile_user.jsp"><fmt:message key="my_profile"/></a></li>
-                                                <li><a href="list-view-calendar.html"><fmt:message key="activity"/></a></li>
-                                                <li><a href="cv"><fmt:message key="become_a_tutor"/></a></li>
                                                 <li><a href="logout"><fmt:message key="logout"/></a></li>
                                             </ul>
                                         </div>
@@ -96,7 +94,7 @@
                     <div class="menu-bar clearfix">
                         <div class="container clearfix">
                             <div class="menu-logo">
-                                <a href="home"><img src="assets/images/logo-white.png" alt=""></a>
+                                <a href="indextutor.jsp"><img src="assets/images/logo-white.png" alt=""></a>
                             </div>
                             <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
                                 <span></span><span></span><span></span>
@@ -120,13 +118,11 @@
                             </div>
                             <div class="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
                                 <div class="menu-logo">
-                                    <a href="home"><img src="assets/images/logo.png" alt=""></a>
+                                    <a href="indextutor.jsp"><img src="assets/images/logo.png" alt=""></a>
                                 </div>
                                 <ul class="nav navbar-nav">    
-                                    <li class="active"><a href="home"><fmt:message key="home"/></a></li>
-                                    <li><a href="Tutor"><fmt:message key="our_tutor"/></a></li>
-                                    <li><a href="ViewBlog"><fmt:message key="blog"/></a></li>
-                                    <li><a href="StudentPaymentHistory"><fmt:message key="history_payment"/></a></li>
+                                    <li class="active"><a href="indextutor.jsp"><fmt:message key="home"/></a></li>
+                                    <li><a href="StudentPaymentHistory"><fmt:message key="with_draw"/></a></li>
                                 </ul>
                                 <div class="nav-social-link">
                                     <a href="javascript:;"><i class="fa fa-facebook"></i></a>
@@ -147,7 +143,7 @@
                     </div>
                 </div>
                 <div class="container mt-4">
-                    <a href="home" class="btn btn-primary mb-3"><fmt:message key="back"/></a>
+                    <a href="indextutor.jsp" class="btn btn-primary mb-3"><fmt:message key="back"/></a>
                     <h3><fmt:message key="my_schedule"/></h3>
                     <form method="GET" id="searchForm" class="mb-3">
                         <div class="input-group">
@@ -165,7 +161,7 @@
                         <div class="container">
                             <div class="d-flex align-items-stretch">
                                 <div class="pt-logo mr-auto">
-                                    <a href="home.jsp"><img src="assets/images/logo-white.png" alt=""/></a>
+                                    <a href="indextutor.jsp.jsp"><img src="assets/images/logo-white.png" alt=""/></a>
                                 </div>
                                 <div class="pt-social-link">
                                     <ul class="list-inline m-a0">
@@ -204,78 +200,74 @@
         <script src='admin/assets/vendors/calendar/moment.min.js'></script>
         <script src='admin/assets/vendors/calendar/fullcalendar.js'></script>
         <script src='admin/assets/vendors/switcher/switcher.js'></script>
-        <script>
-                                                $(document).ready(function () {
-                                                    var events = [];
-                                                    const contextPath = "${pageContext.request.contextPath}";
-                                                    console.log("Dữ liệu schedules:", "${schedules}");
-                                                    <c:forEach var="schedule" items="${schedules}" varStatus="loop">
-                                                    console.log("Schedule:", "${schedule.title}", "${schedule.start}", "${schedule.end}", "${schedule.bookingStatus}");
-                                                    events.push({
-                                                        title: "${schedule.title}",
-                                                        start: "${schedule.start}",
-                                                        end: "${schedule.end}",
-                                                        bookingID: "${schedule.bookingID}",
-                                                        bookingStatus: "${schedule.bookingStatus}"
-                                                    });
-                                                    </c:forEach>
-                                                    console.log("Mảng events sau khi xử lý:", events);
+ <script>
+    $(document).ready(function () {
+        var events = [];
+        const contextPath = "${pageContext.request.contextPath}";
+        console.log("Dữ liệu schedules:", "${schedules}");
+        <c:forEach var="schedule" items="${schedules}" varStatus="loop">
+            console.log("Schedule:", "${schedule.title}", "${schedule.start}", "${schedule.end}");
+            events.push({
+                title: "${schedule.title}",
+                start: "${schedule.start}",
+                end: "${schedule.end}",
+                bookingID: "${schedule.bookingID}"
+            });
+        </c:forEach>
+        console.log("Mảng events sau khi xử lý:", events);
 
-                                                    if (events.length === 0) {
-                                                        $('#calendar').html('<p class="text-center text-danger"><fmt:message key="no_schedule"/></p>');
-                                                    }
-                                                    $('#calendar').fullCalendar({
-                                                        header: {
-                                                            left: 'prev,next today',
-                                                            center: 'title',
-                                                            right: 'month,agendaWeek,agendaDay,listWeek'
-                                                        },
-                                                        editable: true,
-                                                        eventLimit: true,
-                                                        events: events,
-                                                        eventRender: function (event, element, view) {
-                                                            // Debug: Kiểm tra giá trị
-                                                            console.log("View name:", view.name, "Event:", event.title, "Booking Status:", event.bookingStatus);
-                                                            // Trích xuất trạng thái từ title
-                                                            var titleParts = event.title.split(" - ");
-                                                            var status = titleParts.length > 1 ? titleParts[titleParts.length - 1].trim().toLowerCase() : "";
-                                                            console.log("Trích xuất status từ title:", status);
-                                                            // Add "Review" link only in listWeek view and if status is "completed"
-                                                            if (view.name === "listWeek" && status === "completed") {
-                                                                console.log("Điều kiện thỏa mãn, thêm nút Review cho sự kiện:", event.title);
-                                                                // Kiểm tra xem .fc-list-item-title có tồn tại không
-                                                                var titleElement = element.find('.fc-list-item-title');
-                                                                if (titleElement.length > 0) {
-                                                                    console.log("Tìm thấy .fc-list-item-title, thêm liên kết...");
-                                                                    titleElement.append(
-                                                                            ' <a href="TutorRatingController?service=addRating&bookingId=' + event.bookingID + '" class="btn btn-primary btn-sm review-btn">Review</a>'
-                                                                            );
-                                                                } else {
-                                                                    console.log("Không tìm thấy .fc-list-item-title cho sự kiện:", event.title);
-                                                                }
-                                                            } else {
-                                                                console.log("Điều kiện không thỏa mãn: View name =", view.name, "Status =", status);
-                                                            }
-                                                        }
-                                                    });
-                                                });
-        </script>
-
-        <style>
-            /* Đẩy nút "Review" sát bên phải */
-            .fc-list-item-title {
-                position: relative;
-                padding-right: 100px;
+        if (events.length === 0) {
+            $('#calendar').html('<p class="text-center text-danger"><fmt:message key="no_schedule"/></p>');
+        }
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,listWeek'
+            },
+            editable: true,
+            eventLimit: true,
+            events: events,
+            eventRender: function (event, element, view) {
+                // Debug: Kiểm tra giá trị
+                console.log("View name:", view.name, "Event:", event.title);
+                // Trích xuất trạng thái từ title
+                var titleParts = event.title.split(" - ");
+                var status = titleParts.length > 1 ? titleParts[titleParts.length - 1].trim().toLowerCase() : "";
+                console.log("Trích xuất status từ title:", status);
+                // Hiển thị nút "Confirm Completion" cho trạng thái không phải "completed" và không phải "pending" trong chế độ listWeek
+                if (view.name === "listWeek" && status !== "completed" && status !== "pending") {
+                    console.log("Điều kiện thỏa mãn, thêm nút Confirm Completion cho sự kiện:", event.title);
+                    var titleElement = element.find('.fc-list-item-title');
+                    if (titleElement.length > 0) {
+                        console.log("Tìm thấy .fc-list-item-title, thêm liên kết Confirm Completion...");
+                        titleElement.append(
+                            ' <a href="javascript:void(0)" onclick="if(confirm(\'Are you sure you want to confirm this session as completed?\')){window.location.href=\'TutorScheduleController?service=confirmCompletion&bookingId=' + event.bookingID + '\';}" class="btn btn-success btn-sm confirm-btn">Confirm Completion</a>'
+                        );
+                    } else {
+                        console.log("Không tìm thấy .fc-list-item-title cho sự kiện:", event.title);
+                    }
+                }
             }
-            .review-btn {
-                position: absolute;
-                right: 10px;
-                top: 50%;
-                transform: translateY(-50%);
-                text-decoration: none; /* Bỏ gạch chân cho liên kết */
-            }
-        </style>
-
+        });
+    });
+</script>
+<style>
+    /* Đẩy các nút "Review" và "Confirm Completion" sát bên phải */
+    .fc-list-item-title {
+        position: relative;
+        padding-right: 120px; /* Tăng padding để có đủ không gian cho các nút */
+    }
+    .confirm-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        text-decoration: none; /* Bỏ gạch chân cho liên kết */
+    }
+    .confirm-btn {
+        right: 10px; /* Nút Confirm Completion ở cùng vị trí vì không hiển thị cùng lúc với Review */
+    }
+</style>
 
     </body>
 </html>
