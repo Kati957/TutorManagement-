@@ -207,7 +207,7 @@
                             </a>
                             <ul>
                                 <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a></li>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a></li>
+                                <li><a href="PaymentHistory" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a></li>
                             </ul>
                         </li>
                         <li>

@@ -83,11 +83,11 @@ public class SubjectController extends HttpServlet {
             int newId = dao.addSubject(subject);
             if (newId > 0) {
                 // Thành công -> redirect về list
-                response.sendRedirect(request.getContextPath() + "/staff/BlogController?service=listBlog");
+                response.sendRedirect(request.getContextPath() + "/staff/SubjectController?service=listSubject");
             } else {
                 // Thất bại -> redirect với thông báo lỗi
                 HttpSession session = request.getSession();
-                session.setAttribute("error", "Add subject fail!");
+                session.setAttribute("error", "Tạo mới subject thất bại, hãy để ý tên không được trùng với những subject khác");
                 response.sendRedirect(request.getContextPath() + "/staff/addSubject.jsp?error=AddFailed");
             }
         } catch (SQLException ex) {
@@ -160,7 +160,7 @@ public class SubjectController extends HttpServlet {
             } else {
                 // Lỗi → lưu vào session rồi redirect
                 HttpSession session = request.getSession();
-                session.setAttribute("error", "Update subject fail!");
+                session.setAttribute("error", "Cập nhật lỗi!");
                 response.sendRedirect(request.getContextPath() + "/staff/SubjectController?service=listSubject");
             }
 
@@ -188,10 +188,13 @@ public class SubjectController extends HttpServlet {
         try {
             int n = dao.deleteSubject(subjectID);
             if (n > 0) {
+                HttpSession session = request.getSession();
+                session.setAttribute("error", "Xóa thành công");
                 response.sendRedirect(request.getContextPath() + "/staff/SubjectController?service=listSubject");
+
             } else {
                 HttpSession session = request.getSession();
-                session.setAttribute("error", "Delete subject fail!");
+                session.setAttribute("error", "Không thể xóa");
                 response.sendRedirect(request.getContextPath() + "/staff/SubjectController?service=listSubject");
             }
         } catch (SQLException ex) {
