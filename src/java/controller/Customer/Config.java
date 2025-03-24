@@ -1,5 +1,5 @@
 
-package com.vnpay.common;
+package controller.Customer;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
