@@ -1,5 +1,6 @@
-package controller.Customer;
+package UserController;
 
+import controller.Customer.*;
 import entity.Blog;
 import java.io.IOException;
 import java.sql.SQLException;
