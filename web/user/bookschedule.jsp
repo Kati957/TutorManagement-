@@ -122,6 +122,7 @@
                                     <li class="active"><a href="home"><fmt:message key="home"/></a></li>
                                     <li><a href="Tutor"><fmt:message key="our_tutor"/></a></li>
                                     <li><a href="ViewBlog"><fmt:message key="blog"/></a></li>
+                                    <li><a href="StudentPaymentHistory"><fmt:message key="history_payment"/></a></li>
                                 </ul>
                                 <div class="nav-social-link">
                                     <a href="javascript:;"><i class="fa fa-facebook"></i></a>

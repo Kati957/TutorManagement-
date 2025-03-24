@@ -34,54 +34,173 @@ public class DAOPayment {
             return null;
         }
     }
-    
 
-   public int insertPayment(Payment payment) {
-    Connection conn = null;
-    PreparedStatement pre = null;
-    ResultSet rs = null;
-    String sql = "INSERT INTO Payment (BookingID, UserID, Amount, PaymentDate, PaymentMethod, SubjectID, Status) "
-            + "OUTPUT INSERTED.PaymentID "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
-    try {
-        conn = getConnection();
-        if (conn == null) {
-            throw new SQLException("Không thể tạo kết nối đến cơ sở dữ liệu");
-        }
-        pre = conn.prepareStatement(sql);
-        if (payment.getBookingID() != 0) {
-            pre.setInt(1, payment.getBookingID());
-        } else {
-            pre.setNull(1, java.sql.Types.INTEGER); // BookingID = NULL nếu không có giá trị
-        }
-        pre.setInt(2, payment.getUserID());
-        pre.setDouble(3, payment.getAmount());
-        if (payment.getPaymentDate() != null) {
-            pre.setTimestamp(4, new Timestamp(payment.getPaymentDate().getTime()));
-        } else {
-            pre.setTimestamp(4, null);
-        }
-        pre.setString(5, payment.getPaymentMethod());
-        pre.setInt(6, payment.getSubjectID());
-        String status = payment.getStatus() != null ? payment.getStatus() : "Processing";
-        pre.setString(7, status);
+    public int insertPayment(Payment payment) {
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        String sql = "INSERT INTO Payment (BookingID, UserID, Amount, PaymentDate, PaymentMethod, SubjectID, Status) "
+                + "OUTPUT INSERTED.PaymentID "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try {
+            conn = getConnection();
+            if (conn == null) {
+                throw new SQLException("Không thể tạo kết nối đến cơ sở dữ liệu");
+            }
+            pre = conn.prepareStatement(sql);
+            if (payment.getBookingID() != 0) {
+                pre.setInt(1, payment.getBookingID());
+            } else {
+                pre.setNull(1, java.sql.Types.INTEGER); // BookingID = NULL nếu không có giá trị
+            }
+            pre.setInt(2, payment.getUserID());
+            pre.setDouble(3, payment.getAmount());
+            if (payment.getPaymentDate() != null) {
+                pre.setTimestamp(4, new Timestamp(payment.getPaymentDate().getTime()));
+            } else {
+                pre.setTimestamp(4, null);
+            }
+            pre.setString(5, payment.getPaymentMethod());
+            pre.setInt(6, payment.getSubjectID());
+            String status = payment.getStatus() != null ? payment.getStatus() : "Processing";
+            pre.setString(7, status);
 
-        // Thực thi câu lệnh và lấy PaymentID
-        rs = pre.executeQuery();
-        if (rs.next()) {
-            int paymentID = rs.getInt("PaymentID");
-            System.out.println("Inserted Payment: PaymentID=" + paymentID);
-            return paymentID; // Trả về PaymentID
+            // Thực thi câu lệnh và lấy PaymentID
+            rs = pre.executeQuery();
+            if (rs.next()) {
+                int paymentID = rs.getInt("PaymentID");
+                System.out.println("Inserted Payment: PaymentID=" + paymentID);
+                return paymentID; // Trả về PaymentID
+            }
+        } catch (SQLException ex) {
+            System.out.println("Lỗi khi chèn Payment: " + ex.getMessage());
+            Logger.getLogger(DAOPayment.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeResources(conn, pre, rs);
         }
-    } catch (SQLException ex) {
-        System.out.println("Lỗi khi chèn Payment: " + ex.getMessage());
-        Logger.getLogger(DAOPayment.class.getName()).log(Level.SEVERE, null, ex);
-    } finally {
-        closeResources(conn, pre, rs);
+        return -1; // Trả về -1 nếu thất bại
     }
-    return -1; // Trả về -1 nếu thất bại
-}
+// Lấy lịch sử thanh toán theo UserID (cho user) - giữ nguyên
 
+    public List<Payment> getPaymentsByUserId(int userID) {
+        List<Payment> payments = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        String sql = "SELECT p.* FROM Payment p WHERE p.UserID = ? ORDER BY p.PaymentDate DESC";
+        try {
+            conn = getConnection();
+            if (conn == null) {
+                throw new SQLException("Không thể tạo kết nối đến cơ sở dữ liệu");
+            }
+            pre = conn.prepareStatement(sql);
+            pre.setInt(1, userID);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                Payment payment = extractPaymentFromResultSet(rs);
+                payments.add(payment);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOPayment.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeResources(conn, pre, rs);
+        }
+        return payments;
+    }
+
+    // Lấy toàn bộ lịch sử thanh toán (cho admin) - cập nhật truy vấn mới
+    public List<Payment> getAllPayments() {
+        List<Payment> payments = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        String sql = "SELECT PaymentID, Payment.BookingID, FullName, Email, Price, PaymentDate, Payment.Status, PromotionID " +
+                    "FROM dbo.Payment " +
+                    "JOIN dbo.Users ON Users.UserID = Payment.UserID " +
+                    "LEFT JOIN dbo.Booking ON Booking.BookingID = Payment.BookingID " +
+                    "LEFT JOIN dbo.Tutor ON Tutor.TutorID = Booking.TutorID " +
+                    "ORDER BY PaymentDate DESC";
+        try {
+            conn = getConnection();
+            if (conn == null) {
+                throw new SQLException("Không thể tạo kết nối đến cơ sở dữ liệu");
+            }
+            pre = conn.prepareStatement(sql);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                Payment payment = new Payment();
+                payment.setPaymentID(rs.getInt("PaymentID"));
+                payment.setBookingID(rs.getInt("BookingID"));
+                if (rs.wasNull()) {
+                    payment.setBookingID(0);
+                }
+                payment.setPaymentDate(rs.getTimestamp("PaymentDate"));
+                payment.setStatus(rs.getString("Status"));
+                payment.setUserName(rs.getString("FullName"));
+                payment.setEmail(rs.getString("Email"));
+                payment.setAmount(rs.getDouble("Price")); // Sử dụng setAmount để lưu Price
+                payment.setPromotionID(rs.getInt("PromotionID"));
+                if (rs.wasNull()) {
+                    payment.setPromotionID(0);
+                }
+                payments.add(payment);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOPayment.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeResources(conn, pre, rs);
+        }
+        return payments;
+    }
+
+    // Cập nhật phương thức phân trang cho admin
+    public List<Payment> getPaymentsByPageForAdmin(int page, int pageSize) {
+        List<Payment> payments = new ArrayList<>();
+        int offset = (page - 1) * pageSize;
+        Connection conn = null;
+        PreparedStatement pre = null;
+        ResultSet rs = null;
+        String sql = "SELECT PaymentID, Payment.BookingID, FullName, Email, Price, PaymentDate, Payment.Status, PromotionID " +
+                    "FROM dbo.Payment " +
+                    "JOIN dbo.Users ON Users.UserID = Payment.UserID " +
+                    "LEFT JOIN dbo.Booking ON Booking.BookingID = Payment.BookingID " +
+                    "LEFT JOIN dbo.Tutor ON Tutor.TutorID = Booking.TutorID " +
+                    "ORDER BY PaymentDate DESC " +
+                    "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        try {
+            conn = getConnection();
+            if (conn == null) {
+                throw new SQLException("Không thể tạo kết nối đến cơ sở dữ liệu");
+            }
+            pre = conn.prepareStatement(sql);
+            pre.setInt(1, offset);
+            pre.setInt(2, pageSize);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                Payment payment = new Payment();
+                payment.setPaymentID(rs.getInt("PaymentID"));
+                payment.setBookingID(rs.getInt("BookingID"));
+                if (rs.wasNull()) {
+                    payment.setBookingID(0);
+                }
+                payment.setPaymentDate(rs.getTimestamp("PaymentDate"));
+                payment.setStatus(rs.getString("Status"));
+                payment.setUserName(rs.getString("FullName"));
+                payment.setEmail(rs.getString("Email"));
+                payment.setAmount(rs.getDouble("Price")); // Sử dụng setAmount để lưu Price
+                payment.setPromotionID(rs.getInt("PromotionID"));
+                if (rs.wasNull()) {
+                    payment.setPromotionID(0);
+                }
+                payments.add(payment);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOPayment.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            closeResources(conn, pre, rs);
+        }
+        return payments;
+    }
     // Cập nhật TransactionID, Status và PaymentDate của Payment
     public Payment updatePaymentStatuss(Payment payment) {
         Payment updatedPayment = null;
@@ -285,32 +404,32 @@ public class DAOPayment {
     }
 
     // Lấy danh sách Payment theo UserID (dùng để hiển thị lịch sử giao dịch)
-    public List<Payment> getPaymentsByUserId(int userID) {
-        List<Payment> payments = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement pre = null;
-        ResultSet rs = null;
-        String sql = "SELECT * FROM Payment WHERE UserID = ? ORDER BY PaymentDate DESC";
-        try {
-            conn = getConnection();
-            if (conn == null) {
-                throw new SQLException("Không thể tạo kết nối đến cơ sở dữ liệu");
-            }
-            pre = conn.prepareStatement(sql);
-            pre.setInt(1, userID);
-            rs = pre.executeQuery();
-            while (rs.next()) {
-                Payment payment = extractPaymentFromResultSet(rs);
-                payments.add(payment);
-            }
-        } catch (SQLException ex) {
-            System.out.println("Lỗi khi lấy danh sách Payment theo UserID=" + userID + ": " + ex.getMessage());
-            Logger.getLogger(DAOPayment.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            closeResources(conn, pre, rs);
-        }
-        return payments;
-    }
+//    public List<Payment> getPaymentsByUserId(int userID) {
+//        List<Payment> payments = new ArrayList<>();
+//        Connection conn = null;
+//        PreparedStatement pre = null;
+//        ResultSet rs = null;
+//        String sql = "SELECT * FROM Payment WHERE UserID = ? ORDER BY PaymentDate DESC";
+//        try {
+//            conn = getConnection();
+//            if (conn == null) {
+//                throw new SQLException("Không thể tạo kết nối đến cơ sở dữ liệu");
+//            }
+//            pre = conn.prepareStatement(sql);
+//            pre.setInt(1, userID);
+//            rs = pre.executeQuery();
+//            while (rs.next()) {
+//                Payment payment = extractPaymentFromResultSet(rs);
+//                payments.add(payment);
+//            }
+//        } catch (SQLException ex) {
+//            System.out.println("Lỗi khi lấy danh sách Payment theo UserID=" + userID + ": " + ex.getMessage());
+//            Logger.getLogger(DAOPayment.class.getName()).log(Level.SEVERE, null, ex);
+//        } finally {
+//            closeResources(conn, pre, rs);
+//        }
+//        return payments;
+//    }
 
     // Lấy danh sách Payment theo trang (phân trang)
     public List<Payment> getPaymentsByPage(int page, int pageSize) {
@@ -417,21 +536,21 @@ public class DAOPayment {
 
     // Test method
     public static void main(String[] args) {
-    DAOPayment dao = new DAOPayment();
-    Payment payment = new Payment();
-    payment.setUserID(2);
-    payment.setAmount(23232);
-    Timestamp createdAt = new Timestamp(System.currentTimeMillis());
-    payment.setPaymentDate(createdAt);
-    payment.setPaymentMethod("VNPAY");
-    payment.setSubjectID(2);
-    payment.setBookingID(0); // BookingID = 0 sẽ được chuyển thành NULL trong insertPayment
+        DAOPayment dao = new DAOPayment();
+        Payment payment = new Payment();
+        payment.setUserID(2);
+        payment.setAmount(23232);
+        Timestamp createdAt = new Timestamp(System.currentTimeMillis());
+        payment.setPaymentDate(createdAt);
+        payment.setPaymentMethod("VNPAY");
+        payment.setSubjectID(2);
+        payment.setBookingID(0); // BookingID = 0 sẽ được chuyển thành NULL trong insertPayment
 
-    int paymentID = dao.insertPayment(payment);
-    if (paymentID > 0) {
-        System.out.println("Chèn Payment thành công: PaymentID=" + paymentID);
-    } else {
-        System.out.println("Chèn Payment thất bại");
+        int paymentID = dao.insertPayment(payment);
+        if (paymentID > 0) {
+            System.out.println("Chèn Payment thành công: PaymentID=" + paymentID);
+        } else {
+            System.out.println("Chèn Payment thất bại");
+        }
     }
-}
 }
