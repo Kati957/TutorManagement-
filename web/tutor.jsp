@@ -59,7 +59,7 @@
                             <div class="topbar-right">
                                 <ul>
                                     <li>
-                                        <select class="header-lang-bx" onchange="location.href = 'LanguageServlet?lang=' + this.value;">
+                                        <select class="header-lang-bx" onchange="window.location.href = '${pageContext.request.contextPath}/LanguageServlet?lang=' + this.value;">
                                             <option value="en" ${sessionScope.locale == null || sessionScope.locale == 'en' ? 'selected' : ''}><fmt:message key="english"/></option>
                                             <option value="vi" ${sessionScope.locale == 'vi' ? 'selected' : ''}><fmt:message key="vietnamese"/></option>
                                         </select>
@@ -67,7 +67,7 @@
                                     <% if (user == null) { %>
                                     <li><a href="login"><fmt:message key="login"/></a></li>
                                     <li><a href="User?service=registerUser"><fmt:message key="register"/></a></li>
-                                        <%} else {%>
+                                        <% } else {%>
                                     <li>
                                         <div class="ttr-header-submenu">
                                             <ul>
@@ -82,13 +82,13 @@
                                                     </a>
                                                 </li>
                                                 <li><a href="profile"><fmt:message key="my_profile"/></a></li>
-                                                <li><a href="list-view-calendar.jsp"><fmt:message key="activity"/></a></li>
+                                                <li><a href="StudentPaymentHistory"><fmt:message key="history_payment"/></a></li>
                                                 <li><a href="cv"><fmt:message key="become_a_tutor"/></a></li>
                                                 <li><a href="logout"><fmt:message key="logout"/></a></li>
                                             </ul>
                                         </div>
                                     </li>
-                                    <%}%>
+                                    <% } %>
                                 </ul>
                             </div>
                         </div>
@@ -130,7 +130,6 @@
                                     <li><a href="home"><fmt:message key="home"/></a></li>
                                     <li class="active"><a href="Tutor"><fmt:message key="our_tutor"/></a></li>
                                     <li><a href="ViewBlog"><fmt:message key="blog"/></a></li>
-                                    <li><a href="StudentPaymentHistory"><fmt:message key="history_payment"/></a></li>
                                 </ul>
                                 <div class="nav-social-link">
                                     <a href="javascript:;"><i class="fa fa-facebook"></i></a>
