@@ -82,15 +82,15 @@
                             <div class="topbar-right">
                                 <ul>
                                     <li>
-                                        <select class="header-lang-bx" onchange="location.href = 'LanguageServlet?lang=' + this.value;">
+                                        <select class="header-lang-bx" onchange="window.location.href = '${pageContext.request.contextPath}/LanguageServlet?lang=' + this.value;">
                                             <option value="en" ${sessionScope.locale == null || sessionScope.locale == 'en' ? 'selected' : ''}><fmt:message key="english"/></option>
                                             <option value="vi" ${sessionScope.locale == 'vi' ? 'selected' : ''}><fmt:message key="vietnamese"/></option>
                                         </select>
                                     </li>
                                     <% if (user == null) { %>
                                     <li><a href="login"><fmt:message key="login"/></a></li>
-                                    <li><a href="user?service=registerUser"><fmt:message key="register"/></a></li>
-                                        <%} else {%>
+                                    <li><a href="User?service=registerUser"><fmt:message key="register"/></a></li>
+                                        <% } else {%>
                                     <li>
                                         <div class="ttr-header-submenu">
                                             <ul>
@@ -105,13 +105,13 @@
                                                     </a>
                                                 </li>
                                                 <li><a href="profile"><fmt:message key="my_profile"/></a></li>
-                                                <li><a href="list-view-calendar.jsp"><fmt:message key="activity"/></a></li>
-                                                <li><a href="mailbox.jsp"><fmt:message key="messages"/></a></li>
+                                                <li><a href="StudentPaymentHistory"><fmt:message key="history_payment"/></a></li>
+                                                <li><a href="cv"><fmt:message key="become_a_tutor"/></a></li>
                                                 <li><a href="logout"><fmt:message key="logout"/></a></li>
                                             </ul>
                                         </div>
                                     </li>
-                                    <%}%>
+                                    <% }%>
                                 </ul>
                             </div>
                         </div>
@@ -151,7 +151,6 @@
                                     <li><a href="home"><fmt:message key="home"/></a></li>
                                     <li><a href="Tutor"><fmt:message key="our_tutor"/></a></li>
                                     <li><a href="ViewBlog"><fmt:message key="blog"/></a></li>
-                                    <li><a href="StudentPaymentHistory"><fmt:message key="history_payment"/></a></li>
                                 </ul>
                                 <div class="nav-social-link">
                                     <a href="javascript:;"><i class="fa fa-facebook"></i></a>
@@ -163,207 +162,207 @@
                     </div>
                 </div>
 
-            </div>
-        </header>
-        <!-- Content -->
-        <div class="page-content bg-white">
-            <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner1.jpg);">
-                <div class="container">
-                    <div class="page-banner-entry">
-                        <h1 class="text-white"><fmt:message key="become_a_tutor"/></h1>
-                    </div>
+        </div>
+    </header>
+    <!-- Content -->
+    <div class="page-content bg-white">
+        <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner1.jpg);">
+            <div class="container">
+                <div class="page-banner-entry">
+                    <h1 class="text-white"><fmt:message key="become_a_tutor"/></h1>
                 </div>
             </div>
-            <div class="breadcrumb-row">
+        </div>
+        <div class="breadcrumb-row">
+            <div class="container">
+                <ul class="list-inline">
+                    <li><a href="home"><fmt:message key="home"/></a></li>
+                    <li><fmt:message key="become_a_tutor"/></li>
+                </ul>
+            </div>
+        </div>
+        <div class="content-block">
+            <div class="section-area section-sp1">
                 <div class="container">
                     <ul class="list-inline">
                         <li><a href="home"><fmt:message key="home"/></a></li>
-                        <li><fmt:message key="become_a_tutor"/></li>
+                        <li><fmt:message key="cv"/></li>
                     </ul>
                 </div>
             </div>
             <div class="content-block">
                 <div class="section-area section-sp1">
                     <div class="container">
-                        <ul class="list-inline">
-                            <li><a href="home"><fmt:message key="home"/></a></li>
-                            <li><fmt:message key="cv"/></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="content-block">
-                    <div class="section-area section-sp1">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
-                                    <div class="profile-bx text-center">
-                                        <div class="user-profile-thumb">
-                                            <img src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
-                                                 alt="Avatar" 
-                                                 onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'" />
-                                        </div>
-                                        <div class="profile-info">
-                                            <h4><%= user.getFullName()%></h4>
-                                            <span><%= user.getEmail()%></span>
-                                        </div>
-                                        <div class="profile-social">
-                                            <ul class="list-inline m-a0">
-                                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                            </ul>
-                                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
+                                <div class="profile-bx text-center">
+                                    <div class="user-profile-thumb">
+                                        <img src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
+                                             alt="Avatar" 
+                                             onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'" />
                                     </div>
-                                </div>
-                                <div class="col-lg-9 col-md-8 col-sm-12 m-b30">
-                                    <div class="profile-content-bx">
-                                        <div class="tab-content">
-                                            <div class="tab-pane active" id="cv-form">
-                                                <div class="profile-head">
-                                                    <h3><fmt:message key="create_cv"/></h3>
-                                                </div>
-                                                <!-- Hiển thị thông báo -->
-                                                <%
-                                                    String message = (String) session.getAttribute("message");
-                                                    String messageType = (String) session.getAttribute("messageType");
-                                                    if (message != null) {
-                                                %>
-                                                <div class="alert <%= messageType.equals("success") ? "alert-success" : messageType.equals("error") ? "alert-danger" : "alert-warning"%>">
-                                                    <%= message%>
-                                                </div>
-                                                <%
-                                                        session.removeAttribute("message");
-                                                        session.removeAttribute("messageType");
-                                                    }
-                                                %>
-                                                <!-- Form CV -->
-                                                <c:set var="canSubmit" value="${sessionScope.message == null || sessionScope.message.contains('rejected')}" />
-                                                <c:if test="${canSubmit}">
-                                                    <form class="edit-profile" action="cv" method="POST">
-                                                        <input type="hidden" name="userId" value="<%= user.getUserID()%>">
-                                                        <div class="">
-                                                            <div class="form-group row">
-                                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="full_name"/></label>
-                                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                                    <input class="form-control" type="text" name="fullName" value="<%= user.getFullName()%>" readonly>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="email"/></label>
-                                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                                    <input class="form-control" type="email" name="email" value="<%= user.getEmail()%>" readonly>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="phone"/></label>
-                                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                                    <input class="form-control" type="text" name="phone" value="<%= user.getPhone()%>" readonly>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="dob"/></label>
-                                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                                    <input class="form-control" type="date" name="dob" value="<%= user.getDob()%>" readonly>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="address"/></label>
-                                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                                    <input class="form-control" type="text" name="address" value="<%= user.getAddress()%>" readonly>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="education"/></label>
-                                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                                    <input class="form-control" type="text" name="education" required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="experience"/></label>
-                                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                                    <input class="form-control" type="text" name="experience" required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="certificates"/></label>
-                                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                                    <input class="form-control" type="text" name="certificates" required>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="subject"/></label>
-                                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                                    <select name="Subject" id="Subject" class="form-control">
-                                                                        <c:forEach var="a" items="${listSub}">
-                                                                            <option value="${a.getSubjectID()}">${a.getSubjectName()}</option>
-                                                                        </c:forEach>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="description"/></label>
-                                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                                    <input class="form-control" type="text" name="Description" required>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-12 col-sm-3 col-md-3 col-lg-2"></div>
-                                                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                                <button type="submit" class="btn" name="submit" value="submit"><fmt:message key="send"/></button>
-                                                                <button type="reset" class="btn"><fmt:message key="cancel"/></button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </c:if>
-                                            </div>
-                                        </div>
+                                    <div class="profile-info">
+                                        <h4><%= user.getFullName()%></h4>
+                                        <span><%= user.getEmail()%></span>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Footer -->
-                <footer>
-                    <div class="footer-top">
-                        <div class="pt-exebar">
-                            <div class="container">
-                                <div class="d-flex align-items-stretch">
-                                    <div class="pt-logo mr-auto">
-                                        <a href="home"><img src="assets/images/logo-white.png" alt=""/></a>
-                                    </div>
-                                    <div class="pt-social-link">
+                                    <div class="profile-social">
                                         <ul class="list-inline m-a0">
-                                            <li><a href="#" class="btn-link"><i class="fa fa-facebook"></i></a></li>
-                                            <li><a href="#" class="btn-link"><i class="fa fa-twitter"></i></a></li>
-                                            <li><a href="#" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
-                                            <li><a href="#" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-lg-9 col-md-8 col-sm-12 m-b30">
+                                <div class="profile-content-bx">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="cv-form">
+                                            <div class="profile-head">
+                                                <h3><fmt:message key="create_cv"/></h3>
+                                            </div>
+                                            <!-- Hiển thị thông báo -->
+                                            <%
+                                                String message = (String) session.getAttribute("message");
+                                                String messageType = (String) session.getAttribute("messageType");
+                                                if (message != null) {
+                                            %>
+                                            <div class="alert <%= messageType.equals("success") ? "alert-success" : messageType.equals("error") ? "alert-danger" : "alert-warning"%>">
+                                                <%= message%>
+                                            </div>
+                                            <%
+                                                    session.removeAttribute("message");
+                                                    session.removeAttribute("messageType");
+                                                }
+                                            %>
+                                            <!-- Form CV -->
+                                            <c:set var="canSubmit" value="${sessionScope.message == null || sessionScope.message.contains('rejected')}" />
+                                            <c:if test="${canSubmit}">
+                                                <form class="edit-profile" action="cv" method="POST">
+                                                    <input type="hidden" name="userId" value="<%= user.getUserID()%>">
+                                                    <div class="">
+                                                        <div class="form-group row">
+                                                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="full_name"/></label>
+                                                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                                <input class="form-control" type="text" name="fullName" value="<%= user.getFullName()%>" readonly>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="email"/></label>
+                                                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                                <input class="form-control" type="email" name="email" value="<%= user.getEmail()%>" readonly>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="phone"/></label>
+                                                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                                <input class="form-control" type="text" name="phone" value="<%= user.getPhone()%>" readonly>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="dob"/></label>
+                                                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                                <input class="form-control" type="date" name="dob" value="<%= user.getDob()%>" readonly>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="address"/></label>
+                                                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                                <input class="form-control" type="text" name="address" value="<%= user.getAddress()%>" readonly>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="education"/></label>
+                                                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                                <input class="form-control" type="text" name="education" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="experience"/></label>
+                                                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                                <input class="form-control" type="text" name="experience" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="certificates"/></label>
+                                                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                                <input class="form-control" type="text" name="certificates" required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="subject"/></label>
+                                                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                                <select name="Subject" id="Subject" class="form-control">
+                                                                    <c:forEach var="a" items="${listSub}">
+                                                                        <option value="${a.getSubjectID()}">${a.getSubjectName()}</option>
+                                                                    </c:forEach>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="description"/></label>
+                                                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                                <input class="form-control" type="text" name="Description" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-3 col-md-3 col-lg-2"></div>
+                                                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                            <button type="submit" class="btn" name="submit" value="submit"><fmt:message key="send"/></button>
+                                                            <button type="reset" class="btn"><fmt:message key="cancel"/></button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </c:if>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </footer>
+                </div>
             </div>
+            <!-- Footer -->
+            <footer>
+                <div class="footer-top">
+                    <div class="pt-exebar">
+                        <div class="container">
+                            <div class="d-flex align-items-stretch">
+                                <div class="pt-logo mr-auto">
+                                    <a href="home"><img src="assets/images/logo-white.png" alt=""/></a>
+                                </div>
+                                <div class="pt-social-link">
+                                    <ul class="list-inline m-a0">
+                                        <li><a href="#" class="btn-link"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#" class="btn-link"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
+                                        <li><a href="#" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
 
-            <!-- External JavaScripts -->
-            <script src="assets/js/jquery.min.js"></script>
-            <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
-            <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
-            <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-            <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-            <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
-            <script src="assets/vendors/counter/waypoints-min.js"></script>
-            <script src="assets/vendors/counter/counterup.min.js"></script>
-            <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
-            <script src="assets/vendors/masonry/masonry.js"></script>
-            <script src="assets/vendors/masonry/filter.js"></script>
-            <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
-            <script src="assets/js/functions.js"></script>
-            <script src="assets/js/contact.js"></script>
-            <script src='assets/vendors/switcher/switcher.js'></script>
-    </body>
+        <!-- External JavaScripts -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
+        <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+        <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
+        <script src="assets/vendors/counter/waypoints-min.js"></script>
+        <script src="assets/vendors/counter/counterup.min.js"></script>
+        <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
+        <script src="assets/vendors/masonry/masonry.js"></script>
+        <script src="assets/vendors/masonry/filter.js"></script>
+        <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
+        <script src="assets/js/functions.js"></script>
+        <script src="assets/js/contact.js"></script>
+        <script src='assets/vendors/switcher/switcher.js'></script>
+</body>
 </html>
