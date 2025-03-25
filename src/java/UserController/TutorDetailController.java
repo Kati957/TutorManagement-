@@ -21,7 +21,7 @@ public class TutorDetailController extends HttpServlet {
             DAOCv dao= new DAOCv();
             int tutor = Integer.parseInt(request.getParameter("tutorID"));
             ResultSet rsTutor=null;
-            rsTutor = dao.getData("select TutorID, FullName, SubjectName, rating, Avatar, Price ,Desciption, Certificates,Subject.SubjectID from users\n" +
+            rsTutor = dao.getData("select TutorID, FullName, SubjectName, rating, Avatar, Tutor.Price ,Desciption, Certificates,Subject.SubjectID from users\n" +
 "                        join CV on users.UserID=Cv.UserID\n" +
 "                        join tutor on CV.CVID=tutor.CVIID\n" +
 "                        join Subject on CV.SubjectId=Subject.SubjectID\n" +

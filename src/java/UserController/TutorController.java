@@ -42,7 +42,7 @@ public class TutorController extends HttpServlet {
             List<Subject> list= dao.getAllSubjects();
             String name = request.getParameter("dzName");
             String subjectName = request.getParameter("Subjectname");
-            String sql="select TutorID, FullName, SubjectName, rating, Avatar, Price from users\n"
+            String sql="select TutorID, FullName, SubjectName, rating, Avatar, Tutor.Price from users\n"
                         + "join CV on users.UserID=Cv.UserID\n"
                         + "join tutor on CV.CVID=tutor.CVIID\n"
                         + "join Subject on CV.SubjectId=Subject.SubjectID";

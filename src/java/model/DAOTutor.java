@@ -96,20 +96,20 @@ public class DAOTutor extends DBConnect {
         return tutors;
     }
 
-    public int getPriceByTutorId(int tutorId) {
-        int price = -1; // Giá trị mặc định nếu không tìm thấy hoặc có lỗi
+    public float getPriceByTutorId(int tutorId) {
+        float price = -1; // Giá trị mặc định nếu không tìm thấy hoặc có lỗi
         String sql = """
-            SELECT Price 
-            FROM dbo.Users 
-            JOIN dbo.CV ON CV.UserID = Users.UserID
-            JOIN dbo.Tutor ON Tutor.CVIID = CV.CVID
-            WHERE TutorID = ?
+           SELECT Tutor.Price
+                        FROM dbo.Users 
+                        JOIN dbo.CV ON CV.UserID = Users.UserID
+                        JOIN dbo.Tutor ON Tutor.CVIID = CV.CVID
+                        WHERE TutorID = ?
         """;
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, tutorId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                price = rs.getInt("Price");
+                price = rs.getFloat("Price");
                 // Kiểm tra nếu Price là NULL trong cơ sở dữ liệu
                 if (rs.wasNull()) {
                     price = 0; // Gán giá trị mặc định nếu Price là NULL
@@ -121,7 +121,7 @@ public class DAOTutor extends DBConnect {
         }
         return price;
     }
-    
+
     public String getFullNameByTutorId(int tutorID) {
         String fullName = null;
         String sql = "SELECT u.FullName "
@@ -259,7 +259,7 @@ public class DAOTutor extends DBConnect {
                 tutor.setTutorID(rs.getInt("tutorID"));
                 tutor.setCVID(rs.getInt("CVIID"));
                 tutor.setRating(rs.getFloat("rating"));
-                int price = rs.getInt("Price");
+                float price = rs.getFloat("Price");
                 if (rs.wasNull()) {
                     tutor.setPrice(0);
                 } else {
@@ -293,7 +293,7 @@ public class DAOTutor extends DBConnect {
                     } else {
                         tutor.setRating(rating);
                     }
-                    int price = rs.getInt("Price");
+                    float price = rs.getFloat("Price");
                     if (rs.wasNull()) {
                         tutor.setPrice(0);
                     } else {
