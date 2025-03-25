@@ -109,14 +109,11 @@ public class BlogController extends HttpServlet {
         try {
             // Lấy thông tin từ session
             String authorName = user.getFullName();
-            int staffID;
-            try {
-                staffID = dao.getStaffIDByUsername(authorName); // Lấy staffID từ username
-                if (staffID <= 0) {
-                    throw new SQLException("Invalid StaffID retrieved.");
-                }
-            } catch (SQLException e) {
-                session.setAttribute("error", "Staff ID not found for user: " + authorName);
+            int staffID = user.getUserID(); // Lấy staffID trực tiếp từ userID trong session
+
+            // Kiểm tra staffID hợp lệ
+            if (staffID <= 0) {
+                session.setAttribute("error", "Invalid User ID retrieved from session.");
                 response.sendRedirect(request.getContextPath() + "/staff/BlogController?service=addBlog");
                 return;
             }

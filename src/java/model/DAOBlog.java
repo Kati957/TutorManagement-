@@ -245,7 +245,7 @@ public class DAOBlog extends DBConnect {
         DAOBlog dao = new DAOBlog();
         //  Test insertBlog
 
-        Blog newBlog = new Blog(1, 1, "julianNg", "https://t3.ftcdn.net/jpg/09/38/20/44/360_F_938204480_5BZPwZ4dL5iujr2XZwzkxdFeQJoRDsRE.jpg",
+        Blog newBlog = new Blog(1, 47, "julianNg", "https://t3.ftcdn.net/jpg/09/38/20/44/360_F_938204480_5BZPwZ4dL5iujr2XZwzkxdFeQJoRDsRE.jpg",
                 "New Blog Post", "blog post content",
                 new java.util.Date(), "Short summary here");
         int inserted = 0;

@@ -120,5 +120,22 @@ public class DAOBooking extends DBConnect {
     }
     return result;
 }
+    public int changeBookingStatusToCompleted(int bookingID) {
+        int result = 0;
+        String sql = "UPDATE Booking SET Status = 'Completed' WHERE BookingID = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, bookingID);
+            result = ps.executeUpdate();
+            if (result > 0) {
+                System.out.println("Booking ID " + bookingID + " updated to Completed successfully.");
+            } else {
+                System.out.println("Failed to update Booking ID " + bookingID + ": Booking not found.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error updating booking status: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return result;
+    }
 
 }

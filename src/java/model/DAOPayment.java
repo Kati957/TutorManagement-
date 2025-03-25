@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 public class DAOPayment {
 
     // Thông tin kết nối cơ sở dữ liệu
-    private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=test";
+    private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=G4";
     private static final String USER = "sa";
     private static final String PASSWORD = "Minh2004";
 
