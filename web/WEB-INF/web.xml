@@ -55,4 +55,14 @@
         <servlet-name>VnpayReturnBooking</servlet-name>
         <url-pattern>/vnpayReturn</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ReportController</servlet-name>
+        <servlet-class>UserController.ReportController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReportController</servlet-name>
+        <url-pattern>/Report</url-pattern>
+    </servlet-mapping>
+    
 </web-app>

@@ -62,31 +62,7 @@
                                             <option value="vi" ${sessionScope.locale == 'vi' ? 'selected' : ''}><fmt:message key="vietnamese"/></option>
                                         </select>
                                     </li>
-                                    <% if (user == null) { %>
-                                    <li><a href="login"><fmt:message key="login"/></a></li>
-                                    <li><a href="User?service=registerUser"><fmt:message key="register"/></a></li>
-                                        <%} else {%>
-                                    <li>
-                                        <div class="ttr-header-submenu">
-                                            <ul>
-                                                <li>
-                                                    <a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle">
-                                                        <span class="ttr-user-avatar">
-                                                            <img alt="" 
-                                                                 src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
-                                                                 width="32" height="32"
-                                                                 onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                                <li><a href="profile_user.jsp"><fmt:message key="my_profile"/></a></li>
-                                                <li><a href="list-view-calendar.html"><fmt:message key="activity"/></a></li>
-                                                <li><a href="cv"><fmt:message key="become_a_tutor"/></a></li>
-                                                <li><a href="logout"><fmt:message key="logout"/></a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <%}%>
+
                                 </ul>
                             </div>
                         </div>
@@ -126,7 +102,6 @@
                                     <li class="active"><a href="home"><fmt:message key="home"/></a></li>
                                     <li><a href="Tutor"><fmt:message key="our_tutor"/></a></li>
                                     <li><a href="ViewBlog"><fmt:message key="blog"/></a></li>
-                                    <li><a href="StudentPaymentHistory"><fmt:message key="history_payment"/></a></li>
                                 </ul>
                                 <div class="nav-social-link">
                                     <a href="javascript:;"><i class="fa fa-facebook"></i></a>
@@ -142,21 +117,37 @@
                 <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner1.jpg);">
                     <div class="container">
                         <div class="page-banner-entry">
-                            <h1 class="text-white"><fmt:message key="my_schedule"/></h1>
+                            <h1 class="text-white"><fmt:message key="report_booking"/></h1>
                         </div>
                     </div>
                 </div>
                 <div class="container mt-4">
                     <a href="home" class="btn btn-primary mb-3"><fmt:message key="back"/></a>
-                    <h3><fmt:message key="my_schedule"/></h3>
-                    <form method="GET" id="searchForm" class="mb-3">
-                        <div class="input-group">
-                            <input type="text" id="searchInput" name="search" placeholder="<fmt:message key='search_by_subject'/>" 
-                                   class="form-control" value="${param.search}" />
-                            <button type="submit" class="btn btn-primary"><fmt:message key="search"/></button>
+                    <h3><fmt:message key="report_booking"/></h3>
+                    <form method="post" action="Report"  class="mb-3">
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="full_name"/></label>
+                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                <input class="form-control" type="text" name="fullName" value="<%= user.getFullName()%>" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="email"/></label>
+                            <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                <input class="form-control" type="email" name="email" value="<%= user.getEmail()%>" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>Your Reason</label>
+                                <textarea name="reason" rows="4" class="form-control" placeholder="Enter your reason here" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <button name="submit" type="submit" value="Submit" class="btn button-md">Submit Report</button>
                         </div>
                     </form>
-                    <div id="calendar"></div>
+                    <div></div>
                 </div>
             </div>
             <footer>
@@ -204,85 +195,5 @@
         <script src='admin/assets/vendors/calendar/moment.min.js'></script>
         <script src='admin/assets/vendors/calendar/fullcalendar.js'></script>
         <script src='admin/assets/vendors/switcher/switcher.js'></script>
-        <script>
-                                            $(document).ready(function () {
-                                                var events = [];
-                                                const contextPath = "${pageContext.request.contextPath}";
-                                                console.log("Dữ liệu schedules:", "${schedules}");
-            <c:forEach var="schedule" items="${schedules}" varStatus="loop">
-                                                console.log("Schedule:", "${schedule.title}", "${schedule.start}", "${schedule.end}", "${schedule.bookingStatus}");
-                                                events.push({
-                                                    title: "${schedule.title}",
-                                                    start: "${schedule.start}",
-                                                    end: "${schedule.end}",
-                                                    bookingID: "${schedule.bookingID}",
-                                                    bookingStatus: "${schedule.bookingStatus}"
-                                                });
-            </c:forEach>
-                                                console.log("Mảng events sau khi xử lý:", events);
-
-                                                if (events.length === 0) {
-                                                    $('#calendar').html('<p class="text-center text-danger"><fmt:message key="no_schedule"/></p>');
-                                                }
-                                                $('#calendar').fullCalendar({
-                                                    header: {
-                                                        left: 'prev,next today',
-                                                        center: 'title',
-                                                        right: 'month,agendaWeek,agendaDay,listWeek'
-                                                    },
-                                                    editable: true,
-                                                    eventLimit: true,
-                                                    events: events,
-                                                    eventRender: function (event, element, view) {
-                                                        // Debug: Kiểm tra giá trị
-                                                        console.log("View name:", view.name, "Event:", event.title, "Booking Status:", event.bookingStatus);
-                                                        // Trích xuất trạng thái từ title
-                                                        var titleParts = event.title.split(" - ");
-                                                        var status = titleParts.length > 1 ? titleParts[titleParts.length - 1].trim().toLowerCase() : "";
-                                                        console.log("Trích xuất status từ title:", status);
-                                                        // Add "Review" link only in listWeek view and if status is "completed"
-                                                        if (view.name === "listWeek" && status === "completed") {
-                                                            console.log("Điều kiện thỏa mãn, thêm nút Review cho sự kiện:", event.title);
-                                                            // Kiểm tra xem .fc-list-item-title có tồn tại không
-                                                            var titleElement = element.find('.fc-list-item-title');
-                                                            if (titleElement.length > 0) {
-                                                                console.log("Tìm thấy .fc-list-item-title, thêm liên kết...");
-                                                                titleElement.append(
-                                                                        ' <a href="TutorRatingController?service=addRating&bookingId=' + event.bookingID + '" class="btn btn-primary btn-sm review-btn">Review</a>'
-                                                                        );
-                                                            } else {
-                                                                console.log("Không tìm thấy .fc-list-item-title cho sự kiện:", event.title);
-                                                            }
-                                                        } else {
-                                                            console.log("Điều kiện không thỏa mãn: View name =", view.name, "Status =", status);
-                                                        }
-                                                        // Kiểm tra nếu trạng thái 
-                                                        if (status === "completed") {
-                                                            // Thêm nút "Report"
-                                                            titleElement.append(
-                                                                    ' <a href="Report?BookingID=' + event.bookingID + '" class="btn btn-danger btn-sm report-btn">Report</a>'
-                                                                    );
-                                                        }
-                                                    }
-                                                });
-                                            });
-        </script>
-
-        <style>
-            /* Đẩy nút "Review" sát bên phải */
-            .fc-list-item-title {
-                position: relative;
-                padding-right: 100px;
-            }
-            .review-btn {
-                position: absolute;
-                right: 10px;
-                top: 50%;
-                transform: translateY(-50%);
-                text-decoration: none; /* Bỏ gạch chân cho liên kết */
-            }
-        </style>
-
-
     </body>
 </html>
