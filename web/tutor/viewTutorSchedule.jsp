@@ -200,7 +200,7 @@
         <script src='admin/assets/vendors/calendar/moment.min.js'></script>
         <script src='admin/assets/vendors/calendar/fullcalendar.js'></script>
         <script src='admin/assets/vendors/switcher/switcher.js'></script>
- <script>
+<script>
     $(document).ready(function () {
         var events = [];
         const contextPath = "${pageContext.request.contextPath}";
@@ -242,7 +242,7 @@
                     if (titleElement.length > 0) {
                         console.log("Tìm thấy .fc-list-item-title, thêm liên kết Confirm Completion...");
                         titleElement.append(
-                            ' <a href="javascript:void(0)" onclick="if(confirm(\'Are you sure you want to confirm this session as completed?\')){window.location.href=\'TutorScheduleController?service=confirmCompletion&bookingId=' + event.bookingID + '\';}" class="btn btn-success btn-sm confirm-btn">Confirm Completion</a>'
+                            ' <a href="javascript:void(0)" onclick="if(confirm(\'Cần đảm bảo rằng học sinh đã thực sự tham gia và xác nhận sự có mặt trong buổi học.!\')){window.location.href=\'' + contextPath + '/tutor/ViewTutorSchedule?service=confirmCompletion&bookingId=' + event.bookingID + '\';}" class="btn btn-success btn-sm confirm-btn">Confirm Completion</a>'
                         );
                     } else {
                         console.log("Không tìm thấy .fc-list-item-title cho sự kiện:", event.title);
