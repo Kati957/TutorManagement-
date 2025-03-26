@@ -5,12 +5,15 @@
 
 package UserController;
 
+import entity.Report;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import model.DAOReport;
 
 /**
  *
@@ -29,7 +32,22 @@ public class ReportController extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            HttpSession session = request.getSession();
             /* TODO output your page here. You may use following sample code. */
+            String submit="";
+             submit= request.getParameter("submit");
+            int userID = Integer.parseInt(request.getParameter("userID"));
+            int bookID = Integer.parseInt(request.getParameter("bookID"));
+            String reason = request.getParameter("reason");
+            if(submit!=null){
+            Report report = new Report();
+            report.setUserID(userID);
+            report.setBookID(bookID);
+            report.setReason(reason);
+            report.setStatus("Pending");
+            DAOReport reportDAO = new DAOReport();
+            reportDAO.addReport(report);
+            }
             request.getRequestDispatcher("user/report.jsp").forward(request, response);
         }
     } 
