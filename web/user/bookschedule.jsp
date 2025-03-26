@@ -19,7 +19,7 @@
         <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
         <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
 
-        <title>G4 SmartTutor : <fmt:message key="book_schedule"/></title>
+        <title>G4 SmartTutor</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="stylesheet" type="text/css" href="assets/css/assets.css">
