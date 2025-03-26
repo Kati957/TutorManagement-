@@ -23,7 +23,7 @@ public class TutorDetailController extends HttpServlet {
             ResultSet rsTutor=null;
             rsTutor = dao.getData("select TutorID, FullName, SubjectName, rating, Avatar, Tutor.Price ,Desciption, Certificates,Subject.SubjectID from users\n" +
 "                        join CV on users.UserID=Cv.UserID\n" +
-"                        join tutor on CV.CVID=tutor.CVIID\n" +
+"                        join tutor on CV.CVID=tutor.CVID\n" +
 "                        join Subject on CV.SubjectId=Subject.SubjectID\n" +
 "                    where TutorID="+tutor);
             request.setAttribute("rsTutor", rsTutor);

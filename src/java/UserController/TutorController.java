@@ -44,7 +44,7 @@ public class TutorController extends HttpServlet {
             String subjectName = request.getParameter("Subjectname");
             String sql="select TutorID, FullName, SubjectName, rating, Avatar, Tutor.Price from users\n"
                         + "join CV on users.UserID=Cv.UserID\n"
-                        + "join tutor on CV.CVID=tutor.CVIID\n"
+                        + "join tutor on CV.CVID=tutor.CVID\n"
                         + "join Subject on CV.SubjectId=Subject.SubjectID";
             ResultSet rs=null;
             if (name != null) {

@@ -1,12 +1,9 @@
 package controller.Customer;
 
 import entity.Tutor;
-import entity.Cv;
 import entity.Subject;
 import entity.User;
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,19 +20,25 @@ public class HomePageServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
+        HttpSession session = request.getSession(false); // Không tạo session mới nếu chưa có
+        User user = null;
+
+        // Lấy user từ session nếu có
+        if (session != null) {
+            user = (User) session.getAttribute("user");
+        }
+
         DAOUser daoUser = new DAOUser();
         DAOTutor daoTutor = new DAOTutor();
         DAOSubject daoSubject = new DAOSubject();
 
+        // Nếu user không null và email bị thiếu, lấy lại từ database
         try {
-            if (user.getEmail() == null) {
-                int userId = user.getUserID();
-                if (userId != 0) {
-                    user = daoUser.getUserById(userId);
-                    if (user != null) {
-                        session.setAttribute("user", user);
+            if (user != null && user.getEmail() == null) {
+                if (user.getUserID() != 0) {
+                    user = daoUser.getUserById(user.getUserID());
+                    if (user != null && session != null) {
+                        session.setAttribute("user", user); // Cập nhật lại session
                     }
                 }
             }
@@ -43,53 +46,33 @@ public class HomePageServlet extends HttpServlet {
             e.printStackTrace();
         }
 
+        // Lấy danh sách top tutors và subjects (không phụ thuộc user)
         List<Tutor> topTutors = daoTutor.getTopTutors(5);
         List<Subject> topSubjects = daoSubject.getTopSubjectsByBooking(5);
-        
-        request.setAttribute("user", user);
+
+        // Gán các thuộc tính cho request
+        request.setAttribute("user", user); // user có thể là null
         request.setAttribute("topTutors", topTutors);
         request.setAttribute("topSubjects", topSubjects);
-        
+
+        // Chuyển tiếp đến home.jsp (không cần đăng nhập)
         request.getRequestDispatcher("home.jsp").forward(request, response);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }
 }

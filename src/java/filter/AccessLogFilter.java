@@ -3,13 +3,10 @@ package filter;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import entity.User;
 import model.DAOHistoryLog;
 
 @WebFilter("/*")
@@ -45,32 +42,13 @@ public class AccessLogFilter implements Filter {
         String contextPath = httpRequest.getContextPath();
         String relativePath = path.substring(contextPath.length());
 
-        // Kiểm tra xem request có nên được ghi log hay không
+        // Kiểm tra xem request có nên được xử lý tiếp hay không
         if (!shouldLogRequest(relativePath)) {
             chain.doFilter(request, response);
             return;
         }
 
-        // Lấy thông tin user từ session (nếu có)
-        HttpSession session = httpRequest.getSession(false);
-        Integer userId = null;
-        if (session != null && session.getAttribute("user") != null) {
-            User user = (User) session.getAttribute("user");
-            userId = user.getUserID();
-        }
-
-        // Ghi log
-        try {
-            if (userId != null) {
-                dao.logPageAccess(userId, path); // Ghi log với userId
-            } else {
-                dao.logAction(0, "ACCESS_PAGE", null, "Guest accessed page: " + path); // Ghi log cho guest
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Xử lý lỗi khi ghi log
-        }
-
-        // Tiếp tục chuỗi filter
+        // Không ghi log truy cập trang nữa, chỉ chuyển tiếp
         chain.doFilter(request, response);
     }
 
