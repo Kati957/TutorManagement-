@@ -71,21 +71,19 @@ public class PaymentBookingServlet extends HttpServlet {
         DAOPayment dao = new DAOPayment();
         int paymentID = dao.insertPayment(payment);
         if (paymentID < 1) {
-            // Nếu insertPayment thất bại, thử lấy PaymentID mới nhất dựa trên userID
-            paymentID = dao.getLatestPaymentID(user.getUserID());
-            if (paymentID < 1) {
-                resp.sendRedirect("paymentResult.jsp");
-                return;
-            }
+            resp.sendRedirect("paymentResult.jsp");
+            return;
         }
 
         session.setAttribute("paymentID", paymentID);
+
+        // Tạo vnp_TxnRef bằng cách kết hợp paymentID và timestamp
+        String vnp_TxnRef = paymentID + "_" + System.currentTimeMillis();
 
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String orderType = "other";
         long amount = (long) (amountDouble * 100);
-        String vnp_TxnRef = paymentID + "";
         String vnp_IpAddr = Config.getIpAddress(req);
         String vnp_TmnCode = Config.vnp_TmnCode;
 
