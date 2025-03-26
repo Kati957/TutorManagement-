@@ -71,8 +71,12 @@ public class PaymentBookingServlet extends HttpServlet {
         DAOPayment dao = new DAOPayment();
         int paymentID = dao.insertPayment(payment);
         if (paymentID < 1) {
-            resp.sendRedirect("paymentResult.jsp");
-            return;
+            // Nếu insertPayment thất bại, thử lấy PaymentID mới nhất dựa trên userID
+            paymentID = dao.getLatestPaymentID(user.getUserID());
+            if (paymentID < 1) {
+                resp.sendRedirect("paymentResult.jsp");
+                return;
+            }
         }
 
         session.setAttribute("paymentID", paymentID);
