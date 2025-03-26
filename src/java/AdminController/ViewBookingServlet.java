@@ -54,15 +54,15 @@ public class ViewBookingServlet extends HttpServlet {
                 int result = daoBooking.changeBookingStatusToRefund(bookingID);
 
                 if (result > 0) {
-                    session.setAttribute("message", "Booking ID " + bookingID + " has been updated to Refund successfully.");
+                    session.setAttribute("message", "Booking ID " + bookingID + " has been updated to Cancelled successfully.");
                 } else {
-                    request.setAttribute("error", "Failed to update Booking ID " + bookingID + " to Refund. Booking may not exist or already refunded.");
+                    request.setAttribute("error", "Failed to update Booking ID " + bookingID + " to Cancelled. Booking may not exist or already cancelled.");
                 }
             } catch (NumberFormatException e) {
                 request.setAttribute("error", "Invalid Booking ID format.");
             }
         }
 
-        doGet(request, response); // Tải lại trang sau khi xử lý
+        doGet(request, response); // Tải lại trang
     }
 }
