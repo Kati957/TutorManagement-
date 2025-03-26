@@ -83,8 +83,18 @@ public class CreateSchedule extends HttpServlet {
         }
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-            LocalDateTime startTimeLDT = LocalDateTime.parse(startTimeStr, formatter);
-            LocalDateTime endTimeLDT = startTimeLDT.plusMinutes(60);
+LocalDateTime startTimeLDT = LocalDateTime.parse(startTimeStr, formatter);
+LocalDateTime endTimeLDT = startTimeLDT.plusMinutes(60);
+
+// Lấy ngày hiện tại, bỏ qua giờ phút giây
+LocalDateTime now = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
+
+// Kiểm tra nếu ngày bắt đầu nhỏ hơn hôm nay
+if (startTimeLDT.isBefore(now)) {
+    request.setAttribute("message", "Không thể tạo lịch cho ngày trong quá khứ. Vui lòng chọn ngày hợp lệ.");
+    doGet(request, response);
+    return;
+}
 
             // Chuyển LocalDateTime thành java.util.Date
             Date startTime = Date.from(startTimeLDT.atZone(ZoneId.systemDefault()).toInstant());

@@ -1237,6 +1237,13 @@
 .gallery-img:hover {
     transform: scale(1.1);
 }
+.action-box.blog-lg img {
+    width: 100%; /* Đảm bảo ảnh vừa với chiều rộng của container */
+    max-width: 800px; /* Giới hạn chiều rộng tối đa */
+    height: 400px; /* Đặt chiều cao cố định */
+    object-fit: cover; /* Đảm bảo ảnh vừa khung mà không bị méo */
+    display: block; /* Đảm bảo ảnh không bị tràn */
+}
 /* CSS cho image viewer */
 .image-viewer {
     display: none;

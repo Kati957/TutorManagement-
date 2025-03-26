@@ -38,4 +38,21 @@
         <servlet-name>StaffListServlet</servlet-name>
         <url-pattern>/admin/StaffList</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>PaymentBookingServlet</servlet-name>
+        <servlet-class>controller.Customer.PaymentBookingServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PaymentBookingServlet</servlet-name>
+        <url-pattern>/payment</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>VnpayReturnBooking</servlet-name>
+        <servlet-class>controller.Customer.VnpayReturnBooking</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>VnpayReturnBooking</servlet-name>
+        <url-pattern>/vnpayReturn</url-pattern>
+    </servlet-mapping>
 </web-app>

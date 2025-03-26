@@ -171,5 +171,48 @@ public class DAOSchedule extends DBConnect {
         }
         return schedule;
     }
+//    public boolean isScheduleExist(int tutorId, int subjectId, Date startTime) throws SQLException {
+//    String sql = "SELECT COUNT(*) FROM Schedule WHERE tutorId = ? AND subjectId = ? AND startTime = ?";
+//    try (Connection conn = getConnection();
+//         PreparedStatement ps = conn.prepareStatement(sql)) {
+//        ps.setInt(1, tutorId);
+//        ps.setInt(2, subjectId);
+//        ps.setTimestamp(3, new Timestamp(startTime.getTime()));
+//        
+//        try (ResultSet rs = ps.executeQuery()) {
+//            if (rs.next()) {
+//                return rs.getInt(1) > 0;
+//            }
+//        }
+//    }
+//    return false;
+//}
+public boolean isScheduleConflict(int tutorId, Date startTime, Date endTime) throws SQLException {
+    String sql = "SELECT COUNT(*) FROM Schedule WHERE tutorId = ? " +
+                 "AND ((startTime BETWEEN ? AND ?) OR (endTime BETWEEN ? AND ?) " +
+                 "OR (? BETWEEN startTime AND endTime) OR (? BETWEEN startTime AND endTime))";
+    
+    try (Connection conn = getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, tutorId);
+        ps.setTimestamp(2, new java.sql.Timestamp(startTime.getTime()));
+        ps.setTimestamp(3, new java.sql.Timestamp(endTime.getTime()));
+        ps.setTimestamp(4, new java.sql.Timestamp(startTime.getTime()));
+        ps.setTimestamp(5, new java.sql.Timestamp(endTime.getTime()));
+        ps.setTimestamp(6, new java.sql.Timestamp(startTime.getTime()));
+        ps.setTimestamp(7, new java.sql.Timestamp(endTime.getTime()));
+
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getInt(1) > 0; // Nếu COUNT > 0, có lịch trùng
+        }
+    }
+    return false;
+}
+
+
+    public boolean isScheduleExist(int tutorId, int subjectId, java.util.Date startTime) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 }
