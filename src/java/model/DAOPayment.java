@@ -22,21 +22,20 @@ public class DAOPayment extends DBConnect {
         super(); // Gọi constructor của DBConnect để khởi tạo kết nối
     }
 
-    // Lấy PaymentID mới nhất dựa trên UserID
-    public int getLatestPaymentID(int userID) {
-        String sql = "SELECT TOP 1 PaymentID FROM Payment WHERE UserID = ? ORDER BY PaymentDate DESC";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, userID);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt("PaymentID");
-                }
+  public int getLatestPaymentID(int userID) {
+    String sql = "SELECT TOP 1 PaymentID FROM Payment WHERE UserID = ? ORDER BY PaymentDate DESC";
+    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        stmt.setInt(1, userID);
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt("PaymentID");
             }
-        } catch (SQLException ex) {
-            LOGGER.log(Level.SEVERE, "Error getting latest PaymentID for userID: " + userID, ex);
         }
-        return -1; // Trả về -1 nếu không tìm thấy
+    } catch (SQLException ex) {
+        LOGGER.log(Level.SEVERE, "Error getting latest PaymentID for userID: " + userID, ex);
     }
+    return -1; // Trả về -1 nếu không tìm thấy
+}
 
     // Thêm một Payment mới và trả về PaymentID
     public int insertPayment(Payment payment) {
@@ -314,7 +313,7 @@ public class DAOPayment extends DBConnect {
     public static void main(String[] args) {
         DAOPayment dao = new DAOPayment();
         Payment payment = new Payment();
-        payment.setUserID(2);
+        payment.setUserID(5);
         payment.setAmount(23232);
         payment.setPaymentDate(new Timestamp(System.currentTimeMillis()));
         payment.setPaymentMethod("VNPAY");
@@ -329,7 +328,7 @@ public class DAOPayment extends DBConnect {
             System.out.println("Chèn Payment thất bại");
         }
 
-        int latestPaymentID = dao.getLatestPaymentID(2);
-        System.out.println("PaymentID mới nhất: " + latestPaymentID);
+  
+        System.out.println(paymentID);
     }
 }

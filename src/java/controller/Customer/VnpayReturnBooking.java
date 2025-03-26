@@ -48,9 +48,23 @@ public class VnpayReturnBooking extends HttpServlet {
         }
         String signValue = Config.hashAllFields(fields);
         if (signValue.equals(vnp_SecureHash)) {
-            String paymentID = request.getParameter("vnp_TxnRef");
+            String vnp_TxnRef = request.getParameter("vnp_TxnRef");
+            // Tách paymentID từ vnp_TxnRef (có dạng paymentID_timestamp)
+            String[] txnRefParts = vnp_TxnRef.split("_");
+            if (txnRefParts.length < 1) {
+                response.sendRedirect("paymentResult.jsp?error=Invalid transaction reference");
+                return;
+            }
+            int paymentID;
+            try {
+                paymentID = Integer.parseInt(txnRefParts[0]);
+            } catch (NumberFormatException e) {
+                response.sendRedirect("paymentResult.jsp?error=Invalid payment ID");
+                return;
+            }
+
             Payment payment = new Payment();
-            payment.setPaymentID(Integer.parseInt(paymentID));
+            payment.setPaymentID(paymentID);
             boolean transSuccess = false;
 
             if ("00".equals(request.getParameter("vnp_TransactionStatus"))) {
