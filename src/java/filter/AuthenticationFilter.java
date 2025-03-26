@@ -39,6 +39,7 @@ public class AuthenticationFilter implements Filter {
     private static final List<String> PUBLIC_URLS = Arrays.asList(
             "/login.jsp", // sử dụng login.jsp (đồng nhất với redirect)
             "/home.jsp",
+            "/home",
             "/forget-password.jsp",
             "/blog-classic-sidebar.jsp",
             "/blog-details.jsp",

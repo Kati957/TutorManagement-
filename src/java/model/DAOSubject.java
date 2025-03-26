@@ -108,7 +108,7 @@ public class DAOSubject extends DBConnect {
                  SELECT CV.SubjectId, SubjectName, Tutor.TutorID 
                  FROM dbo.Subject 
                  JOIN dbo.CV ON CV.SubjectId = Subject.SubjectID
-                 JOIN dbo.Tutor ON Tutor.CVIID = CV.CVID
+                 JOIN dbo.Tutor ON Tutor.CVID = CV.CVID
                  JOIN dbo.Users ON Users.UserID = CV.UserID
                  WHERE CV.UserID = ?
                  """;

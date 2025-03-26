@@ -155,7 +155,7 @@ public class DAOTutorRating extends DBConnect {
         String sql = "SELECT t.TutorID, u.FullName, ROUND(COALESCE(AVG(tr.Rating), 0), 1) as averageRating, COUNT(tr.Rating) as reviewCount "
                 + "FROM dbo.Users u "
                 + "JOIN dbo.CV cv ON cv.UserID = u.UserID "
-                + "JOIN dbo.Tutor t ON t.CVIID = cv.CVID "
+                + "JOIN dbo.Tutor t ON t.CVID = cv.CVID "
                 + "LEFT JOIN dbo.TutorRating tr ON tr.TutorID = t.TutorID "
                 + "GROUP BY t.TutorID, u.FullName "
                 + "ORDER BY averageRating " + ("DESC".equals(order) ? "DESC" : "ASC");
@@ -181,7 +181,7 @@ public class DAOTutorRating extends DBConnect {
         String sql = "SELECT t.TutorID, u.FullName, ROUND(COALESCE(AVG(tr.Rating), 0), 1) as averageRating, COUNT(tr.Rating) as reviewCount "
                 + "FROM dbo.Users u "
                 + "JOIN dbo.CV cv ON cv.UserID = u.UserID "
-                + "JOIN dbo.Tutor t ON t.CVIID = cv.CVID "
+                + "JOIN dbo.Tutor t ON t.CVID = cv.CVID "
                 + "LEFT JOIN dbo.TutorRating tr ON tr.TutorID = t.TutorID "
                 + "WHERE t.TutorID LIKE ? OR u.FullName LIKE ? "
                 + "GROUP BY t.TutorID, u.FullName "

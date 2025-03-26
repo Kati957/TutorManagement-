@@ -132,17 +132,17 @@
             <div class="ttr-sidebar-wrapper content-scroll">
                 <!-- Side menu logo start -->
                 <div class="ttr-sidebar-logo">
-                    <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
+                    <a href="${pageContext.request.contextPath}/admin/index"><img alt="" src="${pageContext.request.contextPath}/assets/images/logo.png" width="122" height="27"></a>
                     <div class="ttr-sidebar-toggle-button">
                         <i class="ti-arrow-left"></i>
                     </div>
                 </div>
                 <!-- Side menu logo end -->
-                <!-- Sidebar menu start -->
+                <!-- Sidebar -->
                 <nav class="ttr-sidebar-navi">
                     <ul>
                         <li>
-                            <a href="index" class="ttr-material-button">
+                            <a href="${pageContext.request.contextPath}/admin/index" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-home"></i></span>
                                 <span class="ttr-label">Dashboard</span>
                             </a>
@@ -155,7 +155,10 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Review Courses</span></a>
+                                    <a href="${pageContext.request.contextPath}/admin/TutorList" class="ttr-material-button"><span class="ttr-label">Tutor List</span></a>
+                                </li>
+                                <li>
+                                    <a href="AdminListRated" class="ttr-material-button"><span class="ttr-label">Tutor Reviews</span></a>
                                 </li>
                                 <li>
                                     <a href="RequestCV" class="ttr-material-button"><span class="ttr-label">Status CV</span></a>
@@ -164,10 +167,10 @@
                                     <a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a>
+                                    <a href="AdminViewSchedule" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Edit Subject</span></a>
+                                    <a href="AdminSubjectController" class="ttr-material-button"><span class="ttr-label">Subject Management</span></a>
                                 </li>
                             </ul>
                         </li>
@@ -204,7 +207,7 @@
                             </a>
                             <ul>
                                 <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a></li>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a></li>
+                                <li><a href="PaymentHistory" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a></li>
                             </ul>
                         </li>
                         <li>
@@ -259,24 +262,20 @@
                                 <td><%=rsCv.getString(3)%></td>
                                 <td><%=rsCv.getString(5)%></td>
                                 <td>
-                                    <form action="RequestCV" method="post">
-                                        <input type="hidden" name="cvId" value="<%= rsCv.getInt(1)%>">
-                                        <input type="hidden" name="subject" value="<%= rsCv.getInt("SubjectID")%>">
-                                        <button type="submit" name="status" value="Approved"
-                                                style="background-color: green; color: white; padding: 8px 15px; border: none; cursor: pointer; border-radius: 5px;"
-                                                <%= "Approved".equals(rsCv.getString("Status")) ? "disabled" : ""%>>Approve</button>
+                                    <a href="RequestCV?cvId=<%= rsCv.getInt(1)%>&subject=<%= rsCv.getInt("SubjectID")%>&status=Approved"
+                                       style="background-color: green; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; display: inline-block;"
+                                       >Approve</a>
 
-                                        <button type="submit" name="status" value="Rejected"
-                                                style="background-color: red; color: white; padding: 8px 15px; border: none; cursor: pointer; border-radius: 5px;"
-                                                <%= "Rejected".equals(rsCv.getString("Status")) ? "disabled" : ""%>>Reject</button>
-                                    </form>
+                                    <a href="RequestCV?cvId=<%= rsCv.getInt(1)%>&subject=<%= rsCv.getInt("SubjectID")%>&status=Rejected"
+                                       style="background-color: red; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; display: inline-block;"
+                                       >Reject</a>
                                 </td>
                                 <td><a href="viewCV?cvid=<%=rsCv.getInt(1)%>">View CV</a></td>
                             </tr>
                             <%}%>
                         </table>
                     </div>
-                        <h1>${error}</h1>
+                    <h1>${error}</h1>
                 </div>
             </form>
         </main>

@@ -161,5 +161,39 @@ public class ScheduleDAO {
         result.put("totalPages", totalPages);
         return result;
     }
+    public List<Map<String, Object>> getTutorSchedules(int tutorId, String search) {
+    List<Map<String, Object>> schedules = new ArrayList<>();
+    String sql = "SELECT s.*, u.FullName AS StudentName " +
+                 "FROM dbo.Schedule s " +
+                 "LEFT JOIN dbo.[User] u ON s.StudentID = u.UserID " +
+                 "WHERE s.TutorID = ? AND (u.FullName LIKE ? OR s.StartTime LIKE ?)";
+    
+    try (Connection conn = dbConnect.conn;
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+        
+        stmt.setInt(1, tutorId);
+        stmt.setString(2, "%" + search + "%");
+        stmt.setString(3, "%" + search + "%");
+        
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Map<String, Object> schedule = new HashMap<>();
+            schedule.put("ScheduleID", rs.getInt("ScheduleID"));
+            schedule.put("TutorID", rs.getInt("TutorID"));
+            schedule.put("StartTime", rs.getTimestamp("StartTime").toLocalDateTime());
+            schedule.put("EndTime", rs.getTimestamp("EndTime").toLocalDateTime());
+            schedule.put("IsBooked", rs.getBoolean("IsBooked"));
+            schedule.put("SubjectID", rs.getInt("SubjectID"));
+            schedule.put("StudentName", rs.getString("StudentName")); // Nếu null thì chưa có ai book
+
+            schedules.add(schedule);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return schedules;
+}
+
+
 
 }

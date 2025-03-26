@@ -41,6 +41,7 @@ public class DBConnect {
 
         this("jdbc:sqlserver://localhost:1433;databaseName=G4", "sa", "Minh2004");
 
+
     }
 
     public ResultSet getData(String sql) {
