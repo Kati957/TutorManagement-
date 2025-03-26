@@ -86,7 +86,7 @@ public class DAOCv extends DBConnect {
         List<User> tutorList = new ArrayList<>();
         String sql = "SELECT u.*, c.CVID, c.Education, c.Experience, c.Certificates, s.SubjectName "
                 + "FROM Users u "
-                + "INNER JOIN [test].[dbo].[CV] c ON u.UserID = c.UserID "
+                + "INNER JOIN [dbo].[CV] c ON u.UserID = c.UserID "
                 + "LEFT JOIN Subject s ON c.SubjectId = s.SubjectID "
                 + "WHERE u.RoleID = 3 AND c.Status = 'Approved'";
         try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {

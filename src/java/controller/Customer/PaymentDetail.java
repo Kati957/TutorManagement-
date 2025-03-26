@@ -150,7 +150,7 @@ public class PaymentDetail extends HttpServlet {
         }
 
         // Tính tổng giá (giả định mỗi slot 200,000 VNĐ)
-        double pricePerSlot = daoTutor.getPriceByTutorId(tutorID);
+        float pricePerSlot = daoTutor.getPriceByTutorId(tutorID);
 
         // Lưu thông tin vào session để sử dụng trong payment.jsp và sau khi thanh toán
         session.setAttribute("scheduleIds", scheduleIds);

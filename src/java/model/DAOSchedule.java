@@ -53,6 +53,40 @@ public class DAOSchedule extends DBConnect {
         return schedules;
     }
 
+    public List<Map<String, Object>> getSchedulesByTutorIdd(int tutorId, String search) {
+        List<Map<String, Object>> schedules = new ArrayList<>();
+        String query = """
+        SELECT b.BookingID, b.BookingDate, b.Status AS BookingStatus, 
+               s.ScheduleID, s.StartTime, s.EndTime, sub.SubjectName
+        FROM Booking b
+        JOIN Slot sl ON b.SlotID = sl.SlotID
+        JOIN Schedule s ON sl.ScheduleID = s.ScheduleID
+        JOIN Subject sub ON b.SubjectID = sub.SubjectID
+        WHERE s.TutorID = ?
+        AND sub.SubjectName LIKE ?
+    """;
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, tutorId);
+            ps.setString(2, "%" + search + "%"); // Lọc theo SubjectName, sử dụng LIKE để tìm kiếm gần đúng
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Map<String, Object> schedule = new HashMap<>();
+                schedule.put("bookingID", rs.getInt("BookingID"));
+                schedule.put("title", rs.getString("SubjectName") + " - " + rs.getString("BookingStatus"));
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                schedule.put("start", sdf.format(rs.getTimestamp("StartTime")));
+                schedule.put("end", sdf.format(rs.getTimestamp("EndTime")));
+                schedules.add(schedule);
+            }
+            System.out.println("Lấy thành công " + schedules.size() + " schedules for Tutor ID " + tutorId + " with search: " + search);
+        } catch (SQLException e) {
+            System.out.println("Lấy schedules by tutor Id thất bại: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return schedules;
+    }
+
     // Hungnv: Book Schedule
     public List<Schedule> getSchedulesByTutorAndSubject(int tutorId, int subjectId) {
         List<Schedule> schedules = new ArrayList<>();

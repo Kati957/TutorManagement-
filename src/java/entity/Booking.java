@@ -1,4 +1,3 @@
-
 package entity;
 
 import java.sql.Date;
@@ -6,7 +5,9 @@ import java.sql.Date;
 public class Booking {
     private int bookingID;
     private int studentID;
+    private String studentName; // Thêm để lưu FullName của học sinh
     private int tutorID;
+    private String tutorName;   // Thêm để lưu FullName của gia sư
     private int slotID;
     private Date bookingDate;
     private String status;
@@ -20,10 +21,12 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(int bookingID, int studentID, int tutorID, int slotID, Date bookingDate, String status, int subjectID) {
+    public Booking(int bookingID, int studentID, String studentName, int tutorID, String tutorName, int slotID, Date bookingDate, String status, int subjectID) {
         this.bookingID = bookingID;
         this.studentID = studentID;
+        this.studentName = studentName;
         this.tutorID = tutorID;
+        this.tutorName = tutorName;
         this.slotID = slotID;
         this.bookingDate = bookingDate;
         this.status = status;
@@ -46,12 +49,28 @@ public class Booking {
         this.studentID = studentID;
     }
 
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
     public int getTutorID() {
         return tutorID;
     }
 
     public void setTutorID(int tutorID) {
         this.tutorID = tutorID;
+    }
+
+    public String getTutorName() {
+        return tutorName;
+    }
+
+    public void setTutorName(String tutorName) {
+        this.tutorName = tutorName;
     }
 
     public int getSlotID() {
@@ -117,6 +136,4 @@ public class Booking {
     public void setUser(User user) {
         this.user = user;
     }
-    
-    
 }

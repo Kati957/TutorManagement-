@@ -13,7 +13,7 @@ public class DAOTutor extends DBConnect {
 
     public int addTutor(Tutor tutor) {
         int result = 0;
-        String sql = "INSERT INTO [dbo].[Tutor]([CVIID],[Rating],[Price])\n"
+        String sql = "INSERT INTO [dbo].[Tutor]([CVID],[Rating],[Price])\n"
                 + "VALUES(?,?,?)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, tutor.getCVID());
@@ -61,7 +61,7 @@ public class DAOTutor extends DBConnect {
                 + "c.CVID, c.Desciption, "
                 + "u.UserID, u.Email, u.FullName, u.Phone, u.Avatar "
                 + "FROM Tutor t "
-                + "JOIN CV c ON t.CVIID = c.CVID "
+                + "JOIN CV c ON t.CVID = c.CVID "
                 + "JOIN Users u ON c.UserID = u.UserID "
                 + "ORDER BY t.Rating DESC";
 
@@ -96,20 +96,20 @@ public class DAOTutor extends DBConnect {
         return tutors;
     }
 
-    public int getPriceByTutorId(int tutorId) {
-        int price = -1; // Giá trị mặc định nếu không tìm thấy hoặc có lỗi
+    public float getPriceByTutorId(int tutorId) {
+        float price = -1; // Giá trị mặc định nếu không tìm thấy hoặc có lỗi
         String sql = """
-            SELECT Price 
-            FROM dbo.Users 
-            JOIN dbo.CV ON CV.UserID = Users.UserID
-            JOIN dbo.Tutor ON Tutor.CVIID = CV.CVID
-            WHERE TutorID = ?
+           SELECT Tutor.Price
+                        FROM dbo.Users 
+                        JOIN dbo.CV ON CV.UserID = Users.UserID
+                        JOIN dbo.Tutor ON Tutor.CVID = CV.CVID
+                        WHERE TutorID = ?
         """;
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, tutorId);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                price = rs.getInt("Price");
+                price = rs.getFloat("Price");
                 // Kiểm tra nếu Price là NULL trong cơ sở dữ liệu
                 if (rs.wasNull()) {
                     price = 0; // Gán giá trị mặc định nếu Price là NULL
@@ -121,13 +121,13 @@ public class DAOTutor extends DBConnect {
         }
         return price;
     }
-    
+
     public String getFullNameByTutorId(int tutorID) {
         String fullName = null;
         String sql = "SELECT u.FullName "
                 + "FROM dbo.Users u "
                 + "JOIN dbo.CV cv ON cv.UserID = u.UserID "
-                + "JOIN dbo.Tutor t ON t.CVIID = cv.CVID "
+                + "JOIN dbo.Tutor t ON t.CVID = cv.CVID "
                 + "WHERE t.TutorID = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, tutorID);
@@ -144,9 +144,9 @@ public class DAOTutor extends DBConnect {
     public List<Tutor> getAllTutors() {
         List<Tutor> tutors = new ArrayList<>();
         String sql = """
-        SELECT t.tutorID, t.CVIID, t.rating, u.FullName, u.Email
+        SELECT t.tutorID, t.CVID, t.rating, u.FullName, u.Email
         FROM Tutor t
-        JOIN CV c ON t.CVIID = c.CVID
+        JOIN CV c ON t.CVID = c.CVID
         JOIN Users u ON c.UserID = u.UserID
     """;
         try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql)) {
@@ -160,7 +160,7 @@ public class DAOTutor extends DBConnect {
 
                 Tutor tutor = new Tutor();
                 tutor.setTutorID(rs.getInt("tutorID"));
-                tutor.setCVID(rs.getInt("CVIID"));
+                tutor.setCVID(rs.getInt("CVID"));
                 tutor.setRating(rs.getFloat("rating"));
                 tutor.setCv(cv);
                 tutors.add(tutor);
@@ -179,7 +179,7 @@ public class DAOTutor extends DBConnect {
             if (rs.next()) {
                 return new Tutor(
                         rs.getInt("tutorID"),
-                        rs.getInt("CVIID"),
+                        rs.getInt("CVID"),
                         rs.getFloat("rating")
                 );
             }
@@ -193,10 +193,10 @@ public class DAOTutor extends DBConnect {
     public List<Tutor> getAllTutorsBySubject(int subjectID) {
         List<Tutor> tutors = new ArrayList<>();
         String sql = """
-        SELECT t.tutorID, t.CVIID, t.rating, u.FullName, u.Email
+        SELECT t.tutorID, t.CVID, t.rating, u.FullName, u.Email
         FROM Tutor t
         JOIN TutorSubject ts ON t.TutorID = ts.TutorID
-        JOIN CV c ON t.CVIID = c.CVID
+        JOIN CV c ON t.CVID = c.CVID
         JOIN Users u ON c.UserID = u.UserID
         WHERE ts.SubjectID = ?
     """;
@@ -213,7 +213,7 @@ public class DAOTutor extends DBConnect {
 
                 Tutor tutor = new Tutor();
                 tutor.setTutorID(rs.getInt("tutorID"));
-                tutor.setCVID(rs.getInt("CVIID"));
+                tutor.setCVID(rs.getInt("CVID"));
                 tutor.setRating(rs.getFloat("rating"));
                 tutor.setCv(cv);
                 tutors.add(tutor);
@@ -227,11 +227,11 @@ public class DAOTutor extends DBConnect {
     public Tutor getTutorBySubject(int tutorID, int subjectID) {
         Tutor tutor = null;
         String sql = """
-        SELECT t.tutorID, t.CVIID, t.rating, t.Price,
+        SELECT t.tutorID, t.CVID, t.rating, t.Price,
                u.FullName, u.Email, u.Phone, u.Avatar, 
                c.Education, c.Experience, c.Certificates, c.Status, c.Desciption
         FROM Tutor t
-        JOIN Cv c ON t.CVIID = c.CVID
+        JOIN Cv c ON t.CVID = c.CVID
         JOIN Users u ON c.UserID = u.UserID
         JOIN Subject s ON c.SubjectId = s.SubjectID
         WHERE t.TutorID = ? AND s.SubjectID = ?
@@ -257,9 +257,9 @@ public class DAOTutor extends DBConnect {
 
                 tutor = new Tutor();
                 tutor.setTutorID(rs.getInt("tutorID"));
-                tutor.setCVID(rs.getInt("CVIID"));
+                tutor.setCVID(rs.getInt("CVID"));
                 tutor.setRating(rs.getFloat("rating"));
-                int price = rs.getInt("Price");
+                float price = rs.getFloat("Price");
                 if (rs.wasNull()) {
                     tutor.setPrice(0);
                 } else {
@@ -276,7 +276,7 @@ public class DAOTutor extends DBConnect {
 
     public Tutor getTutorByCVid(int cvId) {
         Tutor tutor = null;
-        String query = "SELECT TutorID, CVIID, Rating, Price FROM Tutor WHERE CVIID = ?";
+        String query = "SELECT TutorID, CVID, Rating, Price FROM Tutor WHERE CVID = ?";
 
         // Sử dụng try-with-resources để tự động đóng kết nối và statement
         try (
@@ -286,14 +286,14 @@ public class DAOTutor extends DBConnect {
                 if (rs.next()) {
                     tutor = new Tutor();
                     tutor.setTutorID(rs.getInt("TutorID"));
-                    tutor.setCVID(rs.getInt("CVIID"));
+                    tutor.setCVID(rs.getInt("CVID"));
                     int rating = rs.getInt("Rating");
                     if (rs.wasNull()) {
                         tutor.setRating(0);
                     } else {
                         tutor.setRating(rating);
                     }
-                    int price = rs.getInt("Price");
+                    float price = rs.getFloat("Price");
                     if (rs.wasNull()) {
                         tutor.setPrice(0);
                     } else {
@@ -309,7 +309,7 @@ public class DAOTutor extends DBConnect {
     }
 
     public boolean isCVExists(int cvid) {
-        String sql = "SELECT COUNT(*) FROM Tutor WHERE CVIID = ?";
+        String sql = "SELECT COUNT(*) FROM Tutor WHERE CVID = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, cvid);
             ResultSet rs = stmt.executeQuery();
@@ -327,7 +327,7 @@ public class DAOTutor extends DBConnect {
         String sql = """
         SELECT t.TutorID 
         FROM Tutor t
-        JOIN CV c ON t.CVIID = c.CVID
+        JOIN CV c ON t.CVID = c.CVID
         JOIN Users u ON c.UserID = u.UserID
         WHERE u.UserID = ?
     """;

@@ -188,6 +188,9 @@
                                     <a href="RequestCV" class="ttr-material-button"><span class="ttr-label">Status CV</span></a>
                                 </li>
                                 <li>
+                                    <a href="ViewBooking" class="ttr-material-button"><span class="ttr-label">Booking Manage</span></a>
+                                </li>
+                                <li>
                                     <a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a>
                                 </li>
                                 <li>
@@ -231,7 +234,7 @@
                             </a>
                             <ul>
                                 <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a></li>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a></li>
+                                <li><a href="PaymentHistory" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a></li>
                             </ul>
                         </li>
                         <li>

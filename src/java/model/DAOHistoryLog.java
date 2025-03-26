@@ -32,14 +32,20 @@ public class DAOHistoryLog {
      * Ghi log cho một hành động vào bảng HistoryLog
      *
      * @param userId ID của người dùng
-     * @param actionType Loại hành động (LOGIN, LOGOUT, ACCESS_PAGE, v.v.)
+     * @param actionType Loại hành động (LOGIN, LOGOUT, v.v.)
      * @param targetId ID của mục tiêu (có thể null)
      * @param details Thông tin chi tiết về hành động
      * @throws SQLException Nếu có lỗi khi thực hiện truy vấn
      */
     public void logAction(int userId, String actionType, Integer targetId, String details) throws SQLException {
+        if (userId <= 0) {
+            System.out.println("Invalid UserID: " + userId + ". Skipping log.");
+            return; // Bỏ qua nếu userId không hợp lệ
+        }
+
         String sql = "INSERT INTO HistoryLog (UserID, ActionType, TargetID, Details, LogDate) VALUES (?, ?, ?, ?, ?)";
-        try (Connection conn = dbConnect.conn; PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = dbConnect.getConnection(); // Sửa để dùng getConnection()
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
             stmt.setString(2, actionType);
             stmt.setObject(3, targetId); // Hỗ trợ giá trị NULL
@@ -47,9 +53,6 @@ public class DAOHistoryLog {
             stmt.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
             stmt.executeUpdate();
             System.out.println("Log recorded: " + actionType + " for UserID " + userId);
-        } catch (SQLException ex) {
-            System.out.println("Error recording log: " + ex.getMessage());
-            throw ex;
         }
     }
 
@@ -63,11 +66,6 @@ public class DAOHistoryLog {
         logAction(userId, "LOGOUT", null, "User logged out");
     }
 
-    // Phương thức tiện ích để ghi log truy cập trang
-    public void logPageAccess(int userId, String pageUrl) throws SQLException {
-        logAction(userId, "ACCESS_PAGE", null, "Accessed page: " + pageUrl);
-    }
-
     // Lấy tất cả log từ bảng HistoryLog với RoleID (cho sidebar)
     public List<HistoryLog> getAllLogs() throws SQLException {
         List<HistoryLog> logs = new ArrayList<>();
@@ -75,28 +73,21 @@ public class DAOHistoryLog {
                 + "FROM HistoryLog hl "
                 + "LEFT JOIN Users u ON hl.UserID = u.UserID "
                 + "ORDER BY hl.LogDate DESC";
-        try (ResultSet rs = dbConnect.getData(sql)) {
+        try (Connection conn = dbConnect.getConnection();
+             ResultSet rs = conn.createStatement().executeQuery(sql)) {
             while (rs.next()) {
                 HistoryLog log = new HistoryLog();
                 log.setLogId(rs.getInt("LogID"));
                 log.setUserId(rs.getInt("UserID"));
                 log.setActionType(rs.getString("ActionType"));
-                if (rs.getObject("TargetID") != null) {
-                    log.setTargetId(rs.getString("TargetID"));
-                } else {
-                    log.setTargetId(null);
-                }
+                log.setTargetId(rs.getObject("TargetID") != null ? rs.getString("TargetID") : null);
                 log.setDetails(rs.getString("Details"));
                 log.setLogDate(rs.getTimestamp("LogDate"));
-                // Lấy thông tin từ Users
                 log.setFullName(rs.getString("FullName"));
                 log.setEmail(rs.getString("Email"));
                 log.setRoleId(rs.getInt("RoleID"));
                 logs.add(log);
             }
-        } catch (SQLException ex) {
-            System.out.println("Error fetching logs: " + ex.getMessage());
-            throw ex;
         }
         return logs;
     }
@@ -108,28 +99,21 @@ public class DAOHistoryLog {
                 + "FROM HistoryLog hl "
                 + "LEFT JOIN Users u ON hl.UserID = u.UserID "
                 + "ORDER BY hl.LogDate DESC";
-        try (ResultSet rs = dbConnect.getData(sql)) {
+        try (Connection conn = dbConnect.getConnection();
+             ResultSet rs = conn.createStatement().executeQuery(sql)) {
             while (rs.next()) {
                 HistoryLog log = new HistoryLog();
                 log.setLogId(rs.getInt("LogID"));
                 log.setUserId(rs.getInt("UserID"));
                 log.setActionType(rs.getString("ActionType"));
-                if (rs.getObject("TargetID") != null) {
-                    log.setTargetId(rs.getString("TargetID"));
-                } else {
-                    log.setTargetId(null);
-                }
+                log.setTargetId(rs.getObject("TargetID") != null ? rs.getString("TargetID") : null);
                 log.setDetails(rs.getString("Details"));
                 log.setLogDate(rs.getTimestamp("LogDate"));
-                // Lấy thông tin từ Users
                 log.setFullName(rs.getString("FullName"));
                 log.setEmail(rs.getString("Email"));
                 log.setRoleId(rs.getInt("RoleID"));
                 logs.add(log);
             }
-        } catch (SQLException ex) {
-            System.out.println("Error fetching recent logs: " + ex.getMessage());
-            throw ex;
         }
         return logs;
     }
@@ -142,28 +126,21 @@ public class DAOHistoryLog {
                 + "LEFT JOIN Users u ON hl.UserID = u.UserID "
                 + "WHERE u.RoleID IN (2, 3) "
                 + "ORDER BY hl.LogDate DESC";
-        try (ResultSet rs = dbConnect.getData(sql)) {
+        try (Connection conn = dbConnect.getConnection();
+             ResultSet rs = conn.createStatement().executeQuery(sql)) {
             while (rs.next()) {
                 HistoryLog log = new HistoryLog();
                 log.setLogId(rs.getInt("LogID"));
                 log.setUserId(rs.getInt("UserID"));
                 log.setActionType(rs.getString("ActionType"));
-                if (rs.getObject("TargetID") != null) {
-                    log.setTargetId(rs.getString("TargetID"));
-                } else {
-                    log.setTargetId(null);
-                }
+                log.setTargetId(rs.getObject("TargetID") != null ? rs.getString("TargetID") : null);
                 log.setDetails(rs.getString("Details"));
                 log.setLogDate(rs.getTimestamp("LogDate"));
-                // Lấy thông tin từ Users
                 log.setFullName(rs.getString("FullName"));
                 log.setEmail(rs.getString("Email"));
                 log.setRoleId(rs.getInt("RoleID"));
                 logs.add(log);
             }
-        } catch (SQLException ex) {
-            System.out.println("Error fetching user and tutor logs: " + ex.getMessage());
-            throw ex;
         }
         return logs;
     }
@@ -177,32 +154,6 @@ public class DAOHistoryLog {
             } catch (SQLException ex) {
                 System.out.println("Error closing connection: " + ex.getMessage());
             }
-        }
-    }
-
-    // Test phương thức
-    public static void main(String[] args) {
-        DAOHistoryLog dao = new DAOHistoryLog();
-        try {
-            dao.logLogin(1); // Test với UserID = 1
-            dao.logLogout(1); // Test với UserID = 1
-            dao.logPageAccess(1, "/admin-profile.jsp"); // Test với UserID = 1
-            System.out.println("Testing getRecentLogs:");
-            List<HistoryLog> recentLogs = dao.getRecentLogs();
-            for (HistoryLog log : recentLogs) {
-                System.out.println("Log ID: " + log.getLogId() + ", Action: " + log.getActionType()
-                        + ", Date: " + log.getLogDate() + ", RoleID: " + log.getRoleId());
-            }
-            System.out.println("Testing getAllLogs:");
-            List<HistoryLog> allLogs = dao.getAllLogs();
-            for (HistoryLog log : allLogs) {
-                System.out.println("Log ID: " + log.getLogId() + ", Action: " + log.getActionType()
-                        + ", Date: " + log.getLogDate() + ", RoleID: " + log.getRoleId());
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            dao.closeConnection();
         }
     }
 }
