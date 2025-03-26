@@ -21,7 +21,7 @@ public class DAOPayment {
     // Thông tin kết nối cơ sở dữ liệu
     private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=G4";
     private static final String USER = "sa";
-    private static final String PASSWORD = "Minh2004";
+    private static final String PASSWORD = "123";
 
     // Tạo kết nối mới
     private Connection getConnection() {

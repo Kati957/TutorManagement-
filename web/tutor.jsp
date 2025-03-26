@@ -208,7 +208,7 @@
                                                         </ul>
                                                     </div>
                                                     <div class="price">
-                                                        <del>$190</del>
+                                                        <del>VND</del>
                                                         <h5><%=rs.getInt(6)%></h5>
                                                     </div>
                                                 </div>

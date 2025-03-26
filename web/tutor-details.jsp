@@ -188,7 +188,7 @@
                                 <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
                                     <div class="course-detail-bx">
                                         <div class="course-price">
-                                            <del>$190</del>
+                                            <del>VND</del>
                                             <h4 class="price"><%=rsTutor.getInt(6)%></h4>
                                         </div>	
                                         <div class="course-buy-now text-center">

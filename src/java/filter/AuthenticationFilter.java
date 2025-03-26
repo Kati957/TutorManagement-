@@ -43,14 +43,7 @@ public class AuthenticationFilter implements Filter {
             "/blog-classic-sidebar.jsp",
             "/blog-details.jsp",
             "/register.jsp",
-            "/course.jsp",
-            "/about-1.jsp",
-            "/about-2.jsp",
-            "/tutor-details.jsp",
-            "/event.jsp",
-            "/events-details.jsp",
-            "/faq-1.jsp",
-            "/faq-2.jsp",
+            "/tutor.jsp",
             "/error-404.jsp"
     );
 
