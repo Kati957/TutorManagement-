@@ -157,7 +157,7 @@
                         <h3><fmt:message key="report_booking"/></h3>
                         <form method="post" action="Report" class="mb-3">
                             <input type="hidden" name="userID" value=${sessionScope.user.roleID}>
-                            <input type="hidden" name="userID" value=${sessionScope.user.roleID}>
+                            <input type="hidden" name="bookingID" value=${bookId}>
                             <div class="form-group row">
                                 <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="full_name"/></label>
                                 <div class="col-12 col-sm-9 col-md-9 col-lg-7">

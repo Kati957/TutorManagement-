@@ -36,13 +36,20 @@ public class ReportController extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String submit="";
              submit= request.getParameter("submit");
-            int userID = Integer.parseInt(request.getParameter("userID"));
-            int bookID = Integer.parseInt(request.getParameter("bookID"));
+            String userID = request.getParameter("userID");
+            String bookID = request.getParameter("bookID");
+            if(bookID!=null){
+                int bookId=Integer.parseInt(bookID);
+                request.setAttribute("bookId", bookId);
+            }
+            String bookingID = request.getParameter("bookingID");
             String reason = request.getParameter("reason");
             if(submit!=null){
+            int bookingId=Integer.parseInt(bookingID);
+            int userId=Integer.parseInt(userID);
             Report report = new Report();
-            report.setUserID(userID);
-            report.setBookID(bookID);
+            report.setUserID(userId);
+            report.setBookID(bookingId);
             report.setReason(reason);
             report.setStatus("Pending");
             DAOReport reportDAO = new DAOReport();
