@@ -72,6 +72,9 @@ public class UserRegister extends HttpServlet {
         String userName = request.getParameter("UserName");
         String password = request.getParameter("Password");
 
+        // Mã hóa mật khẩu bằng MD5
+        String encryptedPassword = util.MD5Util.getMD5Hash(password);
+
         String avatarPath = handleFileUpload(request);
 
         try {
@@ -82,11 +85,11 @@ public class UserRegister extends HttpServlet {
                 return;
             }
 
-            // Tạo đối tượng User với IsActive = 0
+            // Tạo đối tượng User với mật khẩu đã mã hóa
             User newUser = new User(
                     0, 2, email, fullName, phone, null, 0, Date.valueOf(dob),
                     address, avatarPath != null ? avatarPath : "uploads/default_avatar.jpg",
-                    userName, password
+                    userName, encryptedPassword
             );
 
             // Đăng ký người dùng và lấy UserID
@@ -96,8 +99,7 @@ public class UserRegister extends HttpServlet {
                 resetService resetSvc = new resetService();
                 String token = resetSvc.generateToken();
 
-                // Lưu token vào bảng Token
-                Token activationToken = new Token( // Sử dụng Token
+                Token activationToken = new Token(
                         userId, false, token, resetSvc.expireDateTime()
                 );
                 DAOToken daoToken = new DAOToken();

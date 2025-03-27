@@ -1,6 +1,3 @@
-/*
- * StaffListServlet: Hiển thị danh sách nhân viên (Staff) với RoleID = 4.
- */
 package AdminController;
 
 import entity.User;
@@ -15,10 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-/**
- *
- * @author Heizxje
- */
 @WebServlet(name = "StaffListServlet", urlPatterns = {"/admin/StaffList"})
 public class StaffListServlet extends HttpServlet {
 
@@ -28,20 +21,17 @@ public class StaffListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false); // Không tạo session mới nếu chưa có
+        HttpSession session = request.getSession(false);
         User currentUser = (User) session.getAttribute("user");
 
-        // Kiểm tra đăng nhập
         if (currentUser == null) {
             response.sendRedirect(LOGIN_PAGE);
             return;
         }
 
-        // Lấy danh sách staff từ DAO
         DAOUser daoUser = new DAOUser();
         List<User> staffList = daoUser.getUsersByRole(4); // RoleID = 4 cho Staff
 
-        // Set attribute và forward tới JSP
         request.setAttribute("staffList", staffList);
         request.getRequestDispatcher(STAFF_LIST_PAGE).forward(request, response);
     }
@@ -53,7 +43,7 @@ public class StaffListServlet extends HttpServlet {
         User currentUser = (User) session.getAttribute("user");
 
         if (currentUser == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect(LOGIN_PAGE);
             return;
         }
 
@@ -63,26 +53,31 @@ public class StaffListServlet extends HttpServlet {
 
         String action = request.getParameter("action");
         DAOUser daoUser = new DAOUser();
+        int userId;
 
-        if ("delete".equals(action)) {
-            int userId;
-            try {
-                userId = Integer.parseInt(request.getParameter("userId"));
-            } catch (NumberFormatException e) {
-                out.write("{\"success\": false, \"message\": \"Invalid user ID!\"}");
-                out.flush();
-                return;
-            }
-
-            if (daoUser.deleteUser(userId)) {
-                out.write("{\"success\": true, \"message\": \"Staff deleted successfully!\"}");
-            } else {
-                out.write("{\"success\": false, \"message\": \"Failed to delete staff or staff not found!\"}");
-            }
+        try {
+            userId = Integer.parseInt(request.getParameter("userId"));
+        } catch (NumberFormatException e) {
+            out.write("{\"success\": false, \"message\": \"Invalid user ID!\"}");
             out.flush();
             return;
         }
-        out.write("{\"success\": false, \"message\": \"Invalid action!\"}");
+
+        if ("deactivate".equals(action)) {
+            if (daoUser.updateUserStatus(userId, 0)) {
+                out.write("{\"success\": true, \"message\": \"Staff deactivated successfully!\"}");
+            } else {
+                out.write("{\"success\": false, \"message\": \"Failed to deactivate staff or staff not found!\"}");
+            }
+        } else if ("activate".equals(action)) {
+            if (daoUser.updateUserStatus(userId, 1)) {
+                out.write("{\"success\": true, \"message\": \"Staff activated successfully!\"}");
+            } else {
+                out.write("{\"success\": false, \"message\": \"Failed to activate staff or staff not found!\"}");
+            }
+        } else {
+            out.write("{\"success\": false, \"message\": \"Invalid action!\"}");
+        }
         out.flush();
     }
 }

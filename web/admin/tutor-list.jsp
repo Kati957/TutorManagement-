@@ -273,7 +273,14 @@
                                                 <td>${user.createAt}</td>
                                                 <td>
                                                     <a href="${pageContext.request.contextPath}/admin/TutorManage?edit=${user.userID}" class="btn btn-primary btn-sm">Edit</a>
-                                                    <button class="btn btn-danger btn-sm deleteTutorBtn" data-id="${user.userID}">Delete</button>
+                                                    <c:choose>
+                                                        <c:when test="${user.isActive == 1}">
+                                                            <button class="btn btn-danger btn-sm deactivateTutorBtn" data-id="${user.userID}">Deactivate</button>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <button class="btn btn-success btn-sm activateTutorBtn" data-id="${user.userID}">Activate</button>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </td>
                                                 <td>
                                                     <button class="view-more-btn" data-toggle="modal" data-target="#tutorModal-${user.userID}">
@@ -353,15 +360,15 @@
         <script src="assets/vendors/switcher/switcher.js"></script>
         <script>
             $(document).ready(function () {
-                // Xử lý nút Delete
-                $('.deleteTutorBtn').on('click', function () {
-                    if (confirm('Are you sure you want to delete this tutor?')) {
+                // Xử lý nút Deactivate
+                $('.deactivateTutorBtn').on('click', function () {
+                    if (confirm('Are you sure you want to deactivate this tutor?')) {
                         const userId = $(this).data('id');
-                        console.log('Deleting user with ID: ' + userId);
+                        console.log('Deactivating user with ID: ' + userId);
                         $.post('${pageContext.request.contextPath}/admin/TutorList',
-                                {action: 'delete', userId: userId},
+                                {action: 'deactivate', userId: userId},
                                 function (response) {
-                                    console.log('Delete response: ' + JSON.stringify(response));
+                                    console.log('Deactivate response: ' + JSON.stringify(response));
                                     if (response.success) {
                                         alert(response.message);
                                         location.reload();
@@ -370,7 +377,30 @@
                                     }
                                 }, 'json')
                                 .fail(function (xhr, status, error) {
-                                    console.error('Delete failed: ' + status + ', ' + error);
+                                    console.error('Deactivate failed: ' + status + ', ' + error);
+                                    alert('Error connecting to server. Please try again.');
+                                });
+                    }
+                });
+
+                // Xử lý nút Activate
+                $('.activateTutorBtn').on('click', function () {
+                    if (confirm('Are you sure you want to activate this tutor?')) {
+                        const userId = $(this).data('id');
+                        console.log('Activating user with ID: ' + userId);
+                        $.post('${pageContext.request.contextPath}/admin/TutorList',
+                                {action: 'activate', userId: userId},
+                                function (response) {
+                                    console.log('Activate response: ' + JSON.stringify(response));
+                                    if (response.success) {
+                                        alert(response.message);
+                                        location.reload();
+                                    } else {
+                                        alert(response.message);
+                                    }
+                                }, 'json')
+                                .fail(function (xhr, status, error) {
+                                    console.error('Activate failed: ' + status + ', ' + error);
                                     alert('Error connecting to server. Please try again.');
                                 });
                     }
