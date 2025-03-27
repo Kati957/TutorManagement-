@@ -1,12 +1,4 @@
-/*
-***
-***
-Name: 			admin.js
-Written by: 	ThemeTrade 
-Theme Version:	1.0.0
-***
-***
-*/
+
 (function($) {
 	
 		'use strict';

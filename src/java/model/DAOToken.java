@@ -4,7 +4,7 @@
  */
 package model;
 
-import entity.TokenForgetPassword;
+import entity.Token;
 import entity.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,10 +19,10 @@ import java.time.format.DateTimeFormatter;
  */
 
 
-public class DAOTokenForget extends DBConnect {
+public class DAOToken extends DBConnect {
 
-    public boolean insertTokenForget(TokenForgetPassword tokenForget) {
-        String sql = "INSERT INTO tokenForgetPassword (token, expiryTime, isUsed, userId) VALUES (?, ?, ?, ?)";
+    public boolean insertTokenForget(Token tokenForget) {
+        String sql = "INSERT INTO Token (token, expiryTime, isUsed, userId) VALUES (?, ?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, tokenForget.getToken());
             ps.setTimestamp(2, Timestamp.valueOf(tokenForget.getExpiryTime()));
@@ -35,13 +35,13 @@ public class DAOTokenForget extends DBConnect {
         return false;
     }
 
-    public TokenForgetPassword getTokenPassword(String token) {
-        String sql = "SELECT * FROM tokenForgetPassword WHERE token = ?";
+    public Token getTokenPassword(String token) {
+        String sql = "SELECT * FROM Token WHERE token = ?";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setString(1, token);
             try (ResultSet rs = st.executeQuery()) {
                 if (rs.next()) {
-                    return new TokenForgetPassword(
+                    return new Token(
                             rs.getInt("id"),
                             rs.getInt("userId"),
                             rs.getBoolean("isUsed"),
@@ -56,8 +56,8 @@ public class DAOTokenForget extends DBConnect {
         return null;
     }
 
-    public void updateStatus(TokenForgetPassword token) {
-        String sql = "UPDATE tokenForgetPassword SET isUsed = ? WHERE token = ?";
+    public void updateStatus(Token token) {
+        String sql = "UPDATE Token SET isUsed = ? WHERE token = ?";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
             st.setBoolean(1, token.isUsed());
             st.setString(2, token.getToken());

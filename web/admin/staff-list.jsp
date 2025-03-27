@@ -188,7 +188,6 @@
                             </a>
                             <ul>
                                 <li><a href="${pageContext.request.contextPath}/admin/UserList" class="ttr-material-button"><span class="ttr-label">User List</span></a></li>
-                                <li><a href="${pageContext.request.contextPath}/admin/UserRegister" class="ttr-material-button"><span class="ttr-label">Add New User</span></a></li>
                                 <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Profile</span></a></li>
                                 <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Tutor</span></a></li>
                             </ul>
@@ -268,7 +267,14 @@
                                                 <td>${user.createAt}</td>
                                                 <td>
                                                     <a href="${pageContext.request.contextPath}/admin/StaffManage?edit=${user.userID}" class="btn btn-primary btn-sm">Edit</a>
-                                                    <button class="btn btn-danger btn-sm deleteStaffBtn" data-id="${user.userID}">Delete</button>
+                                                    <c:choose>
+                                                        <c:when test="${user.isActive == 1}">
+                                                            <button class="btn btn-danger btn-sm deactivateStaffBtn" data-id="${user.userID}">Deactivate</button>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <button class="btn btn-success btn-sm activateStaffBtn" data-id="${user.userID}">Activate</button>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </td>
                                                 <td>
                                                     <button class="view-more-btn" data-toggle="modal" data-target="#staffModal-${user.userID}">
@@ -344,24 +350,47 @@
         <script src="assets/vendors/switcher/switcher.js"></script>
         <script>
             $(document).ready(function () {
-                // Xử lý nút Delete
-                $('.deleteStaffBtn').on('click', function () {
-                    if (confirm('Are you sure you want to delete this staff member?')) {
+                // Xử lý nút Deactivate
+                $('.deactivateStaffBtn').on('click', function () {
+                    if (confirm('Are you sure you want to deactivate this staff member?')) {
                         const userId = $(this).data('id');
-                        console.log('Deleting user with ID: ' + userId); // Debug
+                        console.log('Deactivating user with ID: ' + userId); // Debug
                         $.post('${pageContext.request.contextPath}/admin/StaffList',
-                                {action: 'delete', userId: userId},
+                                {action: 'deactivate', userId: userId},
                                 function (response) {
-                                    console.log('Delete response: ' + JSON.stringify(response)); // Debug
+                                    console.log('Deactivate response: ' + JSON.stringify(response)); // Debug
                                     if (response.success) {
                                         alert(response.message); // Hiển thị thông báo thành công
-                                        location.reload(); // Reload trang nếu thành công
+                                        location.reload(); // Reload trang
                                     } else {
                                         alert(response.message); // Hiển thị thông báo lỗi từ server
                                     }
-                                }, 'json') // Chỉ định kiểu dữ liệu trả về là JSON
+                                }, 'json')
                                 .fail(function (xhr, status, error) {
-                                    console.error('Delete failed: ' + status + ', ' + error); // Debug lỗi
+                                    console.error('Deactivate failed: ' + status + ', ' + error); // Debug lỗi
+                                    alert('Error connecting to server. Please try again.');
+                                });
+                    }
+                });
+
+                // Xử lý nút Activate
+                $('.activateStaffBtn').on('click', function () {
+                    if (confirm('Are you sure you want to activate this staff member?')) {
+                        const userId = $(this).data('id');
+                        console.log('Activating user with ID: ' + userId); // Debug
+                        $.post('${pageContext.request.contextPath}/admin/StaffList',
+                                {action: 'activate', userId: userId},
+                                function (response) {
+                                    console.log('Activate response: ' + JSON.stringify(response)); // Debug
+                                    if (response.success) {
+                                        alert(response.message); // Hiển thị thông báo thành công
+                                        location.reload(); // Reload trang
+                                    } else {
+                                        alert(response.message); // Hiển thị thông báo lỗi từ server
+                                    }
+                                }, 'json')
+                                .fail(function (xhr, status, error) {
+                                    console.error('Activate failed: ' + status + ', ' + error); // Debug lỗi
                                     alert('Error connecting to server. Please try again.');
                                 });
                     }

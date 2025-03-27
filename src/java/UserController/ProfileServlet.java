@@ -75,7 +75,9 @@ public class ProfileServlet extends HttpServlet {
         String confirmPassword = request.getParameter("confirmPassword");
 
         try {
-            if (!currentUser.getPassword().equals(currentPassword)) {
+            // Mã hóa mật khẩu hiện tại để so sánh
+            String encryptedCurrentPassword = util.MD5Util.getMD5Hash(currentPassword);
+            if (!currentUser.getPassword().equals(encryptedCurrentPassword)) {
                 setError(session, "Mật khẩu hiện tại không đúng.");
                 return;
             }
@@ -90,7 +92,9 @@ public class ProfileServlet extends HttpServlet {
                 return;
             }
 
-            currentUser.setPassword(newPassword);
+            // Mã hóa mật khẩu mới trước khi lưu
+            String encryptedNewPassword = util.MD5Util.getMD5Hash(newPassword);
+            currentUser.setPassword(encryptedNewPassword);
             if (daoUser.updateUser(currentUser)) {
                 session.setAttribute("user", currentUser);
                 setMessage(session, "Đổi mật khẩu thành công!");

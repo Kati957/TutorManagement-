@@ -32,7 +32,8 @@ public class AuthenticationFilter implements Filter {
             "/CreateSchedule",
             "/myschedule",
             "/cv",
-            "/bookschedule"
+            "/bookschedule",
+            "/StudentPaymentHistory"
     );
 
     // Danh sách các URL public không cần đăng nhập

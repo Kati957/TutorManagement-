@@ -1,5 +1,5 @@
 <%-- 
-    Document   : staff-add
+    Document   : user-list
     Created on : Mar 17, 2025
     Author     : Heizxje
 --%>
@@ -188,7 +188,6 @@
                             </a>
                             <ul>
                                 <li><a href="${pageContext.request.contextPath}/admin/UserList" class="ttr-material-button"><span class="ttr-label">User List</span></a></li>
-                                <li><a href="${pageContext.request.contextPath}/admin/UserRegister" class="ttr-material-button"><span class="ttr-label">Add New User</span></a></li>
                                 <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Profile</span></a></li>
                                 <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Tutor</span></a></li>
                             </ul>
@@ -267,7 +266,14 @@
                                                 <td>${user.createAt}</td>
                                                 <td>
                                                     <a href="${pageContext.request.contextPath}/admin/UserManage?edit=${user.userID}" class="btn btn-primary btn-sm">Edit</a>
-                                                    <button class="btn btn-danger btn-sm deleteUserBtn" data-id="${user.userID}">Delete</button>
+                                                    <c:choose>
+                                                        <c:when test="${user.isActive == 1}">
+                                                            <button class="btn btn-danger btn-sm deactivateUserBtn" data-id="${user.userID}">Deactivate</button>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <button class="btn btn-success btn-sm activateUserBtn" data-id="${user.userID}">Activate</button>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </td>
                                                 <td>
                                                     <button class="view-more-btn" data-toggle="modal" data-target="#userModal-${user.userID}">
@@ -341,12 +347,15 @@
         <script src="assets/vendors/switcher/switcher.js"></script>
         <script>
             $(document).ready(function () {
-                $('.deleteUserBtn').on('click', function () {
-                    if (confirm('Are you sure you want to delete this user?')) {
+                // Xử lý nút Deactivate
+                $('.deactivateUserBtn').on('click', function () {
+                    if (confirm('Are you sure you want to deactivate this user?')) {
                         const userId = $(this).data('id');
+                        console.log('Deactivating user with ID: ' + userId);
                         $.post('${pageContext.request.contextPath}/admin/UserList',
-                                {action: 'delete', userId: userId},
+                                {action: 'deactivate', userId: userId},
                                 function (response) {
+                                    console.log('Deactivate response: ' + JSON.stringify(response));
                                     if (response.success) {
                                         alert(response.message);
                                         location.reload();
@@ -354,12 +363,37 @@
                                         alert(response.message);
                                     }
                                 }, 'json')
-                                .fail(function () {
+                                .fail(function (xhr, status, error) {
+                                    console.error('Deactivate failed: ' + status + ', ' + error);
                                     alert('Error connecting to server. Please try again.');
                                 });
                     }
                 });
 
+                // Xử lý nút Activate
+                $('.activateUserBtn').on('click', function () {
+                    if (confirm('Are you sure you want to activate this user?')) {
+                        const userId = $(this).data('id');
+                        console.log('Activating user with ID: ' + userId);
+                        $.post('${pageContext.request.contextPath}/admin/UserList',
+                                {action: 'activate', userId: userId},
+                                function (response) {
+                                    console.log('Activate response: ' + JSON.stringify(response));
+                                    if (response.success) {
+                                        alert(response.message);
+                                        location.reload();
+                                    } else {
+                                        alert(response.message);
+                                    }
+                                }, 'json')
+                                .fail(function (xhr, status, error) {
+                                    console.error('Activate failed: ' + status + ', ' + error);
+                                    alert('Error connecting to server. Please try again.');
+                                });
+                    }
+                });
+
+                // Xử lý ẩn/hiện Password trong modal
                 $('.password-toggle-btn').on('click', function () {
                     const passwordSpan = $(this).siblings('.password-text');
                     const realPassword = passwordSpan.data('password');

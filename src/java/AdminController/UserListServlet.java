@@ -43,7 +43,7 @@ public class UserListServlet extends HttpServlet {
         User currentUser = (User) session.getAttribute("user");
 
         if (currentUser == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect(LOGIN_PAGE);
             return;
         }
 
@@ -53,26 +53,31 @@ public class UserListServlet extends HttpServlet {
 
         String action = request.getParameter("action");
         DAOUser daoUser = new DAOUser();
+        int userId;
 
-        if ("delete".equals(action)) {
-            int userId;
-            try {
-                userId = Integer.parseInt(request.getParameter("userId"));
-            } catch (NumberFormatException e) {
-                out.write("{\"success\": false, \"message\": \"Invalid user ID!\"}");
-                out.flush();
-                return;
-            }
-
-            if (daoUser.deleteUser(userId)) {
-                out.write("{\"success\": true, \"message\": \"User deleted successfully!\"}");
-            } else {
-                out.write("{\"success\": false, \"message\": \"Failed to delete user or user not found!\"}");
-            }
+        try {
+            userId = Integer.parseInt(request.getParameter("userId"));
+        } catch (NumberFormatException e) {
+            out.write("{\"success\": false, \"message\": \"Invalid user ID!\"}");
             out.flush();
             return;
         }
-        out.write("{\"success\": false, \"message\": \"Invalid action!\"}");
+
+        if ("deactivate".equals(action)) {
+            if (daoUser.updateUserStatus(userId, 0)) {
+                out.write("{\"success\": true, \"message\": \"User deactivated successfully!\"}");
+            } else {
+                out.write("{\"success\": false, \"message\": \"Failed to deactivate user or user not found!\"}");
+            }
+        } else if ("activate".equals(action)) {
+            if (daoUser.updateUserStatus(userId, 1)) {
+                out.write("{\"success\": true, \"message\": \"User activated successfully!\"}");
+            } else {
+                out.write("{\"success\": false, \"message\": \"Failed to activate user or user not found!\"}");
+            }
+        } else {
+            out.write("{\"success\": false, \"message\": \"Invalid action!\"}");
+        }
         out.flush();
     }
 }
