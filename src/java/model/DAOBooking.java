@@ -129,7 +129,7 @@ public class DAOBooking extends DBConnect {
 
     public int changeBookingStatusToRefund(int bookingID) {
         int result = 0;
-        String sql = "UPDATE [G4].[dbo].[Booking] SET Status = 'Cancelled' WHERE BookingID = ?";
+        String sql = "UPDATE [dbo].[Booking] SET Status = 'Cancelled' WHERE BookingID = ?";
         try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, bookingID);
             result = ps.executeUpdate();

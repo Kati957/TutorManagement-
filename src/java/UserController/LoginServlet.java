@@ -71,7 +71,7 @@ public class LoginServlet extends HttpServlet {
                     request.setAttribute("error", "Tài khoản Google chưa được đăng ký trong hệ thống.");
                     request.getRequestDispatcher("register.jsp").forward(request, response);
                 } else if (user.getIsActive() == 0) {
-                    sendActivationReminder(user, request, response); // Gửi email nhắc nhở
+                    handleDeactivatedAccount(user, request, response); // Xử lý tài khoản bị deactivate
                 } else {
                     session.setAttribute("user", user);
                     session.setAttribute("userId", user.getUserID());
@@ -100,12 +100,15 @@ public class LoginServlet extends HttpServlet {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
 
-            User user = dao.Login(username, password);
+            // Mã hóa mật khẩu bằng MD5
+            String encryptedPassword = util.MD5Util.getMD5Hash(password);
+
+            User user = dao.Login(username, encryptedPassword);
             if (user == null) {
                 request.setAttribute("error", "Tên đăng nhập hoặc mật khẩu không chính xác");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             } else if (user.getIsActive() == 0) {
-                sendActivationReminder(user, request, response); // Gửi email nhắc nhở
+                sendActivationReminder(user, request, response);
             } else {
                 session.setAttribute("user", user);
                 session.setAttribute("userId", user.getUserID());
@@ -119,6 +122,20 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
+    // Phương thức xử lý tài khoản bị deactivate
+    private void handleDeactivatedAccount(User user, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        if (user.getRoleID() == 4) { // Staff
+            request.setAttribute("error", "Tài khoản của bạn đã bị vô hiệu hóa. Liên hệ với quản lý để có thể kích hoạt lại tài khoản.");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        } else if (user.getRoleID() == 2 || user.getRoleID() == 3) { // Student hoặc Tutor
+            sendActivationReminder(user, request, response); // Gửi email với link kích hoạt
+        } else {
+            request.setAttribute("error", "Tài khoản của bạn đã bị vô hiệu hóa. Vui lòng liên hệ hỗ trợ.");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+    }
+
     // Phương thức gửi email nhắc nhở kích hoạt
     private void sendActivationReminder(User user, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -127,7 +144,7 @@ public class LoginServlet extends HttpServlet {
 
         // Tạo token mới
         String token = service.generateToken();
-        Token newToken = new Token( // Sử dụng Token
+        Token newToken = new Token(
                 user.getUserID(), false, token, service.expireDateTime()
         );
 

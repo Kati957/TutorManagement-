@@ -54,26 +54,31 @@ public class TutorListServlet extends HttpServlet {
 
         String action = request.getParameter("action");
         DAOUser daoUser = new DAOUser();
+        int userId;
 
-        if ("delete".equals(action)) {
-            int userId;
-            try {
-                userId = Integer.parseInt(request.getParameter("userId"));
-            } catch (NumberFormatException e) {
-                out.write("{\"success\": false, \"message\": \"Invalid user ID!\"}");
-                out.flush();
-                return;
-            }
-
-            if (daoUser.deleteUser(userId)) {
-                out.write("{\"success\": true, \"message\": \"Tutor deleted successfully!\"}");
-            } else {
-                out.write("{\"success\": false, \"message\": \"Failed to delete tutor or tutor not found!\"}");
-            }
+        try {
+            userId = Integer.parseInt(request.getParameter("userId"));
+        } catch (NumberFormatException e) {
+            out.write("{\"success\": false, \"message\": \"Invalid user ID!\"}");
             out.flush();
             return;
         }
-        out.write("{\"success\": false, \"message\": \"Invalid action!\"}");
+
+        if ("deactivate".equals(action)) {
+            if (daoUser.updateUserStatus(userId, 0)) {
+                out.write("{\"success\": true, \"message\": \"Tutor deactivated successfully!\"}");
+            } else {
+                out.write("{\"success\": false, \"message\": \"Failed to deactivate tutor or tutor not found!\"}");
+            }
+        } else if ("activate".equals(action)) {
+            if (daoUser.updateUserStatus(userId, 1)) {
+                out.write("{\"success\": true, \"message\": \"Tutor activated successfully!\"}");
+            } else {
+                out.write("{\"success\": false, \"message\": \"Failed to activate tutor or tutor not found!\"}");
+            }
+        } else {
+            out.write("{\"success\": false, \"message\": \"Invalid action!\"}");
+        }
         out.flush();
     }
 }
