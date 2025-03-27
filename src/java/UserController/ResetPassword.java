@@ -1,8 +1,8 @@
 package UserController;
 
-import model.DAOTokenForget;
+import model.DAOToken;
 import model.DAOUser;
-import entity.TokenForgetPassword;
+import entity.Token;
 import entity.User;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet(name = "resetPassword", urlPatterns = {"/resetPassword"})
 public class ResetPassword extends HttpServlet {
 
-    DAOTokenForget DAOToken = new DAOTokenForget();
+    DAOToken DAOToken = new DAOToken();
     DAOUser DAOUser = new DAOUser();
 
     @Override
@@ -28,7 +28,7 @@ public class ResetPassword extends HttpServlet {
         String token = request.getParameter("token");
         HttpSession session = request.getSession();
         if (token != null) {
-            TokenForgetPassword tokenForgetPassword = DAOToken.getTokenPassword(token);
+            Token tokenForgetPassword = DAOToken.getTokenPassword(token);
             resetService service = new resetService();
 
             if (tokenForgetPassword == null) {
@@ -72,7 +72,7 @@ public class ResetPassword extends HttpServlet {
 
         HttpSession session = request.getSession();
         String tokenStr = (String) session.getAttribute("token");
-        TokenForgetPassword tokenForgetPassword = DAOToken.getTokenPassword(tokenStr);
+        Token tokenForgetPassword = DAOToken.getTokenPassword(tokenStr);
         resetService service = new resetService();
 
         if (tokenForgetPassword == null) {

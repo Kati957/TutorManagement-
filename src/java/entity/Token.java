@@ -10,17 +10,17 @@ import java.time.LocalDateTime;
  *
  * @author Heizxje
  */
-public class TokenForgetPassword {
+public class Token {
     private int id;
     private int userId;
     private boolean isUsed;
     private String token;
     private LocalDateTime expiryTime;
 
-    public TokenForgetPassword() {
+    public Token() {
     }
 
-    public TokenForgetPassword(int id, int userId, boolean isUsed, String token, LocalDateTime expiryTime) {
+    public Token(int id, int userId, boolean isUsed, String token, LocalDateTime expiryTime) {
         this.id = id;
         this.userId = userId;
         this.isUsed = isUsed;
@@ -28,7 +28,7 @@ public class TokenForgetPassword {
         this.expiryTime = expiryTime;
     }
 
-    public TokenForgetPassword(int userId, boolean isUsed, String token, LocalDateTime expiryTime) {
+    public Token(int userId, boolean isUsed, String token, LocalDateTime expiryTime) {
         this.userId = userId;
         this.isUsed = isUsed;
         this.token = token;
@@ -77,6 +77,6 @@ public class TokenForgetPassword {
 
     @Override
     public String toString() {
-        return "TokenForgetPassword{" + "id=" + id + ", userId=" + userId + ", isUsed=" + isUsed + ", token='" + token + '\'' + ", expiryTime=" + expiryTime + '}';
+        return "Token{" + "id=" + id + ", userId=" + userId + ", isUsed=" + isUsed + ", token='" + token + '\'' + ", expiryTime=" + expiryTime + '}';
     }
 } 

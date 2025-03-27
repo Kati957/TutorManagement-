@@ -10,23 +10,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Connection;
 
-/**
- *
- * @author Heizxje
- */
 public class DAOUser extends DBConnect {
 
     public DAOUser() {
-        super(); // Gọi constructor của DBConnect để khởi tạo conn
+        super(); // Gọi constructor của DBConnect để khởi tạo kết nối database
     }
 
-    // Phương thức đăng ký người dùng mới
+    // Phương thức đăng ký người dùng mới (IsActive mặc định là 0)
     public int registerUser(User user) throws SQLException {
         if (conn == null) {
             throw new SQLException("Database connection is not initialized.");
         }
         String sql = "INSERT INTO Users (RoleID, Email, FullName, Phone, CreatedAt, IsActive, Dob, Address, Avatar, UserName, Password) "
-                + "VALUES (?, ?, ?, ?, GETDATE(), 1, ?, ?, ?, ?, ?)";
+                + "VALUES (?, ?, ?, ?, GETDATE(), 0, ?, ?, ?, ?, ?)"; // IsActive = 0 khi mới đăng ký
         try (PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, user.getRoleID());
             stmt.setString(2, user.getEmail());
@@ -38,16 +34,14 @@ public class DAOUser extends DBConnect {
             stmt.setString(8, user.getUserName());
             stmt.setString(9, user.getPassword());
 
-            // Thực thi INSERT
             int rowsAffected = stmt.executeUpdate();
             Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "Rows affected: " + rowsAffected);
 
-            // Lấy UserID từ generated keys
             try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
                     int userId = rs.getInt(1);
                     Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "Generated UserID: " + userId);
-                    return userId;
+                    return userId; // Trả về UserID vừa tạo
                 }
             }
             Logger.getLogger(DAOUser.class.getName()).log(Level.WARNING, "No generated keys returned");
@@ -139,7 +133,7 @@ public class DAOUser extends DBConnect {
         return null;
     }
 
-    // Phương thức lấy thông tin người dùng bằng userID
+    // Phương thức lấy thông tin người dùng bằng UserID
     public User getUserById(int userId) {
         if (conn == null) {
             Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Database connection is null");
@@ -193,7 +187,7 @@ public class DAOUser extends DBConnect {
         );
     }
 
-    // Phương thức cập nhật mật khẩu bằng email
+    // Phương thức cập nhật mật khẩu bằng email (giữ nguyên)
     public void updatePasswordByEmail(String email, String password) {
         if (conn == null) {
             Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Database connection is null");
@@ -340,6 +334,7 @@ public class DAOUser extends DBConnect {
         return false;
     }
 
+    // Phương thức cập nhật RoleID
     public void updateUserRole(int userId) {
         String sql = "UPDATE Users SET RoleID = 3 WHERE UserID = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -347,6 +342,23 @@ public class DAOUser extends DBConnect {
             int rowsUpdated = pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    // Phương thức kích hoạt tài khoản (cập nhật IsActive = 1)
+    public boolean activateUser(int userId) throws SQLException {
+        if (conn == null) {
+            throw new SQLException("Database connection is not initialized.");
+        }
+        String sql = "UPDATE Users SET IsActive = 1 WHERE UserID = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            int rowsAffected = stmt.executeUpdate();
+            Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "User activated: " + userId);
+            return rowsAffected > 0; // Trả về true nếu cập nhật thành công
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error activating user", ex);
+            throw ex;
         }
     }
 
@@ -384,6 +396,7 @@ public class DAOUser extends DBConnect {
         }
     }
 
+    // Phương thức kiểm tra kết nối
     public boolean isConnected() {
         return conn != null;
     }
@@ -461,6 +474,7 @@ public class DAOUser extends DBConnect {
         }
     }
 
+    // Lấy danh sách users theo RoleID
     public List<User> getUsersByRole(int roleID) {
         List<User> users = new ArrayList<>();
         if (conn == null) {
@@ -500,6 +514,7 @@ public class DAOUser extends DBConnect {
         return users;
     }
 
+    // Cập nhật RoleID cho user
     public int updateRole(int userID, int newRoleID) {
         int n = 0;
         String sql = "UPDATE Users SET RoleID = ? WHERE UserID = ?";

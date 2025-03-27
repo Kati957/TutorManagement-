@@ -2,6 +2,8 @@ package UserController;
 
 import entity.User;
 import model.DAOUser;
+import model.DAOToken;
+import entity.Token; // Sử dụng entity.Token
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -16,15 +18,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
-/**
- * Servlet xử lý đăng ký người dùng.
- *
- * @author Heizxje
- */
 @WebServlet(name = "UserRegister", urlPatterns = {"/User"})
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-        maxFileSize = 1024 * 1024 * 10, // 10MB
-        maxRequestSize = 1024 * 1024 * 50) // 50MB
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 50)
 public class UserRegister extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(UserRegister.class.getName());
@@ -48,7 +43,6 @@ public class UserRegister extends HttpServlet {
         HttpSession session = request.getSession(true);
         String service = request.getParameter("service");
 
-        // Kiểm tra tham số service
         if (!"registerUser".equals(service)) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid service parameter");
             return;
@@ -60,7 +54,6 @@ public class UserRegister extends HttpServlet {
             return;
         }
 
-        // Khởi tạo DAOUser
         DAOUser dao = new DAOUser();
         if (!dao.isConnected()) {
             LOGGER.log(Level.SEVERE, "Database connection is null");
@@ -79,11 +72,9 @@ public class UserRegister extends HttpServlet {
         String userName = request.getParameter("UserName");
         String password = request.getParameter("Password");
 
-        // Xử lý upload ảnh
         String avatarPath = handleFileUpload(request);
 
         try {
-            // Kiểm tra dữ liệu đầu vào và trùng lặp
             String error = validateInput(dao, email, fullName, phone, dob, address, userName, password);
             if (!error.isEmpty()) {
                 request.setAttribute("error", error);
@@ -91,17 +82,44 @@ public class UserRegister extends HttpServlet {
                 return;
             }
 
-            // Tạo đối tượng User
+            // Tạo đối tượng User với IsActive = 0
             User newUser = new User(
-                    0, 2, email, fullName, phone, null, 1, Date.valueOf(dob),
+                    0, 2, email, fullName, phone, null, 0, Date.valueOf(dob),
                     address, avatarPath != null ? avatarPath : "uploads/default_avatar.jpg",
                     userName, password
             );
 
-            // Đăng ký người dùng
-            int result = dao.registerUser(newUser);
-            if (result > 0) {
-                session.setAttribute("success", "Đăng ký thành công! Vui lòng đăng nhập.");
+            // Đăng ký người dùng và lấy UserID
+            int userId = dao.registerUser(newUser);
+            if (userId > 0) {
+                // Tạo token kích hoạt bằng resetService
+                resetService resetSvc = new resetService();
+                String token = resetSvc.generateToken();
+
+                // Lưu token vào bảng Token
+                Token activationToken = new Token( // Sử dụng Token
+                        userId, false, token, resetSvc.expireDateTime()
+                );
+                DAOToken daoToken = new DAOToken();
+                boolean isTokenSaved = daoToken.insertTokenForget(activationToken);
+
+                if (!isTokenSaved) {
+                    request.setAttribute("error", "Lỗi khi lưu token kích hoạt. Vui lòng thử lại.");
+                    request.getRequestDispatcher(REGISTER_JSP).forward(request, response);
+                    return;
+                }
+
+                // Gửi email kích hoạt
+                String activationLink = "http://localhost:9999/SWP391_Group4_TutorManagement/activate?token=" + token;
+                boolean isEmailSent = resetSvc.sendActivationEmail(email, activationLink, fullName);
+
+                if (!isEmailSent) {
+                    request.setAttribute("error", "Không thể gửi email kích hoạt. Vui lòng thử lại.");
+                    request.getRequestDispatcher(REGISTER_JSP).forward(request, response);
+                    return;
+                }
+
+                session.setAttribute("success", "Đăng ký thành công! Vui lòng kiểm tra email để kích hoạt tài khoản.");
                 response.sendRedirect(LOGIN_JSP);
             } else {
                 request.setAttribute("error", "Đăng ký thất bại. Vui lòng thử lại.");
@@ -114,9 +132,10 @@ public class UserRegister extends HttpServlet {
         }
     }
 
+    // Các phương thức khác giữ nguyên
     private String handleFileUpload(HttpServletRequest request) throws IOException, ServletException {
         try {
-            Part filePart = request.getPart("avatar"); // Tên field trong form phải là "avatar"
+            Part filePart = request.getPart("avatar");
             if (filePart != null && filePart.getSize() > 0) {
                 String fileName = extractFileName(filePart);
                 if (fileName != null && isImageFile(fileName)) {
