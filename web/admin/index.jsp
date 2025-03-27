@@ -4,6 +4,7 @@
     Author     : Heizxje
 --%>
 
+<%@page import="entity.Payment"%>
 <%@page import="entity.HistoryLog"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -535,60 +536,45 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Orders -->
+                    <!-- History Payment -->
                     <div class="col-lg-4 m-b30">
                         <div class="widget-box">
                             <div class="wc-title">
-                                <h4>Orders</h4>
+                                <h4>History Payment</h4>
                             </div>
                             <div class="widget-inner">
                                 <div class="orders-list">
                                     <ul>
+                                        <%
+                                            List<Payment> recentPayments = (List<Payment>) request.getAttribute("recentPayments");
+                                            if (recentPayments == null) {
+                                                recentPayments = new ArrayList<>();
+                                            }
+                                            int maxPayments = Math.min(5, recentPayments.size());
+                                            for (int i = 0; i < maxPayments; i++) {
+                                                Payment payment = recentPayments.get(i);
+                                                String statusClass = "red"; // Mặc định là "Unpaid"
+                                                String statusText = "Unpaid";
+                                                if ("Completed".equalsIgnoreCase(payment.getStatus())) {
+                                                    statusClass = "green";
+                                                    statusText = "Paid";
+                                                }
+                                        %>
                                         <li>
                                             <span class="orders-title">
-                                                <a href="#" class="orders-title-name">Anna Strong </a>
-                                                <span class="orders-info">Order #02357 | Date 12/08/2019</span>
+                                                <a href="PaymentHistory" class="orders-title-name">Payment #<%= payment.getPaymentID()%></a>
+                                                <span class="orders-info">Booking #<%= payment.getBookingID()%> | Date <%= new java.text.SimpleDateFormat("dd/MM/yyyy").format(payment.getPaymentDate())%></span>
                                             </span>
                                             <span class="orders-btn">
-                                                <a href="#" class="btn button-sm red">Unpaid</a>
+                                                <a href="PaymentHistory" class="btn button-sm <%= statusClass%>"><%= statusText%></a>
                                             </span>
                                         </li>
-                                        <li>
-                                            <span class="orders-title">
-                                                <a href="#" class="orders-title-name">Revenue</a>
-                                                <span class="orders-info">Order #02357 | Date 12/08/2019</span>
-                                            </span>
-                                            <span class="orders-btn">
-                                                <a href="#" class="btn button-sm red">Unpaid</a>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="orders-title">
-                                                <a href="#" class="orders-title-name">Anna Strong </a>
-                                                <span class="orders-info">Order #02357 | Date 12/08/2019</span>
-                                            </span>
-                                            <span class="orders-btn">
-                                                <a href="#" class="btn button-sm green">Paid</a>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="orders-title">
-                                                <a href="#" class="orders-title-name">Revenue</a>
-                                                <span class="orders-info">Order #02357 | Date 12/08/2019</span>
-                                            </span>
-                                            <span class="orders-btn">
-                                                <a href="#" class="btn button-sm green">Paid</a>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span class="orders-title">
-                                                <a href="#" class="orders-title-name">Anna Strong </a>
-                                                <span class="orders-info">Order #02357 | Date 12/08/2019</span>
-                                            </span>
-                                            <span class="orders-btn">
-                                                <a href="#" class="btn button-sm green">Paid</a>
-                                            </span>
-                                        </li>
+                                        <%
+                                            }
+                                            if (maxPayments == 0) {
+                                        %>
+                                        <li>No recent payments found.</li>
+                                            <% }%>
                                     </ul>
                                 </div>
                             </div>
