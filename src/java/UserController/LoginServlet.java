@@ -4,7 +4,8 @@ import model.DAOHistoryLog;
 import model.DAOUser;
 import entity.GoogleAccount;
 import entity.User;
-import UserController.GoogleLogin;
+import model.DAOToken;
+import entity.Token;
 import java.io.IOException;
 import java.sql.SQLException;
 import jakarta.servlet.ServletException;
@@ -69,11 +70,13 @@ public class LoginServlet extends HttpServlet {
                 if (user == null) {
                     request.setAttribute("error", "Tài khoản Google chưa được đăng ký trong hệ thống.");
                     request.getRequestDispatcher("register.jsp").forward(request, response);
+                } else if (user.getIsActive() == 0) {
+                    sendActivationReminder(user, request, response); // Gửi email nhắc nhở
                 } else {
                     session.setAttribute("user", user);
                     session.setAttribute("userId", user.getUserID());
                     try {
-                        logDAO.logLogin(user.getUserID()); // Ghi log đăng nhập
+                        logDAO.logLogin(user.getUserID());
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -101,17 +104,51 @@ public class LoginServlet extends HttpServlet {
             if (user == null) {
                 request.setAttribute("error", "Tên đăng nhập hoặc mật khẩu không chính xác");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
+            } else if (user.getIsActive() == 0) {
+                sendActivationReminder(user, request, response); // Gửi email nhắc nhở
             } else {
                 session.setAttribute("user", user);
                 session.setAttribute("userId", user.getUserID());
                 try {
-                    logDAO.logLogin(user.getUserID()); // Ghi log đăng nhập
+                    logDAO.logLogin(user.getUserID());
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
                 redirectBasedOnRole(user, request, response);
             }
         }
+    }
+
+    // Phương thức gửi email nhắc nhở kích hoạt
+    private void sendActivationReminder(User user, HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        resetService service = new resetService();
+        DAOToken daoToken = new DAOToken();
+
+        // Tạo token mới
+        String token = service.generateToken();
+        Token newToken = new Token( // Sử dụng Token
+                user.getUserID(), false, token, service.expireDateTime()
+        );
+
+        // Lưu token vào bảng Token
+        boolean isTokenSaved = daoToken.insertTokenForget(newToken);
+        if (!isTokenSaved) {
+            request.setAttribute("error", "Tài khoản chưa được kích hoạt. Lỗi khi tạo link kích hoạt mới.");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+            return;
+        }
+
+        // Gửi email nhắc nhở
+        String activationLink = "http://localhost:9999/SWP391_Group4_TutorManagement/activate?token=" + token;
+        boolean isEmailSent = service.sendActivationEmail(user.getEmail(), activationLink, user.getFullName());
+
+        if (isEmailSent) {
+            request.setAttribute("error", "Tài khoản chưa được kích hoạt. Link kích hoạt đã được gửi tới email của bạn.");
+        } else {
+            request.setAttribute("error", "Tài khoản chưa được kích hoạt. Không thể gửi email kích hoạt, vui lòng thử lại sau.");
+        }
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     private void redirectBasedOnRole(User user, HttpServletRequest request, HttpServletResponse response) throws IOException {
