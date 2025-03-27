@@ -130,8 +130,7 @@ public class DAOBooking extends DBConnect {
     public int changeBookingStatusToRefund(int bookingID) {
         int result = 0;
         String sql = "UPDATE [G4].[dbo].[Booking] SET Status = 'Cancelled' WHERE BookingID = ?";
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, bookingID);
             result = ps.executeUpdate();
             if (result > 0) {
@@ -186,5 +185,17 @@ public class DAOBooking extends DBConnect {
             e.printStackTrace();
         }
         return bookingList;
+    }
+
+    // Lấy tổng số booking với trạng thái Confirmed và Completed
+    public int getTotalConfirmedAndCompletedBookings() throws SQLException {
+        int totalBookings = 0;
+        String sql = "SELECT COUNT(*) AS TotalBookings FROM Booking WHERE Status IN ('Confirmed', 'Completed')";
+        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                totalBookings = rs.getInt("TotalBookings");
+            }
+        }
+        return totalBookings;
     }
 }

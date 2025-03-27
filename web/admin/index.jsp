@@ -7,7 +7,8 @@
 <%@page import="entity.HistoryLog"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page import="entity.User, java.util.List, java.util.ArrayList"%>
+<%@page import="entity.User, java.util.List, java.util.ArrayList, java.util.Map"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,8 +52,7 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/style.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/color/color-1.css">
-
-        <!-- CSS cho thông báo -->
+        <!-- CSS tùy chỉnh để sửa lỗi layout -->
         <style>
             .alert {
                 padding: 15px;
@@ -70,6 +70,46 @@
                 background-color: #f2dede;
                 border-color: #ebccd1;
             }
+            /* Điều chỉnh layout cho 3 cột */
+            .row {
+                display: flex;
+                flex-wrap: wrap;
+                margin-right: -15px;
+                margin-left: -15px;
+            }
+            .col-lg-4 {
+                flex: 0 0 33.333333%;
+                max-width: 33.333333%;
+                padding-right: 15px;
+                padding-left: 15px;
+                box-sizing: border-box;
+            }
+            .col-md-6, .col-lg-3, .col-xl-3, .col-sm-6, .col-12 {
+                padding-right: 15px;
+                padding-left: 15px;
+                box-sizing: border-box;
+            }
+            .widget-box {
+                background: #fff;
+                border: 1px solid #e5e5e5;
+                border-radius: 4px;
+                box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+                margin-bottom: 30px;
+            }
+            .wc-title {
+                padding: 15px;
+                border-bottom: 1px solid #e5e5e5;
+            }
+            .widget-inner {
+                padding: 15px;
+            }
+            .m-b30 {
+                margin-bottom: 30px;
+            }
+            /* Giảm kích thước font của các con số trong Card */
+            .wc-stats, .counter, .wc-number {
+                font-size: 14px !important; /* Giảm kích thước font, bạn có thể điều chỉnh giá trị này */
+            }
         </style>
     </head>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
@@ -84,6 +124,22 @@
             List<User> newUsers = (List<User>) request.getAttribute("newUsers");
             if (newUsers == null) {
                 newUsers = new ArrayList<>();
+            }
+            Double totalProfit = (Double) request.getAttribute("totalProfit");
+            if (totalProfit == null) {
+                totalProfit = 0.0;
+            }
+            Integer totalRatings = (Integer) request.getAttribute("totalRatings");
+            if (totalRatings == null) {
+                totalRatings = 0;
+            }
+            Integer totalUsers = (Integer) request.getAttribute("totalUsers");
+            if (totalUsers == null) {
+                totalUsers = 0;
+            }
+            Integer totalBookings = (Integer) request.getAttribute("totalBookings");
+            if (totalBookings == null) {
+                totalBookings = 0;
             }
         %>
         <!-- Header start -->
@@ -293,21 +349,17 @@
                                     Total Profit
                                 </h4>
                                 <span class="wc-des">
-                                    All Customs Value
+                                    All Completed Payments
                                 </span>
-                                <span class="wc-stats">
-                                    $<span class="counter">18</span>M
-                                </span>
-                                <div class="progress wc-progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 78%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <span class="wc-progress-bx">
-                                    <span class="wc-change">
-                                        Change
-                                    </span>
-                                    <span class="wc-number ml-auto">
-                                        78%
-                                    </span>
+                                <%@ page import="java.text.DecimalFormat" %>
+                                <%
+                                    // Tạo đối tượng DecimalFormat để định dạng số với dấu chấm phân cách hàng nghìn
+                                    DecimalFormat df = new DecimalFormat("#,###");
+                                    // Ép kiểu totalProfit thành số nguyên và định dạng
+                                    String formattedProfit = df.format((long) totalProfit.doubleValue());
+                                %>
+                                <span class="wc-stats" style="top: 30px;">
+                                    VND<span class="counter"><%= formattedProfit%></span>
                                 </span>
                             </div>
                         </div>
@@ -316,24 +368,13 @@
                         <div class="widget-card widget-bg2">
                             <div class="wc-item">
                                 <h4 class="wc-title">
-                                    New Feedbacks
+                                    Total Rating
                                 </h4>
                                 <span class="wc-des">
-                                    Customer Review
+                                    All Tutor Ratings
                                 </span>
-                                <span class="wc-stats counter">
-                                    120
-                                </span>
-                                <div class="progress wc-progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 88%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <span class="wc-progress-bx">
-                                    <span class="wc-change">
-                                        Change
-                                    </span>
-                                    <span class="wc-number ml-auto">
-                                        88%
-                                    </span>
+                                <span class="wc-stats counter" style="top: 30px;">
+                                    <%= totalRatings%>
                                 </span>
                             </div>
                         </div>
@@ -342,24 +383,13 @@
                         <div class="widget-card widget-bg3">
                             <div class="wc-item">
                                 <h4 class="wc-title">
-                                    New Orders
+                                    Total Booking
                                 </h4>
                                 <span class="wc-des">
-                                    Fresh Order Amount
+                                    Confirmed & Completed
                                 </span>
-                                <span class="wc-stats counter">
-                                    772
-                                </span>
-                                <div class="progress wc-progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <span class="wc-progress-bx">
-                                    <span class="wc-change">
-                                        Change
-                                    </span>
-                                    <span class="wc-number ml-auto">
-                                        65%
-                                    </span>
+                                <span class="wc-stats counter" style="top: 30px;">
+                                    <%= totalBookings%>
                                 </span>
                             </div>
                         </div>
@@ -368,24 +398,13 @@
                         <div class="widget-card widget-bg4">
                             <div class="wc-item">
                                 <h4 class="wc-title">
-                                    New Users
+                                    Total Users
                                 </h4>
                                 <span class="wc-des">
-                                    Joined New User
+                                    All Registered Users
                                 </span>
-                                <span class="wc-stats counter">
-                                    350
-                                </span>
-                                <div class="progress wc-progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <span class="wc-progress-bx">
-                                    <span class="wc-change">
-                                        Change
-                                    </span>
-                                    <span class="wc-number ml-auto">
-                                        90%
-                                    </span>
+                                <span class="wc-stats counter" style="top: 30px;">
+                                    <%= totalUsers%>
                                 </span>
                             </div>
                         </div>
@@ -393,18 +412,7 @@
                 </div>
                 <!-- Card END -->
                 <div class="row">
-                    <!-- Your Profile Views Chart -->
-                    <div class="col-lg-8 m-b30">
-                        <div class="widget-box">
-                            <div class="wc-title">
-                                <h4>Your Profile Views</h4>
-                            </div>
-                            <div class="widget-inner">
-                                <canvas id="chart" width="100" height="45"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Your Profile Views Chart END-->
+                    <!-- History Log -->
                     <div class="col-lg-4 m-b30">
                         <div class="widget-box">
                             <div class="wc-title">
@@ -418,11 +426,9 @@
                                             if (logs == null) {
                                                 logs = new ArrayList<>();
                                             }
-                                            // Lấy tối đa 5 log mới nhất
                                             int maxLogs = Math.min(5, logs.size());
                                             for (int i = 0; i < maxLogs; i++) {
                                                 HistoryLog log = logs.get(i);
-                                                // Xác định biểu tượng và màu sắc dựa trên loại hành động
                                                 String iconClass = "fa fa-info-circle";
                                                 String bgClass = "dashbg-gray";
                                                 String actionText = log.getActionType() != null ? log.getActionType() : "Unknown";
@@ -476,7 +482,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 m-b30">
+                    <!-- New Users List -->
+                    <div class="col-lg-4 m-b30">
                         <div class="widget-box">
                             <div class="wc-title">
                                 <h4>New Users</h4>
@@ -528,7 +535,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 m-b30">
+                    <!-- Orders -->
+                    <div class="col-lg-4 m-b30">
                         <div class="widget-box">
                             <div class="wc-title">
                                 <h4>Orders</h4>
@@ -592,22 +600,21 @@
         <div class="ttr-overlay"></div>
 
         <!-- External JavaScripts -->
-        <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/vendors/bootstrap/js/popper.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/vendors/bootstrap/js/bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/vendors/magnific-popup/magnific-popup.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/vendors/counter/waypoints-min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/vendors/counter/counterup.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/vendors/imagesloaded/imagesloaded.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/vendors/masonry/masonry.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/vendors/masonry/filter.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/vendors/owl-carousel/owl.carousel.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/vendors/scroll/scrollbar.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/js/functions.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/vendors/chart/chart.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/js/admin.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/vendors/switcher/switcher.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js?ts=<%= System.currentTimeMillis()%>"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/bootstrap/js/popper.min.js?ts=<%= System.currentTimeMillis()%>"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/bootstrap/js/bootstrap.min.js?ts=<%= System.currentTimeMillis()%>"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/bootstrap-select/bootstrap-select.min.js?ts=<%= System.currentTimeMillis()%>"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js?ts=<%= System.currentTimeMillis()%>"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/magnific-popup/magnific-popup.js?ts=<%= System.currentTimeMillis()%>"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/counter/waypoints-min.js?ts=<%= System.currentTimeMillis()%>"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/counter/counterup.min.js?ts=<%= System.currentTimeMillis()%>"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/imagesloaded/imagesloaded.js?ts=<%= System.currentTimeMillis()%>"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/masonry/masonry.js?ts=<%= System.currentTimeMillis()%>"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/masonry/filter.js?ts=<%= System.currentTimeMillis()%>"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/owl-carousel/owl.carousel.js?ts=<%= System.currentTimeMillis()%>"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/scroll/scrollbar.min.js?ts=<%= System.currentTimeMillis()%>"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/functions.js?ts=<%= System.currentTimeMillis()%>"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/admin.js?ts=<%= System.currentTimeMillis()%>"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/switcher/switcher.js?ts=<%= System.currentTimeMillis()%>"></script>
     </body>
 </html>
