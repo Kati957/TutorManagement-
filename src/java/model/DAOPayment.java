@@ -342,4 +342,28 @@ public class DAOPayment extends DBConnect {
         }
         return totalProfit;
     }
+
+    // Lấy 5 giao dịch gần nhất
+    public List<Payment> getRecentPayments() throws SQLException {
+        List<Payment> payments = new ArrayList<>();
+        String sql = "SELECT TOP 5 PaymentID, BookingID, UserID, Amount, PaymentMethod, PaymentDate, PromotionID, SubjectID, Status "
+                + "FROM Payment "
+                + "ORDER BY PaymentDate DESC";
+        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Payment payment = new Payment();
+                payment.setPaymentID(rs.getInt("PaymentID"));
+                payment.setBookingID(rs.getInt("BookingID"));
+                payment.setUserID(rs.getInt("UserID"));
+                payment.setAmount(rs.getDouble("Amount"));
+                payment.setPaymentMethod(rs.getString("PaymentMethod"));
+                payment.setPaymentDate(rs.getTimestamp("PaymentDate"));
+                payment.setPromotionID(rs.getInt("PromotionID"));
+                payment.setSubjectID(rs.getInt("SubjectID"));
+                payment.setStatus(rs.getString("Status"));
+                payments.add(payment);
+            }
+        }
+        return payments;
+    }
 }

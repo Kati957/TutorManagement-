@@ -2,6 +2,7 @@ package AdminController;
 
 import entity.User;
 import entity.HistoryLog;
+import entity.Payment;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -41,6 +42,7 @@ public class AdminDashboardServlet extends HttpServlet {
         // Khởi tạo các danh sách dữ liệu
         List<User> newUsers = null;
         List<HistoryLog> recentLogs = null;
+        List<Payment> recentPayments = null;
         double totalProfit = 0.0;
         int totalRatings = 0;
         int totalUsers = 0;
@@ -53,11 +55,11 @@ public class AdminDashboardServlet extends HttpServlet {
             DAOTutorRating daoTutorRating = new DAOTutorRating();
             DAOBooking daoBooking = new DAOBooking();
 
-            // Lấy danh sách new users (giữ nguyên)
+            // Lấy danh sách new users
             newUsers = daoUser.getNewUsers();
             request.setAttribute("newUsers", newUsers);
 
-            // Lấy danh sách history logs (giữ nguyên)
+            // Lấy danh sách history logs
             recentLogs = daoHistoryLog.getRecentLogs();
             request.setAttribute("logs", recentLogs);
 
@@ -76,6 +78,10 @@ public class AdminDashboardServlet extends HttpServlet {
             // Lấy tổng số booking từ Booking với trạng thái Confirmed và Completed
             totalBookings = daoBooking.getTotalConfirmedAndCompletedBookings();
             request.setAttribute("totalBookings", totalBookings);
+
+            // Lấy 5 giao dịch gần nhất từ Payment
+            recentPayments = daoPayment.getRecentPayments();
+            request.setAttribute("recentPayments", recentPayments);
 
         } catch (SQLException e) {
             e.printStackTrace();
