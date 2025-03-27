@@ -104,10 +104,10 @@
                             <div class="secondary-menu">
                                 <div class="secondary-inner">
                                     <ul>
-                                        <li><a href="javascript:;" class="btn-link"><i class="fa fa-facebook"></i></a></li>
+<!--                                        <li><a href="javascript:;" class="btn-link"><i class="fa fa-facebook"></i></a></li>
                                         <li><a href="javascript:;" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
                                         <li><a href="javascript:;" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
-                                        <li class="search-btn"><button id="quik-search-btn" type="button" class="btn-link"><i class="fa fa-search"></i></button></li>
+                                        <li class="search-btn"><button id="quik-search-btn" type="button" class="btn-link"><i class="fa fa-search"></i></button></li>-->
                                     </ul>
                                 </div>
                             </div>
@@ -166,7 +166,7 @@
                                 <div class="pt-logo mr-auto">
                                     <a href="home.jsp"><img src="assets/images/logo-white.png" alt=""/></a>
                                 </div>
-                                <div class="pt-social-link">
+<!--                                <div class="pt-social-link">
                                     <ul class="list-inline m-a0">
                                         <li><a href="#" class="btn-link"><i class="fa fa-facebook"></i></a></li>
                                         <li><a href="#" class="btn-link"><i class="fa fa-twitter"></i></a></li>
@@ -176,7 +176,7 @@
                                 </div>
                                 <div class="pt-btn-join">
                                     <a href="#" class="btn"><fmt:message key="join_now"/></a>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -253,10 +253,8 @@
                                                                 // Thêm nút Review nếu trạng thái là "completed"
                                                                 if (status === "completed") {
                                                                     actionButtons += ' <a href="TutorRatingController?service=addRating&bookingId=' + event.bookingID + '" class="btn btn-primary btn-sm review-btn">Review</a>';
+                                                                    actionButtons += ' <a href="Report?bookID=' + event.bookingID + '" class="btn btn-danger btn-sm report-btn">Report</a>';
                                                                 }
-
-                                                                // Thêm nút Report
-                                                                actionButtons += ' <a href="Report?bookingId=' + event.bookingID + '" class="btn btn-danger btn-sm report-btn">Report</a>';
 
                                                                 titleElement.append(actionButtons);
                                                             } else {
@@ -269,7 +267,6 @@
                                                 });
                                             });
         </script>
-
         <style>
             /* Đẩy nút "Review" sát bên phải */
             .fc-list-item-title {
