@@ -22,26 +22,26 @@ public class DAOPayment extends DBConnect {
         super(); // Gọi constructor của DBConnect để khởi tạo kết nối
     }
 
-  public int getLatestPaymentID(int userID) {
-    String sql = "SELECT TOP 1 PaymentID FROM Payment WHERE UserID = ? ORDER BY PaymentDate DESC";
-    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-        stmt.setInt(1, userID);
-        try (ResultSet rs = stmt.executeQuery()) {
-            if (rs.next()) {
-                return rs.getInt("PaymentID");
+    public int getLatestPaymentID(int userID) {
+        String sql = "SELECT TOP 1 PaymentID FROM Payment WHERE UserID = ? ORDER BY PaymentDate DESC";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userID);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("PaymentID");
+                }
             }
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Error getting latest PaymentID for userID: " + userID, ex);
         }
-    } catch (SQLException ex) {
-        LOGGER.log(Level.SEVERE, "Error getting latest PaymentID for userID: " + userID, ex);
+        return -1; // Trả về -1 nếu không tìm thấy
     }
-    return -1; // Trả về -1 nếu không tìm thấy
-}
 
     // Thêm một Payment mới và trả về PaymentID
     public int insertPayment(Payment payment) {
-        String sql = "INSERT INTO Payment (BookingID, UserID, Amount, PaymentDate, PaymentMethod, SubjectID, Status) " +
-                    "OUTPUT INSERTED.PaymentID " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Payment (BookingID, UserID, Amount, PaymentDate, PaymentMethod, SubjectID, Status) "
+                + "OUTPUT INSERTED.PaymentID "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pre = conn.prepareStatement(sql)) {
             if (payment.getBookingID() != 0) {
                 pre.setInt(1, payment.getBookingID());
@@ -90,12 +90,12 @@ public class DAOPayment extends DBConnect {
     // Lấy toàn bộ lịch sử thanh toán (cho admin)
     public List<Payment> getAllPayments() {
         List<Payment> payments = new ArrayList<>();
-        String sql = "SELECT PaymentID, Payment.BookingID, FullName, Email, Price, PaymentDate, Payment.Status, PromotionID " +
-                    "FROM dbo.Payment " +
-                    "JOIN dbo.Users ON Users.UserID = Payment.UserID " +
-                    "LEFT JOIN dbo.Booking ON Booking.BookingID = Payment.BookingID " +
-                    "LEFT JOIN dbo.Tutor ON Tutor.TutorID = Booking.TutorID " +
-                    "ORDER BY PaymentDate DESC";
+        String sql = "SELECT PaymentID, Payment.BookingID, FullName, Email, Price, PaymentDate, Payment.Status, PromotionID "
+                + "FROM dbo.Payment "
+                + "JOIN dbo.Users ON Users.UserID = Payment.UserID "
+                + "LEFT JOIN dbo.Booking ON Booking.BookingID = Payment.BookingID "
+                + "LEFT JOIN dbo.Tutor ON Tutor.TutorID = Booking.TutorID "
+                + "ORDER BY PaymentDate DESC";
         try (PreparedStatement pre = conn.prepareStatement(sql)) {
             try (ResultSet rs = pre.executeQuery()) {
                 while (rs.next()) {
@@ -127,13 +127,13 @@ public class DAOPayment extends DBConnect {
     public List<Payment> getPaymentsByPageForAdmin(int page, int pageSize) {
         List<Payment> payments = new ArrayList<>();
         int offset = (page - 1) * pageSize;
-        String sql = "SELECT PaymentID, Payment.BookingID, FullName, Email, Price, PaymentDate, Payment.Status, PromotionID " +
-                    "FROM dbo.Payment " +
-                    "JOIN dbo.Users ON Users.UserID = Payment.UserID " +
-                    "LEFT JOIN dbo.Booking ON Booking.BookingID = Payment.BookingID " +
-                    "LEFT JOIN dbo.Tutor ON Tutor.TutorID = Booking.TutorID " +
-                    "ORDER BY PaymentDate DESC " +
-                    "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        String sql = "SELECT PaymentID, Payment.BookingID, FullName, Email, Price, PaymentDate, Payment.Status, PromotionID "
+                + "FROM dbo.Payment "
+                + "JOIN dbo.Users ON Users.UserID = Payment.UserID "
+                + "LEFT JOIN dbo.Booking ON Booking.BookingID = Payment.BookingID "
+                + "LEFT JOIN dbo.Tutor ON Tutor.TutorID = Booking.TutorID "
+                + "ORDER BY PaymentDate DESC "
+                + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         try (PreparedStatement pre = conn.prepareStatement(sql)) {
             pre.setInt(1, offset);
             pre.setInt(2, pageSize);
@@ -175,8 +175,8 @@ public class DAOPayment extends DBConnect {
             pre.setString(1, payment.getStatus());
             pre.setInt(2, payment.getPaymentID());
             int rowsAffected = pre.executeUpdate();
-            LOGGER.log(Level.INFO, "Updated payment status: PaymentID={0}, Status={1}, RowsAffected={2}", 
-                      new Object[]{payment.getPaymentID(), payment.getStatus(), rowsAffected});
+            LOGGER.log(Level.INFO, "Updated payment status: PaymentID={0}, Status={1}, RowsAffected={2}",
+                    new Object[]{payment.getPaymentID(), payment.getStatus(), rowsAffected});
             return rowsAffected > 0;
         } catch (SQLException ex) {
             LOGGER.log(Level.SEVERE, "Error updating payment status: PaymentID=" + payment.getPaymentID(), ex);
@@ -195,8 +195,8 @@ public class DAOPayment extends DBConnect {
             }
             pre.setInt(2, payment.getPaymentID());
             int rowsAffected = pre.executeUpdate();
-            LOGGER.log(Level.INFO, "Updated payment BookingID: PaymentID={0}, BookingID={1}, RowsAffected={2}", 
-                      new Object[]{payment.getPaymentID(), payment.getBookingID(), rowsAffected});
+            LOGGER.log(Level.INFO, "Updated payment BookingID: PaymentID={0}, BookingID={1}, RowsAffected={2}",
+                    new Object[]{payment.getPaymentID(), payment.getBookingID(), rowsAffected});
             return rowsAffected > 0;
         } catch (SQLException ex) {
             LOGGER.log(Level.SEVERE, "Error updating payment BookingID: PaymentID=" + payment.getPaymentID(), ex);
@@ -242,8 +242,8 @@ public class DAOPayment extends DBConnect {
         try (PreparedStatement pre = conn.prepareStatement(sql)) {
             pre.setInt(1, paymentID);
             int rowsAffected = pre.executeUpdate();
-            LOGGER.log(Level.INFO, "Deleted payment: PaymentID={0}, RowsAffected={1}", 
-                      new Object[]{paymentID, rowsAffected});
+            LOGGER.log(Level.INFO, "Deleted payment: PaymentID={0}, RowsAffected={1}",
+                    new Object[]{paymentID, rowsAffected});
             return rowsAffected > 0;
         } catch (SQLException ex) {
             LOGGER.log(Level.SEVERE, "Error deleting payment: PaymentID=" + paymentID, ex);
@@ -328,7 +328,18 @@ public class DAOPayment extends DBConnect {
             System.out.println("Chèn Payment thất bại");
         }
 
-  
         System.out.println(paymentID);
+    }
+
+    // Lấy tổng Amount từ Payment với trạng thái Completed
+    public double getTotalProfit() throws SQLException {
+        double totalProfit = 0.0;
+        String sql = "SELECT SUM(Amount) AS TotalProfit FROM Payment WHERE Status = 'Completed'";
+        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                totalProfit = rs.getDouble("TotalProfit");
+            }
+        }
+        return totalProfit;
     }
 }

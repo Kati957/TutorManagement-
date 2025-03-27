@@ -202,57 +202,56 @@ public class DAOTutorRating extends DBConnect {
         }
         return list;
     }
-    
-    // Tìm kiếm TutorRating theo RatingID, TutorID, RatingDate
-public List<TutorRating> searchTutorRatings(String ratingId, String tutorId, String ratingDate) throws SQLException {
-    List<TutorRating> list = new ArrayList<>();
-    
-    // Bắt đầu câu truy vấn với điều kiện luôn đúng
-    String sql = "SELECT * FROM [dbo].[TutorRating] WHERE 1=1";
-    
-    // Danh sách các giá trị sẽ được set cho PreparedStatement
-    List<Object> params = new ArrayList<>();
-    
-    // Nếu có truyền ratingId, thêm điều kiện
-    if (ratingId != null && !ratingId.trim().isEmpty()) {
-        sql += " AND RatingID = ?";
-        params.add(Integer.parseInt(ratingId));
-    }
-    
-    // Nếu có truyền tutorId, thêm điều kiện
-    if (tutorId != null && !tutorId.trim().isEmpty()) {
-        sql += " AND TutorID = ?";
-        params.add(Integer.parseInt(tutorId));
-    }
-    
-    // Nếu có truyền ratingDate, thêm điều kiện (giả sử ratingDate là kiểu date hoặc varchar lưu dạng 'YYYY-MM-DD')
-    if (ratingDate != null && !ratingDate.trim().isEmpty()) {
-        sql += " AND CONVERT(date, RatingDate) = ?"; 
-        // Nếu cột RatingDate là kiểu datetime, CONVERT(date, RatingDate) sẽ lấy phần ngày
-        params.add(ratingDate);
-    }
-    
-    // Sắp xếp theo ngày đánh giá từ mới nhất đến cũ nhất (nếu có trường RatingDate)
-    sql += " ORDER BY RatingDate DESC";
-    
-    try {
-        PreparedStatement pre = conn.prepareStatement(sql);
-        // Set các tham số vào PreparedStatement
-        for (int i = 0; i < params.size(); i++) {
-            pre.setObject(i + 1, params.get(i));
-        }
-        ResultSet rs = pre.executeQuery();
-        while (rs.next()) {
-            TutorRating rating = extractTutorRatingFromResultSet(rs);
-            list.add(rating);
-        }
-    } catch (SQLException ex) {
-        Logger.getLogger(DAOTutorRating.class.getName()).log(Level.SEVERE, null, ex);
-        throw ex;
-    }
-    return list;
-}
 
+    // Tìm kiếm TutorRating theo RatingID, TutorID, RatingDate
+    public List<TutorRating> searchTutorRatings(String ratingId, String tutorId, String ratingDate) throws SQLException {
+        List<TutorRating> list = new ArrayList<>();
+
+        // Bắt đầu câu truy vấn với điều kiện luôn đúng
+        String sql = "SELECT * FROM [dbo].[TutorRating] WHERE 1=1";
+
+        // Danh sách các giá trị sẽ được set cho PreparedStatement
+        List<Object> params = new ArrayList<>();
+
+        // Nếu có truyền ratingId, thêm điều kiện
+        if (ratingId != null && !ratingId.trim().isEmpty()) {
+            sql += " AND RatingID = ?";
+            params.add(Integer.parseInt(ratingId));
+        }
+
+        // Nếu có truyền tutorId, thêm điều kiện
+        if (tutorId != null && !tutorId.trim().isEmpty()) {
+            sql += " AND TutorID = ?";
+            params.add(Integer.parseInt(tutorId));
+        }
+
+        // Nếu có truyền ratingDate, thêm điều kiện (giả sử ratingDate là kiểu date hoặc varchar lưu dạng 'YYYY-MM-DD')
+        if (ratingDate != null && !ratingDate.trim().isEmpty()) {
+            sql += " AND CONVERT(date, RatingDate) = ?";
+            // Nếu cột RatingDate là kiểu datetime, CONVERT(date, RatingDate) sẽ lấy phần ngày
+            params.add(ratingDate);
+        }
+
+        // Sắp xếp theo ngày đánh giá từ mới nhất đến cũ nhất (nếu có trường RatingDate)
+        sql += " ORDER BY RatingDate DESC";
+
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            // Set các tham số vào PreparedStatement
+            for (int i = 0; i < params.size(); i++) {
+                pre.setObject(i + 1, params.get(i));
+            }
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                TutorRating rating = extractTutorRatingFromResultSet(rs);
+                list.add(rating);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOTutorRating.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+        return list;
+    }
 
     // Test method trong main
     public static void main(String[] args) {
@@ -289,5 +288,17 @@ public List<TutorRating> searchTutorRatings(String ratingId, String tutorId, Str
             int reviewCount = (int) tutor[3];
             System.out.printf("%-10d %-20s %-15.2f %-15d%n", tutorId, fullName, averageRating, reviewCount);
         }
+    }
+
+    // Lấy tổng số rating từ TutorRating
+    public int getTotalRatings() throws SQLException {
+        int totalRatings = 0;
+        String sql = "SELECT COUNT(*) AS TotalRatings FROM TutorRating";
+        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                totalRatings = rs.getInt("TotalRatings");
+            }
+        }
+        return totalRatings;
     }
 }

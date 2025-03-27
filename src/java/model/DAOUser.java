@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Connection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DAOUser extends DBConnect {
 
@@ -526,5 +528,17 @@ public class DAOUser extends DBConnect {
             Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error updating role: " + e.getMessage(), e);
         }
         return n;
+    }
+
+    // Lấy tổng số user từ Users
+    public int getTotalUsers() throws SQLException {
+        int totalUsers = 0;
+        String sql = "SELECT COUNT(*) AS TotalUsers FROM Users";
+        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                totalUsers = rs.getInt("TotalUsers");
+            }
+        }
+        return totalUsers;
     }
 }
