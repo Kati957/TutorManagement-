@@ -45,73 +45,6 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/dashboard.css">
     <link class="skin" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/color/color-1.css">
-
-    <!-- Custom styles for approveWithdrawal -->
-    <style>
-        .table-responsive { margin-bottom: 20px; }
-        .table-bordered th, .table-bordered td { border: 1px solid #dee2e6; }
-        .table-striped tbody tr:nth-of-type(odd) { background-color: rgba(0,0,0,.05); }
-        .action-buttons form { display: inline; }
-        .action-buttons input[type="submit"] { margin-right: 5px; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; }
-        .action-buttons input[value="Phê Duyệt"] { background-color: #28a745; color: white; }
-        .action-buttons input[value="Phê Duyệt"]:hover { background-color: #218838; }
-        .action-buttons input[value="Từ Chối"] { background-color: #dc3545; color: white; }
-        .action-buttons input[value="Từ Chối"]:hover { background-color: #c82333; }
-        .filter-form { margin-bottom: 20px; background-color: #f9f9f9; padding: 20px; border-radius: 5px; }
-        .filter-form select, .filter-form input { margin-right: 10px; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
-        .filter-form label { margin-right: 5px; font-weight: 500; }
-        .filter-form input[type="submit"] { background-color: #007bff; color: white; border: none; padding: 8px 16px; cursor: pointer; border-radius: 4px; }
-        .filter-form input[type="submit"]:hover { background-color: #0056b3; }
-        .pagination { margin-top: 20px; text-align: center; }
-        .pagination a { margin: 0 5px; padding: 8px 12px; text-decoration: none; border: 1px solid #ddd; border-radius: 4px; }
-        .pagination a.current { background-color: #dc3545; color: white; border-color: #dc3545; }
-        .pagination a:hover { background-color: #f1f1f1; }
-        .alert { padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; }
-        .alert-success { color: #155724; background-color: #d4edda; border-color: #c3e6cb; }
-        .alert-danger { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; }
-        .alert-info { color: #0c5460; background-color: #d1ecf1; border-color: #bee5eb; }
-        .back-link { display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 4px; }
-        .back-link:hover { background-color: #5a6268; }
-        /* CSS từ index.jsp để đảm bảo giao diện đồng bộ */
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            margin-right: -15px;
-            margin-left: -15px;
-        }
-        .col-lg-4 {
-            flex: 0 0 33.333333%;
-            max-width: 33.333333%;
-            padding-right: 15px;
-            padding-left: 15px;
-            box-sizing: border-box;
-        }
-        .col-md-6, .col-lg-3, .col-xl-3, .col-sm-6, .col-12 {
-            padding-right: 15px;
-            padding-left: 15px;
-            box-sizing: border-box;
-        }
-        .widget-box {
-            background: #fff;
-            border: 1px solid #e5e5e5;
-            border-radius: 4px;
-            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-            margin-bottom: 30px;
-        }
-        .wc-title {
-            padding: 15px;
-            border-bottom: 1px solid #e5e5e5;
-        }
-        .widget-inner {
-            padding: 15px;
-        }
-        .m-b30 {
-            margin-bottom: 30px;
-        }
-        .wc-stats, .counter, .wc-number {
-            font-size: 14px !important;
-        }
-    </style>
 </head>
 <body class="ttr-opened-sidebar ttr-pinned-sidebar">
     <%
@@ -341,7 +274,7 @@
                                            placeholder="${searchField == 'RequestDate' ? 'VD: 15, 03/2025, 2025' : searchField == 'TutorName' ? 'VD: Nguyễn Văn A' : 'VD: Pending'}">
                                     <input type="hidden" name="sortBy" value="${sortBy}">
                                     <input type="hidden" name="sortOrder" value="${sortOrder}">
-                                    <input type="submit" value="Tìm kiếm">
+                                    <input type="submit" class="btn btn-success" value="Tìm kiếm">
                                 </div>
                             </div>
                         </div>
@@ -426,7 +359,7 @@
                     </c:if>
 
                     <div class="mt-3">
-                        <a href="${pageContext.request.contextPath}/admin/index" class="back-link">Quay lại Dashboard</a>
+                        <a href="${pageContext.request.contextPath}/admin/index" class="btn btn-success"">Quay lại Dashboard</a>
                     </div>
                 </div>
             </div>

@@ -301,4 +301,17 @@ public class DAOTutorRating extends DBConnect {
         }
         return totalRatings;
     }
+    // Xóa một đánh giá theo RatingID
+    public boolean deleteTutorRating(int ratingId) throws SQLException {
+        String sql = "DELETE FROM [dbo].[TutorRating] WHERE RatingID = ?";
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            pre.setInt(1, ratingId);
+            int rowsAffected = pre.executeUpdate();
+            return rowsAffected > 0; // Trả về true nếu xóa thành công
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOTutorRating.class.getName()).log(Level.SEVERE, "Error deleting tutor rating", ex);
+            throw ex;
+        }
+    }
 }

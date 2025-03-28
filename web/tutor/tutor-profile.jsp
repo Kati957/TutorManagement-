@@ -73,7 +73,7 @@
                                                     </a>
                                                 </li>
                                                 <li><a href="tutorprofile"><fmt:message key="my_profile"/></a></li>
-                                                <li><a href="tutor-schedule"><fmt:message key="view_schedule"/></a></li>
+                                                <li><a href="ViewTutorSchedule"><fmt:message key="view_schedule"/></a></li>
                                                 <li><a href="${pageContext.request.contextPath}/logout"><fmt:message key="logout"/></a></li>
                                             </ul>
                                         </div>
@@ -93,14 +93,6 @@
                                 <span></span><span></span><span></span>
                             </button>
                             <div class="secondary-menu">
-                                <div class="secondary-inner">
-                                    <ul>
-                                        <li><a href="javascript:;" class="btn-link"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="javascript:;" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
-                                        <li><a href="javascript:;" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
-                                        <li class="search-btn"><button id="quik-search-btn" type="button" class="btn-link"><i class="fa fa-search"></i></button></li>
-                                    </ul>
-                                </div>
                             </div>
                             <div class="nav-search-bar">
                                 <form action="#">
@@ -116,12 +108,8 @@
                                 <ul class="nav navbar-nav">
                                     <li><a href="indextutor.jsp"><fmt:message key="home"/></a></li>
                                     <li><a href="CreateSchedule"><fmt:message key="my_schedule"/></a></li>
+                                    <li><a href="bookingHistory"><fmt:message key="withdraw"/></a></li>
                                 </ul>
-                                <div class="nav-social-link">
-                                    <a href="javascript:;"><i class="fa fa-facebook"></i></a>
-                                    <a href="javascript:;"><i class="fa fa-google-plus"></i></a>
-                                    <a href="javascript:;"><i class="fa fa-linkedin"></i></a>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -157,14 +145,6 @@
                                         <div class="profile-info">
                                             <h4><%= user.getFullName()%></h4>
                                             <span><%= user.getEmail()%></span>
-                                        </div>
-                                        <div class="profile-social">
-                                            <ul class="list-inline m-a0">
-                                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                            </ul>
                                         </div>
                                         <div class="profile-tabnav">
                                             <ul class="nav nav-tabs">
@@ -366,14 +346,6 @@
                             <div class="d-flex align-items-stretch">
                                 <div class="pt-logo mr-auto">
                                     <a href="indextutor.jsp"><img src="${pageContext.request.contextPath}/assets/images/logo-white.png" alt=""/></a>
-                                </div>
-                                <div class="pt-social-link">
-                                    <ul class="list-inline m-a0">
-                                        <li><a href="#" class="btn-link"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#" class="btn-link"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href="#" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
-                                        <li><a href="#" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>

@@ -28,6 +28,30 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/style.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/color/color-1.css">
+
+        <!-- Thêm style cho thông báo -->
+        <style>
+            .message {
+                color: green;
+                margin-bottom: 10px;
+                font-weight: bold;
+            }
+            .error {
+                color: red;
+                margin-bottom: 10px;
+                font-weight: bold;
+            }
+            .delete-btn {
+                background-color: #ff4d4d;
+                color: white;
+                padding: 5px 10px;
+                text-decoration: none;
+                border-radius: 3px;
+            }
+            .delete-btn:hover {
+                background-color: #cc0000;
+            }
+        </style>
     </head>
     <% User user = (User) session.getAttribute("user");%>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
@@ -71,34 +95,40 @@
         <div class="ttr-sidebar">
             <div class="ttr-sidebar-wrapper content-scroll">
                 <div class="ttr-sidebar-logo">
-                    <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
-                    <div class="ttr-sidebar-toggle-button"><i class="ti-arrow-left"></i></div>
+                    <a href="${pageContext.request.contextPath}/staff/dashboard"><img alt="" src="${pageContext.request.contextPath}/assets/images/logo.png" width="122" height="27"></a>
+                    <div class="ttr-sidebar-toggle-button">
+                        <i class="ti-arrow-left"></i>
+                    </div>
                 </div>
                 <nav class="ttr-sidebar-navi">
                     <ul>
-                        <li><a href="dashboard" class="ttr-material-button"><span class="ttr-icon"><i class="ti-home"></i></span><span class="ttr-label">Dashboard</span></a></li>
                         <li>
-                            <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-briefcase"></i></span><span class="ttr-label">Tutor Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
+                            <a href="${pageContext.request.contextPath}/staff/dashboard" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-home"></i></span>
+                                <span class="ttr-label">Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-briefcase"></i></span>
+                                <span class="ttr-label">Tutor Management</span>
+                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                            </a>
                             <ul>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a></li>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a></li>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Booking</span></a></li>
-                                <li><a href="ListRated" class="ttr-material-button"><span class="ttr-label">Tutor Reviews</span></a></li>
-                                <li><a href="SubjectController" class="ttr-material-button"><span class="ttr-label">Control Subject</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/ViewSchedule" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/ListRated" class="ttr-material-button"><span class="ttr-label">Tutor Reviews</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/SubjectController?service=listSubject" class="ttr-material-button"><span class="ttr-label">Control Subject</span></a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-credit-card"></i></span><span class="ttr-label">Payment</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
+                            <a href="#" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-book"></i></span>
+                                <span class="ttr-label">Content Management</span>
+                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                            </a>
                             <ul>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a></li>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-book"></i></span><span class="ttr-label">Content Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
-                            <ul>
-                                <li><a href="BlogController?service=listBlog" class="ttr-label">Blog</a></li>
-                                <li><a href="BlogController?service=addBlog" class="ttr-label">Add Blog</a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/BlogController?service=listBlog" class="ttr-material-button"><span class="ttr-label">Blog</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/BlogController?service=addBlog" class="ttr-material-button"><span class="ttr-label">Add Blog</span></a></li>
                             </ul>
                         </li>
                         <li>
@@ -112,9 +142,20 @@
                 </nav>
             </div>
         </div>
+
         <!-- Main content -->
         <main class="ttr-wrapper">
             <h2>Tutor Ratings List</h2>
+
+            <!-- Hiển thị thông báo -->
+            <c:if test="${not empty sessionScope.message}">
+                <div class="message">${sessionScope.message}</div>
+                <c:remove var="message" scope="session" />
+            </c:if>
+            <c:if test="${not empty sessionScope.error}">
+                <div class="error">${sessionScope.error}</div>
+                <c:remove var="error" scope="session" />
+            </c:if>
 
             <!-- Form tìm kiếm gia sư -->
             <div class="sort-options" style="margin-bottom: 20px;">
@@ -143,7 +184,7 @@
                 <button class="sort-button" onclick="toggleDropdown()" style="background-color: white; border: 1px solid #ccc; padding: 8px 16px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; width: 200px;">
                     <span id="currentSortLabel">Sort by: Average Rate</span>
                     <svg width="12" height="12" viewBox="0 0 24 24" style="margin-left: 10px;">
-                    <path d="M7 10l5 5 5-5z" fill="currentColor"></path>
+                        <path d="M7 10l5 5 5-5z" fill="currentColor"></path>
                     </svg>
                 </button>
                 <div id="sortOptions" class="dropdown-content" style="display: none; position: absolute; background-color: white; min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border-radius: 4px; margin-top: 2px;">
@@ -154,7 +195,7 @@
                        style="padding: 12px 16px; text-decoration: none; display: flex; align-items: center; justify-content: space-between; color: black;">
                         Highest rated first
                         <svg width="16" height="16" viewBox="0 0 24 24" style="color: #4CAF50; display: none;" class="check-icon">
-                        <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="currentColor"></path>
+                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="currentColor"></path>
                         </svg>
                     </a>
                     <a href="${pageContext.request.contextPath}/staff/ListRated?service=listTutorsByRating&order=ASC" 
@@ -164,7 +205,7 @@
                        style="padding: 12px 16px; text-decoration: none; display: flex; align-items: center; justify-content: space-between; color: black;">
                         Lowest rated first
                         <svg width="16" height="16" viewBox="0 0 24 24" style="color: #4CAF50; display: none;" class="check-icon">
-                        <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="currentColor"></path>
+                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="currentColor"></path>
                         </svg>
                     </a>
                 </div>
@@ -212,6 +253,7 @@
                     <th>Rating</th>
                     <th>Comment</th>
                     <th>Rating Date</th>
+                    <th>Actions</th> <!-- Thêm cột Actions -->
                 </tr>
                 <c:forEach var="rating" items="${ratingList}">
                     <tr>
@@ -222,6 +264,11 @@
                         <td>${rating.rating}</td>
                         <td>${rating.comment}</td>
                         <td>${rating.ratingDate}</td>
+                        <td>
+                            <a href="${pageContext.request.contextPath}/staff/ListRated?service=deleteRating&ratingId=${rating.ratingId}" 
+                               class="delete-btn" 
+                               onclick="return confirm('Bạn có chắc chắn muốn xóa đánh giá này?')">Delete</a>
+                        </td>
                     </tr>
                 </c:forEach>
             </table>
@@ -260,24 +307,24 @@
         <div class="ttr-overlay"></div>
 
         <!-- External JavaScripts -->
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
-        <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-        <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-        <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
-        <script src="assets/vendors/counter/waypoints-min.js"></script>
-        <script src="assets/vendors/counter/counterup.min.js"></script>
-        <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
-        <script src="assets/vendors/masonry/masonry.js"></script>
-        <script src="assets/vendors/masonry/filter.js"></script>
-        <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
-        <script src='assets/vendors/scroll/scrollbar.min.js'></script>
-        <script src="assets/js/functions.js"></script>
-        <script src="assets/vendors/chart/chart.min.js"></script>
-        <script src="assets/js/admin.js"></script>
-        <script src='assets/vendors/calendar/moment.min.js'></script>
-        <script src='assets/vendors/calendar/fullcalendar.js'></script>
-        <script src='assets/vendors/switcher/switcher.js'></script>
+        <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/bootstrap/js/popper.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/bootstrap/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/magnific-popup/magnific-popup.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/counter/waypoints-min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/counter/counterup.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/imagesloaded/imagesloaded.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/masonry/masonry.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/masonry/filter.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/owl-carousel/owl.carousel.js"></script>
+        <script src='${pageContext.request.contextPath}/assets/vendors/scroll/scrollbar.min.js'></script>
+        <script src="${pageContext.request.contextPath}/assets/js/functions.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/vendors/chart/chart.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/admin.js"></script>
+        <script src='${pageContext.request.contextPath}/assets/vendors/calendar/moment.min.js'></script>
+        <script src='${pageContext.request.contextPath}/assets/vendors/calendar/fullcalendar.js'></script>
+        <script src='${pageContext.request.contextPath}/assets/vendors/switcher/switcher.js'></script>
     </body>
 </html>

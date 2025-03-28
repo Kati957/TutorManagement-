@@ -348,7 +348,7 @@
                                     <label for="search">Giá trị tìm kiếm:</label>
                                     <input type="text" name="search" id="search" value="${search}" class="form-control" 
                                            placeholder="${searchField == 'Month' ? 'Tháng (VD: 3), Năm (VD: 2024), hoặc yyyy-MM (VD: 2025-01, 2025/01)' : 'VD: 1000000'}">
-                                    <input type="submit" value="Tìm kiếm">
+                                    <input type="submit" class="btn btn-success" value="Tìm kiếm">
                                 </div>
                             </div>
                         </div>
@@ -403,7 +403,7 @@
                     </c:if>
 
                     <div class="mt-3">
-                        <a href="${pageContext.request.contextPath}/admin/index" class="back-link">Quay lại Dashboard</a>
+                        <a href="${pageContext.request.contextPath}/admin/index" class="btn btn-success">Quay lại Dashboard</a>
                     </div>
                 </div>
             </div>
