@@ -109,16 +109,6 @@
                                 <span></span>
                                 <span></span>
                             </button>
-                            <div class="secondary-menu">
-                                <div class="secondary-inner">
-                                    <ul>
-                                        <li><a href="javascript:;" class="btn-link"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="javascript:;" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
-                                        <li><a href="javascript:;" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
-                                        <li class="search-btn"><button id="quik-search-btn" type="button" class="btn-link"><i class="fa fa-search"></i></button></li>
-                                    </ul>
-                                </div>
-                            </div>
                             <div class="nav-search-bar">
                                 <form action="#">
                                     <input name="search" value="" type="text" class="form-control" placeholder="<fmt:message key='type_to_search'/>">
@@ -178,12 +168,6 @@
                                             <span><%= user.getEmail()%></span>
                                         </div>
                                         <div class="profile-social">
-                                            <ul class="list-inline m-a0">
-                                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li EI>
-                                            </ul>
                                         </div>
                                         <div class="profile-tabnav">
                                             <ul class="nav nav-tabs">
@@ -355,14 +339,6 @@
                                 <div class="d-flex align-items-stretch">
                                     <div class="pt-logo mr-auto">
                                         <a href="home"><img src="assets/images/logo-white.png" alt=""/></a>
-                                    </div>
-                                    <div class="pt-social-link">
-                                        <ul class="list-inline m-a0">
-                                            <li><a href="#" class="btn-link"><i class="fa fa-facebook"></i></a></li>
-                                            <li><a href="#" class="btn-link"><i class="fa fa-twitter"></i></a></li>
-                                            <li><a href="#" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
-                                            <li><a href="#" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
