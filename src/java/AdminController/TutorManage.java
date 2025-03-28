@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-
 package AdminController;
 
 import entity.User;
@@ -20,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
+import util.MD5Util; // Import MD5Util
 
 @WebServlet(name = "TutorManage", urlPatterns = {"/admin/TutorManage"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 50)
@@ -98,11 +94,14 @@ public class TutorManage extends HttpServlet {
                 avatarPath = "uploads/default_avatar.jpg";
             }
 
+            // Mã hóa mật khẩu bằng MD5
+            String hashedPassword = MD5Util.getMD5Hash(password);
+
             User user = new User(
                     Integer.parseInt(userID),
                     3, // RoleID cố định là 3 cho Tutor
                     email, fullName, phone, null, 1,
-                    Date.valueOf(dob), address, avatarPath, userName, password
+                    Date.valueOf(dob), address, avatarPath, userName, hashedPassword
             );
 
             if (dao.updateUser(user)) {

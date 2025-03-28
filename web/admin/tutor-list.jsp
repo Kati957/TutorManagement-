@@ -306,13 +306,6 @@
                                                         <p><strong>Date of Birth:</strong> ${user.dob != null ? user.dob : 'N/A'}</p>
                                                         <p><strong>Address:</strong> ${user.address != null ? user.address : 'N/A'}</p>
                                                         <p><strong>Username:</strong> ${user.userName}</p>
-                                                        <p>
-                                                            <strong>Password:</strong> 
-                                                            <span class="password-text" data-password="${user.password}">••••••••</span>
-                                                            <button class="password-toggle-btn" title="Toggle Password">
-                                                                <i class="fa fa-eye"></i>
-                                                            </button>
-                                                        </p>
                                                         <p><strong>Subject:</strong> ${user.subjectName != null ? user.subjectName : 'N/A'}</p>
                                                         <p><strong>Education:</strong> ${user.education != null ? user.education : 'N/A'}</p>
                                                         <p><strong>Experience:</strong> ${user.experience != null ? user.experience : 'N/A'}</p>
@@ -359,67 +352,52 @@
         <script src="assets/vendors/switcher/switcher.js"></script>
         <script>
             $(document).ready(function () {
-                // Xử lý nút Deactivate
-                $('.deactivateTutorBtn').on('click', function () {
-                    if (confirm('Are you sure you want to deactivate this tutor?')) {
-                        const userId = $(this).data('id');
-                        console.log('Deactivating user with ID: ' + userId);
-                        $.post('${pageContext.request.contextPath}/admin/TutorList',
-                                {action: 'deactivate', userId: userId},
-                                function (response) {
-                                    console.log('Deactivate response: ' + JSON.stringify(response));
+            // Xử lý nút Deactivate
+            $('.deactivateTutorBtn').on('click', function () {
+            if (confirm('Are you sure you want to deactivate this tutor?')) {
+            const userId = $(this).data('id');
+                    console.log('Deactivating user with ID: ' + userId);
+                    $.post('${pageContext.request.contextPath}/admin/TutorList',
+                    {action: 'deactivate', userId: userId},
+                            function (response) {
+                            console.log('Deactivate response: ' + JSON.stringify(response));
                                     if (response.success) {
-                                        alert(response.message);
-                                        location.reload();
-                                    } else {
-                                        alert(response.message);
-                                    }
-                                }, 'json')
-                                .fail(function (xhr, status, error) {
-                                    console.error('Deactivate failed: ' + status + ', ' + error);
-                                    alert('Error connecting to server. Please try again.');
-                                });
-                    }
-                });
-
-                // Xử lý nút Activate
-                $('.activateTutorBtn').on('click', function () {
-                    if (confirm('Are you sure you want to activate this tutor?')) {
-                        const userId = $(this).data('id');
-                        console.log('Activating user with ID: ' + userId);
-                        $.post('${pageContext.request.contextPath}/admin/TutorList',
-                                {action: 'activate', userId: userId},
-                                function (response) {
-                                    console.log('Activate response: ' + JSON.stringify(response));
-                                    if (response.success) {
-                                        alert(response.message);
-                                        location.reload();
-                                    } else {
-                                        alert(response.message);
-                                    }
-                                }, 'json')
-                                .fail(function (xhr, status, error) {
-                                    console.error('Activate failed: ' + status + ', ' + error);
-                                    alert('Error connecting to server. Please try again.');
-                                });
-                    }
-                });
-
-                // Xử lý ẩn/hiện Password trong modal
-                $('.password-toggle-btn').on('click', function () {
-                    const passwordSpan = $(this).siblings('.password-text');
-                    const realPassword = passwordSpan.data('password');
-                    const currentText = passwordSpan.text();
-
-                    if (currentText === '••••••••') {
-                        passwordSpan.text(realPassword);
-                        $(this).find('i').removeClass('fa-eye').addClass('fa-eye-slash');
-                    } else {
-                        passwordSpan.text('••••••••');
-                        $(this).find('i').removeClass('fa-eye-slash').addClass('fa-eye');
-                    }
-                });
+                            alert(response.message);
+                                    location.reload();
+                            } else {
+                            alert(response.message);
+                            }
+                            }, 'json')
+                    .fail(function (xhr, status, error) {
+                    console.error('Deactivate failed: ' + status + ', ' + error);
+                            alert('Error connecting to server. Please try again.');
+                    });
+            }
             });
+                    // Xử lý nút Activate
+                    $('.activateTutorBtn').on('click', function () {
+            if (confirm('Are you sure you want to activate this tutor?')) {
+            const userId = $(this).data('id');
+                    console.log('Activating user with ID: ' + userId);
+                    $.post('${pageContext.request.contextPath}/admin/TutorList',
+                    {action: 'activate', userId: userId},
+                            function (response) {
+                            console.log('Activate response: ' + JSON.stringify(response));
+                                    if (response.success) {
+                            alert(response.message);
+                                    location.reload();
+                            } else {
+                            alert(response.message);
+                            }
+                            }, 'json')
+                    .fail(function (xhr, status, error) {
+                    console.error('Activate failed: ' + status + ', ' + error);
+                            alert('Error connecting to server. Please try again.');
+                    });
+            }
+            });
+                    );
+            };
         </script>
     </body>
 </html>
