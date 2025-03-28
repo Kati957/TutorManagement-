@@ -1,19 +1,31 @@
 package entity;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class TutorEarning {
-    private int id;
+    private int id; // Thay EarningID thành ID để khớp với bảng
     private int tutorID;
     private int bookingID;
     private Date bookingDate;
     private double hourlyRate;
     private double totalEarnings;
-    private double sytemCommissionRate;
+    private double sytemCommissionRate; // Sửa thành SytemCommissionRate
     private double earningsAfterCommission;
-    private int staffID;
-    private String withdrawStatus;
-    private String content;
+
+    // Constructors
+    public TutorEarning() {}
+
+    public TutorEarning(int id, int tutorID, int bookingID, Date bookingDate, double hourlyRate, 
+                       double totalEarnings, double sytemCommissionRate, double earningsAfterCommission) {
+        this.id = id;
+        this.tutorID = tutorID;
+        this.bookingID = bookingID;
+        this.bookingDate = bookingDate;
+        this.hourlyRate = hourlyRate;
+        this.totalEarnings = totalEarnings;
+        this.sytemCommissionRate = sytemCommissionRate;
+        this.earningsAfterCommission = earningsAfterCommission;
+    }
 
     // Getters and Setters
     public int getId() { return id; }
@@ -40,12 +52,17 @@ public class TutorEarning {
     public double getEarningsAfterCommission() { return earningsAfterCommission; }
     public void setEarningsAfterCommission(double earningsAfterCommission) { this.earningsAfterCommission = earningsAfterCommission; }
 
-    public int getStaffID() { return staffID; }
-    public void setStaffID(int staffID) { this.staffID = staffID; }
-
-    public String getWithdrawStatus() { return withdrawStatus; }
-    public void setWithdrawStatus(String withdrawStatus) { this.withdrawStatus = withdrawStatus; }
-
-    public String getContent() { return content; }
-    public void setContent(String content) { this.content = content; }
+    @Override
+    public String toString() {
+        return "TutorEarning{" +
+               "id=" + id +
+               ", tutorID=" + tutorID +
+               ", bookingID=" + bookingID +
+               ", bookingDate=" + bookingDate +
+               ", hourlyRate=" + hourlyRate +
+               ", totalEarnings=" + totalEarnings +
+               ", sytemCommissionRate=" + sytemCommissionRate +
+               ", earningsAfterCommission=" + earningsAfterCommission +
+               '}';
+    }
 }
