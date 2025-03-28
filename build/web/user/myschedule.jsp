@@ -23,7 +23,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
 
-        <title>G4 SmartTutor : <fmt:message key="my_schedule"/></title>
+        <title>G4 SmartTutor</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="stylesheet" type="text/css" href="assets/css/assets.css">
@@ -253,10 +253,8 @@
                                                                 // Thêm nút Review nếu trạng thái là "completed"
                                                                 if (status === "completed") {
                                                                     actionButtons += ' <a href="TutorRatingController?service=addRating&bookingId=' + event.bookingID + '" class="btn btn-primary btn-sm review-btn">Review</a>';
+                                                                    actionButtons += ' <a href="Report?bookID=' + event.bookingID + '" class="btn btn-danger btn-sm report-btn">Report</a>';
                                                                 }
-
-                                                                // Thêm nút Report
-                                                                actionButtons += ' <a href="Report?bookingId=' + event.bookingID + '" class="btn btn-danger btn-sm report-btn">Report</a>';
 
                                                                 titleElement.append(actionButtons);
                                                             } else {
@@ -269,7 +267,6 @@
                                                 });
                                             });
         </script>
-
         <style>
             /* Đẩy nút "Review" sát bên phải */
             .fc-list-item-title {
