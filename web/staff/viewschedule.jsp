@@ -217,10 +217,10 @@
                                     <thead>
                                         <tr>
                                             <th>Schedule ID</th>
-                                            <th>Tutor ID</th>
+                                            <th>Tutor Name</th>
                                             <th>Start Time</th>
                                             <th>End Time</th>
-                                            <th>Subject ID</th>
+                                            <th>Subject Name</th>
                                             <th>Is Booked</th>
                                             <th>Action</th>
                                         </tr>
@@ -229,10 +229,10 @@
                                         <c:forEach var="schedule" items="${schedules}">
                                             <tr>
                                                 <td>${schedule.scheduleID}</td>
-                                                <td>${schedule.tutorID}</td>
+                                                <td>${schedule.tutorName}</td>
                                                 <td>${schedule.startTime}</td>
                                                 <td>${schedule.endTime}</td>
-                                                <td>${schedule.subjectID}</td>
+                                                <td>${schedule.subjectName}</td>
                                                 <td>${schedule.booked ? 'Yes' : 'No'}</td>
                                                 <td class="action-links">
                                                     <form action="ViewSchedule" method="POST" onsubmit="return confirmApprove()">

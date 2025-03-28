@@ -148,13 +148,21 @@
                                     </c:choose>
                                 </select>
                             </div>
+
                             <div class="mb-3">
                                 <label for="startTime" class="form-label"><fmt:message key="start_time"/>:</label>
                                 <input type="datetime-local" class="form-control" name="startTime" id="startTime">
                             </div>
+
+                            <div class="mb-3">
+                                <label for="slotCount" class="form-label"><fmt:message key="slot"/>:</label>
+                                <input type="number" class="form-control" name="slotCount" id="slotCount" min="1" value="1">
+                            </div>
+
                             <div class="mb-3">
                                 <label for="duration" class="form-label"><fmt:message key="duration"/>: 60 <fmt:message key="minutes"/></label>
                             </div>
+
                             <button type="submit" class="btn btn-primary w-100"><fmt:message key="create_schedule"/></button>
                         </form>
                     </div>

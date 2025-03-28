@@ -108,59 +108,67 @@ public class ScheduleDAO {
         return schedules;
     }
 
-    public Map<String, Object> getSchedulesWithPaginationStatusPending(int pageNumber, int pageSize) {
-        Map<String, Object> result = new HashMap<>();
-        List<ScheduleTemp> schedules = new ArrayList<>();
-        int totalPages = 1;
-        int offset = (pageNumber - 1) * pageSize;
+ public Map<String, Object> getSchedulesWithPaginationStatusPending(int pageNumber, int pageSize) {
+    Map<String, Object> result = new HashMap<>();
+    List<ScheduleTemp> schedules = new ArrayList<>();
+    int totalPages = 1;
+    int offset = (pageNumber - 1) * pageSize;
 
-        // SQL đếm tổng số bản ghi có trạng thái 'Pending'
-        String countSql = "SELECT COUNT(*) FROM dbo.Schedule WHERE Status = 'Pending'";
+    // SQL đếm tổng số bản ghi có trạng thái 'Pending'
+    String countSql = "SELECT COUNT(*) FROM dbo.Schedule WHERE Status = 'Pending'";
 
-        // SQL lấy danh sách lịch pending theo phân trang
-        String sql = "SELECT * FROM dbo.Schedule WHERE Status = 'Pending' "
-                + "ORDER BY ScheduleID DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+    // SQL lấy danh sách lịch Pending theo phân trang
+    String sql = "SELECT s.ScheduleID, u.FullName AS TutorName, s.StartTime, s.EndTime, " +
+                 "sub.SubjectName, s.IsBooked " +
+                 "FROM dbo.Schedule s " +
+                 "JOIN dbo.CV cv ON cv.SubjectID = s.SubjectID " +
+                 "LEFT JOIN dbo.Users u ON u.UserID = cv.UserID " +
+                 "LEFT JOIN dbo.Subject sub ON sub.SubjectID = cv.SubjectID " +
+                 "WHERE s.Status = 'Pending' " +
+                 "ORDER BY s.ScheduleID DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
 
-        try (Connection conn = dbConnect.getConnection()) { // Mở kết nối mới
-            if (conn == null || conn.isClosed()) {
-                System.out.println("Database connection is closed!");
-                return result;
-            }
-
-            // Lấy tổng số trang
-            try (PreparedStatement countStmt = conn.prepareStatement(countSql); ResultSet countRs = countStmt.executeQuery()) {
-                if (countRs.next()) {
-                    int totalRecords = countRs.getInt(1);
-                    totalPages = (int) Math.ceil((double) totalRecords / pageSize);
-                }
-            }
-
-            // Lấy danh sách lịch dạy có trạng thái 'Pending'
-            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                stmt.setInt(1, offset);
-                stmt.setInt(2, pageSize);
-                try (ResultSet rs = stmt.executeQuery()) {
-                    while (rs.next()) {
-                        ScheduleTemp schedule = new ScheduleTemp();
-                        schedule.setScheduleID(rs.getInt("ScheduleID"));
-                        schedule.setTutorID(rs.getInt("TutorID"));
-                        schedule.setStartTime(rs.getTimestamp("StartTime").toLocalDateTime());
-                        schedule.setEndTime(rs.getTimestamp("EndTime").toLocalDateTime());
-                        schedule.setBooked(rs.getBoolean("IsBooked"));
-                        schedule.setSubjectID(rs.getInt("SubjectID"));
-                        schedules.add(schedule);
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Lỗi khi lấy danh sách lịch dạy đang Pending!");
+    try (Connection conn = dbConnect.getConnection()) { // Mở kết nối mới
+        if (conn == null || conn.isClosed()) {
+            System.out.println("Database connection is closed!");
+            return result;
         }
 
-        result.put("schedules", schedules);
-        result.put("totalPages", totalPages);
-        return result;
+        // Lấy tổng số trang
+        try (PreparedStatement countStmt = conn.prepareStatement(countSql);
+             ResultSet countRs = countStmt.executeQuery()) {
+            if (countRs.next()) {
+                int totalRecords = countRs.getInt(1);
+                totalPages = (int) Math.ceil((double) totalRecords / pageSize);
+            }
+        }
+
+        // Lấy danh sách lịch dạy có trạng thái 'Pending'
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, offset);
+            stmt.setInt(2, pageSize);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    ScheduleTemp schedule = new ScheduleTemp();
+                    schedule.setScheduleID(rs.getInt("ScheduleID"));
+                    schedule.setTutorName(rs.getString("TutorName")); // Lấy tên Tutor
+                    schedule.setStartTime(rs.getTimestamp("StartTime").toLocalDateTime());
+                    schedule.setEndTime(rs.getTimestamp("EndTime").toLocalDateTime());
+                    schedule.setSubjectName(rs.getString("SubjectName")); // Lấy SubjectName
+                    schedule.setBooked(rs.getBoolean("IsBooked"));
+                    schedules.add(schedule);
+                }
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        System.out.println("Lỗi khi lấy danh sách lịch dạy đang Pending!");
     }
+
+    result.put("schedules", schedules);
+    result.put("totalPages", totalPages);
+    return result;
+}
+
     public List<Map<String, Object>> getTutorSchedules(int tutorId, String search) {
     List<Map<String, Object>> schedules = new ArrayList<>();
     String sql = "SELECT s.*, u.FullName AS StudentName " +
