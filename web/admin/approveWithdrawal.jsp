@@ -1,17 +1,17 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%-- 
+    Document   : approveWithdrawal
+    Created on : Mar 27, 2025
+    Author     : [Your Name]
+--%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page import="entity.User"%>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%-- 
-      Document   : PaymentHistory
-      Created on : [Date], [Time]
-      Author     : [Your Name]
-    --%>
-
     <!-- META -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,7 +33,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
 
     <!-- PAGE TITLE -->
-    <title>G4 SmartTutor - Lịch Sử Thanh Toán</title>
+    <title>G4 SmartTutor - Phê Duyệt Yêu Cầu Rút Tiền</title>
 
     <!-- MOBILE SPECIFIC -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,28 +46,32 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/dashboard.css">
     <link class="skin" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/color/color-1.css">
 
-    <!-- CSS cho thông báo và giao diện -->
+    <!-- Custom styles for approveWithdrawal -->
     <style>
-        .alert {
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px solid transparent;
-            border-radius: 4px;
-        }
-        .alert-success {
-            color: #3c763d;
-            background-color: #dff0d8;
-            border-color: #d6e9c6;
-        }
-        .alert-danger {
-            color: #a94442;
-            background-color: #f2dede;
-            border-color: #ebccd1;
-        }
-        .pagination {
-            justify-content: center;
-            margin-top: 20px;
-        }
+        .table-responsive { margin-bottom: 20px; }
+        .table-bordered th, .table-bordered td { border: 1px solid #dee2e6; }
+        .table-striped tbody tr:nth-of-type(odd) { background-color: rgba(0,0,0,.05); }
+        .action-buttons form { display: inline; }
+        .action-buttons input[type="submit"] { margin-right: 5px; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; }
+        .action-buttons input[value="Phê Duyệt"] { background-color: #28a745; color: white; }
+        .action-buttons input[value="Phê Duyệt"]:hover { background-color: #218838; }
+        .action-buttons input[value="Từ Chối"] { background-color: #dc3545; color: white; }
+        .action-buttons input[value="Từ Chối"]:hover { background-color: #c82333; }
+        .filter-form { margin-bottom: 20px; background-color: #f9f9f9; padding: 20px; border-radius: 5px; }
+        .filter-form select, .filter-form input { margin-right: 10px; margin-bottom: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+        .filter-form label { margin-right: 5px; font-weight: 500; }
+        .filter-form input[type="submit"] { background-color: #007bff; color: white; border: none; padding: 8px 16px; cursor: pointer; border-radius: 4px; }
+        .filter-form input[type="submit"]:hover { background-color: #0056b3; }
+        .pagination { margin-top: 20px; text-align: center; }
+        .pagination a { margin: 0 5px; padding: 8px 12px; text-decoration: none; border: 1px solid #ddd; border-radius: 4px; }
+        .pagination a.current { background-color: #dc3545; color: white; border-color: #dc3545; }
+        .pagination a:hover { background-color: #f1f1f1; }
+        .alert { padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; }
+        .alert-success { color: #155724; background-color: #d4edda; border-color: #c3e6cb; }
+        .alert-danger { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; }
+        .alert-info { color: #0c5460; background-color: #d1ecf1; border-color: #bee5eb; }
+        .back-link { display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 4px; }
+        .back-link:hover { background-color: #5a6268; }
         /* CSS từ index.jsp để đảm bảo giao diện đồng bộ */
         .row {
             display: flex;
@@ -75,15 +79,17 @@
             margin-right: -15px;
             margin-left: -15px;
         }
-        .col-lg-12 {
-            flex: 0 0 100%;
-            max-width: 100%;
+        .col-lg-4 {
+            flex: 0 0 33.333333%;
+            max-width: 33.333333%;
             padding-right: 15px;
             padding-left: 15px;
             box-sizing: border-box;
         }
-        .m-b30 {
-            margin-bottom: 30px;
+        .col-md-6, .col-lg-3, .col-xl-3, .col-sm-6, .col-12 {
+            padding-right: 15px;
+            padding-left: 15px;
+            box-sizing: border-box;
         }
         .widget-box {
             background: #fff;
@@ -96,25 +102,14 @@
             padding: 15px;
             border-bottom: 1px solid #e5e5e5;
         }
-        .table-responsive {
-            overflow-x: auto;
+        .widget-inner {
+            padding: 15px;
         }
-        .table-bordered th, .table-bordered td {
-            border: 1px solid #dee2e6;
+        .m-b30 {
+            margin-bottom: 30px;
         }
-        .badge {
-            padding: 5px 10px;
-            border-radius: 4px;
-            color: white;
-        }
-        .bg-success {
-            background-color: #28a745;
-        }
-        .bg-danger {
-            background-color: #dc3545;
-        }
-        .bg-warning {
-            background-color: #ffc107;
+        .wc-stats, .counter, .wc-number {
+            font-size: 14px !important;
         }
     </style>
 </head>
@@ -273,8 +268,8 @@
                             <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                         </a>
                         <ul>
-                            <li><a href="approveWithdrawal" class="ttr-material-button"><span class="ttr-label">Request Withdrawl</span></a></li>
-                            <li><a href="PaymentHistory" class="ttr-material-button active"><span class="ttr-label">View History Payment</span></a></li>
+                            <li><a href="approveWithdrawal" class="ttr-material-button active"><span class="ttr-label">Request Withdrawl</span></a></li>
+                            <li><a href="PaymentHistory" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a></li>
                             <li><a href="systemRevenue" class="ttr-material-button"><span class="ttr-label">System revenue</span></a></li>
                         </ul>
                     </li>
@@ -307,94 +302,131 @@
         <div class="container-fluid">
             <!-- Breadcrumb -->
             <div class="db-breadcrumb">
-                <h4 class="breadcrumb-title">Lịch Sử Thanh Toán</h4>
+                <h4 class="breadcrumb-title">Phê Duyệt Yêu Cầu Rút Tiền</h4>
                 <ul class="db-breadcrumb-list">
                     <li><a href="${pageContext.request.contextPath}/admin/index"><i class="fa fa-home"></i>Home</a></li>
-                    <li>Payment</li>
-                    <li>Lịch Sử Thanh Toán</li>
+                    <li>Phê Duyệt Yêu Cầu Rút Tiền</li>
                 </ul>
             </div>
 
-            <!-- Nội dung chính -->
-            <div class="row">
-                <div class="col-lg-12 m-b30">
-                    <div class="widget-box">
-                        <div class="wc-title">
-                            <h4>Lịch Sử Thanh Toán (Admin)</h4>
+            <!-- Nội dung chính của approveWithdrawal.jsp -->
+            <div class="widget-box">
+                <div class="wc-title">
+                    <h4>Danh Sách Yêu Cầu Rút Tiền</h4>
+                </div>
+                <div class="widget-inner">
+                    <c:if test="${not empty message}">
+                        <div class="alert alert-success">${message}</div>
+                    </c:if>
+                    <c:if test="${not empty error}">
+                        <div class="alert alert-danger">${error}</div>
+                    </c:if>
+
+                    <form method="get" action="${pageContext.request.contextPath}/admin/approveWithdrawal" class="filter-form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="searchField">Tìm kiếm theo:</label>
+                                    <select name="searchField" id="searchField" class="form-control">
+                                        <option value="TutorName" ${searchField == 'TutorName' ? 'selected' : ''}>Tên Tutor</option>
+                                        <option value="WithdrawStatus" ${searchField == 'WithdrawStatus' ? 'selected' : ''}>Trạng Thái</option>
+                                        <option value="RequestDate" ${searchField == 'RequestDate' ? 'selected' : ''}>Ngày Gửi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="search">Giá trị tìm kiếm:</label>
+                                    <input type="text" name="search" value="${search}" class="form-control" 
+                                           placeholder="${searchField == 'RequestDate' ? 'VD: 15, 03/2025, 2025' : searchField == 'TutorName' ? 'VD: Nguyễn Văn A' : 'VD: Pending'}">
+                                    <input type="hidden" name="sortBy" value="${sortBy}">
+                                    <input type="hidden" name="sortOrder" value="${sortOrder}">
+                                    <input type="submit" value="Tìm kiếm">
+                                </div>
+                            </div>
                         </div>
+                    </form>
+
+                    <c:if test="${empty requests}">
+                        <div class="alert alert-info">Không có yêu cầu rút tiền nào.</div>
+                    </c:if>
+                    <c:if test="${not empty requests}">
                         <div class="table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>ID Giao Dịch</th>
-                                        <th>ID Booking</th>
-                                        <th>Học Viên</th>
-                                        <th>Email</th>
-                                        <th>Giá Tiền</th>
-                                        <th>ID Khuyến Mãi</th>
-                                        <th>Ngày Thanh Toán</th>
-                                        <th>Trạng Thái</th>
+                                        <th>ID Yêu Cầu</th>
+                                        <th>Tutor ID</th>
+                                        <th>Tên Tutor</th>
+                                        <th>Tháng</th>
+                                        <th>
+                                            <a href="${pageContext.request.contextPath}/admin/approveWithdrawal?sortBy=TotalEarningsAfterCommission&sortOrder=${sortBy == 'TotalEarningsAfterCommission' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}&searchField=${searchField}">
+                                                Tổng Thu Nhập (VND) ${sortBy == 'TotalEarningsAfterCommission' ? (sortOrder == 'asc' ? '↑' : '↓') : ''}
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="${pageContext.request.contextPath}/admin/approveWithdrawal?sortBy=WithdrawStatus&sortOrder=${sortBy == 'WithdrawStatus' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}&searchField=${searchField}">
+                                                Trạng Thái ${sortBy == 'WithdrawStatus' ? (sortOrder == 'asc' ? '↑' : '↓') : ''}
+                                            </a>
+                                        </th>
+                                        <th>Nội Dung</th>
+                                        <th>
+                                            <a href="${pageContext.request.contextPath}/admin/approveWithdrawal?sortBy=RequestDate&sortOrder=${sortBy == 'RequestDate' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}&searchField=${searchField}">
+                                                Ngày Gửi ${sortBy == 'RequestDate' ? (sortOrder == 'asc' ? '↑' : '↓') : ''}
+                                            </a>
+                                        </th>
+                                        <th>Admin ID</th>
+                                        <th>Hành Động</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="payment" items="${paymentHistory}">
+                                    <c:forEach var="request" items="${requests}">
                                         <tr>
-                                            <td>${payment.paymentID}</td>
-                                            <td>${payment.bookingID}</td>
-                                            <td>${payment.userName}</td>
-                                            <td>${payment.email}</td>
-                                            <td><fmt:formatNumber value="${payment.amount}" type="number" pattern="#,###" /> VNĐ</td>
-                                            <td>${payment.promotionID == 0 ? 'Không có' : payment.promotionID}</td>
-                                            <td><fmt:formatDate value="${payment.paymentDate}" pattern="dd/MM/yyyy HH:mm" /></td>
-                                            <td>
-                                                <c:choose>
-                                                    <c:when test="${payment.status == 'Completed'}">
-                                                        <span class="badge bg-success">Thành công</span>
-                                                    </c:when>
-                                                    <c:when test="${payment.status == 'Failed'}">
-                                                        <span class="badge bg-danger">Thất bại</span>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <span class="badge bg-warning">Đang xử lý</span>
-                                                    </c:otherwise>
-                                                </c:choose>
+                                            <td>${request.requestID}</td>
+                                            <td>${request.tutorID}</td>
+                                            <td>${request.tutorName}</td>
+                                            <td>${request.month}</td>
+                                            <td><fmt:formatNumber value="${request.totalEarningsAfterCommission}" type="number" groupingUsed="true" maxFractionDigits="0"/>đ</td>
+                                            <td>${request.withdrawStatus}</td>
+                                            <td>${request.content}</td>
+                                            <td><fmt:formatDate value="${request.requestDate}" pattern="dd/MM/yyyy HH:mm:ss"/></td>
+                                            <td>${request.adminID == 0 ? 'Chưa xử lý' : request.adminID}</td>
+                                            <td class="action-buttons">
+                                                <c:if test="${request.withdrawStatus == 'Pending'}">
+                                                    <form method="post" action="${pageContext.request.contextPath}/admin/approveWithdrawal">
+                                                        <input type="hidden" name="requestID" value="${request.requestID}">
+                                                        <input type="hidden" name="action" value="approve">
+                                                        <input type="submit" value="Phê Duyệt">
+                                                    </form>
+                                                    <form method="post" action="${pageContext.request.contextPath}/admin/approveWithdrawal">
+                                                        <input type="hidden" name="requestID" value="${request.requestID}">
+                                                        <input type="hidden" name="action" value="reject">
+                                                        <input type="submit" value="Từ Chối">
+                                                    </form>
+                                                </c:if>
+                                                <c:if test="${request.withdrawStatus != 'Pending'}">
+                                                    <span>Đã xử lý</span>
+                                                </c:if>
                                             </td>
                                         </tr>
                                     </c:forEach>
-                                    <c:if test="${empty paymentHistory}">
-                                        <tr>
-                                            <td colspan="8" class="text-center">Không có giao dịch nào.</td>
-                                        </tr>
-                                    </c:if>
                                 </tbody>
                             </table>
                         </div>
 
                         <!-- Phân trang -->
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination">
-                                <!-- Nút Previous -->
-                                <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
-                                    <a class="page-link" href="${pageContext.request.contextPath}/admin/PaymentHistory?page=${currentPage - 1}" aria-label="Previous">
-                                        <span aria-hidden="true">«</span>
-                                    </a>
-                                </li>
-
-                                <!-- Các số trang -->
+                        <div class="pagination">
+                            <c:if test="${totalPages > 1}">
                                 <c:forEach begin="1" end="${totalPages}" var="i">
-                                    <li class="page-item ${i == currentPage ? 'active' : ''}">
-                                        <a class="page-link" href="${pageContext.request.contextPath}/admin/PaymentHistory?page=${i}">${i}</a>
-                                    </li>
+                                    <a href="${pageContext.request.contextPath}/admin/approveWithdrawal?page=${i}&sortBy=${sortBy}&sortOrder=${sortOrder}&search=${search}&searchField=${searchField}"
+                                       class="${i == currentPage ? 'current' : ''}">${i}</a>
                                 </c:forEach>
+                            </c:if>
+                        </div>
+                    </c:if>
 
-                                <!-- Nút Next -->
-                                <li class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
-                                    <a class="page-link" href="${pageContext.request.contextPath}/admin/PaymentHistory?page=${currentPage + 1}" aria-label="Next">
-                                        <span aria-hidden="true">»</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                    <div class="mt-3">
+                        <a href="${pageContext.request.contextPath}/admin/index" class="back-link">Quay lại Dashboard</a>
                     </div>
                 </div>
             </div>
@@ -402,7 +434,7 @@
     </main>
     <div class="ttr-overlay"></div>
 
-    <!-- External JavaScripts -->
+    <!-- External JavaScripts từ approveWithdrawal.jsp (giữ nguyên) -->
     <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/vendors/bootstrap/js/popper.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/vendors/bootstrap/js/bootstrap.min.js"></script>
