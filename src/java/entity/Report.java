@@ -23,6 +23,17 @@ public class Report {
         this.status = status;
     }
 
+    public Report(int reportID, int bookID, int userID, String reason, String status, Date createdAt) {
+        this.reportID = reportID;
+        this.bookID = bookID;
+        this.userID = userID;
+        this.reason = reason;
+        this.status = status;
+        this.createdAt = createdAt;
+    }
+    
+    
+
     public int getReportID() {
         return reportID;
     }

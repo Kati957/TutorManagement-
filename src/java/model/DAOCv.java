@@ -67,6 +67,28 @@ public class DAOCv extends DBConnect {
         }
         return null;
     }
+        public Cv getCVbyUserId(int cvId) {
+        String sql = "SELECT CVID, UserID, Education, Experience, Certificates, Status, SubjectId, Desciption FROM CV WHERE UserID = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, cvId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Cv(
+                        rs.getInt("CVID"),
+                        rs.getInt("UserID"),
+                        rs.getString("Education"),
+                        rs.getString("Experience"),
+                        rs.getString("Certificates"),
+                        rs.getString("Status"),
+                        rs.getInt("SubjectId"),
+                        rs.getString("Desciption")
+                );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOCv.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     public boolean hasPendingOrApprovedCv(int userId) {
         String sql = "SELECT COUNT(*) FROM CV WHERE UserID = ? AND Status IN ('Pending', 'Approved')";
@@ -158,5 +180,21 @@ public class DAOCv extends DBConnect {
             Logger.getLogger(DAOCv.class.getName()).log(Level.SEVERE, "SQL Error for CVID: " + cvId, ex);
             return null;
         }
+    }
+    public int UpdateCV(int userID, String education, String experience, String certificates, String description)
+    {
+        int n=0;
+        String sql = "UPDATE [dbo].[CV] SET [Education] = ?, [Experience] = ?, [Certificates] = ?, [Desciption] = ? WHERE [UserID] = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, education);
+            pstmt.setString(2, experience);
+            pstmt.setString(3, certificates);
+            pstmt.setString(4, description);
+            pstmt.setInt(5, userID);
+            int rowsUpdated = pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOCv.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return n;
     }
 }
