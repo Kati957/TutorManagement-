@@ -248,9 +248,6 @@
                                     <a href="ViewBooking" class="ttr-material-button"><span class="ttr-label">Booking Manage</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a>
-                                </li>
-                                <li>
                                     <a href="AdminViewSchedule" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a>
                                 </li>
                                 <li>
@@ -348,7 +345,7 @@
                         <div class="widget-card widget-bg1">
                             <div class="wc-item">
                                 <h4 class="wc-title">
-                                    Total Profit
+                                    Total Payments
                                 </h4>
                                 <span class="wc-des">
                                     All Completed Payments

@@ -79,15 +79,14 @@
                     <!-- header left menu start -->
                     <ul class="ttr-header-navigation">
                         <li>
-                            <a href="../index" class="ttr-material-button ttr-submenu-toggle">HOME</a>
+                            <a href="index" class="ttr-material-button ttr-submenu-toggle">HOME</a>
                         </li>
                         <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i class="fa fa-angle-down"></i></a>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle">Language <i class="fa fa-angle-down"></i></a>
                             <div class="ttr-header-submenu">
                                 <ul>
-                                    <li><a href="../courses.jsp">Our Courses</a></li>
-                                    <li><a href="../event.jsp">New Event</a></li>
-                                    <li><a href="../membership.jsp">Membership</a></li>
+                                    <li><a href="#">Ti?ng Vi?t</a></li>
+                                    <li><a href="#">English</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -111,19 +110,6 @@
                     </ul>
                     <!-- header right menu end -->
                 </div>
-                <!--header search panel start -->
-                <div class="ttr-search-bar">
-                    <form class="ttr-search-form">
-                        <div class="ttr-search-input-wrapper">
-                            <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
-                            <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
-                        </div>
-                        <span class="ttr-search-close ttr-search-toggle">
-                            <i class="ti-close"></i>
-                        </span>
-                    </form>
-                </div>
-                <!--header search panel end -->
             </div>
         </header>
         <!-- header end -->

@@ -73,7 +73,7 @@
                                                 </a>
                                             </li>
                                             <li><a href="profile"><fmt:message key="my_profile"/></a></li>
-                                            <li><a href="list-view-calendar.html"><fmt:message key="activity"/></a></li>
+                                            <li><a href="StudentPaymentHistory"><fmt:message key="history_payment"/></a></li>
                                             <li><a href="cv"><fmt:message key="become_a_tutor"/></a></li>
                                             <li><a href="logout"><fmt:message key="logout"/></a></li>
                                         </ul>
@@ -90,26 +90,6 @@
                         <div class="menu-logo">
                             <a href="home"><img src="${pageContext.request.contextPath}/assets/images/logo-white.png" alt=""></a>
                         </div>
-                        <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                            <span></span><span></span><span></span>
-                        </button>
-                        <div class="secondary-menu">
-                            <div class="secondary-inner">
-                                <ul>
-                                    <li><a href="javascript:;" class="btn-link"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="javascript:;" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href="javascript:;" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
-                                    <li class="search-btn"><button id="quik-search-btn" type="button" class="btn-link"><i class="fa fa-search"></i></button></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="nav-search-bar">
-                            <form action="#">
-                                <input name="search" value="" type="text" class="form-control" placeholder="<fmt:message key='type_to_search'/>">
-                                <span><i class="ti-search"></i></span>
-                            </form>
-                            <span id="search-remove"><i class="ti-close"></i></span>
-                        </div>
                         <div class="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
                             <div class="menu-logo">
                                 <a href="home"><img src="${pageContext.request.contextPath}/assets/images/logo.png" alt=""></a>
@@ -118,16 +98,10 @@
                                 <li class="active"><a href="home"><fmt:message key="home"/></a></li>
                                 <li><a href="Tutor"><fmt:message key="our_tutor"/></a></li>
                                 <li><a href="ViewBlog"><fmt:message key="blog"/></a></li>
-                                <li><a href="StudentPaymentHistory"><fmt:message key="history_payment"/></a></li>
                                 <c:if test="${sessionScope.user != null && sessionScope.user.roleID == 3}">
                                     <li><a href="CreateSchedule"><fmt:message key="view_schedule"/></a></li>
                                 </c:if>
                             </ul>
-                            <div class="nav-social-link">
-                                <a href="javascript:;"><i class="fa fa-facebook"></i></a>
-                                <a href="javascript:;"><i class="fa fa-google-plus"></i></a>
-                                <a href="javascript:;"><i class="fa fa-linkedin"></i></a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -204,23 +178,11 @@
                             <div class="pt-logo mr-auto">
                                 <a href="home"><img src="${pageContext.request.contextPath}/assets/images/logo-white.png" alt=""/></a>
                             </div>
-                            <div class="pt-social-link">
-                                <ul class="list-inline m-a0">
-                                    <li><a href="#" class="btn-link"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#" class="btn-link"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
-                                    <li><a href="#" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pt-btn-join">
-                                <a href="#" class="btn"><fmt:message key="join_now"/></a>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </footer>
-        <button class="back-to-top fa fa-chevron-up"></button>
     </div>
 
     <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
