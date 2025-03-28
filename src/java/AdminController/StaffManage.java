@@ -15,11 +15,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
+import util.MD5Util; // Import MD5Util
 
-/**
- *
- * @author Heizxje
- */
 @WebServlet(name = "StaffManage", urlPatterns = {"/admin/StaffManage"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 50)
 public class StaffManage extends HttpServlet {
@@ -89,10 +86,13 @@ public class StaffManage extends HttpServlet {
                 avatarPath = "uploads/default_avatar.jpg";
             }
 
+            // Mã hóa mật khẩu bằng MD5
+            String hashedPassword = MD5Util.getMD5Hash(password);
+
             User user = new User(
                     userID != null && !userID.isEmpty() ? Integer.parseInt(userID) : 0,
                     4, email, fullName, phone, null, 1,
-                    Date.valueOf(dob), address, avatarPath, userName, password
+                    Date.valueOf(dob), address, avatarPath, userName, hashedPassword
             );
 
             int result;

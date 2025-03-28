@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import util.MD5Util; // Import MD5Util
 
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
@@ -71,7 +72,7 @@ public class LoginServlet extends HttpServlet {
                     request.setAttribute("error", "Tài khoản Google chưa được đăng ký trong hệ thống.");
                     request.getRequestDispatcher("register.jsp").forward(request, response);
                 } else if (user.getIsActive() == 0) {
-                    handleDeactivatedAccount(user, request, response); // Xử lý tài khoản bị deactivate
+                    handleDeactivatedAccount(user, request, response);
                 } else {
                     session.setAttribute("user", user);
                     session.setAttribute("userId", user.getUserID());
@@ -97,18 +98,15 @@ public class LoginServlet extends HttpServlet {
         if (submit == null) {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
-            String username = request.getParameter("username");
+            String loginInput = request.getParameter("loginInput"); // Thay username thành loginInput
             String password = request.getParameter("password");
 
-            // Mã hóa mật khẩu bằng MD5
-            String encryptedPassword = util.MD5Util.getMD5Hash(password);
-
-            User user = dao.Login(username, encryptedPassword);
+            User user = dao.Login(loginInput, password); // Gọi Login với loginInput và password thô
             if (user == null) {
-                request.setAttribute("error", "Tên đăng nhập hoặc mật khẩu không chính xác");
+                request.setAttribute("error", "Thông tin đăng nhập hoặc mật khẩu không chính xác");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             } else if (user.getIsActive() == 0) {
-                sendActivationReminder(user, request, response);
+                handleDeactivatedAccount(user, request, response); // Gọi handleDeactivatedAccount thay vì sendActivationReminder trực tiếp
             } else {
                 session.setAttribute("user", user);
                 session.setAttribute("userId", user.getUserID());
@@ -129,7 +127,7 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("error", "Tài khoản của bạn đã bị vô hiệu hóa. Liên hệ với quản lý để có thể kích hoạt lại tài khoản.");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else if (user.getRoleID() == 2 || user.getRoleID() == 3) { // Student hoặc Tutor
-            sendActivationReminder(user, request, response); // Gửi email với link kích hoạt
+            sendActivationReminder(user, request, response);
         } else {
             request.setAttribute("error", "Tài khoản của bạn đã bị vô hiệu hóa. Vui lòng liên hệ hỗ trợ.");
             request.getRequestDispatcher("login.jsp").forward(request, response);

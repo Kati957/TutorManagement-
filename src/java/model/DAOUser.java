@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Connection;
-import java.util.HashMap;
-import java.util.Map;
+import util.MD5Util; // Import MD5Util
 
 public class DAOUser extends DBConnect {
 
@@ -24,7 +23,7 @@ public class DAOUser extends DBConnect {
             throw new SQLException("Database connection is not initialized.");
         }
         String sql = "INSERT INTO Users (RoleID, Email, FullName, Phone, CreatedAt, IsActive, Dob, Address, Avatar, UserName, Password) "
-                + "VALUES (?, ?, ?, ?, GETDATE(), 0, ?, ?, ?, ?, ?)"; // IsActive = 0 khi mới đăng ký
+                + "VALUES (?, ?, ?, ?, GETDATE(), 0, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, user.getRoleID());
             stmt.setString(2, user.getEmail());
@@ -34,7 +33,7 @@ public class DAOUser extends DBConnect {
             stmt.setString(6, user.getAddress());
             stmt.setString(7, user.getAvatar());
             stmt.setString(8, user.getUserName());
-            stmt.setString(9, user.getPassword());
+            stmt.setString(9, MD5Util.getMD5Hash(user.getPassword())); // Mã hóa mật khẩu
 
             int rowsAffected = stmt.executeUpdate();
             Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "Rows affected: " + rowsAffected);
@@ -43,7 +42,7 @@ public class DAOUser extends DBConnect {
                 if (rs.next()) {
                     int userId = rs.getInt(1);
                     Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "Generated UserID: " + userId);
-                    return userId; // Trả về UserID vừa tạo
+                    return userId;
                 }
             }
             Logger.getLogger(DAOUser.class.getName()).log(Level.WARNING, "No generated keys returned");
@@ -84,14 +83,16 @@ public class DAOUser extends DBConnect {
         return newUsers;
     }
 
-    // Phương thức đăng nhập
-    public User Login(String username, String password) {
+// Phương thức đăng nhập (hỗ trợ cả email và username)
+    public User Login(String loginInput, String password) {
         User user = null;
-        String sql = "SELECT * FROM Users WHERE UserName = ? AND Password = ?";
+        String hashedPassword = MD5Util.getMD5Hash(password); // Mã hóa mật khẩu nhập vào
+        String sql = "SELECT * FROM Users WHERE (UserName = ? OR Email = ?) AND Password = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setString(1, username);
-            pre.setString(2, password);
+            pre.setString(1, loginInput); // Gán giá trị cho UserName
+            pre.setString(2, loginInput); // Gán giá trị cho Email
+            pre.setString(3, hashedPassword); // So sánh với mật khẩu đã mã hóa
             ResultSet rs = pre.executeQuery();
             if (rs.next()) {
                 user = new User(
@@ -161,11 +162,10 @@ public class DAOUser extends DBConnect {
             Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Database connection is null");
             return;
         }
-        String encryptedPassword = util.MD5Util.getMD5Hash(password);
-
+        String hashedPassword = MD5Util.getMD5Hash(password); // Mã hóa mật khẩu
         String sql = "UPDATE Users SET Password = ? WHERE Email = ?";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
-            st.setString(1, encryptedPassword);
+            st.setString(1, hashedPassword);
             st.setString(2, email);
             st.executeUpdate();
         } catch (SQLException e) {
@@ -197,9 +197,10 @@ public class DAOUser extends DBConnect {
             Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Database connection is null");
             return;
         }
+        String hashedPassword = MD5Util.getMD5Hash(password); // Mã hóa mật khẩu
         String sql = "UPDATE Users SET Password = ? WHERE Email = ?";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
-            st.setString(1, password);
+            st.setString(1, hashedPassword);
             st.setString(2, email);
             st.executeUpdate();
         } catch (SQLException e) {
@@ -230,14 +231,13 @@ public class DAOUser extends DBConnect {
             Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Database connection is null");
             return false;
         }
-        String encryptedOldPassword = util.MD5Util.getMD5Hash(oldPassword);
-        String encryptedNewPassword = util.MD5Util.getMD5Hash(newPassword);
-
+        String hashedOldPassword = MD5Util.getMD5Hash(oldPassword); // Mã hóa mật khẩu cũ
+        String hashedNewPassword = MD5Util.getMD5Hash(newPassword); // Mã hóa mật khẩu mới
         String sql = "UPDATE Users SET Password = ? WHERE UserName = ? AND Password = ?";
         try (PreparedStatement st = conn.prepareStatement(sql)) {
-            st.setString(1, encryptedNewPassword);
+            st.setString(1, hashedNewPassword);
             st.setString(2, username);
-            st.setString(3, encryptedOldPassword);
+            st.setString(3, hashedOldPassword);
             int rowsUpdated = st.executeUpdate();
             return rowsUpdated > 0;
         } catch (SQLException e) {
@@ -262,7 +262,7 @@ public class DAOUser extends DBConnect {
             ps.setString(6, user.getAddress());
             ps.setString(7, user.getAvatar());
             ps.setString(8, user.getUserName());
-            ps.setString(9, user.getPassword());
+            ps.setString(9, MD5Util.getMD5Hash(user.getPassword())); // Mã hóa mật khẩu
             ps.setInt(10, user.getUserID());
             int rowsUpdated = ps.executeUpdate();
             return rowsUpdated > 0;
@@ -362,14 +362,14 @@ public class DAOUser extends DBConnect {
             stmt.setInt(1, userId);
             int rowsAffected = stmt.executeUpdate();
             Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "User activated: " + userId);
-            return rowsAffected > 0; // Trả về true nếu cập nhật thành công
+            return rowsAffected > 0;
         } catch (SQLException ex) {
             Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error activating user", ex);
             throw ex;
         }
     }
 
-    // Phương thức vô hiệu hóa tài khoản (cập nhật IsActive = 0) - Mới thêm
+    // Phương thức vô hiệu hóa tài khoản (cập nhật IsActive = 0)
     public boolean deactivateUser(int userId) throws SQLException {
         if (conn == null) {
             throw new SQLException("Database connection is not initialized.");
@@ -379,7 +379,7 @@ public class DAOUser extends DBConnect {
             stmt.setInt(1, userId);
             int rowsAffected = stmt.executeUpdate();
             Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "User deactivated: " + userId);
-            return rowsAffected > 0; // Trả về true nếu cập nhật thành công
+            return rowsAffected > 0;
         } catch (SQLException ex) {
             Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error deactivating user", ex);
             throw ex;
@@ -564,7 +564,7 @@ public class DAOUser extends DBConnect {
         return totalUsers;
     }
 
-    // Phương thức cập nhật trạng thái người dùng - Đã sửa
+    // Phương thức cập nhật trạng thái người dùng
     public boolean updateUserStatus(int userId, int status) {
         if (conn == null) {
             Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Database connection is null");
@@ -576,7 +576,7 @@ public class DAOUser extends DBConnect {
             ps.setInt(2, userId);
             int rowsAffected = ps.executeUpdate();
             Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "User status updated: ID=" + userId + ", Status=" + status);
-            return rowsAffected > 0; // Trả về true nếu cập nhật thành công
+            return rowsAffected > 0;
         } catch (SQLException e) {
             Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error updating user status", e);
             return false;
