@@ -37,11 +37,17 @@ public class ReportManager extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             DAOReport dao= new DAOReport();
             List<Report> reports= dao.getAllReports();
+            int reportId=0;
             String reportID= request.getParameter("reportId");
+            String status= request.getParameter("status");
             request.setAttribute("reports", reports);   
             if(reportID!=null){
-                int reportId= Integer.parseInt(reportID);
+                reportId= Integer.parseInt(reportID);
             }
+            if(status != null && reportId!=0){
+                dao.updateStatus(reportId, status);
+            }
+            
             request.getRequestDispatcher("/admin/ViewReport.jsp"). forward(request, response);
         }
     } 
