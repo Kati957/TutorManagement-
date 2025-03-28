@@ -90,9 +90,9 @@ public class DAOUser extends DBConnect {
         String sql = "SELECT * FROM Users WHERE (UserName = ? OR Email = ?) AND Password = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setString(1, loginInput); // Gán giá trị cho UserName
-            pre.setString(2, loginInput); // Gán giá trị cho Email
-            pre.setString(3, hashedPassword); // So sánh với mật khẩu đã mã hóa
+            pre.setString(1, loginInput);
+            pre.setString(2, loginInput);
+            pre.setString(3, hashedPassword);
             ResultSet rs = pre.executeQuery();
             if (rs.next()) {
                 user = new User(
@@ -109,6 +109,9 @@ public class DAOUser extends DBConnect {
                         rs.getString("UserName"),
                         rs.getString("Password")
                 );
+                Logger.getLogger(DAOUser.class.getName()).log(Level.INFO, "Login successful for: " + loginInput);
+            } else {
+                Logger.getLogger(DAOUser.class.getName()).log(Level.WARNING, "No user found for: " + loginInput + ", hashedPassword: " + hashedPassword);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOUser.class.getName()).log(Level.SEVERE, "Error logging in user", ex);

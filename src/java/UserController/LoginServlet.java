@@ -98,16 +98,21 @@ public class LoginServlet extends HttpServlet {
         if (submit == null) {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
-            String loginInput = request.getParameter("loginInput"); // Thay username thành loginInput
+            String loginInput = request.getParameter("loginInput");
             String password = request.getParameter("password");
 
-            User user = dao.Login(loginInput, password); // Gọi Login với loginInput và password thô
+            System.out.println("Login attempt: loginInput=" + loginInput + ", password=" + password); // Debug
+
+            User user = dao.Login(loginInput, password); // Truyền mật khẩu thô, DAO sẽ mã hóa
             if (user == null) {
+                System.out.println("Login failed: No user found or incorrect credentials");
                 request.setAttribute("error", "Thông tin đăng nhập hoặc mật khẩu không chính xác");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             } else if (user.getIsActive() == 0) {
-                handleDeactivatedAccount(user, request, response); // Gọi handleDeactivatedAccount thay vì sendActivationReminder trực tiếp
+                System.out.println("Login failed: User is deactivated, UserID=" + user.getUserID());
+                handleDeactivatedAccount(user, request, response);
             } else {
+                System.out.println("Login successful: UserID=" + user.getUserID() + ", RoleID=" + user.getRoleID());
                 session.setAttribute("user", user);
                 session.setAttribute("userId", user.getUserID());
                 try {
@@ -123,10 +128,10 @@ public class LoginServlet extends HttpServlet {
     // Phương thức xử lý tài khoản bị deactivate
     private void handleDeactivatedAccount(User user, HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (user.getRoleID() == 4) { // Staff
+        if (user.getRoleID() == 4) {
             request.setAttribute("error", "Tài khoản của bạn đã bị vô hiệu hóa. Liên hệ với quản lý để có thể kích hoạt lại tài khoản.");
             request.getRequestDispatcher("login.jsp").forward(request, response);
-        } else if (user.getRoleID() == 2 || user.getRoleID() == 3) { // Student hoặc Tutor
+        } else if (user.getRoleID() == 2 || user.getRoleID() == 3) {
             sendActivationReminder(user, request, response);
         } else {
             request.setAttribute("error", "Tài khoản của bạn đã bị vô hiệu hóa. Vui lòng liên hệ hỗ trợ.");
@@ -171,16 +176,16 @@ public class LoginServlet extends HttpServlet {
         String contextPath = request.getContextPath();
 
         switch (roleId) {
-            case 1: // Admin
+            case 1:
                 response.sendRedirect(contextPath + "/admin/index");
                 break;
-            case 2: // User (Student)
+            case 2:
                 response.sendRedirect(contextPath + "/home");
                 break;
-            case 3: // Tutor
+            case 3:
                 response.sendRedirect(contextPath + "/tutor/indextutor.jsp");
                 break;
-            case 4: // Staff
+            case 4:
                 response.sendRedirect(contextPath + "/staff/dashboard");
                 break;
             default:
