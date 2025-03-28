@@ -9,11 +9,52 @@ public class ScheduleTemp {
     private LocalDateTime endTime;
     private boolean isBooked;
     private int subjectID;
-
+    private String tutorName;
+    private String subjectName;
     // Getters and Setters
     public int getScheduleID() {
         return scheduleID;
     }
+
+    public ScheduleTemp() {
+    }
+    
+
+    public ScheduleTemp(int scheduleID, int tutorID, LocalDateTime startTime, LocalDateTime endTime, boolean isBooked, int subjectID, String tutorName, String subjectName) {
+        this.scheduleID = scheduleID;
+        this.tutorID = tutorID;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.isBooked = isBooked;
+        this.subjectID = subjectID;
+        this.tutorName = tutorName;
+        this.subjectName = subjectName;
+    }
+
+    public boolean isIsBooked() {
+        return isBooked;
+    }
+
+    public void setIsBooked(boolean isBooked) {
+        this.isBooked = isBooked;
+    }
+
+    public String getTutorName() {
+        return tutorName;
+    }
+
+    public void setTutorName(String tutorName) {
+        this.tutorName = tutorName;
+    }
+
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
+    
 
     public void setScheduleID(int scheduleID) {
         this.scheduleID = scheduleID;

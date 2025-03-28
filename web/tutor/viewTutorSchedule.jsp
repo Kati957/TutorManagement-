@@ -81,7 +81,7 @@
                                                 </li>
                                                 <li><a href="tutorprofile"><fmt:message key="my_profile"/></a></li>
                                                 <li><a href="ViewTutorSchedule"><fmt:message key="view_schedule"/></a></li>
-                                                <li><a href="logout"><fmt:message key="logout"/></a></li>
+                                                <li><a href="/logout"><fmt:message key="logout"/></a></li>
                                             </ul>
                                         </div>
                                     </li>

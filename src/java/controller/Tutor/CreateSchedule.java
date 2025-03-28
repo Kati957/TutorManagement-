@@ -1,4 +1,3 @@
-
 package controller.Tutor;
 
 import entity.Schedule;
@@ -33,7 +32,7 @@ public class CreateSchedule extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
     }
 
     @Override
@@ -66,43 +65,48 @@ public class CreateSchedule extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Integer userId = (Integer) session.getAttribute("userId");
-        if (userId == null) {
-            response.sendRedirect("login.jsp");
-            return;
-        }
-        int subjectId = Integer.parseInt(request.getParameter("subject"));
-        String startTimeStr = request.getParameter("startTime");
-        if (subjectId <= 0 || startTimeStr == null || startTimeStr.isEmpty()) {
-            request.setAttribute("message", "Vui lòng nhập đầy đủ thông tin.");
+   protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    HttpSession session = request.getSession();
+    Integer userId = (Integer) session.getAttribute("userId");
+    if (userId == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+
+    int subjectId = Integer.parseInt(request.getParameter("subject"));
+    String startTimeStr = request.getParameter("startTime");
+    int slotCount = Integer.parseInt(request.getParameter("slotCount")); // Lấy số lượng slot
+
+    if (subjectId <= 0 || startTimeStr == null || startTimeStr.isEmpty() || slotCount <= 0) {
+        request.setAttribute("message", "Vui lòng nhập đầy đủ thông tin.");
+        doGet(request, response);
+        return;
+    }
+
+    try {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+        LocalDateTime startTimeLDT = LocalDateTime.parse(startTimeStr, formatter);
+        LocalDateTime now = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
+
+        if (startTimeLDT.isBefore(now)) {
+            request.setAttribute("message", "Không thể tạo lịch cho ngày trong quá khứ. Vui lòng chọn ngày hợp lệ.");
             doGet(request, response);
             return;
         }
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-LocalDateTime startTimeLDT = LocalDateTime.parse(startTimeStr, formatter);
-LocalDateTime endTimeLDT = startTimeLDT.plusMinutes(60);
 
-// Lấy ngày hiện tại, bỏ qua giờ phút giây
-LocalDateTime now = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
+        DAOTutor daoTutor = new DAOTutor();
+        DAOSchedule daoSchedule = new DAOSchedule();
+        int tutorId = daoTutor.getTutorIdByUserId(userId);
 
-// Kiểm tra nếu ngày bắt đầu nhỏ hơn hôm nay
-if (startTimeLDT.isBefore(now)) {
-    request.setAttribute("message", "Không thể tạo lịch cho ngày trong quá khứ. Vui lòng chọn ngày hợp lệ.");
-    doGet(request, response);
-    return;
-}
+        boolean isSuccess = true;
+        for (int i = 0; i < slotCount; i++) {
+            LocalDateTime slotStart = startTimeLDT.plusMinutes(60 * i);
+            LocalDateTime slotEnd = slotStart.plusMinutes(60);
 
             // Chuyển LocalDateTime thành java.util.Date
-            Date startTime = Date.from(startTimeLDT.atZone(ZoneId.systemDefault()).toInstant());
-            Date endTime = Date.from(endTimeLDT.atZone(ZoneId.systemDefault()).toInstant());
-
-            DAOTutor daoTutor = new DAOTutor();
-            DAOSchedule daoSchedule = new DAOSchedule();
-            int tutorId = daoTutor.getTutorIdByUserId(userId);
+            Date startTime = Date.from(slotStart.atZone(ZoneId.systemDefault()).toInstant());
+            Date endTime = Date.from(slotEnd.atZone(ZoneId.systemDefault()).toInstant());
 
             // Tạo đối tượng Schedule
             Schedule newSchedule = new Schedule();
@@ -111,18 +115,22 @@ if (startTimeLDT.isBefore(now)) {
             newSchedule.setEndTime(endTime);
             newSchedule.setIsBooked(false);
             newSchedule.setSubjectId(subjectId);
-            newSchedule.setStatus("pending");
+            newSchedule.setStatus("Pending");
 
-            boolean isSuccess = daoSchedule.insertSchedule(newSchedule);
-            request.setAttribute("message", isSuccess ? "Tạo lịch dạy thành công!" : "Tạo lịch dạy thất bại. Vui lòng thử lại.");
-        } catch (Exception ex) {
-            request.setAttribute("message", "Lỗi hệ thống: " + ex.getMessage());
-            Logger.getLogger(CreateSchedule.class.getName()).log(Level.SEVERE, null, ex);
+            // Chèn vào database
+            if (!daoSchedule.insertSchedule(newSchedule)) {
+                isSuccess = false;
+            }
         }
-        doGet(request, response);
+
+        request.setAttribute("message", isSuccess ? 
+            "Tạo " + slotCount + " lịch dạy thành công!" : "Có lỗi xảy ra khi tạo lịch. Vui lòng thử lại.");
+    } catch (Exception ex) {
+        request.setAttribute("message", "Lỗi hệ thống: " + ex.getMessage());
+        Logger.getLogger(CreateSchedule.class.getName()).log(Level.SEVERE, null, ex);
     }
-
-
+    doGet(request, response);
+}
 
     @Override
     public String getServletInfo() {

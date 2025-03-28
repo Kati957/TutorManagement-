@@ -12,7 +12,7 @@
     </head>
     <body>
         <div class="container">
-            <h2 class="mb-4">Add New Blog</h2>
+            <h2 class="mb-4">Tạo Blog mới</h2>
             <%-- Hiển thị thông báo lỗi nếu có --%>
             <%
                 String error = (String) session.getAttribute("error");
@@ -27,17 +27,17 @@
                 <input type="hidden" name="service" value="addBlog">
                 <!-- Trường tiêu đề -->
                 <div class="form-group">
-                    <label for="title">Title:</label>
+                    <label for="title">Tiêu đề:</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="Enter title" required>
                 </div>
                 <!-- Trường tóm tắt -->
                 <div class="form-group">
-                    <label for="summary">Summary:</label>
+                    <label for="summary">Tóm tắt: </label>
                     <textarea class="form-control" id="summary" name="summary" rows="3" placeholder="Enter summary" required></textarea>
                 </div>
                 <!-- Trường nội dung -->
                 <div class="form-group">
-                    <label for="content">Content:</label>
+                    <label for="content">Nội dung: </label>
                     <textarea class="form-control" id="content" name="content" rows="8" placeholder="Enter content" required></textarea>
                     <script>
                         CKEDITOR.replace('content', {
@@ -54,9 +54,9 @@
                     <input type="file" class="form-control" id="thumbnail" name="thumbnail" accept="image/*" required>
                 </div>
                 <!-- Nút submit -->
-                <button type="submit" name="submit" value="publish" class="btn btn-primary">Upload</button>
-                <a href="${pageContext.request.contextPath}/staff/BlogController" class="btn btn-secondary">Back</a>
-                <button type="button" class="btn btn-info" onclick="previewBlog()">Preview</button>
+                <button type="submit" name="submit" value="publish" class="btn btn-primary">Đăng</button>
+                <a href="${pageContext.request.contextPath}/staff/BlogController" class="btn btn-secondary">Trở lại</a>
+                <button type="button" class="btn btn-info" onclick="previewBlog()">Xem qua</button>
                 <!-- Modal Xem trước -->
                 <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
@@ -80,7 +80,7 @@
                                 <div id="previewContent"></div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                             </div>
                         </div>
                     </div>
