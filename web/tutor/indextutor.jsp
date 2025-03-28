@@ -119,7 +119,7 @@
                                 <ul class="nav navbar-nav">
                                     <li class="active"><a href="indextutor.jsp"><fmt:message key="home"/></a></li>
                                     <li><a href="CreateSchedule"><fmt:message key="my_schedule"/></a></li>
-                                    <li><a href="CreateSchedule"><fmt:message key="withdraw"/></a></li>
+                                    <li><a href="bookingHistory"><fmt:message key="withdraw"/></a></li>
                                 </ul>
                                 <div class="nav-social-link">
                                     <a href="javascript:;"><i class="fa fa-facebook"></i></a>
