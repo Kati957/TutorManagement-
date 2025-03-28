@@ -1,17 +1,17 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%-- 
+    Document   : systemRevenue
+    Created on : Mar 27, 2025
+    Author     : [Your Name]
+--%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page import="entity.User"%>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%-- 
-      Document   : PaymentHistory
-      Created on : [Date], [Time]
-      Author     : [Your Name]
-    --%>
-
     <!-- META -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,7 +33,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
 
     <!-- PAGE TITLE -->
-    <title>G4 SmartTutor - Lịch Sử Thanh Toán</title>
+    <title>G4 SmartTutor - Tổng Thu và Lợi Nhuận Hệ Thống</title>
 
     <!-- MOBILE SPECIFIC -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,7 +46,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/dashboard.css">
     <link class="skin" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/color/color-1.css">
 
-    <!-- CSS cho thông báo và giao diện -->
+    <!-- CSS tùy chỉnh từ index.jsp -->
     <style>
         .alert {
             padding: 15px;
@@ -64,26 +64,24 @@
             background-color: #f2dede;
             border-color: #ebccd1;
         }
-        .pagination {
-            justify-content: center;
-            margin-top: 20px;
-        }
-        /* CSS từ index.jsp để đảm bảo giao diện đồng bộ */
+        /* Điều chỉnh layout cho 3 cột */
         .row {
             display: flex;
             flex-wrap: wrap;
             margin-right: -15px;
             margin-left: -15px;
         }
-        .col-lg-12 {
-            flex: 0 0 100%;
-            max-width: 100%;
+        .col-lg-4 {
+            flex: 0 0 33.333333%;
+            max-width: 33.333333%;
             padding-right: 15px;
             padding-left: 15px;
             box-sizing: border-box;
         }
-        .m-b30 {
-            margin-bottom: 30px;
+        .col-md-6, .col-lg-3, .col-xl-3, .col-sm-6, .col-12 {
+            padding-right: 15px;
+            padding-left: 15px;
+            box-sizing: border-box;
         }
         .widget-box {
             background: #fff;
@@ -96,25 +94,15 @@
             padding: 15px;
             border-bottom: 1px solid #e5e5e5;
         }
-        .table-responsive {
-            overflow-x: auto;
+        .widget-inner {
+            padding: 15px;
         }
-        .table-bordered th, .table-bordered td {
-            border: 1px solid #dee2e6;
+        .m-b30 {
+            margin-bottom: 30px;
         }
-        .badge {
-            padding: 5px 10px;
-            border-radius: 4px;
-            color: white;
-        }
-        .bg-success {
-            background-color: #28a745;
-        }
-        .bg-danger {
-            background-color: #dc3545;
-        }
-        .bg-warning {
-            background-color: #ffc107;
+        /* Giảm kích thước font của các con số trong Card */
+        .wc-stats, .counter, .wc-number {
+            font-size: 14px !important; /* Giảm kích thước font, bạn có thể điều chỉnh giá trị này */
         }
     </style>
 </head>
@@ -273,9 +261,9 @@
                             <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                         </a>
                         <ul>
-                            <li><a href="approveWithdrawal" class="ttr-material-button"><span class="ttr-label">Request Withdrawl</span></a></li>
-                            <li><a href="PaymentHistory" class="ttr-material-button active"><span class="ttr-label">View History Payment</span></a></li>
-                            <li><a href="systemRevenue" class="ttr-material-button"><span class="ttr-label">System revenue</span></a></li>
+                            <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a></li>
+                            <li><a href="PaymentHistory" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a></li>
+                            <li><a href="systemRevenue" class="ttr-material-button active"><span class="ttr-label">System revenue</span></a></li>
                         </ul>
                     </li>
                     <li>
@@ -307,94 +295,115 @@
         <div class="container-fluid">
             <!-- Breadcrumb -->
             <div class="db-breadcrumb">
-                <h4 class="breadcrumb-title">Lịch Sử Thanh Toán</h4>
+                <h4 class="breadcrumb-title">Tổng Thu và Lợi Nhuận Hệ Thống</h4>
                 <ul class="db-breadcrumb-list">
                     <li><a href="${pageContext.request.contextPath}/admin/index"><i class="fa fa-home"></i>Home</a></li>
-                    <li>Payment</li>
-                    <li>Lịch Sử Thanh Toán</li>
+                    <li>Tổng Thu và Lợi Nhuận Hệ Thống</li>
                 </ul>
             </div>
 
-            <!-- Nội dung chính -->
-            <div class="row">
-                <div class="col-lg-12 m-b30">
-                    <div class="widget-box">
-                        <div class="wc-title">
-                            <h4>Lịch Sử Thanh Toán (Admin)</h4>
+            <!-- Nội dung chính của systemRevenue.jsp -->
+            <div class="widget-box">
+                <div class="wc-title">
+                    <h4>Tổng Toàn Bộ</h4>
+                </div>
+                <div class="widget-inner">
+                    <div class="summary">
+                        <div>
+                            <strong>Tổng thu từ học sinh:</strong> 
+                            <fmt:formatNumber value="${totalRevenue}" type="number" groupingUsed="true" maxFractionDigits="0"/> VNĐ
                         </div>
+                        <div>
+                            <strong>Tổng tiền trả cho gia sư:</strong> 
+                            <fmt:formatNumber value="${tutorPayments}" type="number" groupingUsed="true" maxFractionDigits="0"/> VNĐ
+                        </div>
+                        <div>
+                            <strong>Tổng tiền lãi:</strong> 
+                            <fmt:formatNumber value="${totalProfit}" type="number" groupingUsed="true" maxFractionDigits="0"/> VNĐ
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget-box">
+                <div class="wc-title">
+                    <h4>Chi Tiết Theo Tháng</h4>
+                </div>
+                <div class="widget-inner">
+                    <form method="get" action="${pageContext.request.contextPath}/admin/systemRevenue" class="filter-form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="searchField">Tìm kiếm theo:</label>
+                                    <select name="searchField" id="searchField" class="form-control">
+                                        <option value="Month" ${searchField == 'Month' ? 'selected' : ''}>Tháng/Năm</option>
+                                        <option value="TotalRevenue" ${searchField == 'TotalRevenue' ? 'selected' : ''}>Tổng Thu</option>
+                                        <option value="TutorPayments" ${searchField == 'TutorPayments' ? 'selected' : ''}>Tiền Trả Gia Sư</option>
+                                        <option value="Profit" ${searchField == 'Profit' ? 'selected' : ''}>Lợi Nhuận</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="search">Giá trị tìm kiếm:</label>
+                                    <input type="text" name="search" id="search" value="${search}" class="form-control" 
+                                           placeholder="${searchField == 'Month' ? 'Tháng (VD: 3), Năm (VD: 2024), hoặc yyyy-MM (VD: 2025-01, 2025/01)' : 'VD: 1000000'}">
+                                    <input type="submit" value="Tìm kiếm">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <c:if test="${not empty error}">
+                        <div class="alert alert-danger">${error}</div>
+                    </c:if>
+
+                    <c:if test="${empty monthlyDetails}">
+                        <div class="alert alert-info">Không có dữ liệu để hiển thị.</div>
+                    </c:if>
+                    <c:if test="${not empty monthlyDetails}">
                         <div class="table-responsive">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th>ID Giao Dịch</th>
-                                        <th>ID Booking</th>
-                                        <th>Học Viên</th>
-                                        <th>Email</th>
-                                        <th>Giá Tiền</th>
-                                        <th>ID Khuyến Mãi</th>
-                                        <th>Ngày Thanh Toán</th>
-                                        <th>Trạng Thái</th>
+                                        <th>
+                                            <a href="${pageContext.request.contextPath}/admin/systemRevenue?sortBy=Month&sortOrder=${sortBy == 'Month' && sortOrder == 'asc' ? 'desc' : 'asc'}&searchField=${searchField}&search=${search}">
+                                                Tháng ${sortBy == 'Month' ? (sortOrder == 'asc' ? '↑' : '↓') : ''}
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="${pageContext.request.contextPath}/admin/systemRevenue?sortBy=TotalRevenue&sortOrder=${sortBy == 'TotalRevenue' && sortOrder == 'asc' ? 'desc' : 'asc'}&searchField=${searchField}&search=${search}">
+                                                Tổng Thu ${sortBy == 'TotalRevenue' ? (sortOrder == 'asc' ? '↑' : '↓') : ''}
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="${pageContext.request.contextPath}/admin/systemRevenue?sortBy=TutorPayments&sortOrder=${sortBy == 'TutorPayments' && sortOrder == 'asc' ? 'desc' : 'asc'}&searchField=${searchField}&search=${search}">
+                                                Tiền Trả Gia Sư ${sortBy == 'TutorPayments' ? (sortOrder == 'asc' ? '↑' : '↓') : ''}
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <a href="${pageContext.request.contextPath}/admin/systemRevenue?sortBy=Profit&sortOrder=${sortBy == 'Profit' && sortOrder == 'asc' ? 'desc' : 'asc'}&searchField=${searchField}&search=${search}">
+                                                Lợi Nhuận ${sortBy == 'Profit' ? (sortOrder == 'asc' ? '↑' : '↓') : ''}
+                                            </a>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="payment" items="${paymentHistory}">
+                                    <c:forEach var="entry" items="${monthlyDetails}">
                                         <tr>
-                                            <td>${payment.paymentID}</td>
-                                            <td>${payment.bookingID}</td>
-                                            <td>${payment.userName}</td>
-                                            <td>${payment.email}</td>
-                                            <td><fmt:formatNumber value="${payment.amount}" type="number" pattern="#,###" /> VNĐ</td>
-                                            <td>${payment.promotionID == 0 ? 'Không có' : payment.promotionID}</td>
-                                            <td><fmt:formatDate value="${payment.paymentDate}" pattern="dd/MM/yyyy HH:mm" /></td>
-                                            <td>
-                                                <c:choose>
-                                                    <c:when test="${payment.status == 'Completed'}">
-                                                        <span class="badge bg-success">Thành công</span>
-                                                    </c:when>
-                                                    <c:when test="${payment.status == 'Failed'}">
-                                                        <span class="badge bg-danger">Thất bại</span>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <span class="badge bg-warning">Đang xử lý</span>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </td>
+                                            <td>${entry.key}</td>
+                                            <td><fmt:formatNumber value="${entry.value['TotalRevenue']}" type="number" groupingUsed="true" maxFractionDigits="0"/></td>
+                                            <td><fmt:formatNumber value="${entry.value['TutorPayments']}" type="number" groupingUsed="true" maxFractionDigits="0"/></td>
+                                            <td><fmt:formatNumber value="${entry.value['Profit']}" type="number" groupingUsed="true" maxFractionDigits="0"/></td>
                                         </tr>
                                     </c:forEach>
-                                    <c:if test="${empty paymentHistory}">
-                                        <tr>
-                                            <td colspan="8" class="text-center">Không có giao dịch nào.</td>
-                                        </tr>
-                                    </c:if>
                                 </tbody>
                             </table>
                         </div>
+                    </c:if>
 
-                        <!-- Phân trang -->
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination">
-                                <!-- Nút Previous -->
-                                <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
-                                    <a class="page-link" href="${pageContext.request.contextPath}/admin/PaymentHistory?page=${currentPage - 1}" aria-label="Previous">
-                                        <span aria-hidden="true">«</span>
-                                    </a>
-                                </li>
-
-                                <!-- Các số trang -->
-                                <c:forEach begin="1" end="${totalPages}" var="i">
-                                    <li class="page-item ${i == currentPage ? 'active' : ''}">
-                                        <a class="page-link" href="${pageContext.request.contextPath}/admin/PaymentHistory?page=${i}">${i}</a>
-                                    </li>
-                                </c:forEach>
-
-                                <!-- Nút Next -->
-                                <li class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
-                                    <a class="page-link" href="${pageContext.request.contextPath}/admin/PaymentHistory?page=${currentPage + 1}" aria-label="Next">
-                                        <span aria-hidden="true">»</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                    <div class="mt-3">
+                        <a href="${pageContext.request.contextPath}/admin/index" class="back-link">Quay lại Dashboard</a>
                     </div>
                 </div>
             </div>
@@ -402,7 +411,7 @@
     </main>
     <div class="ttr-overlay"></div>
 
-    <!-- External JavaScripts -->
+    <!-- External JavaScripts từ systemRevenue.jsp (giữ nguyên) -->
     <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/vendors/bootstrap/js/popper.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/vendors/bootstrap/js/bootstrap.min.js"></script>
