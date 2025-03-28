@@ -301,13 +301,6 @@
                                                         <p><strong>Date of Birth:</strong> ${user.dob != null ? user.dob : 'N/A'}</p>
                                                         <p><strong>Address:</strong> ${user.address != null ? user.address : 'N/A'}</p>
                                                         <p><strong>Username:</strong> ${user.userName}</p>
-                                                        <p>
-                                                            <strong>Password:</strong> 
-                                                            <span class="password-text" data-password="${user.password}">••••••••</span>
-                                                            <button class="password-toggle-btn" title="Toggle Password">
-                                                                <i class="fa fa-eye"></i>
-                                                            </button>
-                                                        </p>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -395,22 +388,8 @@
                                 });
                     }
                 });
-
-                // Xử lý ẩn/hiện Password trong modal
-                $('.password-toggle-btn').on('click', function () {
-                    const passwordSpan = $(this).siblings('.password-text');
-                    const realPassword = passwordSpan.data('password');
-                    const currentText = passwordSpan.text();
-
-                    if (currentText === '••••••••') {
-                        passwordSpan.text(realPassword);
-                        $(this).find('i').removeClass('fa-eye').addClass('fa-eye-slash');
-                    } else {
-                        passwordSpan.text('••••••••');
-                        $(this).find('i').removeClass('fa-eye-slash').addClass('fa-eye');
-                    }
-                });
-            });
+                );
+            };
         </script>
     </body>
 </html>

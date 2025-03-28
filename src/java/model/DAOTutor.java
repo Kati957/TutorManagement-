@@ -57,7 +57,7 @@ public class DAOTutor extends DBConnect {
     public List<Tutor> getTopTutors(int limit) {
         List<Tutor> tutors = new ArrayList<>();
         String sql
-                = "SELECT TOP (" + limit + ") t.TutorID, t.Rating, "
+                = "SELECT TOP (" + limit + ") t.TutorID, t.Rating,t.Price, "
                 + "c.CVID, c.Desciption, "
                 + "u.UserID, u.Email, u.FullName, u.Phone, u.Avatar "
                 + "FROM Tutor t "
@@ -84,7 +84,8 @@ public class DAOTutor extends DBConnect {
                 Tutor tutor = new Tutor();
                 tutor.setTutorID(rs.getInt("TutorID"));
                 tutor.setCVID(rs.getInt("CVID"));
-                tutor.setRating(rs.getInt("Rating"));
+                tutor.setRating(rs.getFloat("Rating"));
+                tutor.setPrice(rs.getFloat("Price"));
                 tutor.setCv(cv);
 
                 tutors.add(tutor);

@@ -1,81 +1,82 @@
-<%-- 
-    Document   : user-list
-    Created on : Mar 17, 2025
-    Author     : Heizxje
---%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page import="entity.User"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
+    <%@page import="entity.User,java.sql.ResultSet"%>
+    <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:10:19 GMT -->
     <head>
-        <!-- META -->
+
+        <!-- META ============================================= -->
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="keywords" content="" />
         <meta name="author" content="" />
         <meta name="robots" content="" />
+
+        <!-- DESCRIPTION -->
         <meta name="description" content="G4 SmartTutor : Smart tutor, effective learning." />
+
+        <!-- OG -->
         <meta property="og:title" content="G4 SmartTutor : Smart tutor, effective learning." />
         <meta property="og:description" content="G4 SmartTutor : Smart tutor, effective learning." />
         <meta property="og:image" content="" />
         <meta name="format-detection" content="telephone=no">
+
+        <!-- FAVICONS ICON ============================================= -->
         <link rel="icon" href="../error-404.jsp" type="image/x-icon" />
         <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
+
+        <!-- PAGE TITLE HERE ============================================= -->
         <title>G4 SmartTutor</title>
+
+        <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--[if lt IE 9]>
+        <script src="assets/js/html5shiv.min.js"></script>
+        <script src="assets/js/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- All PLUGINS CSS ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets/css/assets.css">
         <link rel="stylesheet" type="text/css" href="assets/vendors/calendar/fullcalendar.css">
+
+        <!-- TYPOGRAPHY ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets/css/typography.css">
+
+        <!-- SHORTCODES ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets/css/shortcodes/shortcodes.css">
+
+        <!-- STYLESHEETS ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
         <link rel="stylesheet" type="text/css" href="assets/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
-        <style>
-            .password-toggle-btn {
-                background: none;
-                border: none;
-                cursor: pointer;
-                padding: 0;
-                margin-left: 5px;
-                color: #007bff;
-            }
-            .password-toggle-btn:hover {
-                color: #0056b3;
-            }
-            .view-more-btn {
-                background: none;
-                border: none;
-                color: #28a745;
-                cursor: pointer;
-            }
-            .view-more-btn:hover {
-                color: #218838;
-            }
-        </style>
     </head>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
-        <%
-            User user = (User) session.getAttribute("user");
-        %>
-        <!-- Header -->
+        <!-- header start -->
         <header class="ttr-header">
             <div class="ttr-header-wrapper">
+                <!--sidebar menu toggler start -->
                 <div class="ttr-toggle-sidebar ttr-material-button">
                     <i class="ti-close ttr-open-icon"></i>
                     <i class="ti-menu ttr-close-icon"></i>
                 </div>
+                <!--sidebar menu toggler end -->
+                <!--logo start -->
                 <div class="ttr-logo-box">
                     <div>
                         <a href="index" class="ttr-logo">
-                            <img class="ttr-logo-mobile" alt="" src="assets/images/logo-mobile.png" width="30" height="30">
-                            <img class="ttr-logo-desktop" alt="" src="assets/images/logo-white.png" width="160" height="27">
+                            <img alt="" class="ttr-logo-mobile" src="assets/images/logo-mobile.png" width="30" height="30">
+                            <img alt="" class="ttr-logo-desktop" src="assets/images/logo-white.png" width="160" height="27">
                         </a>
                     </div>
                 </div>
+                <!--logo end -->
                 <div class="ttr-header-menu">
+                    <!-- header left menu start -->
                     <ul class="ttr-header-navigation">
-                        <li><a href="../index" class="ttr-material-button ttr-submenu-toggle">HOME</a></li>
+                        <li>
+                            <a href="../index" class="ttr-material-button ttr-submenu-toggle">HOME</a>
+                        </li>
                         <li>
                             <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i class="fa fa-angle-down"></i></a>
                             <div class="ttr-header-submenu">
@@ -87,41 +88,42 @@
                             </div>
                         </li>
                     </ul>
+                    <!-- header left menu end -->
                 </div>
                 <div class="ttr-header-right ttr-with-seperator">
+                    <!-- header right menu start -->
                     <ul class="ttr-header-navigation">
                         <li>
-                            <a href="profile" class="ttr-material-button ttr-submenu-toggle">
-                                <span class="ttr-user-avatar">
-                                    <img alt="" 
-                                         src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
-                                         width="32" height="32"
-                                         onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
-                                </span>
-                            </a>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
                             <div class="ttr-header-submenu">
                                 <ul>
                                     <li><a href="${pageContext.request.contextPath}/admin/adminprofile">My Profile</a></li>
                                     <li><a href="list-view-calendar.jsp">Activity</a></li>
                                     <li><a href="mailbox.jsp">Messages</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
+                                    <li><a href="../login.jsp">Logout</a></li>
                                 </ul>
                             </div>
                         </li>
                     </ul>
+                    <!-- header right menu end -->
                 </div>
+                <!--header search panel start -->
                 <div class="ttr-search-bar">
                     <form class="ttr-search-form">
                         <div class="ttr-search-input-wrapper">
                             <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
                             <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
                         </div>
-                        <span class="ttr-search-close ttr-search-toggle"><i class="ti-close"></i></span>
+                        <span class="ttr-search-close ttr-search-toggle">
+                            <i class="ti-close"></i>
+                        </span>
                     </form>
                 </div>
+                <!--header search panel end -->
             </div>
         </header>
-        <!-- Sidebar -->
+        <!-- header end -->
+        <!-- Left sidebar menu start -->
         <div class="ttr-sidebar">
             <div class="ttr-sidebar-wrapper content-scroll">
                 <!-- Side menu logo start -->
@@ -158,6 +160,9 @@
                                     <a href="RequestCV" class="ttr-material-button"><span class="ttr-label">Status CV</span></a>
                                 </li>
                                 <li>
+                                    <a href="ReportManager" class="ttr-material-button"><span class="ttr-label">Report Manager</span></a>
+                                </li>
+                                <li>
                                     <a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a>
                                 </li>
                                 <li>
@@ -188,6 +193,7 @@
                             </a>
                             <ul>
                                 <li><a href="${pageContext.request.contextPath}/admin/UserList" class="ttr-material-button"><span class="ttr-label">User List</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/UserRegister" class="ttr-material-button"><span class="ttr-label">Add New User</span></a></li>
                                 <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Profile</span></a></li>
                                 <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Tutor</span></a></li>
                             </ul>
@@ -225,100 +231,56 @@
                 </nav>
             </div>
         </div>
+        <!-- Left sidebar menu end -->
+
+        <!--Main container start -->
         <main class="ttr-wrapper">
-            <div class="container-fluid">
-                <div class="db-breadcrumb">
-                    <h4 class="breadcrumb-title">User List</h4>
-                </div>	
-                <div class="row">
-                    <div class="col-lg-12 m-b30">
-                        <div class="widget-box">
-                            <div class="wc-title">
-                                <h4>User List</h4>
-                            </div>
-                            <div class="widget-inner">
-                                <table class="table table-striped user-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Avatar</th>
-                                            <th>Full Name</th>
-                                            <th>Email</th>
-                                            <th>Created At</th>
-                                            <th>Actions</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach var="user" items="${userList}">
-                                            <tr>
-                                                <td>
-                                                    <c:choose>
-                                                        <c:when test="${not empty user.avatar}">
-                                                            <img src="${pageContext.request.contextPath}/${user.avatar}" alt="Avatar" width="50" class="img-thumbnail">
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <img src="${pageContext.request.contextPath}/uploads/default_avatar.jpg" alt="Default Avatar" width="50" class="img-thumbnail">
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </td>
-                                                <td>${user.fullName}</td>
-                                                <td>${user.email}</td>
-                                                <td>${user.createAt}</td>
-                                                <td>
-                                                    <a href="${pageContext.request.contextPath}/admin/UserManage?edit=${user.userID}" class="btn btn-primary btn-sm">Edit</a>
-                                                    <c:choose>
-                                                        <c:when test="${user.isActive == 1}">
-                                                            <button class="btn btn-danger btn-sm deactivateUserBtn" data-id="${user.userID}">Deactivate</button>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <button class="btn btn-success btn-sm activateUserBtn" data-id="${user.userID}">Activate</button>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </td>
-                                                <td>
-                                                    <button class="view-more-btn" data-toggle="modal" data-target="#userModal-${user.userID}">
-                                                        <i class="fa fa-info-circle"></i> View More
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        <div class="modal fade" id="userModal-${user.userID}" tabindex="-1" role="dialog" aria-labelledby="userModalLabel-${user.userID}" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="userModalLabel-${user.userID}">User Details: ${user.fullName}</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">×</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p><strong>Email:</strong> ${user.email}</p>
-                                                        <p><strong>Full Name:</strong> ${user.fullName}</p>
-                                                        <p><strong>Phone:</strong> ${user.phone != null ? user.phone : 'N/A'}</p>
-                                                        <p><strong>Created At:</strong> ${user.createAt}</p>
-                                                        <p><strong>Status:</strong> ${user.isActive == 1 ? 'Active' : 'Inactive'}</p>
-                                                        <p><strong>Date of Birth:</strong> ${user.dob != null ? user.dob : 'N/A'}</p>
-                                                        <p><strong>Address:</strong> ${user.address != null ? user.address : 'N/A'}</p>
-                                                        <p><strong>Username:</strong> ${user.userName}</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </c:forEach>
-                                    <c:if test="${empty userList}">
-                                        <tr><td colspan="6">No users found.</td></tr>
-                                    </c:if>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+            <form action="ReportManager">
+                <div class="container-fluid">
+                    <div class="db-breadcrumb">
+                        <h4 class="breadcrumb-title">Courses</h4>
+                        <ul class="db-breadcrumb-list">
+                            <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
+                            <li>Courses</li>
+                        </ul>
+                    </div>	
+                    <div class="row">
+                        <table border=1  >
+                            <tr>
+                                <th>ReportID</th>
+                                <th>BookID</th>
+                                <th>UserID</th>
+                                <th>Reason</th>
+                                <th>Status</th>
+                                <th>CreatedAt</th>
+                            </tr>
+                            <c:forEach var="g" items="${reports}">
+                            <tr>
+                                <td>${g.getReportID()}</td>
+                                <td>${g.getBookID()}</td>
+                                <td>${g.getUserID()}</td>
+                                <td>${g.getReason()}</td>
+                                <td>
+                                    <a href="ReportManager?reportId=${g.getReportID()}&status=Approved"
+                                       style="background-color: green; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; display: inline-block;"
+                                       >Approve</a>
+
+                                    <a href="ReportManager?reportId=${g.getReportID()}&status=Rejected"
+                                       style="background-color: red; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; display: inline-block;"
+                                       >Reject</a>
+                                </td>
+                                <td>${g.getCreatedAt()}</td>
+                            </tr>
+                           </c:forEach>
+                        </table>
                     </div>
+                    <h1>${error}</h1>
                 </div>
-            </div>
+            </form>
         </main>
         <div class="ttr-overlay"></div>
+
+        <!-- External JavaScripts -->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
         <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
@@ -331,61 +293,12 @@
         <script src="assets/vendors/masonry/masonry.js"></script>
         <script src="assets/vendors/masonry/filter.js"></script>
         <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
-        <script src="assets/vendors/scroll/scrollbar.min.js"></script>
+        <script src='assets/vendors/scroll/scrollbar.min.js'></script>
         <script src="assets/js/functions.js"></script>
         <script src="assets/vendors/chart/chart.min.js"></script>
         <script src="assets/js/admin.js"></script>
-        <script src="assets/vendors/calendar/moment.min.js"></script>
-        <script src="assets/vendors/calendar/fullcalendar.js"></script>
-        <script src="assets/vendors/switcher/switcher.js"></script>
-        <script>
-            $(document).ready(function () {
-            // Xử lý nút Deactivate
-            $('.deactivateUserBtn').on('click', function () {
-            if (confirm('Are you sure you want to deactivate this user?')) {
-            const userId = $(this).data('id');
-                    console.log('Deactivating user with ID: ' + userId);
-                    $.post('${pageContext.request.contextPath}/admin/UserList',
-                    {action: 'deactivate', userId: userId},
-                            function (response) {
-                            console.log('Deactivate response: ' + JSON.stringify(response));
-                                    if (response.success) {
-                            alert(response.message);
-                                    location.reload();
-                            } else {
-                            alert(response.message);
-                            }
-                            }, 'json')
-                    .fail(function (xhr, status, error) {
-                    console.error('Deactivate failed: ' + status + ', ' + error);
-                            alert('Error connecting to server. Please try again.');
-                    });
-            }
-            });
-                    // Xử lý nút Activate
-                    $('.activateUserBtn').on('click', function () {
-            if (confirm('Are you sure you want to activate this user?')) {
-            const userId = $(this).data('id');
-                    console.log('Activating user with ID: ' + userId);
-                    $.post('${pageContext.request.contextPath}/admin/UserList',
-                    {action: 'activate', userId: userId},
-                            function (response) {
-                            console.log('Activate response: ' + JSON.stringify(response));
-                                    if (response.success) {
-                            alert(response.message);
-                                    location.reload();
-                            } else {
-                            alert(response.message);
-                            }
-                            }, 'json')
-                    .fail(function (xhr, status, error) {
-                    console.error('Activate failed: ' + status + ', ' + error);
-                            alert('Error connecting to server. Please try again.');
-                    });
-            }
-            });
-                    );
-            };
-        </script>
+        <script src='assets/vendors/switcher/switcher.js'></script>
     </body>
+
+    <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:11:35 GMT -->
 </html>
