@@ -76,23 +76,28 @@ public class AdminSubjectController extends HttpServlet {
         // Lấy dữ liệu từ form
         String subjectName = request.getParameter("subjectName");
         String description = request.getParameter("description");
+        String status = request.getParameter("status"); // Lấy trạng thái từ form
 
-        Subject subject = new Subject(0, subjectName, description);
+        // Tạo đối tượng Subject với trạng thái
+        Subject subject = new Subject(0, subjectName, description, status);
 
         try {
             int newId = dao.addSubject(subject);
+            HttpSession session = request.getSession();
             if (newId > 0) {
-                // Thành công -> redirect về list
+                // Thành công -> redirect về list với thông báo thành công
+                session.setAttribute("message", "Thêm subject thành công");
                 response.sendRedirect(request.getContextPath() + "/admin/AdminSubjectController?service=listSubject");
             } else {
                 // Thất bại -> redirect với thông báo lỗi
-                HttpSession session = request.getSession();
-                session.setAttribute("error", "Add subject fail!");
+                session.setAttribute("error", "Thêm subject thất bại! Tên subject có thể đã tồn tại.");
                 response.sendRedirect(request.getContextPath() + "/admin/addSubject.jsp?error=AddFailed");
             }
         } catch (SQLException ex) {
             Logger.getLogger(AdminSubjectController.class.getName()).log(Level.SEVERE, "Database error", ex);
-            response.sendRedirect(request.getContextPath() + "/error-404.jsp");
+            HttpSession session = request.getSession();
+            session.setAttribute("error", "Lỗi cơ sở dữ liệu: " + ex.getMessage());
+            response.sendRedirect(request.getContextPath() + "/admin/addSubject.jsp");
         }
     }
 
@@ -111,6 +116,8 @@ public class AdminSubjectController extends HttpServlet {
             request.getRequestDispatcher("/admin/manageSubject.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(AdminSubjectController.class.getName()).log(Level.SEVERE, "Database error", ex);
+            HttpSession session = request.getSession();
+            session.setAttribute("error", "Lỗi cơ sở dữ liệu: " + ex.getMessage());
             response.sendRedirect(request.getContextPath() + "/error-404.jsp");
         }
     }
@@ -119,7 +126,9 @@ public class AdminSubjectController extends HttpServlet {
             throws ServletException, IOException {
         String subjectIDStr = request.getParameter("subjectID");
         if (subjectIDStr == null || subjectIDStr.isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/error-404.jsp");
+            HttpSession session = request.getSession();
+            session.setAttribute("error", "Không tìm thấy ID subject!");
+            response.sendRedirect(request.getContextPath() + "/admin/AdminSubjectController?service=listSubject");
             return;
         }
 
@@ -127,14 +136,18 @@ public class AdminSubjectController extends HttpServlet {
         try {
             subjectID = Integer.parseInt(subjectIDStr);
         } catch (NumberFormatException e) {
-            response.sendRedirect(request.getContextPath() + "/error-404.jsp");
+            HttpSession session = request.getSession();
+            session.setAttribute("error", "ID subject không hợp lệ!");
+            response.sendRedirect(request.getContextPath() + "/admin/AdminSubjectController?service=listSubject");
             return;
         }
 
         try {
             Subject subject = dao.getSubjectById(subjectID);
             if (subject == null) {
-                response.sendRedirect(request.getContextPath() + "/error-404.jsp");
+                HttpSession session = request.getSession();
+                session.setAttribute("error", "Subject không tồn tại!");
+                response.sendRedirect(request.getContextPath() + "/admin/AdminSubjectController?service=listSubject");
                 return;
             }
 
@@ -149,25 +162,30 @@ public class AdminSubjectController extends HttpServlet {
             // Lấy dữ liệu từ form
             String subjectName = request.getParameter("subjectName");
             String description = request.getParameter("description");
+            String status = request.getParameter("status"); // Lấy trạng thái từ form
 
             subject.setSubjectName(subjectName);
             subject.setDescription(description);
+            subject.setStatus(status); // Cập nhật trạng thái
 
             int n = dao.updateSubject(subject);
+            HttpSession session = request.getSession();
 
             if (n > 0) {
                 // Update thành công
+                session.setAttribute("message", "Cập nhật subject thành công");
                 response.sendRedirect(request.getContextPath() + "/admin/AdminSubjectController?service=listSubject");
             } else {
                 // Lỗi → lưu vào session rồi redirect
-                HttpSession session = request.getSession();
-                session.setAttribute("error", "Update subject fail!");
-                response.sendRedirect(request.getContextPath() + "/admin/AdminSubjectController?service=listSubject");
+                session.setAttribute("error", "Cập nhật subject thất bại!");
+                response.sendRedirect(request.getContextPath() + "/admin/updateSubject.jsp?service=updateSubject&subjectID=" + subjectID);
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(AdminSubjectController.class.getName()).log(Level.SEVERE, "Database error", ex);
-            response.sendRedirect(request.getContextPath() + "/error-404.jsp");
+            HttpSession session = request.getSession();
+            session.setAttribute("error", "Lỗi cơ sở dữ liệu: " + ex.getMessage());
+            response.sendRedirect(request.getContextPath() + "/admin/AdminSubjectController?service=listSubject");
         }
     }
 
@@ -175,7 +193,9 @@ public class AdminSubjectController extends HttpServlet {
             throws ServletException, IOException {
         String subjectIDStr = request.getParameter("subjectID");
         if (subjectIDStr == null || subjectIDStr.isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/error-404.jsp");
+            HttpSession session = request.getSession();
+            session.setAttribute("error", "Không tìm thấy ID subject!");
+            response.sendRedirect(request.getContextPath() + "/admin/AdminSubjectController?service=listSubject");
             return;
         }
 
@@ -183,22 +203,47 @@ public class AdminSubjectController extends HttpServlet {
         try {
             subjectID = Integer.parseInt(subjectIDStr);
         } catch (NumberFormatException e) {
-            response.sendRedirect(request.getContextPath() + "/error-404.jsp");
+            HttpSession session = request.getSession();
+            session.setAttribute("error", "ID subject không hợp lệ!");
+            response.sendRedirect(request.getContextPath() + "/admin/AdminSubjectController?service=listSubject");
             return;
         }
 
         try {
-            int n = dao.deleteSubject(subjectID);
+            // Lấy subject theo ID
+            Subject subject = dao.getSubjectById(subjectID);
+            if (subject == null) {
+                HttpSession session = request.getSession();
+                session.setAttribute("error", "Subject không tồn tại!");
+                response.sendRedirect(request.getContextPath() + "/admin/AdminSubjectController?service=listSubject");
+                return;
+            }
+
+            // Kiểm tra trạng thái hiện tại của subject
+            if ("Inactive".equals(subject.getStatus())) {
+                HttpSession session = request.getSession();
+                session.setAttribute("error", "Subject đã ở trạng thái Inactive!");
+                response.sendRedirect(request.getContextPath() + "/admin/AdminSubjectController?service=listSubject");
+                return;
+            }
+
+            // Đổi trạng thái thành "Inactive" thay vì xóa
+            subject.setStatus("Inactive");
+            int n = dao.updateSubject(subject);
+            HttpSession session = request.getSession();
+
             if (n > 0) {
+                session.setAttribute("message", "Đã đổi trạng thái subject thành Inactive");
                 response.sendRedirect(request.getContextPath() + "/admin/AdminSubjectController?service=listSubject");
             } else {
-                HttpSession session = request.getSession();
-                session.setAttribute("error", "Delete subject fail!");
+                session.setAttribute("error", "Không thể đổi trạng thái subject!");
                 response.sendRedirect(request.getContextPath() + "/admin/AdminSubjectController?service=listSubject");
             }
         } catch (SQLException ex) {
             Logger.getLogger(AdminSubjectController.class.getName()).log(Level.SEVERE, "Database error", ex);
-            response.sendRedirect(request.getContextPath() + "/error-404.jsp");
+            HttpSession session = request.getSession();
+            session.setAttribute("error", "Lỗi cơ sở dữ liệu: " + ex.getMessage());
+            response.sendRedirect(request.getContextPath() + "/admin/AdminSubjectController?service=listSubject");
         }
     }
 

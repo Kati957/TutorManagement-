@@ -56,8 +56,18 @@ public class TutorBookingHistoryServlet extends HttpServlet {
         String totalOption = req.getParameter("totalOption");
         String sortBy = req.getParameter("sortBy");
         String sortOrder = req.getParameter("sortOrder");
-        int page = req.getParameter("page") != null ? Integer.parseInt(req.getParameter("page")) : 1;
+        int page;
+        try {
+            page = req.getParameter("page") != null ? Integer.parseInt(req.getParameter("page")) : 1;
+        } catch (NumberFormatException e) {
+            LOGGER.log(Level.WARNING, "Invalid page parameter: {0}", req.getParameter("page"));
+            page = 1; // Mặc định về trang 1 nếu page không hợp lệ
+        }
         int pageSize = 10;
+
+        // Log các tham số để debug
+        LOGGER.log(Level.INFO, "Parameters - page: {0}, month: {1}, search: {2}, searchField: {3}, totalOption: {4}, sortBy: {5}, sortOrder: {6}",
+                new Object[]{page, month, search, searchField, totalOption, sortBy, sortOrder});
 
         // Mặc định nếu không có searchField hoặc totalOption
         if (searchField == null || searchField.isEmpty()) {
@@ -65,6 +75,12 @@ public class TutorBookingHistoryServlet extends HttpServlet {
         }
         if (totalOption == null || totalOption.isEmpty()) {
             totalOption = "filtered";
+        }
+        if (sortBy == null || sortBy.isEmpty()) {
+            sortBy = "BookingID";
+        }
+        if (sortOrder == null || sortOrder.isEmpty()) {
+            sortOrder = "asc";
         }
 
         // Kiểm tra định dạng ngày nếu tìm kiếm theo ngày
@@ -79,12 +95,26 @@ public class TutorBookingHistoryServlet extends HttpServlet {
             }
         }
 
+        // Lấy tổng số bản ghi trước khi lấy danh sách earnings
+        int totalRecords = daoTutorEarning.getTotalRecords(tutorID, search, searchField, month);
+        int totalPages = (int) Math.ceil((double) totalRecords / pageSize);
+
+        // Điều chỉnh page nếu vượt quá totalPages
+        if (page > totalPages && totalPages > 0) {
+            page = totalPages; // Đặt lại page về trang cuối cùng
+        } else if (page < 1) {
+            page = 1; // Đặt lại page về trang đầu tiên
+        }
+
+        // Log thông tin phân trang
+        LOGGER.log(Level.INFO, "Total records: {0}, Total pages: {1}, Current page: {2}", 
+                new Object[]{totalRecords, totalPages, page});
+
         // Lấy danh sách thu nhập với lọc theo tháng và tìm kiếm
         List<TutorEarning> earnings = daoTutorEarning.getEarningsByTutorId(tutorID, search, searchField, month, sortBy, sortOrder, page, pageSize);
 
-        // Tính tổng số bản ghi
-        int totalRecords = daoTutorEarning.getTotalRecords(tutorID, search, searchField, month);
-        int totalPages = (int) Math.ceil((double) totalRecords / pageSize);
+        // Log số lượng earnings trả về
+        LOGGER.log(Level.INFO, "Number of earnings retrieved: {0}", earnings.size());
 
         // Tính tổng thu nhập theo tùy chọn
         double totalEarnings;
@@ -104,6 +134,7 @@ public class TutorBookingHistoryServlet extends HttpServlet {
         // Truyền dữ liệu vào JSP
         req.setAttribute("earnings", earnings);
         req.setAttribute("totalEarnings", totalEarnings);
+        req.setAttribute("totalRecords", totalRecords);
         req.setAttribute("totalPages", totalPages);
         req.setAttribute("currentPage", page);
         req.setAttribute("search", search);

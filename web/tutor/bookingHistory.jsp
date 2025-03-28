@@ -102,37 +102,12 @@
                         <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
                             <span></span><span></span><span></span>
                         </button>
-                        <div class="secondary-menu">
-                            <div class="secondary-inner">
-                                <ul>
-                                    <li><a href="javascript:;" class="btn-link"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="javascript:;" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href="javascript:;" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
-                                    <li class="search-btn"><button id="quik-search-btn" type="button" class="btn-link"><i class="fa fa-search"></i></button></li>
-                                </ul>
-                            </div>
-                        </div>
                         <div class="nav-search-bar">
                             <form action="#">
                                 <input name="search" value="" type="text" class="form-control" placeholder="<fmt:message key='type_to_search'/>">
                                 <span><i class="ti-search"></i></span>
                             </form>
                             <span id="search-remove"><i class="ti-close"></i></span>
-                        </div>
-                        <div class="menu-links navbar-collapse collapse justify-content-start" id="menuDropdown">
-                            <div class="menu-logo">
-                                <a href="indextutor.jsp"><img src="${pageContext.request.contextPath}/assets/images/logo.png" alt=""></a>
-                            </div>
-                            <ul class="nav navbar-nav">
-                                <li><a href="indextutor.jsp"><fmt:message key="home"/></a></li>
-                                <li><a href="CreateSchedule"><fmt:message key="my_schedule"/></a></li>
-                                <li class="active"><a href="bookingHistory"><fmt:message key="withdraw"/></a></li>
-                            </ul>
-                            <div class="nav-social-link">
-                                <a href="javascript:;"><i class="fa fa-facebook"></i></a>
-                                <a href="javascript:;"><i class="fa fa-google-plus"></i></a>
-                                <a href="javascript:;"><i class="fa fa-linkedin"></i></a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -204,6 +179,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <!-- Ẩn các tham số để giữ giá trị khi submit form -->
+                                                <input type="hidden" name="sortBy" value="${sortBy}">
+                                                <input type="hidden" name="sortOrder" value="${sortOrder}">
+                                                <input type="hidden" name="page" value="${currentPage}">
                                             </form>
 
                                             <c:if test="${not empty message}">
@@ -213,41 +192,39 @@
                                                 <div class="alert alert-danger">${error}</div>
                                             </c:if>
 
-                                            <c:if test="${empty earnings}">
-                                                <div class="alert alert-info">Không tìm thấy booking nào.</div>
-                                            </c:if>
+                                            <!-- Hiển thị bảng nếu có dữ liệu cho trang hiện tại -->
                                             <c:if test="${not empty earnings}">
                                                 <div class="table-responsive">
                                                     <table class="table table-bordered table-striped">
                                                         <thead>
                                                             <tr>
                                                                 <th>
-                                                                    <a href="${pageContext.request.contextPath}/tutor/bookingHistory?sortBy=BookingID&sortOrder=${sortBy == 'BookingID' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}&month=${selectedMonth}&searchField=${searchField}&totalOption=${totalOption}">
+                                                                    <a href="${pageContext.request.contextPath}/tutor/bookingHistory?sortBy=BookingID&sortOrder=${sortBy == 'BookingID' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}&month=${selectedMonth}&searchField=${searchField}&totalOption=${totalOption}&page=${currentPage}">
                                                                         Booking ID ${sortBy == 'BookingID' ? (sortOrder == 'asc' ? '↑' : '↓') : ''}
                                                                     </a>
                                                                 </th>
                                                                 <th>
-                                                                    <a href="${pageContext.request.contextPath}/tutor/bookingHistory?sortBy=BookingDate&sortOrder=${sortBy == 'BookingDate' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}&month=${selectedMonth}&searchField=${searchField}&totalOption=${totalOption}">
+                                                                    <a href="${pageContext.request.contextPath}/tutor/bookingHistory?sortBy=BookingDate&sortOrder=${sortBy == 'BookingDate' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}&month=${selectedMonth}&searchField=${searchField}&totalOption=${totalOption}&page=${currentPage}">
                                                                         Ngày ${sortBy == 'BookingDate' ? (sortOrder == 'asc' ? '↑' : '↓') : ''}
                                                                     </a>
                                                                 </th>
                                                                 <th>
-                                                                    <a href="${pageContext.request.contextPath}/tutor/bookingHistory?sortBy=HourlyRate&sortOrder=${sortBy == 'HourlyRate' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}&month=${selectedMonth}&searchField=${searchField}&totalOption=${totalOption}">
+                                                                    <a href="${pageContext.request.contextPath}/tutor/bookingHistory?sortBy=HourlyRate&sortOrder=${sortBy == 'HourlyRate' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}&month=${selectedMonth}&searchField=${searchField}&totalOption=${totalOption}&page=${currentPage}">
                                                                         Giá/Giờ ${sortBy == 'HourlyRate' ? (sortOrder == 'asc' ? '↑' : '↓') : ''}
                                                                     </a>
                                                                 </th>
                                                                 <th>
-                                                                    <a href="${pageContext.request.contextPath}/tutor/bookingHistory?sortBy=TotalEarnings&sortOrder=${sortBy == 'TotalEarnings' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}&month=${selectedMonth}&searchField=${searchField}&totalOption=${totalOption}">
+                                                                    <a href="${pageContext.request.contextPath}/tutor/bookingHistory?sortBy=TotalEarnings&sortOrder=${sortBy == 'TotalEarnings' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}&month=${selectedMonth}&searchField=${searchField}&totalOption=${totalOption}&page=${currentPage}">
                                                                         Tổng Thu Nhập ${sortBy == 'TotalEarnings' ? (sortOrder == 'asc' ? '↑' : '↓') : ''}
                                                                     </a>
                                                                 </th>
                                                                 <th>
-                                                                    <a href="${pageContext.request.contextPath}/tutor/bookingHistory?sortBy=SytemCommissionRate&sortOrder=${sortBy == 'SytemCommissionRate' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}&month=${selectedMonth}&searchField=${searchField}&totalOption=${totalOption}">
+                                                                    <a href="${pageContext.request.contextPath}/tutor/bookingHistory?sortBy=SytemCommissionRate&sortOrder=${sortBy == 'SytemCommissionRate' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}&month=${selectedMonth}&searchField=${searchField}&totalOption=${totalOption}&page=${currentPage}">
                                                                         Hệ thống ${sortBy == 'SytemCommissionRate' ? (sortOrder == 'asc' ? '↑' : '↓') : ''}
                                                                     </a>
                                                                 </th>
                                                                 <th>
-                                                                    <a href="${pageContext.request.contextPath}/tutor/bookingHistory?sortBy=EarningsAfterCommission&sortOrder=${sortBy == 'EarningsAfterCommission' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}&month=${selectedMonth}&searchField=${searchField}&totalOption=${totalOption}">
+                                                                    <a href="${pageContext.request.contextPath}/tutor/bookingHistory?sortBy=EarningsAfterCommission&sortOrder=${sortBy == 'EarningsAfterCommission' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}&month=${selectedMonth}&searchField=${searchField}&totalOption=${totalOption}&page=${currentPage}">
                                                                         Thu Nhập Sau Hoa Hồng ${sortBy == 'EarningsAfterCommission' ? (sortOrder == 'asc' ? '↑' : '↓') : ''}
                                                                     </a>
                                                                 </th>
@@ -267,14 +244,33 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
+                                            </c:if>
 
+                                            <!-- Hiển thị thông báo nếu không có dữ liệu cho trang hiện tại -->
+                                            <c:if test="${empty earnings}">
+                                                <div class="alert alert-info">Không tìm thấy booking nào cho trang này.</div>
+                                            </c:if>
+
+                                            <!-- Hiển thị thanh phân trang nếu có ít nhất 1 bản ghi -->
+                                            <c:if test="${totalRecords > 0}">
                                                 <div class="pagination justify-content-center">
+                                                    <c:if test="${currentPage > 1}">
+                                                        <a href="${pageContext.request.contextPath}/tutor/bookingHistory?page=${currentPage - 1}&search=${search}&sortBy=${sortBy}&sortOrder=${sortOrder}&month=${selectedMonth}&searchField=${searchField}&totalOption=${totalOption}" 
+                                                           class="btn btn-outline-primary">Previous</a>
+                                                    </c:if>
                                                     <c:forEach begin="1" end="${totalPages}" var="i">
                                                         <a href="${pageContext.request.contextPath}/tutor/bookingHistory?page=${i}&search=${search}&sortBy=${sortBy}&sortOrder=${sortOrder}&month=${selectedMonth}&searchField=${searchField}&totalOption=${totalOption}" 
                                                            class="btn ${i == currentPage ? 'btn-primary' : 'btn-outline-primary'}">${i}</a>
                                                     </c:forEach>
+                                                    <c:if test="${currentPage < totalPages}">
+                                                        <a href="${pageContext.request.contextPath}/tutor/bookingHistory?page=${currentPage + 1}&search=${search}&sortBy=${sortBy}&sortOrder=${sortOrder}&month=${selectedMonth}&searchField=${searchField}&totalOption=${totalOption}" 
+                                                           class="btn btn-outline-primary">Next</a>
+                                                    </c:if>
                                                 </div>
+                                            </c:if>
 
+                                            <!-- Hiển thị tổng thu nhập nếu có dữ liệu -->
+                                            <c:if test="${totalRecords > 0}">
                                                 <div class="alert alert-info mt-3">
                                                     Tổng Thu Nhập Sau Hoa Hồng: <strong><fmt:formatNumber value="${totalEarnings}" type="number" groupingUsed="true" maxFractionDigits="0"/>đ</strong>
                                                 </div>
@@ -301,14 +297,6 @@
                         <div class="d-flex align-items-stretch">
                             <div class="pt-logo mr-auto">
                                 <a href="indextutor.jsp"><img src="${pageContext.request.contextPath}/assets/images/logo-white.png" alt=""/></a>
-                            </div>
-                            <div class="pt-social-link">
-                                <ul class="list-inline m-a0">
-                                    <li><a href="#" class="btn-link"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#" class="btn-link"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
-                                    <li><a href="#" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
-                                </ul>
                             </div>
                             <div class="pt-btn-join">
                                 <a href="#" class="btn"><fmt:message key="join_now"/></a>
