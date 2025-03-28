@@ -245,7 +245,6 @@
                                         </ul>
                                     </div>
                                 </div>
-
                                 <!-- Sidebar bên phải -->
                                 <div class="col-lg-4 col-xl-4 col-md-5 sticky-top">
                                     <aside class="side-bar sticky-top">
@@ -281,7 +280,6 @@
                 </div>
             </div>
             <!-- Page content end -->
-
             <!-- Footer start -->
             <footer>
                 <div class="footer-top">
@@ -296,8 +294,6 @@
                     </div>
                 </div>
             </footer>
-            <!-- Footer end -->
-            <button class="back-to-top fa fa-chevron-up"></button>
         </div>
 
         <!-- External JavaScripts -->

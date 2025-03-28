@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.DAOTutorEarning;
 import entity.User;
-
 import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Level;
@@ -25,8 +24,8 @@ public class SystemRevenueServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
 
         if (user == null || user.getRoleID() != 1) {
-            LOGGER.log(Level.WARNING, "Unauthorized access attempt by user: {0}", 
-                      user != null ? user.getUserID() : "null");
+            LOGGER.log(Level.WARNING, "Unauthorized access attempt by user: {0}",
+                    user != null ? user.getUserID() : "null");
             resp.sendRedirect(req.getContextPath() + "/error-403.jsp");
             return;
         }

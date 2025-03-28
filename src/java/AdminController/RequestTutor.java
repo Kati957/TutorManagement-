@@ -69,10 +69,10 @@ public class RequestTutor extends HttpServlet {
                     error = "This CV used";
                 }
             }
-            rsCv = dao.getData("SELECT [CVID],[Fullname],[Education],[Status],[SubjectName],Subject.SubjectID FROM [dbo].[CV]\n"
+            rsCv = dao.getData("SELECT [CVID],[Fullname],[Education],CV.Status,[SubjectName],Subject.SubjectID FROM [dbo].[CV]\n"
                     + "join Subject on CV.SubjectId=Subject.SubjectID\n"
                     + "join Users on Users.UserID=CV.UserID\n"
-                    + "Where [Status]='Pending'");
+                    + "Where CV.Status='Pending'");
             request.setAttribute("error", error);
             request.setAttribute("rsCv", rsCv);
             request.getRequestDispatcher("/admin/statusCV.jsp").forward(request, response);

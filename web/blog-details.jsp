@@ -101,16 +101,6 @@
                             <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
                                 <span></span><span></span><span></span>
                             </button>
-                            <div class="secondary-menu">
-                                <div class="secondary-inner">
-                                    <ul>
-                                        <li><a href="javascript:;" class="btn-link"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="javascript:;" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
-                                        <li><a href="javascript:;" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
-                                        <li class="search-btn"><button id="quik-search-btn" type="button" class="btn-link"><i class="fa fa-search"></i></button></li>
-                                    </ul>
-                                </div>
-                            </div>
                             <div class="nav-search-bar">
                                 <form action="#">
                                     <input name="search" value="" type="text" class="form-control" placeholder="<fmt:message key='type_to_search'/>">
@@ -127,11 +117,6 @@
                                     <li><a href="Tutor"><fmt:message key="our_tutor"/></a></li>
                                     <li class="active"><a href="ViewBlog"><fmt:message key="blog"/></a></li>
                                 </ul>
-                                <div class="nav-social-link">
-                                    <a href="javascript:;"><i class="fa fa-facebook"></i></a>
-                                    <a href="javascript:;"><i class="fa fa-google-plus"></i></a>
-                                    <a href="javascript:;"><i class="fa fa-linkedin"></i></a>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -276,17 +261,6 @@
                                 <div class="d-flex align-items-stretch">
                                     <div class="pt-logo mr-auto">
                                         <a href="home"><img src="assets/images/logo-white.png" alt=""/></a>
-                                    </div>
-                                    <div class="pt-social-link">
-                                        <ul class="list-inline m-a0">
-                                            <li><a href="#" class="btn-link"><i class="fa fa-facebook"></i></a></li>
-                                            <li><a href="#" class="btn-link"><i class="fa fa-twitter"></i></a></li>
-                                            <li><a href="#" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
-                                            <li><a href="#" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="pt-btn-join">
-                                        <a href="#" class="btn"><fmt:message key="join_now"/></a>
                                     </div>
                                 </div>
                             </div>
