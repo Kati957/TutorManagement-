@@ -45,7 +45,7 @@ public class TutorProfileServlet extends HttpServlet {
         }
         DAOCv dao=new DAOCv();
         Cv cv= dao.getCVbyUserId(currentUser.getUserID());
-        session.setAttribute("cv", cv);
+        request.setAttribute("cv", cv);
         request.setAttribute("user", currentUser);
         request.getRequestDispatcher(TUTOR_PROFILE_PAGE).forward(request, response);
     }
@@ -165,7 +165,7 @@ public class TutorProfileServlet extends HttpServlet {
         DAOCv dao=new DAOCv();
         n=dao.UpdateCV(userId, Education, Experience, Certificates, Description);
         Cv cv= dao.getCVbyUserId(userId);
-        session.setAttribute("cv",cv);
+        request.setAttribute("cv",cv);
         response.sendRedirect(request.getContextPath() + "/tutor/tutorprofile");
     }
     

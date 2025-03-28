@@ -41,6 +41,20 @@
         <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
         <link rel="stylesheet" type="text/css" href="../assets/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="../assets/css/color/color-1.css">
+
+        <!-- Thêm style cho thông báo -->
+        <style>
+            .message {
+                color: green;
+                margin-bottom: 10px;
+                font-weight: bold;
+            }
+            .error {
+                color: red;
+                margin-bottom: 10px;
+                font-weight: bold;
+            }
+        </style>
     </head>
     <%
         User user = (User) session.getAttribute("user");
@@ -203,17 +217,23 @@
                                 <h4>Subject List</h4>
                                 <a href="${pageContext.request.contextPath}/admin/AdminSubjectController?service=addSubject" class="btn" style="margin-top: 6px;">Add Subject</a>
                             </div>
+                            <!-- Hiển thị thông báo -->
+                            <c:if test="${not empty sessionScope.message}">
+                                <div class="message">${sessionScope.message}</div>
+                                <c:remove var="message" scope="session" />
+                            </c:if>
+                            <c:if test="${not empty sessionScope.error}">
+                                <div class="error">${sessionScope.error}</div>
+                                <c:remove var="error" scope="session" />
+                            </c:if>
                             <div class="table-responsive">
                                 <table>
-                                    <c:if test="${not empty sessionScope.error}">
-                                        <div style="color: red;">${sessionScope.error}</div>
-                                        <c:remove var="error" scope="session" />
-                                    </c:if>
                                     <thead>
                                         <tr>
                                             <th>ID</th>
                                             <th>Subject Name</th>
                                             <th>Description</th>
+                                            <th>Status</th> <!-- Thêm cột Status -->
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -223,17 +243,20 @@
                                                 <td>${subject.subjectID}</td>
                                                 <td>${subject.subjectName}</td>
                                                 <td>${subject.description}</td>
+                                                <td>${subject.status}</td> <!-- Hiển thị trạng thái -->
                                                 <td class="action-links">
                                                     <a href="${pageContext.request.contextPath}/admin/AdminSubjectController?service=updateSubject&subjectID=${subject.subjectID}" class="btn">Update</a>
-                                                    <a href="${pageContext.request.contextPath}/admin/AdminSubjectController?service=deleteSubject&subjectID=${subject.subjectID}" 
-                                                       class="btn" onclick="return confirm('You want to delete?')">Delete</a>
+                                                    <c:if test="${subject.status == 'Active'}">
+                                                        <a href="${pageContext.request.contextPath}/admin/AdminSubjectController?service=deleteSubject&subjectID=${subject.subjectID}" 
+                                                           class="btn" onclick="return confirm('Bạn có muốn đổi trạng thái subject này thành Inactive?')">Deactivate</a>
+                                                    </c:if>
                                                 </td>
                                             </tr>
                                         </c:forEach>
                                     </tbody>
                                 </table>
-                                <c:if test="${not empty error}">
-                                    <p class="error">${error}</p>
+                                <c:if test="${empty subjectList}">
+                                    <p class="error">No subjects found.</p>
                                 </c:if>
                             </div>
                         </div>

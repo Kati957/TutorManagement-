@@ -70,7 +70,7 @@
                                         <div class="ttr-header-submenu">
                                             <ul>
                                                 <li>
-                                                    <a href="profile_user.jsp" class="ttr-material-button ttr-submenu-toggle">
+                                                    <a href="tutorprofile" class="ttr-material-button ttr-submenu-toggle">
                                                         <span class="ttr-user-avatar">
                                                             <img alt="" 
                                                                  src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
@@ -79,7 +79,8 @@
                                                         </span>
                                                     </a>
                                                 </li>
-                                                <li><a href="profile_user.jsp"><fmt:message key="my_profile"/></a></li>
+                                                <li><a href="tutorprofile"><fmt:message key="my_profile"/></a></li>
+                                                <li><a href="ViewTutorSchedule"><fmt:message key="view_schedule"/></a></li>
                                                 <li><a href="logout"><fmt:message key="logout"/></a></li>
                                             </ul>
                                         </div>
@@ -99,16 +100,6 @@
                             <button class="navbar-toggler collapsed menuicon justify-content-end" type="button" data-toggle="collapse" data-target="#menuDropdown" aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
                                 <span></span><span></span><span></span>
                             </button>
-                            <div class="secondary-menu">
-                                <div class="secondary-inner">
-                                    <ul>
-                                        <li><a href="javascript:;" class="btn-link"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="javascript:;" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
-                                        <li><a href="javascript:;" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
-                                        <li class="search-btn"><button id="quik-search-btn" type="button" class="btn-link"><i class="fa fa-search"></i></button></li>
-                                    </ul>
-                                </div>
-                            </div>
                             <div class="nav-search-bar">
                                 <form action="#">
                                     <input name="search" value="" type="text" class="form-control" placeholder="<fmt:message key='type_to_search'/>">
@@ -122,13 +113,9 @@
                                 </div>
                                 <ul class="nav navbar-nav">    
                                     <li class="active"><a href="indextutor.jsp"><fmt:message key="home"/></a></li>
-                                    <li><a href="StudentPaymentHistory"><fmt:message key="with_draw"/></a></li>
+                                    <li><a href="CreateSchedule"><fmt:message key="my_schedule"/></a></li>
+                                    <li><a href="bookingHistory"><fmt:message key="withdraw"/></a></li>
                                 </ul>
-                                <div class="nav-social-link">
-                                    <a href="javascript:;"><i class="fa fa-facebook"></i></a>
-                                    <a href="javascript:;"><i class="fa fa-google-plus"></i></a>
-                                    <a href="javascript:;"><i class="fa fa-linkedin"></i></a>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -163,14 +150,6 @@
                                 <div class="pt-logo mr-auto">
                                     <a href="indextutor.jsp.jsp"><img src="assets/images/logo-white.png" alt=""/></a>
                                 </div>
-                                <div class="pt-social-link">
-                                    <ul class="list-inline m-a0">
-                                        <li><a href="#" class="btn-link"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#" class="btn-link"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href="#" class="btn-link"><i class="fa fa-linkedin"></i></a></li>
-                                        <li><a href="#" class="btn-link"><i class="fa fa-google-plus"></i></a></li>
-                                    </ul>
-                                </div>
                                 <div class="pt-btn-join">
                                     <a href="#" class="btn"><fmt:message key="join_now"/></a>
                                 </div>
@@ -200,74 +179,74 @@
         <script src='admin/assets/vendors/calendar/moment.min.js'></script>
         <script src='admin/assets/vendors/calendar/fullcalendar.js'></script>
         <script src='admin/assets/vendors/switcher/switcher.js'></script>
-<script>
-    $(document).ready(function () {
-        var events = [];
-        const contextPath = "${pageContext.request.contextPath}";
-        console.log("Dữ liệu schedules:", "${schedules}");
-        <c:forEach var="schedule" items="${schedules}" varStatus="loop">
-            console.log("Schedule:", "${schedule.title}", "${schedule.start}", "${schedule.end}");
-            events.push({
-                title: "${schedule.title}",
-                start: "${schedule.start}",
-                end: "${schedule.end}",
-                bookingID: "${schedule.bookingID}"
-            });
-        </c:forEach>
-        console.log("Mảng events sau khi xử lý:", events);
+        <script>
+                                            $(document).ready(function () {
+                                                var events = [];
+                                                const contextPath = "${pageContext.request.contextPath}";
+                                                console.log("Dữ liệu schedules:", "${schedules}");
+            <c:forEach var="schedule" items="${schedules}" varStatus="loop">
+                                                console.log("Schedule:", "${schedule.title}", "${schedule.start}", "${schedule.end}");
+                                                events.push({
+                                                    title: "${schedule.title}",
+                                                    start: "${schedule.start}",
+                                                    end: "${schedule.end}",
+                                                    bookingID: "${schedule.bookingID}"
+                                                });
+            </c:forEach>
+                                                console.log("Mảng events sau khi xử lý:", events);
 
-        if (events.length === 0) {
-            $('#calendar').html('<p class="text-center text-danger"><fmt:message key="no_schedule"/></p>');
-        }
-        $('#calendar').fullCalendar({
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay,listWeek'
-            },
-            editable: true,
-            eventLimit: true,
-            events: events,
-            eventRender: function (event, element, view) {
-                // Debug: Kiểm tra giá trị
-                console.log("View name:", view.name, "Event:", event.title);
-                // Trích xuất trạng thái từ title
-                var titleParts = event.title.split(" - ");
-                var status = titleParts.length > 1 ? titleParts[titleParts.length - 1].trim().toLowerCase() : "";
-                console.log("Trích xuất status từ title:", status);
-                // Hiển thị nút "Confirm Completion" cho trạng thái không phải "completed" và không phải "pending" trong chế độ listWeek
-                if (view.name === "listWeek" && status !== "completed" && status !== "pending") {
-                    console.log("Điều kiện thỏa mãn, thêm nút Confirm Completion cho sự kiện:", event.title);
-                    var titleElement = element.find('.fc-list-item-title');
-                    if (titleElement.length > 0) {
-                        console.log("Tìm thấy .fc-list-item-title, thêm liên kết Confirm Completion...");
-                        titleElement.append(
-                            ' <a href="javascript:void(0)" onclick="if(confirm(\'Cần đảm bảo rằng học sinh đã thực sự tham gia và xác nhận sự có mặt trong buổi học.!\')){window.location.href=\'' + contextPath + '/tutor/ViewTutorSchedule?service=confirmCompletion&bookingId=' + event.bookingID + '\';}" class="btn btn-success btn-sm confirm-btn">Confirm Completion</a>'
-                        );
-                    } else {
-                        console.log("Không tìm thấy .fc-list-item-title cho sự kiện:", event.title);
-                    }
-                }
+                                                if (events.length === 0) {
+                                                    $('#calendar').html('<p class="text-center text-danger"><fmt:message key="no_schedule"/></p>');
+                                                }
+                                                $('#calendar').fullCalendar({
+                                                    header: {
+                                                        left: 'prev,next today',
+                                                        center: 'title',
+                                                        right: 'month,agendaWeek,agendaDay,listWeek'
+                                                    },
+                                                    editable: true,
+                                                    eventLimit: true,
+                                                    events: events,
+                                                    eventRender: function (event, element, view) {
+                                                        // Debug: Kiểm tra giá trị
+                                                        console.log("View name:", view.name, "Event:", event.title);
+                                                        // Trích xuất trạng thái từ title
+                                                        var titleParts = event.title.split(" - ");
+                                                        var status = titleParts.length > 1 ? titleParts[titleParts.length - 1].trim().toLowerCase() : "";
+                                                        console.log("Trích xuất status từ title:", status);
+                                                        // Hiển thị nút "Confirm Completion" cho trạng thái không phải "completed" và không phải "pending" trong chế độ listWeek
+                                                        if (view.name === "listWeek" && status !== "completed" && status !== "pending") {
+                                                            console.log("Điều kiện thỏa mãn, thêm nút Confirm Completion cho sự kiện:", event.title);
+                                                            var titleElement = element.find('.fc-list-item-title');
+                                                            if (titleElement.length > 0) {
+                                                                console.log("Tìm thấy .fc-list-item-title, thêm liên kết Confirm Completion...");
+                                                                titleElement.append(
+                                                                        ' <a href="javascript:void(0)" onclick="if(confirm(\'Cần đảm bảo rằng học sinh đã thực sự tham gia và xác nhận sự có mặt trong buổi học.!\')){window.location.href=\'' + contextPath + '/tutor/ViewTutorSchedule?service=confirmCompletion&bookingId=' + event.bookingID + '\';}" class="btn btn-success btn-sm confirm-btn">Confirm Completion</a>'
+                                                                        );
+                                                            } else {
+                                                                console.log("Không tìm thấy .fc-list-item-title cho sự kiện:", event.title);
+                                                            }
+                                                        }
+                                                    }
+                                                });
+                                            });
+        </script>
+        <style>
+            /* Đẩy các nút "Review" và "Confirm Completion" sát bên phải */
+            .fc-list-item-title {
+                position: relative;
+                padding-right: 120px; /* Tăng padding để có đủ không gian cho các nút */
             }
-        });
-    });
-</script>
-<style>
-    /* Đẩy các nút "Review" và "Confirm Completion" sát bên phải */
-    .fc-list-item-title {
-        position: relative;
-        padding-right: 120px; /* Tăng padding để có đủ không gian cho các nút */
-    }
-    .confirm-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        text-decoration: none; /* Bỏ gạch chân cho liên kết */
-    }
-    .confirm-btn {
-        right: 10px; /* Nút Confirm Completion ở cùng vị trí vì không hiển thị cùng lúc với Review */
-    }
-</style>
+            .confirm-btn {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                text-decoration: none; /* Bỏ gạch chân cho liên kết */
+            }
+            .confirm-btn {
+                right: 10px; /* Nút Confirm Completion ở cùng vị trí vì không hiển thị cùng lúc với Review */
+            }
+        </style>
 
     </body>
 </html>

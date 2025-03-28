@@ -76,22 +76,27 @@ public class SubjectController extends HttpServlet {
         // Lấy dữ liệu từ form
         String subjectName = request.getParameter("subjectName");
         String description = request.getParameter("description");
+        String status = request.getParameter("status");
 
-        Subject subject = new Subject(0, subjectName, description);
+        Subject subject = new Subject(0, subjectName, description, status);
 
         try {
             int newId = dao.addSubject(subject);
+            HttpSession session = request.getSession();
             if (newId > 0) {
-                // Thành công -> redirect về list
+                // Thành công -> redirect về list với thông báo thành công
+                session.setAttribute("message", "Thêm subject thành công");
                 response.sendRedirect(request.getContextPath() + "/staff/SubjectController?service=listSubject");
             } else {
                 // Thất bại -> redirect với thông báo lỗi
-                HttpSession session = request.getSession();
                 session.setAttribute("error", "Tạo mới subject thất bại, hãy để ý tên không được trùng với những subject khác");
                 response.sendRedirect(request.getContextPath() + "/staff/addSubject.jsp?error=AddFailed");
             }
         } catch (SQLException ex) {
             Logger.getLogger(SubjectController.class.getName()).log(Level.SEVERE, "Database error", ex);
+            HttpSession session = request.getSession();
+            session.setAttribute("error", "Lỗi cơ sở dữ liệu: " + ex.getMessage());
+            response.sendRedirect(request.getContextPath() + "/staff/addSubject.jsp");
         }
     }
 
@@ -110,6 +115,8 @@ public class SubjectController extends HttpServlet {
             request.getRequestDispatcher("/staff/manageSubject.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(SubjectController.class.getName()).log(Level.SEVERE, "Database error", ex);
+            HttpSession session = request.getSession();
+            session.setAttribute("error", "Lỗi cơ sở dữ liệu: " + ex.getMessage());
             response.sendRedirect("error-404.jsp");
         }
     }
@@ -133,7 +140,9 @@ public class SubjectController extends HttpServlet {
         try {
             Subject subject = dao.getSubjectById(subjectID);
             if (subject == null) {
-                response.sendRedirect("error-404.jsp");
+                HttpSession session = request.getSession();
+                session.setAttribute("error", "Subject không tồn tại");
+                response.sendRedirect(request.getContextPath() + "/staff/SubjectController?service=listSubject");
                 return;
             }
 
@@ -148,24 +157,31 @@ public class SubjectController extends HttpServlet {
             // Lấy dữ liệu từ form
             String subjectName = request.getParameter("subjectName");
             String description = request.getParameter("description");
+            String status = request.getParameter("status");
 
+            // Cập nhật các thuộc tính
             subject.setSubjectName(subjectName);
             subject.setDescription(description);
+            subject.setStatus(status);
 
             int n = dao.updateSubject(subject);
+            HttpSession session = request.getSession();
 
             if (n > 0) {
                 // Update thành công
+                session.setAttribute("message", "Cập nhật subject thành công");
                 response.sendRedirect(request.getContextPath() + "/staff/SubjectController?service=listSubject");
             } else {
                 // Lỗi → lưu vào session rồi redirect
-                HttpSession session = request.getSession();
                 session.setAttribute("error", "Cập nhật lỗi!");
                 response.sendRedirect(request.getContextPath() + "/staff/SubjectController?service=listSubject");
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(SubjectController.class.getName()).log(Level.SEVERE, "Database error", ex);
+            HttpSession session = request.getSession();
+            session.setAttribute("error", "Lỗi cơ sở dữ liệu: " + ex.getMessage());
+            response.sendRedirect(request.getContextPath() + "/staff/SubjectController?service=listSubject");
         }
     }
 
@@ -186,19 +202,31 @@ public class SubjectController extends HttpServlet {
         }
 
         try {
-            int n = dao.deleteSubject(subjectID);
-            if (n > 0) {
+            Subject subject = dao.getSubjectById(subjectID);
+            if (subject == null) {
                 HttpSession session = request.getSession();
-                session.setAttribute("error", "Xóa thành công");
+                session.setAttribute("error", "Subject không tồn tại");
                 response.sendRedirect(request.getContextPath() + "/staff/SubjectController?service=listSubject");
+                return;
+            }
 
+            // Đổi trạng thái thành "Inactive" thay vì xóa
+            subject.setStatus("Inactive");
+            int n = dao.updateSubject(subject);
+            HttpSession session = request.getSession();
+
+            if (n > 0) {
+                session.setAttribute("message", "Đã đổi trạng thái subject thành Inactive");
+                response.sendRedirect(request.getContextPath() + "/staff/SubjectController?service=listSubject");
             } else {
-                HttpSession session = request.getSession();
-                session.setAttribute("error", "Không thể xóa");
+                session.setAttribute("error", "Không thể đổi trạng thái subject");
                 response.sendRedirect(request.getContextPath() + "/staff/SubjectController?service=listSubject");
             }
         } catch (SQLException ex) {
             Logger.getLogger(SubjectController.class.getName()).log(Level.SEVERE, "Database error", ex);
+            HttpSession session = request.getSession();
+            session.setAttribute("error", "Lỗi cơ sở dữ liệu: " + ex.getMessage());
+            response.sendRedirect(request.getContextPath() + "/staff/SubjectController?service=listSubject");
         }
     }
 

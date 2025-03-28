@@ -1,7 +1,7 @@
 <%-- 
     Document   : updateSubject
-    Created on : Mar 9, 2025
-    Author     : minht
+    Created on : Mar 27, 2025
+    Author     : [Your Name]
 --%>
 
 <%@page import="entity.User"%>
@@ -30,8 +30,6 @@
         <!-- PAGE TITLE -->
         <title>G4 SmartTutor - Update Subject</title>
 
-
-
         <!-- MOBILE SPECIFIC -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -43,7 +41,6 @@
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
         <link rel="stylesheet" type="text/css" href="assets/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
-        <!-- Custom CSS -->
 
     </head>
     <%
@@ -62,7 +59,7 @@
                 <!--logo start -->
                 <div class="ttr-logo-box">
                     <div>
-                        <a href="${pageContext.request.contextPath}/staff/dashboard"class="ttr-logo">
+                        <a href="${pageContext.request.contextPath}/staff/dashboard" class="ttr-logo">
                             <img class="ttr-logo-mobile" alt="" src="assets/images/logo-mobile.png" width="30" height="30">
                             <img class="ttr-logo-desktop" alt="" src="assets/images/logo-white.png" width="160" height="27">
                         </a>
@@ -75,8 +72,6 @@
             <div class="ttr-header-right ttr-with-seperator">
                 <!-- header right menu start -->
                 <ul class="ttr-header-navigation">
-
-
                     <li>
                         <a href="dashboard" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar">
                                 <img alt="" 
@@ -88,130 +83,150 @@
                                         <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
                                     </ul>
                                 </div>
-                                </li>
-                                </ul>
-                                <!-- header right menu end -->
-                                </div>
-                                <!--header search panel start -->
-                                <div class="ttr-search-bar">
-                                    <form class="ttr-search-form">
-                                        <div class="ttr-search-input-wrapper">
-                                            <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
-                                            <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
-                                        </div>
-                                        <span class="ttr-search-close ttr-search-toggle">
-                                            <i class="ti-close"></i>
-                                        </span>
-                                    </form>
-                                </div>
-                                <!--header search panel end -->
-                                </div>
-                                </header>
+                    </li>
+                </ul>
+                <!-- header right menu end -->
+            </div>
+            <!--header search panel start -->
+            <div class="ttr-search-bar">
+                <form class="ttr-search-form">
+                    <div class="ttr-search-input-wrapper">
+                        <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
+                        <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
+                    </div>
+                    <span class="ttr-search-close ttr-search-toggle">
+                        <i class="ti-close"></i>
+                    </span>
+                </form>
+            </div>
+            <!--header search panel end -->
+        </header>
 
-                                <!-- Sidebar -->
-                                <div class="ttr-sidebar">
-                                    <div class="ttr-sidebar-wrapper content-scroll">
-                                        <div class="ttr-sidebar-logo">
-                                            <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
-                                            <div class="ttr-sidebar-toggle-button"><i class="ti-arrow-left"></i></div>
-                                        </div>
-                                        <nav class="ttr-sidebar-navi">
-                                            <ul>
-                                                <li><a href="dashboard" class="ttr-material-button"><span class="ttr-icon"><i class="ti-home"></i></span><span class="ttr-label">Dashboard</span></a></li>
-                                                <li>
-                                                    <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-briefcase"></i></span><span class="ttr-label">Tutor Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
-                                                    <ul>
-                                                        <li><a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a></li>
-                                                        <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a></li>
-                                                        <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Booking</span></a></li>
-                                                        <li><a href="ListRated" class="ttr-material-button"><span class="ttr-label">Tutor Reviews</span></a></li>
-                                                        <li><a href="SubjectController" class="ttr-material-button"><span class="ttr-label">Control Subject</span></a></li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-credit-card"></i></span><span class="ttr-label">Payment</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
-                                                    <ul>
-                                                        <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a></li>
-                                                        <li><a href="#" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a></li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-book"></i></span><span class="ttr-label">Content Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
-                                                    <ul>
-                                                        <li><a href="BlogController?service=listBlog" class="ttr-label">Blog</a></li>
-                                                        <li><a href="BlogController?service=addBlog" class="ttr-label">Add Blog</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <a href="${pageContext.request.contextPath}/staff/historyLog" class="ttr-material-button">
-                                                        <span class="ttr-icon"><i class="ti-clipboard"></i></span>
-                                                        <span class="ttr-label">User & Tutor Logs</span>
-                                                    </a>
-                                                </li>
-                                                <li class="ttr-seperate"></li>
-                                            </ul>
-                                        </nav>
+        <!-- Left sidebar menu start -->
+        <div class="ttr-sidebar">
+            <div class="ttr-sidebar-wrapper content-scroll">
+                <!-- Side menu logo start -->
+                <div class="ttr-sidebar-logo">
+                    <a href="${pageContext.request.contextPath}/staff/dashboard"><img alt="" src="${pageContext.request.contextPath}/assets/images/logo.png" width="122" height="27"></a>
+                    <div class="ttr-sidebar-toggle-button">
+                        <i class="ti-arrow-left"></i>
+                    </div>
+                </div>
+                <!-- Side menu logo end -->
+                <!-- Sidebar menu start -->
+                <nav class="ttr-sidebar-navi">
+                    <ul>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/staff/dashboard" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-home"></i></span>
+                                <span class="ttr-label">Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-briefcase"></i></span>
+                                <span class="ttr-label">Tutor Management</span>
+                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul>
+                                <li><a href="${pageContext.request.contextPath}/staff/ViewSchedule" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/ListRated" class="ttr-material-button"><span class="ttr-label">Tutor Reviews</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/SubjectController?service=listSubject" class="ttr-material-button"><span class="ttr-label">Control Subject</span></a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-book"></i></span>
+                                <span class="ttr-label">Content Management</span>
+                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul>
+                                <li><a href="${pageContext.request.contextPath}/staff/BlogController?service=listBlog" class="ttr-material-button"><span class="ttr-label">Blog</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/BlogController?service=addBlog" class="ttr-material-button"><span class="ttr-label">Add Blog</span></a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/staff/historyLog" class="ttr-material-button">
+                                <span class="ttr-icon"><i class="ti-clipboard"></i></span>
+                                <span class="ttr-label">User & Tutor Logs</span>
+                            </a>
+                        </li>
+                        <li class="ttr-seperate"></li>
+                    </ul>
+                </nav>
+                <!-- Sidebar menu end -->
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <main class="ttr-wrapper">
+            <div class="container-fluid">
+                <div class="db-breadcrumb">
+                    <h4 class="breadcrumb-title">Update Subject</h4>
+                    <ul class="db-breadcrumb-list">
+                        <li><a href="${pageContext.request.contextPath}/staff/dashboard"><i class="fa fa-home"></i>Home</a></li>
+                        <li><a href="SubjectController?service=listSubject">Subject Management</a></li>
+                        <li>Update Subject</li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 m-b30">
+                        <div class="widget-box">
+                            <div class="wc-title">
+                                <h4>Update Subject</h4>
+                            </div>
+                            <div class="widget-inner">
+                                <c:if test="${not empty sessionScope.error}">
+                                    <div style="color: red;">${sessionScope.error}</div>
+                                    <c:remove var="error" scope="session" />
+                                </c:if>
+                                <form action="SubjectController?service=updateSubject&subjectID=${subject.subjectID}" method="post">
+                                    <div class="form-group">
+                                        <label for="subjectName">Subject Name</label>
+                                        <input type="text" class="form-control" id="subjectName" name="subjectName" 
+                                               value="${subject.subjectName}" required>
                                     </div>
-                                </div>
-                                <!-- Left sidebar menu end -->
-
-                                <!-- Main content -->
-                                <main class="ttr-wrapper">
-                                    <div class="container-fluid">
-                                        <div class="db-breadcrumb">
-                                            <h4 class="breadcrumb-title">Update Subject</h4>
-                                            <ul class="db-breadcrumb-list">
-                                                <li><a href="${pageContext.request.contextPath}/staff/dashboard"><i class="fa fa-home"></i>Home</a></li>
-                                                <li><a href="SubjectController?service=listSubject">Subject Management</a></li>
-                                                <li>Update Subject</li>
-                                            </ul>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-6 m-b30">
-                                                <div class="widget-box">
-                                                    <div class="wc-title">
-                                                        <h4>Update Subject</h4>
-                                                    </div>
-                                                    <div class="widget-inner">
-                                                        <form action="SubjectController?service=updateSubject&subjectID=${subject.subjectID}" method="post">
-                                                            <div class="form-group">
-                                                                <label for="subjectName">Subject Name</label>
-                                                                <input type="text" class="form-control" id="subjectName" name="subjectName" value="${subject.subjectName}" required>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="description">Description</label>
-                                                                <textarea class="form-control" id="description" name="description" rows="3">${subject.description}</textarea>
-                                                            </div>
-                                                            <button type="submit" name="submit" class="submit-btn">Update Subject</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <textarea class="form-control" id="description" name="description" rows="3">${subject.description}</textarea>
                                     </div>
-                                </main>
+                                    <div class="form-group">
+                                        <label for="status">Status</label>
+                                        <select class="form-control" id="status" name="status" required>
+                                            <option value="Active" ${subject.status == 'Active' ? 'selected' : ''}>Active</option>
+                                            <option value="Inactive" ${subject.status == 'Inactive' ? 'selected' : ''}>Inactive</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" name="submit" class="submit-btn">Update Subject</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
 
-                                <div class="ttr-overlay"></div>
+        <div class="ttr-overlay"></div>
 
-                                <!-- External JavaScripts -->
-                                <script src="assets/js/jquery.min.js"></script>
-                                <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
-                                <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
-                                <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
-                                <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
-                                <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
-                                <script src="assets/vendors/counter/waypoints-min.js"></script>
-                                <script src="assets/vendors/counter/counterup.min.js"></script>
-                                <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
-                                <script src="assets/vendors/masonry/masonry.js"></script>
-                                <script src="assets/vendors/masonry/filter.js"></script>
-                                <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
-                                <script src='assets/vendors/scroll/scrollbar.min.js'></script>
-                                <script src="assets/js/functions.js"></script>
-                                <script src="assets/vendors/chart/chart.min.js"></script>
-                                <script src="assets/js/admin.js"></script>
-                                <script src='assets/vendors/calendar/moment.min.js'></script>
-                                <script src='assets/vendors/calendar/fullcalendar.js'></script>
-                                <script src='assets/vendors/switcher/switcher.js'></script>
-                                </body>
-                                </html>
+        <!-- External JavaScripts -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/vendors/bootstrap/js/popper.min.js"></script>
+        <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/vendors/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="assets/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js"></script>
+        <script src="assets/vendors/magnific-popup/magnific-popup.js"></script>
+        <script src="assets/vendors/counter/waypoints-min.js"></script>
+        <script src="assets/vendors/counter/counterup.min.js"></script>
+        <script src="assets/vendors/imagesloaded/imagesloaded.js"></script>
+        <script src="assets/vendors/masonry/masonry.js"></script>
+        <script src="assets/vendors/masonry/filter.js"></script>
+        <script src="assets/vendors/owl-carousel/owl.carousel.js"></script>
+        <script src='assets/vendors/scroll/scrollbar.min.js'></script>
+        <script src="assets/js/functions.js"></script>
+        <script src="assets/vendors/chart/chart.min.js"></script>
+        <script src="assets/js/admin.js"></script>
+        <script src='assets/vendors/calendar/moment.min.js'></script>
+        <script src='assets/vendors/calendar/fullcalendar.js'></script>
+        <script src='assets/vendors/switcher/switcher.js'></script>
+    </body>
+</html>

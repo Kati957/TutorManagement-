@@ -260,6 +260,8 @@
                                 <td>${g.getBookID()}</td>
                                 <td>${g.getUserID()}</td>
                                 <td>${g.getReason()}</td>
+                                <td>${g.getStatus()}</td>
+                                <td>${g.getCreatedAt()}</td>
                                 <td>
                                     <a href="ReportManager?reportId=${g.getReportID()}&status=Approved"
                                        style="background-color: green; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; display: inline-block;"
@@ -269,7 +271,6 @@
                                        style="background-color: red; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; display: inline-block;"
                                        >Reject</a>
                                 </td>
-                                <td>${g.getCreatedAt()}</td>
                             </tr>
                            </c:forEach>
                         </table>

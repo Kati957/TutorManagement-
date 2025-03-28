@@ -46,6 +46,9 @@ public class ListRated extends HttpServlet {
                 case "detailRating":
                     handleDetailRating(request, response);
                     return; // Tránh forward tiếp vì handleDetailRating đã xử lý response
+                case "deleteRating": // Thêm case mới để xử lý xóa đánh giá
+                    handleDeleteRating(request, response, dao);
+                    return; // Tránh forward tiếp vì đã redirect sau khi xóa
                 default:
                     response.sendRedirect(ERROR_404);
                     return;
@@ -122,6 +125,34 @@ public class ListRated extends HttpServlet {
             }
         }
         response.sendRedirect(ERROR_404);
+    }
+
+    // Xử lý xóa một đánh giá
+    private void handleDeleteRating(HttpServletRequest request, HttpServletResponse response, DAOTutorRating dao)
+            throws ServletException, IOException, SQLException {
+        String ratingIdStr = request.getParameter("ratingId");
+
+        if (ratingIdStr != null && !ratingIdStr.isEmpty()) {
+            try {
+                int ratingId = Integer.parseInt(ratingIdStr);
+                // Gọi phương thức xóa từ DAO
+                boolean deleted = dao.deleteTutorRating(ratingId);
+                if (deleted) {
+                    // Nếu xóa thành công, set thông báo thành công
+                    request.getSession().setAttribute("message", "Xóa đánh giá thành công!");
+                } else {
+                    // Nếu không tìm thấy đánh giá để xóa
+                    request.getSession().setAttribute("error", "Không tìm thấy đánh giá để xóa!");
+                }
+            } catch (NumberFormatException ex) {
+                LOGGER.log(Level.SEVERE, "Invalid ratingId", ex);
+                request.getSession().setAttribute("error", "ID đánh giá không hợp lệ!");
+            }
+        } else {
+            request.getSession().setAttribute("error", "ID đánh giá không được để trống!");
+        }
+        // Sau khi xóa, redirect về trang danh sách đánh giá
+        response.sendRedirect(request.getContextPath() + "/staff/ListRated?service=listRating");
     }
 
     @Override

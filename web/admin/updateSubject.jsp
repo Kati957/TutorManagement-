@@ -41,6 +41,15 @@
         <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
         <link rel="stylesheet" type="text/css" href="../assets/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="../assets/css/color/color-1.css">
+
+        <!-- Thêm style cho thông báo -->
+        <style>
+            .error {
+                color: red;
+                margin-bottom: 10px;
+                font-weight: bold;
+            }
+        </style>
     </head>
     <%
         User user = (User) session.getAttribute("user");
@@ -202,6 +211,11 @@
                             <div class="wc-title">
                                 <h4>Update Subject</h4>
                             </div>
+                            <!-- Hiển thị thông báo lỗi -->
+                            <c:if test="${not empty sessionScope.error}">
+                                <div class="error">${sessionScope.error}</div>
+                                <c:remove var="error" scope="session" />
+                            </c:if>
                             <div class="widget-inner">
                                 <form action="${pageContext.request.contextPath}/admin/AdminSubjectController?service=updateSubject&subjectID=${subject.subjectID}" method="post">
                                     <div class="form-group">
@@ -211,6 +225,13 @@
                                     <div class="form-group">
                                         <label for="description">Description</label>
                                         <textarea class="form-control" id="description" name="description" rows="3">${subject.description}</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="status">Status</label>
+                                        <select class="form-control" id="status" name="status" required>
+                                            <option value="Active" ${subject.status == 'Active' ? 'selected' : ''}>Active</option>
+                                            <option value="Inactive" ${subject.status == 'Inactive' ? 'selected' : ''}>Inactive</option>
+                                        </select>
                                     </div>
                                     <button type="submit" name="submit" class="btn">Update Subject</button>
                                 </form>
