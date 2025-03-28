@@ -4,6 +4,7 @@
  */
 package controller.Tutor;
 
+import entity.Cv;
 import entity.User;
 import model.DAOUser;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.sql.Date;
+import model.DAOCv;
 
 /**
  * Servlet xử lý hồ sơ của tutor.
@@ -41,7 +43,9 @@ public class TutorProfileServlet extends HttpServlet {
             response.sendRedirect(LOGIN_PAGE);
             return;
         }
-
+        DAOCv dao=new DAOCv();
+        Cv cv= dao.getCVbyUserId(currentUser.getUserID());
+        session.setAttribute("cv", cv);
         request.setAttribute("user", currentUser);
         request.getRequestDispatcher(TUTOR_PROFILE_PAGE).forward(request, response);
     }
@@ -62,6 +66,8 @@ public class TutorProfileServlet extends HttpServlet {
 
         if ("changePassword".equals(action)) {
             handleChangePassword(request, response, session, currentUser, daoUser);
+        } if ("tutorCV".equals(action)) {
+            handleUpdateCV(request, response, session, currentUser, daoUser);
         } else {
             handleUpdateProfile(request, response, session, currentUser, daoUser);
         }
@@ -148,6 +154,21 @@ public class TutorProfileServlet extends HttpServlet {
         }
         response.sendRedirect(request.getContextPath() + "/tutor/tutorprofile");
     }
+    private void handleUpdateCV(HttpServletRequest request, HttpServletResponse response,
+            HttpSession session, User currentUser, DAOUser daoUser) throws IOException, ServletException {
+        int userId = currentUser.getUserID();
+        String Education = request.getParameter("Education");
+        String Experience = request.getParameter("Experience");
+        String Certificates = request.getParameter("Certificates");
+        String Description = request.getParameter("Description");
+        int n=0;
+        DAOCv dao=new DAOCv();
+        n=dao.UpdateCV(userId, Education, Experience, Certificates, Description);
+        Cv cv= dao.getCVbyUserId(userId);
+        session.setAttribute("cv",cv);
+        response.sendRedirect(request.getContextPath() + "/tutor/tutorprofile");
+    }
+    
 
     private java.sql.Date parseDateOfBirth(String dobParam, HttpSession session) {
         if (dobParam == null || dobParam.trim().isEmpty()) {
