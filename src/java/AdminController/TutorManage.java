@@ -70,7 +70,7 @@ public class TutorManage extends HttpServlet {
         String dob = request.getParameter("Dob");
         String address = request.getParameter("Address");
         String userName = request.getParameter("UserName");
-        String password = request.getParameter("Password");
+        String password = request.getParameter("Password"); // Lấy mật khẩu thô
         String avatarPath = handleFileUpload(request);
 
         try {
@@ -94,14 +94,12 @@ public class TutorManage extends HttpServlet {
                 avatarPath = "uploads/default_avatar.jpg";
             }
 
-            // Mã hóa mật khẩu bằng MD5
-            String hashedPassword = MD5Util.getMD5Hash(password);
-
+            // Không mã hóa ở đây, truyền mật khẩu thô vào User
             User user = new User(
                     Integer.parseInt(userID),
                     3, // RoleID cố định là 3 cho Tutor
                     email, fullName, phone, null, 1,
-                    Date.valueOf(dob), address, avatarPath, userName, hashedPassword
+                    Date.valueOf(dob), address, avatarPath, userName, password // Truyền password thô
             );
 
             if (dao.updateUser(user)) {
@@ -152,24 +150,46 @@ public class TutorManage extends HttpServlet {
     private boolean isImageFile(String fileName) {
         String[] allowedExtensions = {".jpg", ".jpeg", ".png", ".gif"};
         for (String ext : allowedExtensions) {
-            if (fileName.toLowerCase().endsWith(ext)) return true;
+            if (fileName.toLowerCase().endsWith(ext)) {
+                return true;
+            }
         }
         return false;
     }
 
     private String validateInput(DAOUser dao, String email, String fullName, String phone, String dob,
             String address, String userName, String password, String userID) throws SQLException {
-        if (email == null || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) return "Email không hợp lệ.";
+        if (email == null || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            return "Email không hợp lệ.";
+        }
         User existingUser = dao.getUserById(Integer.parseInt(userID));
-        if (dao.isEmailExists(email) && (existingUser == null || !existingUser.getEmail().equals(email))) return "Email đã được sử dụng.";
-        if (userName == null || userName.trim().isEmpty()) return "Username không được để trống.";
-        if (dao.isUsernameExists(userName) && (existingUser == null || !existingUser.getUserName().equals(userName))) return "Username đã tồn tại.";
-        if (phone == null || !phone.matches("\\d{10}")) return "Số điện thoại phải là 10 chữ số.";
-        if (dao.isPhoneExists(phone) && (existingUser == null || !existingUser.getPhone().equals(phone))) return "Số điện thoại đã được sử dụng.";
-        if (password == null || password.length() < 8) return "Mật khẩu phải dài ít nhất 8 ký tự.";
-        if (dob == null || dob.trim().isEmpty()) return "Ngày sinh không được để trống.";
-        if (fullName == null || fullName.trim().isEmpty()) return "Họ và tên không được để trống.";
-        if (address == null || address.trim().isEmpty()) return "Địa chỉ không được để trống.";
+        if (dao.isEmailExists(email) && (existingUser == null || !existingUser.getEmail().equals(email))) {
+            return "Email đã được sử dụng.";
+        }
+        if (userName == null || userName.trim().isEmpty()) {
+            return "Username không được để trống.";
+        }
+        if (dao.isUsernameExists(userName) && (existingUser == null || !existingUser.getUserName().equals(userName))) {
+            return "Username đã tồn tại.";
+        }
+        if (phone == null || !phone.matches("\\d{10}")) {
+            return "Số điện thoại phải là 10 chữ số.";
+        }
+        if (dao.isPhoneExists(phone) && (existingUser == null || !existingUser.getPhone().equals(phone))) {
+            return "Số điện thoại đã được sử dụng.";
+        }
+        if (password == null || password.length() < 8) {
+            return "Mật khẩu phải dài ít nhất 8 ký tự.";
+        }
+        if (dob == null || dob.trim().isEmpty()) {
+            return "Ngày sinh không được để trống.";
+        }
+        if (fullName == null || fullName.trim().isEmpty()) {
+            return "Họ và tên không được để trống.";
+        }
+        if (address == null || address.trim().isEmpty()) {
+            return "Địa chỉ không được để trống.";
+        }
         return "";
     }
 }
