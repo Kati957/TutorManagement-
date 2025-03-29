@@ -1,59 +1,37 @@
-<%-- 
-    Document   : index
-    Created on : Feb 27, 2025, 3:59:18 PM
-    Author     : Heizxje
---%>
-
 <%@page import="entity.Payment"%>
 <%@page import="entity.HistoryLog"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="entity.User, java.util.List, java.util.ArrayList, java.util.Map"%>
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="${sessionScope.locale != null ? sessionScope.locale : 'en'}">
     <head>
-        <!-- META -->
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="keywords" content="" />
         <meta name="author" content="" />
         <meta name="robots" content="" />
-
-        <!-- DESCRIPTION -->
         <meta name="description" content="G4 SmartTutor : Smart tutor, effective learning." />
-
-        <!-- OG -->
         <meta property="og:title" content="G4 SmartTutor : Smart tutor, effective learning." />
         <meta property="og:description" content="G4 SmartTutor : Smart tutor, effective learning." />
         <meta property="og:image" content="" />
         <meta name="format-detection" content="telephone=no">
 
-        <!-- FAVICONS ICON -->
         <link rel="icon" href="${pageContext.request.contextPath}/error-404.jsp" type="image/x-icon" />
         <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
 
-        <!-- PAGE TITLE -->
-        <title>G4 SmartTutor</title>
-
-        <!-- MOBILE SPECIFIC -->
+        <title>G4 SmartTutor - <fmt:message key="dashboard"/></title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- CSS -->
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/assets.css">
-
-        <!-- TYPOGRAPHY ============================================= -->
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/typography.css">
-
-        <!-- SHORTCODES ============================================= -->
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/shortcodes/shortcodes.css">
-
-        <!-- STYLESHEETS ============================================= -->
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/style.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/color/color-1.css">
-        <!-- CSS tùy chỉnh để sửa lỗi layout -->
+
         <style>
             .alert {
                 padding: 15px;
@@ -71,7 +49,6 @@
                 background-color: #f2dede;
                 border-color: #ebccd1;
             }
-            /* Điều chỉnh layout cho 3 cột */
             .row {
                 display: flex;
                 flex-wrap: wrap;
@@ -107,9 +84,8 @@
             .m-b30 {
                 margin-bottom: 30px;
             }
-            /* Giảm kích thước font của các con số trong Card */
             .wc-stats, .counter, .wc-number {
-                font-size: 14px !important; /* Giảm kích thước font, bạn có thể điều chỉnh giá trị này */
+                font-size: 14px !important;
             }
         </style>
     </head>
@@ -143,16 +119,16 @@
                 totalBookings = 0;
             }
         %>
+        <fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en'}"/>
+        <fmt:setBundle basename="messages"/>
+
         <!-- Header start -->
         <header class="ttr-header">
             <div class="ttr-header-wrapper">
-                <!-- Sidebar menu toggler start -->
                 <div class="ttr-toggle-sidebar ttr-material-button">
                     <i class="ti-close ttr-open-icon"></i>
                     <i class="ti-menu ttr-close-icon"></i>
                 </div>
-                <!-- Sidebar menu toggler end -->
-                <!-- Logo start -->
                 <div class="ttr-logo-box">
                     <div>
                         <a href="${pageContext.request.contextPath}/admin/index" class="ttr-logo">
@@ -161,27 +137,23 @@
                         </a>
                     </div>
                 </div>
-                <!-- Logo end -->
                 <div class="ttr-header-menu">
-                    <!-- header left menu start -->
                     <ul class="ttr-header-navigation">
                         <li>
-                            <a href="index" class="ttr-material-button ttr-submenu-toggle">HOME</a>
+                            <a href="${pageContext.request.contextPath}/admin/index" class="ttr-material-button ttr-submenu-toggle"><fmt:message key="home"/></a>
                         </li>
                         <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle">Language <i class="fa fa-angle-down"></i></a>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><fmt:message key="language"/> <i class="fa fa-angle-down"></i></a>
                             <div class="ttr-header-submenu">
                                 <ul>
-                                    <li><a href="#">Tiếng Việt</a></li>
-                                    <li><a href="#">English</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/LanguageServlet?lang=vi"><fmt:message key="vietnamese"/></a></li>
+                                    <li><a href="${pageContext.request.contextPath}/LanguageServlet?lang=en"><fmt:message key="english"/></a></li>
                                 </ul>
                             </div>
                         </li>
                     </ul>
-                    <!-- header left menu end -->
                 </div>
                 <div class="ttr-header-right ttr-with-seperator">
-                    <!-- Header right menu start -->
                     <ul class="ttr-header-navigation">
                         <li>
                             <a href="${pageContext.request.contextPath}/admin/adminprofile" class="ttr-material-button ttr-submenu-toggle">
@@ -194,15 +166,12 @@
                             </a>
                             <div class="ttr-header-submenu">
                                 <ul>
-                                    <li><a href="${pageContext.request.contextPath}/admin/adminprofile">My Profile</a></li>
-                                    <li><a href="#">Activity</a></li>
-                                    <li><a href="mailbox.jsp">Messages</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/admin/adminprofile"><fmt:message key="my_profile"/></a></li>
+                                    <li><a href="${pageContext.request.contextPath}/logout"><fmt:message key="logout"/></a></li>
                                 </ul>
                             </div>
                         </li>
                     </ul>
-                    <!-- Header right menu end -->
                 </div>
             </div>
         </header>
@@ -211,106 +180,77 @@
         <!-- Left sidebar menu start -->
         <div class="ttr-sidebar">
             <div class="ttr-sidebar-wrapper content-scroll">
-                <!-- Side menu logo start -->
                 <div class="ttr-sidebar-logo">
                     <a href="${pageContext.request.contextPath}/admin/index"><img alt="" src="${pageContext.request.contextPath}/assets/images/logo.png" width="122" height="27"></a>
                     <div class="ttr-sidebar-toggle-button">
                         <i class="ti-arrow-left"></i>
                     </div>
                 </div>
-                <!-- Side menu logo end -->
-                <!-- Sidebar -->
                 <nav class="ttr-sidebar-navi">
                     <ul>
                         <li>
                             <a href="${pageContext.request.contextPath}/admin/index" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-home"></i></span>
-                                <span class="ttr-label">Dashboard</span>
+                                <span class="ttr-label"><fmt:message key="dashboard"/></span>
                             </a>
                         </li>
                         <li>
                             <a href="#" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-briefcase"></i></span>
-                                <span class="ttr-label">Tutor Management</span>
+                                <span class="ttr-label"><fmt:message key="tutor_management"/></span>
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/admin/TutorList" class="ttr-material-button"><span class="ttr-label">Tutor List</span></a>
-                                </li>
-                                <li>
-                                    <a href="AdminListRated" class="ttr-material-button"><span class="ttr-label">Tutor Reviews</span></a>
-                                </li>
-                                <li>
-                                    <a href="RequestCV" class="ttr-material-button"><span class="ttr-label">Status CV</span></a>
-                                </li>
-                                <li>
-                                    <a href="ViewBooking" class="ttr-material-button"><span class="ttr-label">Booking Manage</span></a>
-                                </li>
-                                <li>
-                                    <a href="AdminViewSchedule" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a>
-                                </li>
-                                <li>
-                                    <a href="AdminSubjectController" class="ttr-material-button"><span class="ttr-label">Subject Management</span></a>
-                                </li>
+                                <li><a href="${pageContext.request.contextPath}/admin/TutorList" class="ttr-material-button"><span class="ttr-label"><fmt:message key="tutor_list"/></span></a></li>
+                                <li><a href="AdminListRated" class="ttr-material-button"><span class="ttr-label"><fmt:message key="tutor_reviews"/></span></a></li>
+                                <li><a href="RequestCV" class="ttr-material-button"><span class="ttr-label"><fmt:message key="status_cv"/></span></a></li>
+                                <li><a href="ViewBooking" class="ttr-material-button"><span class="ttr-label"><fmt:message key="booking_manage"/></span></a></li>
+                                <li><a href="AdminViewSchedule" class="ttr-material-button"><span class="ttr-label"><fmt:message key="view_schedule"/></span></a></li>
+                                <li><a href="AdminSubjectController" class="ttr-material-button"><span class="ttr-label"><fmt:message key="subject_management"/></span></a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="#" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-user"></i></span>
-                                <span class="ttr-label">Staff Management</span>
+                                <span class="ttr-label"><fmt:message key="staff_management"/></span>
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-                                <li><a href="${pageContext.request.contextPath}/admin/StaffList" class="ttr-material-button"><span class="ttr-label">Staff List</span></a></li>
-                                <li><a href="${pageContext.request.contextPath}/admin/StaffManage" class="ttr-material-button"><span class="ttr-label">Add New Staff</span></a></li>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Reports</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/StaffList" class="ttr-material-button"><span class="ttr-label"><fmt:message key="staff_list"/></span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/StaffManage" class="ttr-material-button"><span class="ttr-label"><fmt:message key="add_new_staff"/></span></a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="#" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-id-badge"></i></span>
-                                <span class="ttr-label">User Management</span>
+                                <span class="ttr-label"><fmt:message key="user_management"/></span>
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-                                <li><a href="${pageContext.request.contextPath}/admin/UserList" class="ttr-material-button"><span class="ttr-label">User List</span></a></li>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Profile</span></a></li>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Tutor</span></a></li>
-                                <li><a href="ReportManager" class="ttr-material-button"><span class="ttr-label">Report</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/admin/UserList" class="ttr-material-button"><span class="ttr-label"><fmt:message key="user_list"/></span></a></li>
+                                <li><a href="ReportManager" class="ttr-material-button"><span class="ttr-label"><fmt:message key="report"/></span></a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="#" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-credit-card"></i></span>
-                                <span class="ttr-label">Payment</span>
+                                <span class="ttr-label"><fmt:message key="payment"/></span>
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-                                <li><a href="approveWithdrawal" class="ttr-material-button"><span class="ttr-label">Request Withdrawl</span></a></li>
-                                <li><a href="PaymentHistory" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a></li>
-                                <li><a href="systemRevenue" class="ttr-material-button"><span class="ttr-label">System revenue</span></a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-book"></i></span>
-                                <span class="ttr-label">Content Management</span>
-                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
-                            </a>
-                            <ul>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">Blog</span></a></li>
+                                <li><a href="approveWithdrawal" class="ttr-material-button"><span class="ttr-label"><fmt:message key="request_withdrawal"/></span></a></li>
+                                <li><a href="PaymentHistory" class="ttr-material-button"><span class="ttr-label"><fmt:message key="view_history_payment"/></span></a></li>
+                                <li><a href="systemRevenue" class="ttr-material-button"><span class="ttr-label"><fmt:message key="system_revenue"/></span></a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="${pageContext.request.contextPath}/admin/historyLog" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-clipboard"></i></span>
-                                <span class="ttr-label">History Log</span>
+                                <span class="ttr-label"><fmt:message key="history_log"/></span>
                             </a>
                         </li>
                         <li class="ttr-seperate"></li>
                     </ul>
-                    <!-- Sidebar menu end -->
                 </nav>
             </div>
         </div>
@@ -320,10 +260,10 @@
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-                    <h4 class="breadcrumb-title">Dashboard</h4>
+                    <h4 class="breadcrumb-title"><fmt:message key="dashboard"/></h4>
                     <ul class="db-breadcrumb-list">
-                        <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
-                        <li>Dashboard</li>
+                        <li><a href="${pageContext.request.contextPath}/admin/index"><i class="fa fa-home"></i><fmt:message key="home"/></a></li>
+                        <li><fmt:message key="dashboard"/></li>
                     </ul>
                 </div>
                 <!-- Hiển thị thông báo -->
@@ -344,17 +284,11 @@
                     <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12">
                         <div class="widget-card widget-bg1">
                             <div class="wc-item">
-                                <h4 class="wc-title">
-                                    Total Payments
-                                </h4>
-                                <span class="wc-des">
-                                    All Completed Payments
-                                </span>
+                                <h4 class="wc-title"><fmt:message key="total_payments"/></h4>
+                                <span class="wc-des"><fmt:message key="all_completed_payments"/></span>
                                 <%@ page import="java.text.DecimalFormat" %>
                                 <%
-                                    // Tạo đối tượng DecimalFormat để định dạng số với dấu chấm phân cách hàng nghìn
                                     DecimalFormat df = new DecimalFormat("#,###");
-                                    // Ép kiểu totalProfit thành số nguyên và định dạng
                                     String formattedProfit = df.format((long) totalProfit.doubleValue());
                                 %>
                                 <span class="wc-stats" style="top: 30px;">
@@ -366,12 +300,8 @@
                     <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12">
                         <div class="widget-card widget-bg2">
                             <div class="wc-item">
-                                <h4 class="wc-title">
-                                    Total Rating
-                                </h4>
-                                <span class="wc-des">
-                                    All Tutor Ratings
-                                </span>
+                                <h4 class="wc-title"><fmt:message key="total_rating"/></h4>
+                                <span class="wc-des"><fmt:message key="all_tutor_ratings"/></span>
                                 <span class="wc-stats counter" style="top: 30px;">
                                     <%= totalRatings%>
                                 </span>
@@ -381,12 +311,8 @@
                     <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12">
                         <div class="widget-card widget-bg3">
                             <div class="wc-item">
-                                <h4 class="wc-title">
-                                    Total Booking
-                                </h4>
-                                <span class="wc-des">
-                                    Confirmed & Completed
-                                </span>
+                                <h4 class="wc-title"><fmt:message key="total_booking"/></h4>
+                                <span class="wc-des"><fmt:message key="confirmed_completed"/></span>
                                 <span class="wc-stats counter" style="top: 30px;">
                                     <%= totalBookings%>
                                 </span>
@@ -396,12 +322,8 @@
                     <div class="col-md-6 col-lg-3 col-xl-3 col-sm-6 col-12">
                         <div class="widget-card widget-bg4">
                             <div class="wc-item">
-                                <h4 class="wc-title">
-                                    Total Users
-                                </h4>
-                                <span class="wc-des">
-                                    All Registered Users
-                                </span>
+                                <h4 class="wc-title"><fmt:message key="total_users"/></h4>
+                                <span class="wc-des"><fmt:message key="all_registered_users"/></span>
                                 <span class="wc-stats counter" style="top: 30px;">
                                     <%= totalUsers%>
                                 </span>
@@ -415,7 +337,7 @@
                     <div class="col-lg-4 m-b30">
                         <div class="widget-box">
                             <div class="wc-title">
-                                <h4>History Log</h4>
+                                <h4><fmt:message key="history_log"/></h4>
                             </div>
                             <div class="widget-inner">
                                 <div class="noti-box-list">
@@ -474,7 +396,7 @@
                                             }
                                             if (maxLogs == 0) {
                                         %>
-                                        <li>No history logs found.</li>
+                                        <li><fmt:message key="no_history_logs"/></li>
                                             <% } %>
                                     </ul>
                                 </div>
@@ -485,7 +407,7 @@
                     <div class="col-lg-4 m-b30">
                         <div class="widget-box">
                             <div class="wc-title">
-                                <h4>New Users</h4>
+                                <h4><fmt:message key="new_users"/></h4>
                             </div>
                             <div class="widget-inner">
                                 <div class="new-user-list">
@@ -522,12 +444,12 @@
                                                 <span class="new-users-info"><%= roleName%></span>
                                             </span>
                                             <span class="new-users-btn">
-                                                <a href="${pageContext.request.contextPath}/admin/UserList?userId=<%= newUser.getUserID()%>" class="btn button-sm outline">View</a>
+                                                <a href="${pageContext.request.contextPath}/admin/UserList?userId=<%= newUser.getUserID()%>" class="btn button-sm outline"><fmt:message key="view"/></a>
                                             </span>
                                         </li>
                                         <% } %>
                                         <% if (newUsers.isEmpty()) { %>
-                                        <li>No new users found.</li>
+                                        <li><fmt:message key="no_new_users"/></li>
                                             <% }%>
                                     </ul>
                                 </div>
@@ -538,7 +460,7 @@
                     <div class="col-lg-4 m-b30">
                         <div class="widget-box">
                             <div class="wc-title">
-                                <h4>History Payment</h4>
+                                <h4><fmt:message key="history_payment"/></h4>
                             </div>
                             <div class="widget-inner">
                                 <div class="orders-list">
@@ -551,7 +473,7 @@
                                             int maxPayments = Math.min(5, recentPayments.size());
                                             for (int i = 0; i < maxPayments; i++) {
                                                 Payment payment = recentPayments.get(i);
-                                                String statusClass = "red"; // Mặc định là "Unpaid"
+                                                String statusClass = "red";
                                                 String statusText = "Unpaid";
                                                 if ("Completed".equalsIgnoreCase(payment.getStatus())) {
                                                     statusClass = "green";
@@ -560,8 +482,8 @@
                                         %>
                                         <li>
                                             <span class="orders-title">
-                                                <a href="PaymentHistory" class="orders-title-name">Payment #<%= payment.getPaymentID()%></a>
-                                                <span class="orders-info">Booking #<%= payment.getBookingID()%> | Date <%= new java.text.SimpleDateFormat("dd/MM/yyyy").format(payment.getPaymentDate())%></span>
+                                                <a href="PaymentHistory" class="orders-title-name"><fmt:message key="payment"/> #<%= payment.getPaymentID()%></a>
+                                                <span class="orders-info"><fmt:message key="booking"/> #<%= payment.getBookingID()%> | <fmt:message key="date"/> <%= new java.text.SimpleDateFormat("dd/MM/yyyy").format(payment.getPaymentDate())%></span>
                                             </span>
                                             <span class="orders-btn">
                                                 <a href="PaymentHistory" class="btn button-sm <%= statusClass%>"><%= statusText%></a>
@@ -571,7 +493,7 @@
                                             }
                                             if (maxPayments == 0) {
                                         %>
-                                        <li>No recent payments found.</li>
+                                        <li><fmt:message key="no_recent_payments"/></li>
                                             <% }%>
                                     </ul>
                                 </div>

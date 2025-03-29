@@ -38,7 +38,7 @@ public class DBConnect {
 
 
     public DBConnect() {
-        this("jdbc:sqlserver://localhost:1433;databaseName=G4", "sa", "Minh2004");
+        this("jdbc:sqlserver://localhost:1433;databaseName=G4Beta1", "sa", "123");
     }
 
     public ResultSet getData(String sql) {
