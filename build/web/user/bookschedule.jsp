@@ -202,7 +202,7 @@
                                                     <tbody>
                                                         <c:forEach var="schedule" items="${scheduleList}">
                                                             <tr>
-                                                                <td><input type="checkbox" name="scheduleIds" value="${schedule.scheduleID}"></td>
+                                                                <td><input type="radio" name="scheduleIds" value="${schedule.scheduleID}"></td>
                                                                 <td>${schedule.scheduleID}</td>
                                                                 <td><fmt:formatDate value="${schedule.startTime}" pattern="dd/MM/yyyy 'at time:' HH:mm" /></td>
                                                                 <td><fmt:formatDate value="${schedule.endTime}" pattern="dd/MM/yyyy 'at time:' HH:mm" /></td>
