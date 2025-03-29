@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
     <%@page import="entity.User,java.sql.ResultSet"%>
-    <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:10:19 GMT -->
     <head>
 
         <!-- META ============================================= -->
@@ -150,7 +149,7 @@
                                     <a href="RequestCV" class="ttr-material-button"><span class="ttr-label">Status CV</span></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a>
+                                    <a href="ViewBooking" class="ttr-material-button"><span class="ttr-label">Booking Manage</span></a>
                                 </li>
                                 <li>
                                     <a href="AdminViewSchedule" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a>
@@ -169,7 +168,6 @@
                             <ul>
                                 <li><a href="${pageContext.request.contextPath}/admin/StaffList" class="ttr-material-button"><span class="ttr-label">Staff List</span></a></li>
                                 <li><a href="${pageContext.request.contextPath}/admin/StaffManage" class="ttr-material-button"><span class="ttr-label">Add New Staff</span></a></li>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Reports</span></a></li>
                             </ul>
                         </li>
                         <li>
@@ -180,8 +178,7 @@
                             </a>
                             <ul>
                                 <li><a href="${pageContext.request.contextPath}/admin/UserList" class="ttr-material-button"><span class="ttr-label">User List</span></a></li>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Profile</span></a></li>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">Review Tutor</span></a></li>
+                                <li><a href="ReportManager" class="ttr-material-button"><span class="ttr-label">Report</span></a></li>
                             </ul>
                         </li>
                         <li>
@@ -191,18 +188,9 @@
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a></li>
+                                <li><a href="approveWithdrawal" class="ttr-material-button"><span class="ttr-label">Request Withdrawl</span></a></li>
                                 <li><a href="PaymentHistory" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-book"></i></span>
-                                <span class="ttr-label">Content Management</span>
-                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
-                            </a>
-                            <ul>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">Blog</span></a></li>
+                                <li><a href="systemRevenue" class="ttr-material-button"><span class="ttr-label">System revenue</span></a></li>
                             </ul>
                         </li>
                         <li>
@@ -285,6 +273,4 @@
         <script src="assets/js/admin.js"></script>
         <script src='assets/vendors/switcher/switcher.js'></script>
     </body>
-
-    <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.jsp by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:11:35 GMT -->
 </html>
