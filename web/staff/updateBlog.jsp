@@ -12,7 +12,7 @@
     </head>
     <body>
         <div class="container">
-            <h2 class="mb-4">Update Blog</h2>
+            <h2 class="mb-4">Cập Nhật Blog</h2>
             <%-- Hiển thị thông báo lỗi nếu có --%>
             <%
                 String error = (String) session.getAttribute("error");
@@ -28,17 +28,17 @@
                 <input type="hidden" name="blogID" value="${blog.blogID}">
                 <!-- Trường tiêu đề -->
                 <div class="form-group">
-                    <label for="title">Title:</label>
+                    <label for="title">Tiêu đề: </label>
                     <input type="text" class="form-control" id="title" name="title" value="${blog.title}" required>
                 </div>
                 <!-- Trường tóm tắt -->
                 <div class="form-group">
-                    <label for="summary">Summary:</label>
+                    <label for="summary">Tóm Tắt: </label>
                     <textarea class="form-control" id="summary" name="summary" rows="3" required>${blog.summary}</textarea>
                 </div>
                 <!-- Trường nội dung -->
                 <div class="form-group">
-                    <label for="content">Content:</label>
+                    <label for="content">Nội Dung: </label>
                     <textarea class="form-control" id="content" name="content" rows="8" required>${blog.content}</textarea>
                     <script>
                         CKEDITOR.replace('content', {
@@ -50,20 +50,20 @@
                 </div>
                 <!-- Trường thumbnail hiện tại -->
                 <div class="form-group">
-                    <label>Current Thumbnail:</label>
+                    <label>Thumbnail hiện tại:</label>
                     <div>
                         <img src="${pageContext.request.contextPath}/${blog.thumbnail}" alt="Current Thumbnail" style="max-width: 200px;" class="img-thumbnail">
                     </div>
                 </div>
                 <!-- Trường thumbnail mới (upload file) -->
                 <div class="form-group">
-                    <label for="thumbnail">New Thumbnail (Image File - Leave empty to keep current):</label>
+                    <label for="thumbnail">Thumbnail mới (Image File - Leave empty to keep current):</label>
                     <input type="file" class="form-control" id="thumbnail" name="thumbnail" accept="image/*">
                 </div>
                 <!-- Nút submit -->
-                <button type="submit" name="submit" value="update" class="btn btn-primary">Update</button>
-                <a href="${pageContext.request.contextPath}/staff/BlogController" class="btn btn-secondary">Back</a>
-                <button type="button" class="btn btn-info" onclick="previewBlog()">Preview</button>
+                <button type="submit" name="submit" value="update" class="btn btn-primary">Cập Nhật</button>
+                <a href="${pageContext.request.contextPath}/staff/BlogController" class="btn btn-secondary">Quay Lại</a>
+                <button type="button" class="btn btn-info" onclick="previewBlog()">Xem Trước</button>
             </form>
         </div>
         <!-- Modal Xem trước -->

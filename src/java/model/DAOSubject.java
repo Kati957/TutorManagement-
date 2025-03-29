@@ -81,27 +81,28 @@ public class DAOSubject extends DBConnect {
         return null;
     }
 
-    // Phương thức để lấy tất cả Tutor-Subject với UserName
-    public List<Subject> getAllTutorSubjects() throws SQLException {
-        List<Subject> subjectList = new ArrayList<>();
-        String sql = """
-                     SELECT TutorID , UserName, TutorSubject.SubjectID, Desciption FROM dbo.Users JOIN dbo.CV
-                     ON CV.UserID = Users.UserID
-                     JOIN dbo.TutorSubject
-                     ON TutorSubject.SubjectID = CV.SubjectId""";
+    // Phương thức để lấy tất cả Tutor-Subject với UserName chỉ khi TutorSubject.Approved = true
+public List<Subject> getAllTutorSubjects() throws SQLException {
+    List<Subject> subjectList = new ArrayList<>();
+    String sql = """
+            SELECT TutorID, UserName, TutorSubject.SubjectID, Desciption 
+            FROM dbo.Users 
+            JOIN dbo.CV ON CV.UserID = Users.UserID
+            JOIN dbo.TutorSubject ON TutorSubject.SubjectID = CV.SubjectId
+            WHERE status = 'Approved'"""; // Assuming 'Approved' is a boolean or integer (1 for true)
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                int tutorID = rs.getInt("TutorID");
-                String userName = rs.getString("UserName");
-                int subjectID = rs.getInt("SubjectID");
-                String description = rs.getString("Desciption");
-                // Sử dụng constructor được comment "Constructor cho getAllTutorSubjects"
-                subjectList.add(new Subject(subjectID, description, tutorID, userName));
-            }
+    try (PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+        while (rs.next()) {
+            int tutorID = rs.getInt("TutorID");
+            String userName = rs.getString("UserName");
+            int subjectID = rs.getInt("SubjectID");
+            String description = rs.getString("Desciption");
+            // Sử dụng constructor được comment "Constructor cho getAllTutorSubjects"
+            subjectList.add(new Subject(subjectID, description, tutorID, userName));
         }
-        return subjectList;
     }
+    return subjectList;
+}
     
     public List<Subject> getTutorSubjects(int id) throws SQLException {
         List<Subject> subjectList = new ArrayList<>();

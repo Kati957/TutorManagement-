@@ -24,8 +24,8 @@ import model.DAOBlog;
 
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-        maxFileSize = 1024 * 1024 * 10,      // 10MB
-        maxRequestSize = 1024 * 1024 * 50    // 50MB
+        maxFileSize = 1024 * 1024 * 10, // 10MB
+        maxRequestSize = 1024 * 1024 * 50 // 50MB
 )
 @WebServlet(name = "BlogController", urlPatterns = {"/staff/BlogController"})
 public class BlogController extends HttpServlet {
@@ -62,7 +62,8 @@ public class BlogController extends HttpServlet {
                 handleImageUploadForCKEditor(request, response);
                 break;
             default:
-                response.sendRedirect("error-404.jsp");
+                String contextPath = request.getContextPath();
+                response.sendRedirect(contextPath + "/error-404.jsp");
         }
     }
 
@@ -72,13 +73,6 @@ public class BlogController extends HttpServlet {
         HttpSession session = request.getSession();
         DAOBlog dao = new DAOBlog();
         User user = (User) session.getAttribute("user");
-
-        // Kiểm tra quyền (roleID = 4 mới được thêm blog)
-        if (user == null || user.getRoleID() != 4) {
-            response.sendRedirect(request.getContextPath() + "/error-403.jsp");
-            return;
-        }
-
         String submit = request.getParameter("submit");
         if (submit == null) {
             // Hiển thị form thêm blog
@@ -146,13 +140,6 @@ public class BlogController extends HttpServlet {
         HttpSession session = request.getSession();
         DAOBlog dao = new DAOBlog();
         User user = (User) session.getAttribute("user");
-
-        // Kiểm tra quyền (roleID = 4 mới được cập nhật blog)
-        if (user == null || user.getRoleID() != 4) {
-            response.sendRedirect(request.getContextPath() + "/error-403.jsp");
-            return;
-        }
-
         String blogIDStr = request.getParameter("blogID");
         if (blogIDStr == null || blogIDStr.isEmpty()) {
             response.sendRedirect(request.getContextPath() + "/error-404.jsp");
@@ -233,24 +220,18 @@ public class BlogController extends HttpServlet {
         HttpSession session = request.getSession();
         DAOBlog dao = new DAOBlog();
         User user = (User) session.getAttribute("user");
-
-        // Kiểm tra quyền (roleID = 4 mới được xóa blog)
-        if (user == null || user.getRoleID() != 4) {
-            response.sendRedirect("error-403.jsp");
-            return;
-        }
-
         String blogIDStr = request.getParameter("blogID");
         if (blogIDStr == null || blogIDStr.isEmpty()) {
-            response.sendRedirect("error-404.jsp");
+            String contextPath = request.getContextPath();
+            response.sendRedirect(contextPath + "/error-404.jsp");
             return;
         }
-
         int blogID;
         try {
             blogID = Integer.parseInt(blogIDStr);
         } catch (NumberFormatException e) {
-            response.sendRedirect("error-404.jsp");
+            String contextPath = request.getContextPath();
+            response.sendRedirect(contextPath + "/error-404.jsp");
             return;
         }
 
@@ -281,8 +262,12 @@ public class BlogController extends HttpServlet {
             int totalPages = (int) Math.ceil((double) totalBlogs / pageSize);
 
             // Giới hạn page trong khoảng 1 đến totalPages
-            if (page < 1) page = 1;
-            if (page > totalPages) page = totalPages;
+            if (page < 1) {
+                page = 1;
+            }
+            if (page > totalPages) {
+                page = totalPages;
+            }
 
             List<Blog> blogList = dao.getBlogsByPage(page, pageSize);
             request.setAttribute("blogList", blogList);
@@ -294,7 +279,8 @@ public class BlogController extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(BlogController.class.getName()).log(Level.SEVERE, "Database error", ex);
             request.setAttribute("error", "error: " + ex.getMessage());
-            response.sendRedirect("error-404.jsp");
+            String contextPath = request.getContextPath();
+            response.sendRedirect(contextPath + "/error-404.jsp");
         }
     }
 
@@ -323,7 +309,8 @@ public class BlogController extends HttpServlet {
                 Logger.getLogger(BlogController.class.getName()).log(Level.SEVERE, "Invalid blogID", ex);
             }
         }
-        response.sendRedirect("error-404.jsp");
+        String contextPath = request.getContextPath();
+        response.sendRedirect(contextPath + "/error-404.jsp");
     }
 
     private void handleSearchBlog(HttpServletRequest request, HttpServletResponse response)
@@ -331,9 +318,9 @@ public class BlogController extends HttpServlet {
         DAOBlog dao = new DAOBlog();
         String keyword = request.getParameter("text");
         try {
-            List<Blog> blogList = (keyword == null || keyword.trim().isEmpty()) 
-                ? dao.getAllBlogs() 
-                : dao.searchBlogs(keyword);
+            List<Blog> blogList = (keyword == null || keyword.trim().isEmpty())
+                    ? dao.getAllBlogs()
+                    : dao.searchBlogs(keyword);
             List<Blog> recentBlogs = dao.getRecentBlogs(3);
             List<Blog> galleryBlogs = dao.getRecentThumbnails(8);
 
@@ -344,7 +331,8 @@ public class BlogController extends HttpServlet {
             request.getRequestDispatcher("/staff/blog.jsp").forward(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(BlogController.class.getName()).log(Level.SEVERE, "Database error", ex);
-            response.sendRedirect("error-404.jsp");
+            String contextPath = request.getContextPath();
+            response.sendRedirect(contextPath + "/error-404.jsp");
         }
     }
 
@@ -377,7 +365,7 @@ public class BlogController extends HttpServlet {
     }
 
     // Phương thức upload file tổng quát, tái sử dụng cho cả thumbnail và CKEditor
-    private String handleFileUpload(HttpServletRequest request, String partName) 
+    private String handleFileUpload(HttpServletRequest request, String partName)
             throws IOException, ServletException {
         Part filePart = request.getPart(partName);
         if (filePart == null || filePart.getSize() == 0) {
@@ -399,8 +387,7 @@ public class BlogController extends HttpServlet {
         String uniqueFileName = System.currentTimeMillis() + "_" + fileName;
         String fullPath = uploadPath + File.separator + uniqueFileName;
 
-        try (InputStream inputStream = filePart.getInputStream();
-             FileOutputStream outputStream = new FileOutputStream(fullPath)) {
+        try (InputStream inputStream = filePart.getInputStream(); FileOutputStream outputStream = new FileOutputStream(fullPath)) {
             byte[] buffer = new byte[8192];
             int bytesRead;
             while ((bytesRead = inputStream.read(buffer)) != -1) {
