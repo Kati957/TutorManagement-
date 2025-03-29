@@ -229,14 +229,6 @@
                                                     <h4><%= user.getFullName()%></h4>
                                                     <span><%= user.getEmail()%></span>
                                                 </div>
-                                                <div class="profile-social">
-                                                    <ul class="list-inline m-a0">
-                                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                                    </ul>
-                                                </div>
                                                 <div class="profile-tabnav">
                                                     <ul class="nav nav-tabs">
                                                         <li class="nav-item">
