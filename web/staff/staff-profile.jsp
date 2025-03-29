@@ -1,7 +1,16 @@
+<%-- 
+    Document   : staffprofile
+    Created on : [Ngày tạo]
+    Author     : [Tác giả]
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="entity.User"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${not empty sessionScope.locale ? sessionScope.locale : 'en'}">
     <head>
         <!-- META ============================================= -->
         <meta charset="utf-8">
@@ -20,7 +29,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
 
         <!-- PAGE TITLE HERE ============================================= -->
-        <title>G4 SmartTutor - Staff Profile</title>
+        <title>G4 SmartTutor</title>
 
         <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,6 +48,25 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/style.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/color/color-1.css">
+        
+        <style>
+            .alert {
+                padding: 15px;
+                margin-bottom: 20px;
+                border: 1px solid transparent;
+                border-radius: 4px;
+            }
+            .alert-success {
+                color: #3c763d;
+                background-color: #dff0d8;
+                border-color: #d6e9c6;
+            }
+            .alert-danger {
+                color: #a94442;
+                background-color: #f2dede;
+                border-color: #ebccd1;
+            }
+        </style>
     </head>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
         <%
@@ -48,30 +76,42 @@
                 return;
             }
         %>
+        <fmt:setLocale value="${not empty sessionScope.locale ? sessionScope.locale : 'en'}"/>
+        <fmt:setBundle basename="messages"/>
+        
         <!-- header start -->
         <header class="ttr-header">
             <div class="ttr-header-wrapper">
-                <!--sidebar menu toggler start -->
                 <div class="ttr-toggle-sidebar ttr-material-button">
                     <i class="ti-close ttr-open-icon"></i>
                     <i class="ti-menu ttr-close-icon"></i>
                 </div>
-                <!--sidebar menu toggler end -->
-                <!--logo start -->
                 <div class="ttr-logo-box">
                     <div>
-                        <a href="index.jsp" class="ttr-logo">
+                        <a href="${pageContext.request.contextPath}/staff/dashboard" class="ttr-logo">
                             <img class="ttr-logo-mobile" alt="" src="${pageContext.request.contextPath}/assets/images/logo-mobile.png" width="30" height="30">
                             <img class="ttr-logo-desktop" alt="" src="${pageContext.request.contextPath}/assets/images/logo-white.png" width="160" height="27">
                         </a>
                     </div>
                 </div>
-                <!--logo end -->
+                <div class="ttr-header-menu">
+                    <ul class="ttr-header-navigation">
+                        <li><a href="${pageContext.request.contextPath}/staff/dashboard" class="ttr-material-button ttr-submenu-toggle"><fmt:message key="home"/></a></li>
+                        <li>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><fmt:message key="language"/> <i class="fa fa-angle-down"></i></a>
+                            <div class="ttr-header-submenu">
+                                <ul>
+                                    <li><a href="${pageContext.request.contextPath}/LanguageServlet?lang=vi"><fmt:message key="vietnamese"/></a></li>
+                                    <li><a href="${pageContext.request.contextPath}/LanguageServlet?lang=en"><fmt:message key="english"/></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
                 <div class="ttr-header-right ttr-with-seperator">
-                    <!-- header right menu start -->
                     <ul class="ttr-header-navigation">
                         <li>
-                            <a href="#" class="ttr-material-button ttr-submenu-toggle">
+                            <a href="${pageContext.request.contextPath}/staff/dashboard" class="ttr-material-button ttr-submenu-toggle">
                                 <span class="ttr-user-avatar">
                                     <img alt="" 
                                          src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
@@ -81,19 +121,17 @@
                             </a>
                             <div class="ttr-header-submenu">
                                 <ul>
-                                    <li><a href="${pageContext.request.contextPath}/staff/staffprofile">My Profile</a></li>
-                                    <li><a href="list-view-calendar.jsp">Activity</a></li>
-                                    <li><a href="mailbox.jsp">Messages</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/staff/staffprofile"><fmt:message key="my_profile"/></a></li>
+                                    <li><a href="${pageContext.request.contextPath}/logout"><fmt:message key="logout"/></a></li>
                                 </ul>
                             </div>
                         </li>
                     </ul>
-                    <!-- header right menu end -->
                 </div>
             </div>
         </header>
         <!-- header end -->
+        
         <!-- Left sidebar menu start -->
         <div class="ttr-sidebar">
             <div class="ttr-sidebar-wrapper content-scroll">
@@ -111,36 +149,36 @@
                         <li>
                             <a href="${pageContext.request.contextPath}/staff/dashboard" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-home"></i></span>
-                                <span class="ttr-label">Dashboard</span>
+                                <span class="ttr-label"><fmt:message key="dashboard"/></span>
                             </a>
                         </li>
                         <li>
                             <a href="#" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-briefcase"></i></span>
-                                <span class="ttr-label">Tutor Management</span>
+                                <span class="ttr-label"><fmt:message key="tutor_management"/></span>
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-                                <li><a href="${pageContext.request.contextPath}/staff/ViewSchedule" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a></li>
-                                <li><a href="${pageContext.request.contextPath}/staff/ListRated" class="ttr-material-button"><span class="ttr-label">Tutor Reviews</span></a></li>
-                                <li><a href="${pageContext.request.contextPath}/staff/SubjectController?service=listSubject" class="ttr-material-button"><span class="ttr-label">Control Subject</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/ViewSchedule" class="ttr-material-button"><span class="ttr-label"><fmt:message key="view_schedule"/></span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/ListRated" class="ttr-material-button"><span class="ttr-label"><fmt:message key="tutor_reviews"/></span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/SubjectController?service=listSubject" class="ttr-material-button"><span class="ttr-label"><fmt:message key="control_subject"/></span></a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="#" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-book"></i></span>
-                                <span class="ttr-label">Content Management</span>
+                                <span class="ttr-label"><fmt:message key="content_management"/></span>
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-                                <li><a href="${pageContext.request.contextPath}/staff/BlogController?service=listBlog" class="ttr-material-button"><span class="ttr-label">Blog</span></a></li>
-                                <li><a href="${pageContext.request.contextPath}/staff/BlogController?service=addBlog" class="ttr-material-button"><span class="ttr-label">Add Blog</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/BlogController?service=listBlog" class="ttr-material-button"><span class="ttr-label"><fmt:message key="blog"/></span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/BlogController?service=addBlog" class="ttr-material-button"><span class="ttr-label"><fmt:message key="add_blog"/></span></a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="${pageContext.request.contextPath}/staff/historyLog" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-clipboard"></i></span>
-                                <span class="ttr-label">User & Tutor Logs</span>
+                                <span class="ttr-label"><fmt:message key="user_tutor_logs"/></span>
                             </a>
                         </li>
                         <li class="ttr-seperate"></li>
@@ -154,13 +192,13 @@
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-                    <h4 class="breadcrumb-title">Staff Profile</h4>
+                    <h4 class="breadcrumb-title"><fmt:message key="staff_profile"/></h4>
                 </div>	
                 <div class="row">
                     <div class="col-lg-12 m-b30">
                         <div class="widget-box">
                             <div class="wc-title">
-                                <h4>Your Profile</h4>
+                                <h4><fmt:message key="your_profile"/></h4>
                             </div>
                             <div class="widget-inner">
                                 <div class="container">
@@ -187,13 +225,13 @@
                                                 <div class="profile-tabnav">
                                                     <ul class="nav nav-tabs">
                                                         <li class="nav-item">
-                                                            <a class="nav-link active" data-toggle="tab" href="#profile-detail"><i class="ti-user"></i>Profile Detail</a>
+                                                            <a class="nav-link active" data-toggle="tab" href="#profile-detail"><i class="ti-user"></i><fmt:message key="profile_detail"/></a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link" data-toggle="tab" href="#edit-profile"><i class="ti-pencil-alt"></i>Edit Profile</a>
+                                                            <a class="nav-link" data-toggle="tab" href="#edit-profile"><i class="ti-pencil-alt"></i><fmt:message key="edit_profile"/></a>
                                                         </li>
                                                         <li class="nav-item">
-                                                            <a class="nav-link" data-toggle="tab" href="#change-password"><i class="ti-lock"></i>Change Password</a>
+                                                            <a class="nav-link" data-toggle="tab" href="#change-password"><i class="ti-lock"></i><fmt:message key="change_password"/></a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -204,13 +242,13 @@
                                                 <div class="tab-content">
                                                     <div class="tab-pane active" id="profile-detail">
                                                         <div class="profile-head">
-                                                            <h3>Profile Detail</h3>
+                                                            <h3><fmt:message key="profile_detail"/></h3>
                                                         </div>
                                                         <form class="edit-profile">
                                                             <div class="">
                                                                 <!-- Email -->
                                                                 <div class="form-group row" style="padding-left: 30px;padding-right: 10px;padding-top: 10px;">
-                                                                    <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Email</label>
+                                                                    <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="email"/></label>
                                                                     <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                                         <input class="form-control" type="email" value="<%= user.getEmail()%>" readonly>
                                                                     </div>
@@ -218,7 +256,7 @@
 
                                                                 <!-- Full Name -->
                                                                 <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
-                                                                    <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Full Name</label>
+                                                                    <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="full_name"/></label>
                                                                     <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                                         <input class="form-control" type="text" value="<%= user.getFullName()%>" readonly>
                                                                     </div>
@@ -226,7 +264,7 @@
 
                                                                 <!-- Phone Number -->
                                                                 <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
-                                                                    <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Phone</label>
+                                                                    <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="phone"/></label>
                                                                     <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                                         <input class="form-control" type="text" value="<%= user.getPhone()%>" readonly>
                                                                     </div>
@@ -234,7 +272,7 @@
 
                                                                 <!-- Date of Birth -->
                                                                 <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
-                                                                    <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Date of Birth</label>
+                                                                    <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="dob"/></label>
                                                                     <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                                         <input class="form-control" type="date" value="<%= user.getDob() != null ? user.getDob() : ""%>" readonly>
                                                                     </div>
@@ -242,7 +280,7 @@
 
                                                                 <!-- Address -->
                                                                 <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
-                                                                    <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Address</label>
+                                                                    <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="address"/></label>
                                                                     <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                                         <input class="form-control" type="text" value="<%= user.getAddress() != null ? user.getAddress() : ""%>" readonly>
                                                                     </div>
@@ -252,38 +290,38 @@
                                                     </div>
                                                     <div class="tab-pane" id="edit-profile">
                                                         <div class="profile-head">
-                                                            <h3>Edit Profile</h3>
+                                                            <h3><fmt:message key="edit_profile"/></h3>
                                                         </div>
                                                         <form class="edit-profile" action="staffprofile" method="POST" enctype="multipart/form-data">
                                                             <input type="hidden" name="action" value="editProfile">
 
                                                             <!-- Các trường thông tin cá nhân -->
                                                             <div class="form-group row" style="padding-left: 30px;padding-right: 10px;padding-top: 10px;">
-                                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Full Name</label>
+                                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="full_name"/></label>
                                                                 <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                                     <input class="form-control" type="text" name="fullName" value="<%= user.getFullName()%>">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
-                                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Phone</label>
+                                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="phone"/></label>
                                                                 <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                                     <input class="form-control" type="text" name="phone" value="<%= user.getPhone()%>">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
-                                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Date of Birth</label>
+                                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="dob"/></label>
                                                                 <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                                     <input class="form-control" type="date" name="dob" value="<%= user.getDob() != null ? user.getDob() : ""%>">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
-                                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Avatar</label>
+                                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="avatar"/></label>
                                                                 <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                                     <input class="form-control" type="file" name="avatar" accept="image/*">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
-                                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Address</label>
+                                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="address"/></label>
                                                                 <div class="col-12 col-sm-9 col-md-9 col-lg-7">
                                                                     <input class="form-control" type="text" name="address" value="<%= user.getAddress() != null ? user.getAddress() : ""%>">
                                                                 </div>
@@ -293,34 +331,34 @@
                                                             <div class="row" style="padding-left: 30px;padding-right: 10px;padding-bottom: 10px;">
                                                                 <div class="col-12 col-sm-3 col-md-3 col-lg-2"></div>
                                                                 <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                                                    <button type="reset" class="btn btn-secondary">Cancel</button>
+                                                                    <button type="submit" class="btn btn-primary"><fmt:message key="save_changes"/></button>
+                                                                    <button type="reset" class="btn btn-secondary"><fmt:message key="cancel"/></button>
                                                                 </div>
                                                             </div>
                                                         </form>
                                                     </div>                                    
                                                     <div class="tab-pane" id="change-password">
                                                         <div class="profile-head">
-                                                            <h3>Change Password</h3>
+                                                            <h3><fmt:message key="change_password"/></h3>
                                                         </div>
                                                         <form class="edit-profile" action="staffprofile" method="POST">
                                                             <input type="hidden" name="action" value="changePassword">
 
                                                             <!-- Các trường mật khẩu -->
                                                             <div class="form-group row" style="padding-left: 30px;padding-right: 10px;padding-top: 10px;">
-                                                                <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">Current Password</label>
+                                                                <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label"><fmt:message key="current_password"/></label>
                                                                 <div class="col-12 col-sm-8 col-md-8 col-lg-7">
                                                                     <input class="form-control" type="password" name="currentPassword" required>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
-                                                                <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">New Password</label>
+                                                                <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label"><fmt:message key="new_password"/></label>
                                                                 <div class="col-12 col-sm-8 col-md-8 col-lg-7">
                                                                     <input class="form-control" type="password" name="newPassword" required>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group row" style="padding-left: 30px;padding-right: 10px;">
-                                                                <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">Re Type New Password</label>
+                                                                <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label"><fmt:message key="retype_password"/></label>
                                                                 <div class="col-12 col-sm-8 col-md-8 col-lg-7">
                                                                     <input class="form-control" type="password" name="confirmPassword" required>
                                                                 </div>
@@ -330,8 +368,8 @@
                                                             <div class="row" style="padding-left: 30px;padding-right: 10px;padding-bottom: 10px;">
                                                                 <div class="col-12 col-sm-4 col-md-4 col-lg-3"></div>
                                                                 <div class="col-12 col-sm-8 col-md-8 col-lg-7">
-                                                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                                                    <button type="reset" class="btn btn-secondary">Cancel</button>
+                                                                    <button type="submit" class="btn btn-primary"><fmt:message key="save_changes"/></button>
+                                                                    <button type="reset" class="btn btn-secondary"><fmt:message key="cancel"/></button>
                                                                 </div>
                                                             </div>
                                                         </form>

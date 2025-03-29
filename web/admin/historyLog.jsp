@@ -22,7 +22,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
 
         <!-- PAGE TITLE -->
-        <title>G4 SmartTutor - <fmt:message key="history_log"/></title>
+        <title>G4 SmartTutor</title>
 
         <!-- MOBILE SPECIFIC -->
         <meta name="viewport" content="width=device-width, initial-scale=1">

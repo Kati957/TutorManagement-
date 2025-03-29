@@ -23,7 +23,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
 
         <!-- PAGE TITLE -->
-        <title>G4 SmartTutor - <fmt:message key="view_history_payment"/></title>
+        <title>G4 SmartTutor</title>
 
         <!-- MOBILE SPECIFIC -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -109,8 +109,6 @@
                             <div class="ttr-header-submenu">
                                 <ul>
                                     <li><a href="${pageContext.request.contextPath}/admin/adminprofile"><fmt:message key="my_profile"/></a></li>
-                                    <li><a href="${pageContext.request.contextPath}/admin/list-view-calendar.jsp"><fmt:message key="activity"/></a></li>
-                                    <li><a href="${pageContext.request.contextPath}/admin/mailbox.jsp"><fmt:message key="messages"/></a></li>
                                     <li><a href="${pageContext.request.contextPath}/logout"><fmt:message key="logout"/></a></li>
                                 </ul>
                             </div>

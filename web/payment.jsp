@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Thanh Toán Buổi Học</title>
+        <title>G4 SmartTutor</title>
     <style>
         body {
             font-family: Arial, sans-serif;

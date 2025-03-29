@@ -7,9 +7,10 @@
 <%@page import="entity.User"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${not empty sessionScope.locale ? sessionScope.locale : 'en'}">
     <head>
         <!-- META -->
         <meta charset="utf-8">
@@ -59,59 +60,60 @@
     <%
         User user = (User) session.getAttribute("user");
     %>
+    <fmt:setLocale value="${not empty sessionScope.locale ? sessionScope.locale : 'en'}"/>
+    <fmt:setBundle basename="messages"/>
+
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
         <!-- Header -->
         <header class="ttr-header">
             <div class="ttr-header-wrapper">
-                <!--sidebar menu toggler start -->
                 <div class="ttr-toggle-sidebar ttr-material-button">
                     <i class="ti-close ttr-open-icon"></i>
                     <i class="ti-menu ttr-close-icon"></i>
                 </div>
-                <!--sidebar menu toggler end -->
-                <!--logo start -->
                 <div class="ttr-logo-box">
                     <div>
                         <a href="${pageContext.request.contextPath}/staff/dashboard" class="ttr-logo">
-                            <img class="ttr-logo-mobile" alt="" src="assets/images/logo-mobile.png" width="30" height="30">
-                            <img class="ttr-logo-desktop" alt="" src="assets/images/logo-white.png" width="160" height="27">
+                            <img class="ttr-logo-mobile" alt="" src="${pageContext.request.contextPath}/assets/images/logo-mobile.png" width="30" height="30">
+                            <img class="ttr-logo-desktop" alt="" src="${pageContext.request.contextPath}/assets/images/logo-white.png" width="160" height="27">
                         </a>
                     </div>
                 </div>
-                <!--logo end -->
+                <div class="ttr-header-menu">
+                    <ul class="ttr-header-navigation">
+                        <li><a href="${pageContext.request.contextPath}/staff/dashboard" class="ttr-material-button ttr-submenu-toggle"><fmt:message key="home"/></a></li>
+                        <li>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><fmt:message key="language"/> <i class="fa fa-angle-down"></i></a>
+                            <div class="ttr-header-submenu">
+                                <ul>
+                                    <li><a href="${pageContext.request.contextPath}/LanguageServlet?lang=vi"><fmt:message key="vietnamese"/></a></li>
+                                    <li><a href="${pageContext.request.contextPath}/LanguageServlet?lang=en"><fmt:message key="english"/></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="ttr-header-right ttr-with-seperator">
+                    <ul class="ttr-header-navigation">
+                        <li>
+                            <a href="${pageContext.request.contextPath}/staff/dashboard" class="ttr-material-button ttr-submenu-toggle">
+                                <span class="ttr-user-avatar">
+                                    <img alt="" 
+                                         src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
+                                         width="32" height="32"
+                                         onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
+                                </span>
+                            </a>
+                            <div class="ttr-header-submenu">
+                                <ul>
+                                    <li><a href="${pageContext.request.contextPath}/staff/staffprofile">My Profile</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="ttr-header-right ttr-with-seperator">
-                <!-- header right menu start -->
-                <ul class="ttr-header-navigation">
-                    <li>
-                        <a href="dashboard" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar">
-                                <img alt="" 
-                                     src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
-                                     width="32" height="32"
-                                     onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'"></span></a>
-                        <div class="ttr-header-submenu">
-                            <ul>
-                                <li><a href="${pageContext.request.contextPath}/profile">My profile</a></li>
-                                <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-                <!-- header right menu end -->
-            </div>
-            <!--header search panel start -->
-            <div class="ttr-search-bar">
-                <form class="ttr-search-form">
-                    <div class="ttr-search-input-wrapper">
-                        <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
-                        <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
-                    </div>
-                    <span class="ttr-search-close ttr-search-toggle">
-                        <i class="ti-close"></i>
-                    </span>
-                </form>
-            </div>
-            <!--header search panel end -->
         </header>
 
         <!-- Left sidebar menu start -->
@@ -131,36 +133,36 @@
                         <li>
                             <a href="${pageContext.request.contextPath}/staff/dashboard" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-home"></i></span>
-                                <span class="ttr-label">Dashboard</span>
+                                <span class="ttr-label"><fmt:message key="dashboard"/></span>
                             </a>
                         </li>
                         <li>
                             <a href="#" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-briefcase"></i></span>
-                                <span class="ttr-label">Tutor Management</span>
+                                <span class="ttr-label"><fmt:message key="tutor_management"/></span>
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-                                <li><a href="${pageContext.request.contextPath}/staff/ViewSchedule" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a></li>
-                                <li><a href="${pageContext.request.contextPath}/staff/ListRated" class="ttr-material-button"><span class="ttr-label">Tutor Reviews</span></a></li>
-                                <li><a href="${pageContext.request.contextPath}/staff/SubjectController?service=listSubject" class="ttr-material-button"><span class="ttr-label">Control Subject</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/ViewSchedule" class="ttr-material-button"><span class="ttr-label"><fmt:message key="view_schedule"/></span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/ListRated" class="ttr-material-button"><span class="ttr-label"><fmt:message key="tutor_reviews"/></span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/SubjectController?service=listSubject" class="ttr-material-button"><span class="ttr-label"><fmt:message key="control_subject"/></span></a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="#" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-book"></i></span>
-                                <span class="ttr-label">Content Management</span>
+                                <span class="ttr-label"><fmt:message key="content_management"/></span>
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-                                <li><a href="${pageContext.request.contextPath}/staff/BlogController?service=listBlog" class="ttr-material-button"><span class="ttr-label">Blog</span></a></li>
-                                <li><a href="${pageContext.request.contextPath}/staff/BlogController?service=addBlog" class="ttr-material-button"><span class="ttr-label">Add Blog</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/BlogController?service=listBlog" class="ttr-material-button"><span class="ttr-label"><fmt:message key="blog"/></span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/BlogController?service=addBlog" class="ttr-material-button"><span class="ttr-label"><fmt:message key="add_blog"/></span></a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="${pageContext.request.contextPath}/staff/historyLog" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-clipboard"></i></span>
-                                <span class="ttr-label">User & Tutor Logs</span>
+                                <span class="ttr-label"><fmt:message key="user_tutor_logs"/></span>
                             </a>
                         </li>
                         <li class="ttr-seperate"></li>
@@ -174,18 +176,18 @@
         <main class="ttr-wrapper">
             <div class="container-fluid">
                 <div class="db-breadcrumb">
-                    <h4 class="breadcrumb-title">Subject Management</h4>
+                    <h4 class="breadcrumb-title"><fmt:message key="subject_management"/></h4>
                     <ul class="db-breadcrumb-list">
-                        <li><a href="${pageContext.request.contextPath}/staff/dashboard"><i class="fa fa-home"></i>Home</a></li>
-                        <li>Subject Management</li>
+                        <li><a href="${pageContext.request.contextPath}/staff/dashboard"><i class="fa fa-home"></i><fmt:message key="home"/></a></li>
+                        <li><fmt:message key="subject_management"/></li>
                     </ul>
                 </div>
                 <div class="row">
                     <div class="col-lg-12 m-b30">
                         <div class="widget-box">
                             <div class="wc-title">
-                                <h4>Subject List</h4>
-                                <a href="SubjectController?service=addSubject" class="add-btn">Add Subject</a>
+                                <h4><fmt:message key="subject_list"/></h4>
+                                <a href="SubjectController?service=addSubject" class="add-btn"><fmt:message key="add_subject"/></a>
                             </div>
                             <div class="table-responsive">
                                 <table>
@@ -199,11 +201,11 @@
                                     </c:if>
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Subject Name</th>
-                                            <th>Description</th>
-                                            <th>Status</th> <!-- Thêm cột Status -->
-                                            <th>Actions</th>
+                                            <th><fmt:message key="id"/></th>
+                                            <th><fmt:message key="subject_name"/></th>
+                                            <th><fmt:message key="description"/></th>
+                                            <th><fmt:message key="status"/></th>
+                                            <th><fmt:message key="actions"/></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -212,13 +214,12 @@
                                                 <td>${subject.subjectID}</td>
                                                 <td>${subject.subjectName}</td>
                                                 <td>${subject.description}</td>
-                                                <td>${subject.status}</td> <!-- Hiển thị trạng thái -->
+                                                <td>${subject.status}</td>
                                                 <td class="action-links">
-                                                    <a href="SubjectController?service=updateSubject&subjectID=${subject.subjectID}" class="update-btn">Update</a>
-                                                    <!-- Chỉ hiển thị nút Deactivate nếu trạng thái là Active -->
+                                                    <a href="SubjectController?service=updateSubject&subjectID=${subject.subjectID}" class="update-btn"><fmt:message key="update"/></a>
                                                     <c:if test="${subject.status == 'Active'}">
                                                         <a href="SubjectController?service=deleteSubject&subjectID=${subject.subjectID}" 
-                                                           class="delete-btn" onclick="return confirm('Bạn có muốn đổi trạng thái subject này thành Inactive?')">Deactivate</a>
+                                                           class="delete-btn" onclick="return confirm('<fmt:message key="confirm_deactivate"/>')"><fmt:message key="deactivate"/></a>
                                                     </c:if>
                                                 </td>
                                             </tr>
@@ -226,7 +227,7 @@
                                     </tbody>
                                 </table>
                                 <c:if test="${empty subjectList}">
-                                    <p class="error">No subjects found.</p>
+                                    <p class="error"><fmt:message key="no_subjects_found"/></p>
                                 </c:if>
                             </div>
                         </div>
@@ -235,16 +236,16 @@
                     <div class="col-lg-12 m-b30">
                         <div class="widget-box">
                             <div class="wc-title">
-                                <h4>Tutor-Subject List with UserName</h4>
+                                <h4><fmt:message key="tutor_subject_list"/></h4>
                             </div>
                             <div class="widget-inner">
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>Tutor ID</th>
-                                            <th>User Name</th>
-                                            <th>Subject ID</th>
-                                            <th>Description</th>
+                                            <th><fmt:message key="tutor_id"/></th>
+                                            <th><fmt:message key="user_name"/></th>
+                                            <th><fmt:message key="subject_id"/></th>
+                                            <th><fmt:message key="description"/></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -259,7 +260,7 @@
                                     </tbody>
                                 </table>
                                 <c:if test="${empty tutorSubjectList}">
-                                    <p class="error">No tutor-subject records found.</p>
+                                    <p class="error"><fmt:message key="no_tutor_subjects_found"/></p>
                                 </c:if>
                             </div>
                         </div>
