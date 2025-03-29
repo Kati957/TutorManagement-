@@ -126,38 +126,46 @@
                                 </header>
                                 <!-- header end -->
                                 <!-- Left sidebar menu start -->
-                                <!-- Sidebar -->
                                 <div class="ttr-sidebar">
                                     <div class="ttr-sidebar-wrapper content-scroll">
+                                        <!-- Side menu logo start -->
                                         <div class="ttr-sidebar-logo">
-                                            <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
-                                            <div class="ttr-sidebar-toggle-button"><i class="ti-arrow-left"></i></div>
+                                            <a href="${pageContext.request.contextPath}/staff/dashboard"><img alt="" src="${pageContext.request.contextPath}/assets/images/logo.png" width="122" height="27"></a>
+                                            <div class="ttr-sidebar-toggle-button">
+                                                <i class="ti-arrow-left"></i>
+                                            </div>
                                         </div>
+                                        <!-- Side menu logo end -->
+                                        <!-- Sidebar menu start -->
                                         <nav class="ttr-sidebar-navi">
                                             <ul>
-                                                <li><a href="dashboard" class="ttr-material-button"><span class="ttr-icon"><i class="ti-home"></i></span><span class="ttr-label">Dashboard</span></a></li>
                                                 <li>
-                                                    <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-briefcase"></i></span><span class="ttr-label">Tutor Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
+                                                    <a href="${pageContext.request.contextPath}/staff/dashboard" class="ttr-material-button">
+                                                        <span class="ttr-icon"><i class="ti-home"></i></span>
+                                                        <span class="ttr-label">Dashboard</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" class="ttr-material-button">
+                                                        <span class="ttr-icon"><i class="ti-briefcase"></i></span>
+                                                        <span class="ttr-label">Tutor Management</span>
+                                                        <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                                                    </a>
                                                     <ul>
-                                                        <li><a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a></li>
-                                                        <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a></li>
-                                                        <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Booking</span></a></li>
-                                                        <li><a href="ListRated" class="ttr-material-button"><span class="ttr-label">Tutor Reviews</span></a></li>
-                                                        <li><a href="SubjectController" class="ttr-material-button"><span class="ttr-label">Control Subject</span></a></li>
+                                                        <li><a href="${pageContext.request.contextPath}/staff/ViewSchedule" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a></li>
+                                                        <li><a href="${pageContext.request.contextPath}/staff/ListRated" class="ttr-material-button"><span class="ttr-label">Tutor Reviews</span></a></li>
+                                                        <li><a href="${pageContext.request.contextPath}/staff/SubjectController?service=listSubject" class="ttr-material-button"><span class="ttr-label">Control Subject</span></a></li>
                                                     </ul>
                                                 </li>
                                                 <li>
-                                                    <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-credit-card"></i></span><span class="ttr-label">Payment</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
+                                                    <a href="#" class="ttr-material-button">
+                                                        <span class="ttr-icon"><i class="ti-book"></i></span>
+                                                        <span class="ttr-label">Content Management</span>
+                                                        <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
+                                                    </a>
                                                     <ul>
-                                                        <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a></li>
-                                                        <li><a href="#" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a></li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <a href="#" class="ttr-material-button"><span class="ttr-icon"><i class="ti-book"></i></span><span class="ttr-label">Content Management</span><span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span></a>
-                                                    <ul>
-                                                        <li><a href="BlogController?service=listBlog" class="ttr-label">Blog</a></li>
-                                                        <li><a href="BlogController?service=addBlog" class="ttr-label">Add Blog</a></li>
+                                                        <li><a href="${pageContext.request.contextPath}/staff/BlogController?service=listBlog" class="ttr-material-button"><span class="ttr-label">Blog</span></a></li>
+                                                        <li><a href="${pageContext.request.contextPath}/staff/BlogController?service=addBlog" class="ttr-material-button"><span class="ttr-label">Add Blog</span></a></li>
                                                     </ul>
                                                 </li>
                                                 <li>
@@ -169,10 +177,9 @@
                                                 <li class="ttr-seperate"></li>
                                             </ul>
                                         </nav>
+                                        <!-- Sidebar menu end -->
                                     </div>
                                 </div>
-                                <!-- Left sidebar menu end -->
-                                <!-- Left sidebar menu end -->
                                 <!--Main container start -->
                                 <main class="ttr-wrapper">
                                     <div class="container-fluid">

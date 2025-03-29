@@ -166,22 +166,9 @@
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">Adjust Tutor Earning</span></a></li>
                                 <li><a href="${pageContext.request.contextPath}/staff/ViewSchedule" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a></li>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Booking</span></a></li>
                                 <li><a href="${pageContext.request.contextPath}/staff/ListRated" class="ttr-material-button"><span class="ttr-label">Tutor Reviews</span></a></li>
                                 <li><a href="${pageContext.request.contextPath}/staff/SubjectController?service=listSubject" class="ttr-material-button"><span class="ttr-label">Control Subject</span></a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#" class="ttr-material-button">
-                                <span class="ttr-icon"><i class="ti-credit-card"></i></span>
-                                <span class="ttr-label">Payment</span>
-                                <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
-                            </a>
-                            <ul>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View Earning</span></a></li>
-                                <li><a href="#" class="ttr-material-button"><span class="ttr-label">View History Payment</span></a></li>
                             </ul>
                         </li>
                         <li>
@@ -245,7 +232,7 @@
                                         <%
                                             for (User newUser : newUsers) {
                                                 String roleName = "Tutor"; // Vì getNewUsers() chỉ lấy RoleID = 2
-%>
+                                        %>
                                         <li>
                                             <span class="new-users-pic">
                                                 <img src="${pageContext.request.contextPath}/<%= newUser.getAvatar() != null ? newUser.getAvatar() : "uploads/default_avatar.jpg"%>" 
