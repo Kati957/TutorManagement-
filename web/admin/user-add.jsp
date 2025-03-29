@@ -23,7 +23,7 @@
         <meta name="format-detection" content="telephone=no">
         <link rel="icon" href="${pageContext.request.contextPath}/error-404.jsp" type="image/x-icon" />
         <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/assets/images/favicon.png" />
-        <title>G4 SmartTutor - <fmt:message key="${editUser != null ? 'edit_user' : 'add_new_user'}"/></title>
+        <title>G4 SmartTutor</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/assets.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/vendors/calendar/fullcalendar.css">
@@ -87,8 +87,6 @@
                             <div class="ttr-header-submenu">
                                 <ul>
                                     <li><a href="${pageContext.request.contextPath}/admin/adminprofile"><fmt:message key="my_profile"/></a></li>
-                                    <li><a href="${pageContext.request.contextPath}/admin/list-view-calendar.jsp"><fmt:message key="activity"/></a></li>
-                                    <li><a href="${pageContext.request.contextPath}/admin/mailbox.jsp"><fmt:message key="messages"/></a></li>
                                     <li><a href="${pageContext.request.contextPath}/logout"><fmt:message key="logout"/></a></li>
                                 </ul>
                             </div>

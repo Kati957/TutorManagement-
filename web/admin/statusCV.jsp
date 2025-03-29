@@ -100,9 +100,7 @@
                             <div class="ttr-header-submenu">
                                 <ul>
                                     <li><a href="${pageContext.request.contextPath}/admin/adminprofile">My Profile</a></li>
-                                    <li><a href="list-view-calendar.jsp">Activity</a></li>
-                                    <li><a href="mailbox.jsp">Messages</a></li>
-                                    <li><a href="../login.jsp">Logout</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/logout"><fmt:message key="logout"/></a></li>
                                 </ul>
                             </div>
                         </li>

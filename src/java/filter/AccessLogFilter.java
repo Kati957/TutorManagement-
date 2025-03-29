@@ -70,12 +70,4 @@ public class AccessLogFilter implements Filter {
 
         return true;
     }
-
-    @Override
-    public void destroy() {
-        // Đóng kết nối khi filter bị hủy
-        if (dao != null) {
-            dao.closeConnection();
-        }
-    }
 }

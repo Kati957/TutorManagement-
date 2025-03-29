@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ page import="entity.User" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="${not empty sessionScope.locale ? sessionScope.locale : 'en'}">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,7 +29,6 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/color/color-1.css">
 
-        <!-- Thêm style cho thông báo -->
         <style>
             .message {
                 color: green;
@@ -51,9 +50,61 @@
             .delete-btn:hover {
                 background-color: #cc0000;
             }
+            .sort-button {
+                background-color: white;
+                border: 1px solid #ccc;
+                padding: 8px 16px;
+                border-radius: 4px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 200px;
+            }
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: white;
+                min-width: 200px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                z-index: 1;
+                border-radius: 4px;
+                margin-top: 2px;
+            }
+            .dropdown-content a {
+                padding: 12px 16px;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                color: black;
+            }
+            .dropdown-content a:hover {
+                background-color: #f1f1f1;
+            }
+            .check-icon {
+                color: #4CAF50;
+                display: none;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+            th, td {
+                padding: 8px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
         </style>
     </head>
     <% User user = (User) session.getAttribute("user");%>
+    <fmt:setLocale value="${not empty sessionScope.locale ? sessionScope.locale : 'en'}"/>
+    <fmt:setBundle basename="messages"/>
+    
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
         <!-- Header -->
         <header class="ttr-header">
@@ -70,24 +121,40 @@
                         </a>
                     </div>
                 </div>
-            </div>
-            <div class="ttr-header-right ttr-with-seperator">
-                <ul class="ttr-header-navigation">
-                    <li>
-                        <a href="${pageContext.request.contextPath}/staff/dashboard" class="ttr-material-button ttr-submenu-toggle">
-                            <span class="ttr-user-avatar">
-                                <img alt="" src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
-                                     width="32" height="32" onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
-                            </span>
-                        </a>
-                        <div class="ttr-header-submenu">
-                            <ul>
-                                <li><a href="${pageContext.request.contextPath}/profile">My profile</a></li>
-                                <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
+                <div class="ttr-header-menu">
+                    <ul class="ttr-header-navigation">
+                        <li><a href="${pageContext.request.contextPath}/staff/dashboard" class="ttr-material-button ttr-submenu-toggle"><fmt:message key="home"/></a></li>
+                        <li>
+                            <a href="#" class="ttr-material-button ttr-submenu-toggle"><fmt:message key="language"/> <i class="fa fa-angle-down"></i></a>
+                            <div class="ttr-header-submenu">
+                                <ul>
+                                    <li><a href="${pageContext.request.contextPath}/LanguageServlet?lang=vi"><fmt:message key="vietnamese"/></a></li>
+                                    <li><a href="${pageContext.request.contextPath}/LanguageServlet?lang=en"><fmt:message key="english"/></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="ttr-header-right ttr-with-seperator">
+                    <ul class="ttr-header-navigation">
+                        <li>
+                            <a href="${pageContext.request.contextPath}/staff/dashboard" class="ttr-material-button ttr-submenu-toggle">
+                                <span class="ttr-user-avatar">
+                                    <img alt="" 
+                                         src="${pageContext.request.contextPath}/<%= user.getAvatar() != null ? user.getAvatar() : "uploads/default_avatar.jpg"%>" 
+                                         width="32" height="32"
+                                         onerror="this.src='${pageContext.request.contextPath}/uploads/default_avatar.jpg'">
+                                </span>
+                            </a>
+                            <div class="ttr-header-submenu">
+                                <ul>
+                                    <li><a href="${pageContext.request.contextPath}/staff/staffprofile"><fmt:message key="my_profile"/></a></li>
+                                    <li><a href="${pageContext.request.contextPath}/logout"><fmt:message key="logout"/></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </header>
 
@@ -105,36 +172,36 @@
                         <li>
                             <a href="${pageContext.request.contextPath}/staff/dashboard" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-home"></i></span>
-                                <span class="ttr-label">Dashboard</span>
+                                <span class="ttr-label"><fmt:message key="dashboard"/></span>
                             </a>
                         </li>
                         <li>
                             <a href="#" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-briefcase"></i></span>
-                                <span class="ttr-label">Tutor Management</span>
+                                <span class="ttr-label"><fmt:message key="tutor_management"/></span>
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-                                <li><a href="${pageContext.request.contextPath}/staff/ViewSchedule" class="ttr-material-button"><span class="ttr-label">View Schedule</span></a></li>
-                                <li><a href="${pageContext.request.contextPath}/staff/ListRated" class="ttr-material-button"><span class="ttr-label">Tutor Reviews</span></a></li>
-                                <li><a href="${pageContext.request.contextPath}/staff/SubjectController?service=listSubject" class="ttr-material-button"><span class="ttr-label">Control Subject</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/ViewSchedule" class="ttr-material-button"><span class="ttr-label"><fmt:message key="view_schedule"/></span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/ListRated" class="ttr-material-button"><span class="ttr-label"><fmt:message key="tutor_reviews"/></span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/SubjectController?service=listSubject" class="ttr-material-button"><span class="ttr-label"><fmt:message key="control_subject"/></span></a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="#" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-book"></i></span>
-                                <span class="ttr-label">Content Management</span>
+                                <span class="ttr-label"><fmt:message key="content_management"/></span>
                                 <span class="ttr-arrow-icon"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
-                                <li><a href="${pageContext.request.contextPath}/staff/BlogController?service=listBlog" class="ttr-material-button"><span class="ttr-label">Blog</span></a></li>
-                                <li><a href="${pageContext.request.contextPath}/staff/BlogController?service=addBlog" class="ttr-material-button"><span class="ttr-label">Add Blog</span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/BlogController?service=listBlog" class="ttr-material-button"><span class="ttr-label"><fmt:message key="blog"/></span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/staff/BlogController?service=addBlog" class="ttr-material-button"><span class="ttr-label"><fmt:message key="add_blog"/></span></a></li>
                             </ul>
                         </li>
                         <li>
                             <a href="${pageContext.request.contextPath}/staff/historyLog" class="ttr-material-button">
                                 <span class="ttr-icon"><i class="ti-clipboard"></i></span>
-                                <span class="ttr-label">User & Tutor Logs</span>
+                                <span class="ttr-label"><fmt:message key="user_tutor_logs"/></span>
                             </a>
                         </li>
                         <li class="ttr-seperate"></li>
@@ -145,163 +212,169 @@
 
         <!-- Main content -->
         <main class="ttr-wrapper">
-            <h2>Tutor Ratings List</h2>
-
-            <!-- Hiển thị thông báo -->
-            <c:if test="${not empty sessionScope.message}">
-                <div class="message">${sessionScope.message}</div>
-                <c:remove var="message" scope="session" />
-            </c:if>
-            <c:if test="${not empty sessionScope.error}">
-                <div class="error">${sessionScope.error}</div>
-                <c:remove var="error" scope="session" />
-            </c:if>
-
-            <!-- Form tìm kiếm gia sư -->
-            <div class="sort-options" style="margin-bottom: 20px;">
-                <label>Get tutor's average rate: </label>
-                <form action="${pageContext.request.contextPath}/staff/ListRated" method="get" style="display: inline;">
-                    <input type="hidden" name="service" value="searchTutors">
-                    <input type="text" name="keyword" value="${keyword}" placeholder="Enter ID or Name" style="padding: 5px;">
-                    <button type="submit" style="background-color: #800080; color: white; border: none; padding: 5px 10px; cursor: pointer;">Search</button>
-                </form>
-            </div>
-
-            <!-- Form tìm kiếm danh sách đánh giá -->
-            <div class="sort-options" style="margin-bottom: 20px;">
-                <label>Search ratings: </label>
-                <form action="${pageContext.request.contextPath}/staff/ListRated" method="get" style="display: inline;">
-                    <input type="hidden" name="service" value="searchRatingList">
-                    <input type="text" name="ratingId" value="${ratingId}" placeholder="Rating ID" style="padding: 5px; width: 100px;">
-                    <input type="text" name="tutorId" value="${tutorId}" placeholder="Tutor ID" style="padding: 5px; width: 100px;">
-                    <input type="date" name="ratingDate" value="${ratingDate}" style="padding: 5px; width: 150px;">
-                    <button type="submit" style="background-color: #800080; color: white; border: none; padding: 5px 10px; cursor: pointer;">Search</button>
-                </form>
-            </div>
-
-            <!-- Tùy chọn sắp xếp -->
-            <div class="sort-dropdown" style="position: relative; display: inline-block;">
-                <button class="sort-button" onclick="toggleDropdown()" style="background-color: white; border: 1px solid #ccc; padding: 8px 16px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; width: 200px;">
-                    <span id="currentSortLabel">Sort by: Average Rate</span>
-                    <svg width="12" height="12" viewBox="0 0 24 24" style="margin-left: 10px;">
-                        <path d="M7 10l5 5 5-5z" fill="currentColor"></path>
-                    </svg>
-                </button>
-                <div id="sortOptions" class="dropdown-content" style="display: none; position: absolute; background-color: white; min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border-radius: 4px; margin-top: 2px;">
-                    <a href="${pageContext.request.contextPath}/staff/ListRated?service=listTutorsByRating&order=DESC" 
-                       class="option" 
-                       data-sort="DESC"
-                       data-label="Highest rated first"
-                       style="padding: 12px 16px; text-decoration: none; display: flex; align-items: center; justify-content: space-between; color: black;">
-                        Highest rated first
-                        <svg width="16" height="16" viewBox="0 0 24 24" style="color: #4CAF50; display: none;" class="check-icon">
-                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="currentColor"></path>
-                        </svg>
-                    </a>
-                    <a href="${pageContext.request.contextPath}/staff/ListRated?service=listTutorsByRating&order=ASC" 
-                       class="option" 
-                       data-sort="ASC"
-                       data-label="Lowest rated first"
-                       style="padding: 12px 16px; text-decoration: none; display: flex; align-items: center; justify-content: space-between; color: black;">
-                        Lowest rated first
-                        <svg width="16" height="16" viewBox="0 0 24 24" style="color: #4CAF50; display: none;" class="check-icon">
-                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="currentColor"></path>
-                        </svg>
-                    </a>
+            <div class="container-fluid">
+                <div class="db-breadcrumb">
+                    <h4 class="breadcrumb-title"><fmt:message key="tutor_reviews"/></h4>
+                    <ul class="db-breadcrumb-list">
+                        <li><a href="${pageContext.request.contextPath}/staff/dashboard"><i class="fa fa-home"></i><fmt:message key="home"/></a></li>
+                        <li><fmt:message key="tutor_reviews"/></li>
+                    </ul>
                 </div>
-            </div>
 
-            <script>
-                function toggleDropdown() {
-                    document.getElementById("sortOptions").style.display = document.getElementById("sortOptions").style.display === "none" ? "block" : "none";
-                }
+                <!-- Hiển thị thông báo -->
+                <c:if test="${not empty sessionScope.message}">
+                    <div class="message">${sessionScope.message}</div>
+                    <c:remove var="message" scope="session" />
+                </c:if>
+                <c:if test="${not empty sessionScope.error}">
+                    <div class="error">${sessionScope.error}</div>
+                    <c:remove var="error" scope="session" />
+                </c:if>
 
-                window.onclick = function (event) {
-                    if (!event.target.matches('.sort-button') && !event.target.matches('.sort-button *')) {
-                        var dropdown = document.getElementById("sortOptions");
-                        if (dropdown.style.display === "block") {
-                            dropdown.style.display = "none";
+                <!-- Form tìm kiếm gia sư -->
+                <div class="sort-options" style="margin-bottom: 20px;">
+                    <label><fmt:message key="get_tutor_average_rate"/>: </label>
+                    <form action="${pageContext.request.contextPath}/staff/ListRated" method="get" style="display: inline;">
+                        <input type="hidden" name="service" value="searchTutors">
+                        <input type="text" name="keyword" value="${keyword}" placeholder="<fmt:message key="enter_id_or_name"/>" style="padding: 5px;">
+                        <button type="submit" style="background-color: #800080; color: white; border: none; padding: 5px 10px; cursor: pointer;"><fmt:message key="search"/></button>
+                    </form>
+                </div>
+
+                <!-- Form tìm kiếm danh sách đánh giá -->
+                <div class="sort-options" style="margin-bottom: 20px;">
+                    <label><fmt:message key="search_ratings"/>: </label>
+                    <form action="${pageContext.request.contextPath}/staff/ListRated" method="get" style="display: inline;">
+                        <input type="hidden" name="service" value="searchRatingList">
+                        <input type="text" name="ratingId" value="${ratingId}" placeholder="<fmt:message key="rating_id"/>" style="padding: 5px; width: 100px;">
+                        <input type="text" name="tutorId" value="${tutorId}" placeholder="<fmt:message key="tutor_id"/>" style="padding: 5px; width: 100px;">
+                        <input type="date" name="ratingDate" value="${ratingDate}" style="padding: 5px; width: 150px;">
+                        <button type="submit" style="background-color: #800080; color: white; border: none; padding: 5px 10px; cursor: pointer;"><fmt:message key="search"/></button>
+                    </form>
+                </div>
+
+                <!-- Tùy chọn sắp xếp -->
+                <div class="sort-dropdown" style="position: relative; display: inline-block;">
+                    <button class="sort-button" onclick="toggleDropdown()">
+                        <span id="currentSortLabel"><fmt:message key="sort_by"/>: <fmt:message key="average_rate"/></span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" style="margin-left: 10px;">
+                            <path d="M7 10l5 5 5-5z" fill="currentColor"></path>
+                        </svg>
+                    </button>
+                    <div id="sortOptions" class="dropdown-content">
+                        <a href="${pageContext.request.contextPath}/staff/ListRated?service=listTutorsByRating&order=DESC" 
+                           class="option" 
+                           data-sort="DESC"
+                           data-label="<fmt:message key="highest_rated_first"/>">
+                            <fmt:message key="highest_rated_first"/>
+                            <svg width="16" height="16" viewBox="0 0 24 24" class="check-icon">
+                                <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="currentColor"></path>
+                            </svg>
+                        </a>
+                        <a href="${pageContext.request.contextPath}/staff/ListRated?service=listTutorsByRating&order=ASC" 
+                           class="option" 
+                           data-sort="ASC"
+                           data-label="<fmt:message key="lowest_rated_first"/>">
+                            <fmt:message key="lowest_rated_first"/>
+                            <svg width="16" height="16" viewBox="0 0 24 24" class="check-icon">
+                                <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="currentColor"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <script>
+                    function toggleDropdown() {
+                        document.getElementById("sortOptions").style.display = document.getElementById("sortOptions").style.display === "none" ? "block" : "none";
+                    }
+
+                    window.onclick = function (event) {
+                        if (!event.target.matches('.sort-button') && !event.target.matches('.sort-button *')) {
+                            var dropdown = document.getElementById("sortOptions");
+                            if (dropdown.style.display === "block") {
+                                dropdown.style.display = "none";
+                            }
                         }
                     }
-                }
 
-                document.addEventListener("DOMContentLoaded", function () {
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const currentOrder = urlParams.get('order');
-                    const options = document.querySelectorAll('.option');
-                    options.forEach(option => {
-                        if (option.dataset.sort === currentOrder) {
-                            option.querySelector('.check-icon').style.display = 'block';
-                            document.getElementById('currentSortLabel').textContent = 'Sort by: ' + option.dataset.label;
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const currentOrder = urlParams.get('order');
+                        const options = document.querySelectorAll('.option');
+                        options.forEach(option => {
+                            if (option.dataset.sort === currentOrder) {
+                                option.querySelector('.check-icon').style.display = 'block';
+                                document.getElementById('currentSortLabel').textContent = '<fmt:message key="sort_by"/>: ' + option.dataset.label;
+                            }
+                        });
+                        if (!currentOrder) {
+                            const firstOption = document.querySelector('.option[data-sort="DESC"]');
+                            firstOption.querySelector('.check-icon').style.display = 'block';
+                            document.getElementById('currentSortLabel').textContent = '<fmt:message key="sort_by"/>: ' + firstOption.dataset.label;
                         }
                     });
-                    if (!currentOrder) {
-                        const firstOption = document.querySelector('.option[data-sort="DESC"]');
-                        firstOption.querySelector('.check-icon').style.display = 'block';
-                        document.getElementById('currentSortLabel').textContent = 'Sort by: ' + firstOption.dataset.label;
-                    }
-                });
-            </script>
+                </script>
 
-            <!-- Bảng danh sách đánh giá -->
-            <table border="1">
-                <tr>
-                    <th>ID</th>
-                    <th>Booking ID</th>
-                    <th>Student ID</th>
-                    <th>Tutor ID</th>
-                    <th>Rating</th>
-                    <th>Comment</th>
-                    <th>Rating Date</th>
-                    <th>Actions</th> <!-- Thêm cột Actions -->
-                </tr>
-                <c:forEach var="rating" items="${ratingList}">
+                <!-- Bảng danh sách đánh giá -->
+                <table>
                     <tr>
-                        <td>${rating.ratingId}</td>
-                        <td>${rating.bookingId}</td>
-                        <td>${rating.studentId}</td>
-                        <td>${rating.tutorId}</td>
-                        <td>${rating.rating}</td>
-                        <td>${rating.comment}</td>
-                        <td>${rating.ratingDate}</td>
-                        <td>
-                            <a href="${pageContext.request.contextPath}/staff/ListRated?service=deleteRating&ratingId=${rating.ratingId}" 
-                               class="delete-btn" 
-                               onclick="return confirm('Bạn có chắc chắn muốn xóa đánh giá này?')">Delete</a>
-                        </td>
+                        <th><fmt:message key="id"/></th>
+                        <th><fmt:message key="booking_id"/></th>
+                        <th><fmt:message key="student_id"/></th>
+                        <th><fmt:message key="tutor_id"/></th>
+                        <th><fmt:message key="rating"/></th>
+                        <th><fmt:message key="comment"/></th>
+                        <th><fmt:message key="rating_date"/></th>
+                        <th><fmt:message key="actions"/></th>
                     </tr>
-                </c:forEach>
-            </table>
-
-            <!-- Bảng danh sách gia sư theo điểm trung bình (nếu có) -->
-            <c:if test="${not empty tutorList}">
-                <h2>Tutors by Average Rating</h2>
-                <table border="1">
-                    <tr>
-                        <th>Tutor ID</th>
-                        <th>Tutor Name</th>
-                        <th>Average Rating</th>
-                        <th>Number of Reviews</th>
-                    </tr>
-                    <c:forEach var="tutor" items="${tutorList}">
+                    <c:forEach var="rating" items="${ratingList}">
                         <tr>
-                            <td>${tutor[0]}</td>
-                            <td>${tutor[1]}</td>
+                            <td>${rating.ratingId}</td>
+                            <td>${rating.bookingId}</td>
+                            <td>${rating.studentId}</td>
+                            <td>${rating.tutorId}</td>
+                            <td>${rating.rating}</td>
+                            <td>${rating.comment}</td>
+                            <td>${rating.ratingDate}</td>
                             <td>
-                                <c:choose>
-                                    <c:when test="${tutor[2] == 0}">
-                                        No rated yet
-                                    </c:when>
-                                    <c:otherwise>
-                                        <fmt:formatNumber value="${tutor[2]}" minFractionDigits="1" maxFractionDigits="1"/>
-                                    </c:otherwise>
-                                </c:choose>
+                                <a href="${pageContext.request.contextPath}/staff/ListRated?service=deleteRating&ratingId=${rating.ratingId}" 
+                                   class="delete-btn" 
+                                   onclick="return confirm('<fmt:message key="confirm_delete_rating"/>')"><fmt:message key="delete"/></a>
                             </td>
-                            <td>${tutor[3]}</td>
                         </tr>
                     </c:forEach>
                 </table>
-            </c:if>
+
+                <!-- Bảng danh sách gia sư theo điểm trung bình (nếu có) -->
+                <c:if test="${not empty tutorList}">
+                    <h2><fmt:message key="tutors_by_average_rating"/></h2>
+                    <table>
+                        <tr>
+                            <th><fmt:message key="tutor_id"/></th>
+                            <th><fmt:message key="tutor_name"/></th>
+                            <th><fmt:message key="average_rating"/></th>
+                            <th><fmt:message key="number_of_reviews"/></th>
+                        </tr>
+                        <c:forEach var="tutor" items="${tutorList}">
+                            <tr>
+                                <td>${tutor[0]}</td>
+                                <td>${tutor[1]}</td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${tutor[2] == 0}">
+                                            <fmt:message key="no_ratings_yet"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <fmt:formatNumber value="${tutor[2]}" minFractionDigits="1" maxFractionDigits="1"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+                                <td>${tutor[3]}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </c:if>
+            </div>
         </main>
 
         <div class="ttr-overlay"></div>

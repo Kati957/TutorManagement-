@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/vendors/revolution/css/settings.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/vendors/revolution/css/navigation.css">
 
-    <title>G4 SmartTutor : <fmt:message key="my_schedule"/></title>
+        <title>G4 SmartTutor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body id="bg">

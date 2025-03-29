@@ -19,11 +19,7 @@ import model.DAOHistoryLog;
 import entity.HistoryLog;
 import entity.User;
 
-/**
- *
- * @author Heizxje
- */
-@WebServlet(name = "HistoryLog", urlPatterns = {"/staff/historyLog"})
+@WebServlet(name = "HistoryLogStaff", urlPatterns = {"/staff/historyLog"})
 public class HistoryLogStaff extends HttpServlet {
 
     private DAOHistoryLog dao;
@@ -50,49 +46,31 @@ public class HistoryLogStaff extends HttpServlet {
         }
 
         User user = (User) session.getAttribute("user");
-        if (user.getRoleID() != 4) { // Chỉ staff (RoleID = 4) được xem
+        if (user.getRoleID() != 4) {
             response.sendRedirect(request.getContextPath() + "/access-denied.jsp");
             return;
         }
         
         try {
-            // Lấy danh sách log của User và Tutor
+            DAOHistoryLog dao = new DAOHistoryLog(); // Tạo mới mỗi lần
             List<HistoryLog> logs = dao.getUserAndTutorLogs();
             request.setAttribute("logs", logs);
             request.getRequestDispatcher("/staff/historylog.jsp").forward(request, response);
         } catch (SQLException e) {
+            e.printStackTrace();
             request.setAttribute("error", "Error loading user and tutor logs: " + e.getMessage());
             request.getRequestDispatcher("/staff/historylog.jsp").forward(request, response);
         }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Nếu cần xử lý POST (hiện tại chưa cần), bạn có thể thêm logic ở đây
-        doGet(request, response); // Gọi lại doGet để xử lý đơn giản
+        doGet(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Servlet to display history logs of Users and Tutors for Staff";
-    }
-
-    @Override
-    public void destroy() {
-        if (dao != null) {
-            dao.closeConnection(); // Đóng kết nối khi servlet bị hủy
-        }
     }
 }
