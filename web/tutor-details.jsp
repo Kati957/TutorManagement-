@@ -272,25 +272,7 @@
                                     </div>
                                     <div class="student-reviews" id="student-reviews">
                                         <%
-                                            ResultSet rsReviews = (ResultSet) request.getAttribute("rsReviews");
-                                            DAOCv dao = new DAOCv();
-                                            List<Object[]> reviews = new ArrayList<>();
-                                            while (rsReviews.next()) {
-                                                int studentId = rsReviews.getInt("StudentID");
-                                                int rating = rsReviews.getInt("Rating");
-                                                String comment = rsReviews.getString("Comment");
-                                                String ratingDate = rsReviews.getString("RatingDate");
-                                                ResultSet rsStudent = dao.getData("SELECT FullName, Avatar FROM users WHERE UserID = " + studentId);
-                                                String reviewerName = "";
-                                                String reviewerAvatar = "";
-                                                if (rsStudent.next()) {
-                                                    reviewerName = rsStudent.getString("FullName");
-                                                    reviewerAvatar = rsStudent.getString("Avatar");
-                                                }
-                                                boolean isLongReview = comment.length() > 100;
-                                                String displayText = isLongReview ? comment.substring(0, 100) + "..." : comment;
-                                                reviews.add(new Object[]{studentId, rating, comment, ratingDate, reviewerName, reviewerAvatar, isLongReview, displayText});
-                                            }
+                                            List<Object[]> reviews= (List<Object[]>)request.getAttribute("reviews");
                                             int displayLimit = Math.min(6, reviews.size());
                                             for (int i = 0; i < displayLimit; i++) {
                                                 Object[] review = reviews.get(i);
