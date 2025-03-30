@@ -7,7 +7,6 @@ package UserController;
 import entity.User;
 import model.DAOUser;
 import java.io.IOException;
-import java.security.MessageDigest;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import jakarta.servlet.ServletException;
@@ -18,14 +17,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
-import java.time.LocalDate;
 import java.sql.Date;
-import java.security.MessageDigest;
+import java.net.URLEncoder; // Thêm để mã hóa tham số URL
 
+/**
+ * Servlet xử lý các yêu cầu liên quan đến hồ sơ người dùng, bao gồm xem hồ sơ, cập nhật thông tin và đổi mật khẩu.
+ */
 @WebServlet(name = "ProfileServlet", urlPatterns = {"/profile"})
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-        maxFileSize = 1024 * 1024 * 10, // 10MB
-        maxRequestSize = 1024 * 1024 * 50) // 50MB
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // Kích thước ngưỡng để lưu tạm file: 2MB
+        maxFileSize = 1024 * 1024 * 10,      // Kích thước tối đa của một file: 10MB
+        maxRequestSize = 1024 * 1024 * 50)   // Kích thước tối đa của toàn bộ request: 50MB
 public class ProfileServlet extends HttpServlet {
 
     private static final String PROFILE_PAGE = "/profile_user.jsp";
@@ -75,45 +76,37 @@ public class ProfileServlet extends HttpServlet {
         String confirmPassword = request.getParameter("confirmPassword");
 
         try {
-            // Kiểm tra null trước khi xử lý
             if (currentPassword == null || newPassword == null || confirmPassword == null) {
-                setError(session, "Vui lòng điền đầy đủ các trường mật khẩu.");
-                response.sendRedirect("profile");
+                response.sendRedirect("profile?error=" + URLEncoder.encode("Vui lòng điền đầy đủ các trường mật khẩu.", "UTF-8"));
                 return;
             }
 
-            // Mã hóa mật khẩu hiện tại để so sánh
             String encryptedCurrentPassword = util.MD5Util.getMD5Hash(currentPassword);
             if (!currentUser.getPassword().equals(encryptedCurrentPassword)) {
-                setError(session, "Mật khẩu hiện tại không đúng.");
-                response.sendRedirect("profile");
+                response.sendRedirect("profile?error=" + URLEncoder.encode("Mật khẩu hiện tại không đúng.", "UTF-8"));
                 return;
             }
 
             if (!newPassword.equals(confirmPassword)) {
-                setError(session, "Mật khẩu mới và xác nhận mật khẩu không khớp.");
-                response.sendRedirect("profile");
+                response.sendRedirect("profile?error=" + URLEncoder.encode("Mật khẩu mới và xác nhận mật khẩu không khớp.", "UTF-8"));
                 return;
             }
 
             if (newPassword.length() < MIN_PASSWORD_LENGTH) {
-                setError(session, "Mật khẩu mới phải có ít nhất " + MIN_PASSWORD_LENGTH + " ký tự.");
-                response.sendRedirect("profile");
+                response.sendRedirect("profile?error=" + URLEncoder.encode("Mật khẩu mới phải có ít nhất " + MIN_PASSWORD_LENGTH + " ký tự.", "UTF-8"));
                 return;
             }
 
-            // Không mã hóa mật khẩu mới ở đây, truyền plaintext sang DAOUser
-            currentUser.setPassword(newPassword); // Truyền mật khẩu dạng plaintext
+            currentUser.setPassword(newPassword);
             if (daoUser.updateUser(currentUser)) {
-                session.setAttribute("user", currentUser);
-                setMessage(session, "Đổi mật khẩu thành công!");
+                User updatedUser = daoUser.getUserById(currentUser.getUserID()); // Cập nhật từ DB
+                session.setAttribute("user", updatedUser);
+                response.sendRedirect("profile?message=" + URLEncoder.encode("Đổi mật khẩu thành công!", "UTF-8"));
             } else {
-                setError(session, "Đổi mật khẩu thất bại.");
+                response.sendRedirect("profile?error=" + URLEncoder.encode("Đổi mật khẩu thất bại.", "UTF-8"));
             }
         } catch (Exception e) {
-            setError(session, "Lỗi khi xử lý mật khẩu: " + e.getMessage());
-        } finally {
-            response.sendRedirect("profile");
+            response.sendRedirect("profile?error=" + URLEncoder.encode("Lỗi khi xử lý mật khẩu: " + e.getMessage(), "UTF-8"));
         }
     }
 
@@ -127,20 +120,18 @@ public class ProfileServlet extends HttpServlet {
         java.sql.Date sqlDob = parseDateOfBirth(dobParam, session);
 
         if (sqlDob == null && session.getAttribute("error") != null) {
-            response.sendRedirect("profile");
+            response.sendRedirect("profile?error=" + URLEncoder.encode("Ngày sinh không hợp lệ.", "UTF-8"));
             return;
         }
 
         if (phone != null && !phone.trim().isEmpty() && !phone.equals(currentUser.getPhone())) {
             try {
                 if (daoUser.isPhoneExist(phone, userId)) {
-                    setError(session, "Số điện thoại đã được sử dụng bởi người dùng khác.");
-                    response.sendRedirect("profile");
+                    response.sendRedirect("profile?error=" + URLEncoder.encode("Số điện thoại đã được sử dụng bởi người dùng khác.", "UTF-8"));
                     return;
                 }
             } catch (SQLException e) {
-                setError(session, "Lỗi khi kiểm tra số điện thoại: " + e.getMessage());
-                response.sendRedirect("profile");
+                response.sendRedirect("profile?error=" + URLEncoder.encode("Lỗi khi kiểm tra số điện thoại: " + e.getMessage(), "UTF-8"));
                 return;
             }
         }
@@ -152,11 +143,10 @@ public class ProfileServlet extends HttpServlet {
 
         if (daoUser.updateUser(updatedUser)) {
             session.setAttribute("user", updatedUser);
-            setMessage(session, "Cập nhật hồ sơ thành công!");
+            response.sendRedirect("profile?message=" + URLEncoder.encode("Cập nhật hồ sơ thành công!", "UTF-8"));
         } else {
-            setError(session, "Cập nhật hồ sơ thất bại.");
+            response.sendRedirect("profile?error=" + URLEncoder.encode("Cập nhật hồ sơ thất bại.", "UTF-8"));
         }
-        response.sendRedirect("profile");
     }
 
     private java.sql.Date parseDateOfBirth(String dobParam, HttpSession session) {
@@ -167,7 +157,7 @@ public class ProfileServlet extends HttpServlet {
             LocalDate localDate = LocalDate.parse(dobParam);
             return java.sql.Date.valueOf(localDate);
         } catch (java.time.format.DateTimeParseException e) {
-            setError(session, "Ngày sinh không hợp lệ. Vui lòng nhập theo định dạng yyyy-MM-dd.");
+            session.setAttribute("error", "Ngày sinh không hợp lệ."); // Lưu lỗi tạm thời để kiểm tra
             return null;
         }
     }
@@ -185,7 +175,7 @@ public class ProfileServlet extends HttpServlet {
                 filePart.write(uploadPath + fileName);
                 return "uploads/" + fileName;
             } else {
-                return currentAvatar; // Giữ nguyên avatar hiện tại nếu file không hợp lệ
+                return currentAvatar;
             }
         }
         return currentAvatar;
@@ -212,11 +202,5 @@ public class ProfileServlet extends HttpServlet {
         return false;
     }
 
-    private void setError(HttpSession session, String errorMessage) {
-        session.setAttribute("error", errorMessage);
-    }
-
-    private void setMessage(HttpSession session, String message) {
-        session.setAttribute("message", message);
-    }
+    // Xóa các phương thức setError và setMessage vì không cần lưu vào session nữa
 }
