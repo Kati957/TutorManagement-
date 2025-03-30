@@ -50,7 +50,10 @@ public class DAOTutorRating extends DBConnect {
     // Lấy danh sách tất cả TutorRating
     public List<TutorRating> getAllTutorRatings() throws SQLException {
         List<TutorRating> list = new ArrayList<>();
-        String sql = "SELECT * FROM [dbo].[TutorRating]  ORDER BY RatingDate DESC";
+        String sql = "SELECT tr.RatingID, tr.BookingID, u.FullName, tr.TutorID, tr.Comment, tr.RatingDate, tr.StudentID, tr.Rating \n"
+                + "                     FROM [dbo].[TutorRating] tr \n"
+                + "                     JOIN dbo.Users u ON u.UserID = tr.StudentID \n"
+                + "                     ORDER BY tr.RatingDate DESC";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();
@@ -63,8 +66,8 @@ public class DAOTutorRating extends DBConnect {
         }
         return list;
     }
-    
-        public List<TutorRating> getTutorRatings(String sql) throws SQLException {
+
+    public List<TutorRating> getTutorRatings(String sql) throws SQLException {
         List<TutorRating> list = new ArrayList<>();
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
@@ -96,9 +99,10 @@ public class DAOTutorRating extends DBConnect {
         }
         return list;
     }
-    public int getAvgRating(int tutorid){
-        int avg=0;
-        String sql = "SELECT sum(rating)/COUNT(rating)  FROM [dbo].[TutorRating] WHERE TutorID ="+tutorid;
+
+    public int getAvgRating(int tutorid) {
+        int avg = 0;
+        String sql = "SELECT sum(rating)/COUNT(rating)  FROM [dbo].[TutorRating] WHERE TutorID =" + tutorid;
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();
@@ -110,9 +114,10 @@ public class DAOTutorRating extends DBConnect {
         }
         return avg;
     }
-        public int numberReview(int tutorid){
-        int count=0;
-        String sql = "SELECT COUNT(rating)  FROM [dbo].[TutorRating] WHERE TutorID ="+tutorid;
+
+    public int numberReview(int tutorid) {
+        int count = 0;
+        String sql = "SELECT COUNT(rating)  FROM [dbo].[TutorRating] WHERE TutorID =" + tutorid;
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
             ResultSet rs = pre.executeQuery();
@@ -185,12 +190,24 @@ public class DAOTutorRating extends DBConnect {
     private TutorRating extractTutorRatingFromResultSet(ResultSet rs) throws SQLException {
         int ratingId = rs.getInt("RatingID");
         int bookingId = rs.getInt("BookingID");
-        int studentId = rs.getInt("StudentID");
+        String FullName = rs.getString("FullName");
         int tutorId = rs.getInt("TutorID");
         int rating = rs.getInt("Rating");
         String comment = rs.getString("Comment");
         Timestamp ratingDate = rs.getTimestamp("RatingDate");
-        return new TutorRating(ratingId, bookingId, studentId, tutorId, rating, comment, ratingDate);
+
+        TutorRating tutorRating = new TutorRating(ratingId, bookingId, FullName, tutorId, rating, comment, ratingDate);
+
+        // Get the username if it exists in the result set
+        try {
+            if (rs.getMetaData().getColumnCount() > 7) {
+                tutorRating.setUsername(rs.getString("FullName"));
+            }
+        } catch (SQLException e) {
+            // Handle the case where UserName column doesn't exist
+        }
+
+        return tutorRating;
     }
 
     public List<Object[]> getTutorsWithAverageRating(String order) throws SQLException {
@@ -250,49 +267,64 @@ public class DAOTutorRating extends DBConnect {
     public List<TutorRating> searchTutorRatings(String ratingId, String tutorId, String ratingDate) throws SQLException {
         List<TutorRating> list = new ArrayList<>();
 
-        // Bắt đầu câu truy vấn với điều kiện luôn đúng
-        String sql = "SELECT * FROM [dbo].[TutorRating] WHERE 1=1";
+        // Start with a query that joins TutorRating with Users to get FullName
+        StringBuilder sqlBuilder = new StringBuilder(
+                "SELECT tr.RatingID, tr.BookingID, tr.StudentID, u.FullName, tr.TutorID, tr.Rating, tr.Comment, tr.RatingDate "
+                + "FROM [dbo].[TutorRating] tr "
+                + "JOIN dbo.Users u ON u.UserID = tr.StudentID "
+                + "WHERE 1=1"
+        );
 
-        // Danh sách các giá trị sẽ được set cho PreparedStatement
+        // List for parameters
         List<Object> params = new ArrayList<>();
 
-        // Nếu có truyền ratingId, thêm điều kiện
+        // Add conditions based on search parameters
         if (ratingId != null && !ratingId.trim().isEmpty()) {
-            sql += " AND RatingID = ?";
-            params.add(Integer.parseInt(ratingId));
+            try {
+                sqlBuilder.append(" AND tr.RatingID = ?");
+                params.add(Integer.parseInt(ratingId));
+            } catch (NumberFormatException e) {
+                // Skip this condition if invalid number
+                Logger.getLogger(DAOTutorRating.class.getName()).log(Level.WARNING, "Invalid RatingID format", e);
+            }
         }
 
-        // Nếu có truyền tutorId, thêm điều kiện
         if (tutorId != null && !tutorId.trim().isEmpty()) {
-            sql += " AND TutorID = ?";
-            params.add(Integer.parseInt(tutorId));
+            try {
+                sqlBuilder.append(" AND tr.TutorID = ?");
+                params.add(Integer.parseInt(tutorId));
+            } catch (NumberFormatException e) {
+                // Skip this condition if invalid number
+                Logger.getLogger(DAOTutorRating.class.getName()).log(Level.WARNING, "Invalid TutorID format", e);
+            }
         }
 
-        // Nếu có truyền ratingDate, thêm điều kiện (giả sử ratingDate là kiểu date hoặc varchar lưu dạng 'YYYY-MM-DD')
         if (ratingDate != null && !ratingDate.trim().isEmpty()) {
-            sql += " AND CONVERT(date, RatingDate) = ?";
-            // Nếu cột RatingDate là kiểu datetime, CONVERT(date, RatingDate) sẽ lấy phần ngày
+            sqlBuilder.append(" AND CONVERT(date, tr.RatingDate) = ?");
             params.add(ratingDate);
         }
 
-        // Sắp xếp theo ngày đánh giá từ mới nhất đến cũ nhất (nếu có trường RatingDate)
-        sql += " ORDER BY RatingDate DESC";
+        // Add order by clause
+        sqlBuilder.append(" ORDER BY tr.RatingDate DESC");
 
-        try {
-            PreparedStatement pre = conn.prepareStatement(sql);
-            // Set các tham số vào PreparedStatement
+        String sql = sqlBuilder.toString();
+        try (PreparedStatement pre = conn.prepareStatement(sql)) {
+            // Set the parameters
             for (int i = 0; i < params.size(); i++) {
                 pre.setObject(i + 1, params.get(i));
             }
-            ResultSet rs = pre.executeQuery();
-            while (rs.next()) {
-                TutorRating rating = extractTutorRatingFromResultSet(rs);
-                list.add(rating);
+
+            try (ResultSet rs = pre.executeQuery()) {
+                while (rs.next()) {
+                    TutorRating rating = extractTutorRatingFromResultSet(rs);
+                    list.add(rating);
+                }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DAOTutorRating.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOTutorRating.class.getName()).log(Level.SEVERE, "Error searching tutor ratings", ex);
             throw ex;
         }
+
         return list;
     }
 
@@ -344,6 +376,7 @@ public class DAOTutorRating extends DBConnect {
         }
         return totalRatings;
     }
+
     // Xóa một đánh giá theo RatingID
     public boolean deleteTutorRating(int ratingId) throws SQLException {
         String sql = "DELETE FROM [dbo].[TutorRating] WHERE RatingID = ?";

@@ -66,28 +66,6 @@ public class BookScheduleServlet extends HttpServlet {
 
         request.getRequestDispatcher("user/bookschedule.jsp").forward(request, response);
     }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            response.sendRedirect("login.jsp");
-            return;
-        }
-
-        String[] scheduleIds = request.getParameterValues("scheduleIds");
-        String tutorId = request.getParameter("tutorId");
-        String subjectId = request.getParameter("subjectId");
-        String totalBill = request.getParameter("totalBill");
-
-        if (scheduleIds == null || tutorId == null || subjectId == null || totalBill == null) {
-            response.sendRedirect("bookschedule?subjectId=" + subjectId + "&tutorId=" + tutorId + "&error=Missing information");
-            return;
-        }
-    }
-
     @Override
     public String getServletInfo() {
         return "Short description";
