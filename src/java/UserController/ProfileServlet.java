@@ -75,26 +75,35 @@ public class ProfileServlet extends HttpServlet {
         String confirmPassword = request.getParameter("confirmPassword");
 
         try {
+            // Kiểm tra null trước khi xử lý
+            if (currentPassword == null || newPassword == null || confirmPassword == null) {
+                setError(session, "Vui lòng điền đầy đủ các trường mật khẩu.");
+                response.sendRedirect("profile");
+                return;
+            }
+
             // Mã hóa mật khẩu hiện tại để so sánh
             String encryptedCurrentPassword = util.MD5Util.getMD5Hash(currentPassword);
             if (!currentUser.getPassword().equals(encryptedCurrentPassword)) {
                 setError(session, "Mật khẩu hiện tại không đúng.");
+                response.sendRedirect("profile");
                 return;
             }
 
             if (!newPassword.equals(confirmPassword)) {
                 setError(session, "Mật khẩu mới và xác nhận mật khẩu không khớp.");
+                response.sendRedirect("profile");
                 return;
             }
 
             if (newPassword.length() < MIN_PASSWORD_LENGTH) {
                 setError(session, "Mật khẩu mới phải có ít nhất " + MIN_PASSWORD_LENGTH + " ký tự.");
+                response.sendRedirect("profile");
                 return;
             }
 
-            // Mã hóa mật khẩu mới trước khi lưu
-            String encryptedNewPassword = util.MD5Util.getMD5Hash(newPassword);
-            currentUser.setPassword(encryptedNewPassword);
+            // Không mã hóa mật khẩu mới ở đây, truyền plaintext sang DAOUser
+            currentUser.setPassword(newPassword); // Truyền mật khẩu dạng plaintext
             if (daoUser.updateUser(currentUser)) {
                 session.setAttribute("user", currentUser);
                 setMessage(session, "Đổi mật khẩu thành công!");

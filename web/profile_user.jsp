@@ -286,7 +286,7 @@
                                                     <div class="form-group row">
                                                         <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label"><fmt:message key="new_password"/></label>
                                                         <div class="col-12 col-sm-8 col-md-8 col-lg-7">
-                                                            <input class="form-control" type="password" name="new_password" required>
+                                                            <input class="form-control" type="password" name="newPassword" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
