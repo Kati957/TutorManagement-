@@ -342,13 +342,6 @@ public class BlogController extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-
-        // Kiểm tra quyền (roleID = 4)
-        if (user == null || user.getRoleID() != 4) {
-            sendCKEditorError(response, "Bạn không có quyền upload ảnh!");
-            return;
-        }
-
         // Lấy file từ CKEditor (tên field mặc định là "upload")
         String filePath = handleFileUpload(request, "upload");
         if (filePath == null) {

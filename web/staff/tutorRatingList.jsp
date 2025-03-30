@@ -96,9 +96,6 @@
                 text-align: left;
                 border-bottom: 1px solid #ddd;
             }
-            th {
-                background-color: #f2f2f2;
-            }
         </style>
     </head>
     <% User user = (User) session.getAttribute("user");%>
@@ -320,7 +317,7 @@
                     <tr>
                         <th><fmt:message key="id"/></th>
                         <th><fmt:message key="booking_id"/></th>
-                        <th><fmt:message key="student_id"/></th>
+                        <th><fmt:message key="student"/></th>
                         <th><fmt:message key="tutor_id"/></th>
                         <th><fmt:message key="rating"/></th>
                         <th><fmt:message key="comment"/></th>
@@ -331,7 +328,7 @@
                         <tr>
                             <td>${rating.ratingId}</td>
                             <td>${rating.bookingId}</td>
-                            <td>${rating.studentId}</td>
+                            <td>${rating.username}</td>
                             <td>${rating.tutorId}</td>
                             <td>${rating.rating}</td>
                             <td>${rating.comment}</td>

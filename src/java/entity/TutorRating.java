@@ -19,14 +19,37 @@ public class TutorRating {
     private int rating;
     private String comment;
     private Timestamp ratingDate;
+    private String fullName;
 
     public TutorRating() {
+    }
+
+    public TutorRating(int ratingId, int bookingId, int studentId, int tutorId, int rating, String comment, Timestamp ratingDate, String username) {
+        this.ratingId = ratingId;
+        this.bookingId = bookingId;
+        this.studentId = studentId;
+        this.tutorId = tutorId;
+        this.rating = rating;
+        this.comment = comment;
+        this.ratingDate = ratingDate;
+        this.fullName = fullName;
     }
 
     public TutorRating(int ratingId, int bookingId, int studentId, int tutorId, int rating, String comment, Timestamp ratingDate) {
         this.ratingId = ratingId;
         this.bookingId = bookingId;
         this.studentId = studentId;
+        this.tutorId = tutorId;
+        this.rating = rating;
+        this.comment = comment;
+        this.ratingDate = ratingDate;
+    }
+    
+
+    public TutorRating(int ratingId, int bookingId, String fullName, int tutorId, int rating, String comment, Timestamp ratingDate) {
+        this.ratingId = ratingId;
+        this.bookingId = bookingId;
+        this.fullName = fullName;
         this.tutorId = tutorId;
         this.rating = rating;
         this.comment = comment;
@@ -56,6 +79,14 @@ public class TutorRating {
 
     public void setStudentId(int studentId) {
         this.studentId = studentId;
+    }
+
+    public String getUsername() {
+        return fullName;
+    }
+
+    public void setUsername(String fullName) {
+        this.fullName = fullName;
     }
 
     public int getTutorId() {

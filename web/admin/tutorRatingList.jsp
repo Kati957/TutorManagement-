@@ -32,13 +32,48 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/dashboard.css">
         <link class="skin" rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/color/color-1.css">
         <style>
-            .sort-options { margin-bottom: 20px; }
-            .sort-dropdown { position: relative; display: inline-block; }
-            .sort-button { background-color: white; border: 1px solid #ccc; padding: 8px 16px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; width: 200px; }
-            .dropdown-content { display: none; position: absolute; background-color: white; min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border-radius: 4px; margin-top: 2px; }
-            .option { padding: 12px 16px; text-decoration: none; display: flex; align-items: center; justify-content: space-between; color: black; }
-            .option:hover { background-color: #f1f1f1; }
-            .check-icon { color: #4CAF50; }
+            .sort-options {
+                margin-bottom: 20px;
+            }
+            .sort-dropdown {
+                position: relative;
+                display: inline-block;
+            }
+            .sort-button {
+                background-color: white;
+                border: 1px solid #ccc;
+                padding: 8px 16px;
+                border-radius: 4px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 200px;
+            }
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: white;
+                min-width: 200px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                z-index: 1;
+                border-radius: 4px;
+                margin-top: 2px;
+            }
+            .option {
+                padding: 12px 16px;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                color: black;
+            }
+            .option:hover {
+                background-color: #f1f1f1;
+            }
+            .check-icon {
+                color: #4CAF50;
+            }
         </style>
     </head>
     <body class="ttr-opened-sidebar ttr-pinned-sidebar">
@@ -220,7 +255,7 @@
                     <button class="sort-button" onclick="toggleDropdown()">
                         <span id="currentSortLabel"><fmt:message key="sort_by_average_rate"/></span>
                         <svg width="12" height="12" viewBox="0 0 24 24" style="margin-left: 10px;">
-                            <path d="M7 10l5 5 5-5z" fill="currentColor"></path>
+                        <path d="M7 10l5 5 5-5z" fill="currentColor"></path>
                         </svg>
                     </button>
                     <div id="sortOptions" class="dropdown-content">
@@ -230,7 +265,7 @@
                            data-label="highest_rated_first">
                             <fmt:message key="highest_rated_first"/>
                             <svg width="16" height="16" viewBox="0 0 24 24" style="display: none;" class="check-icon">
-                                <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="currentColor"></path>
+                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="currentColor"></path>
                             </svg>
                         </a>
                         <a href="${pageContext.request.contextPath}/admin/AdminListRated?service=listTutorsByRating&order=ASC" 
@@ -239,7 +274,7 @@
                            data-label="lowest_rated_first">
                             <fmt:message key="lowest_rated_first"/>
                             <svg width="16" height="16" viewBox="0 0 24 24" style="display: none;" class="check-icon">
-                                <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="currentColor"></path>
+                            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="currentColor"></path>
                             </svg>
                         </a>
                     </div>
@@ -256,7 +291,7 @@
                                 <tr>
                                     <th><fmt:message key="id"/></th>
                                     <th><fmt:message key="booking_id"/></th>
-                                    <th><fmt:message key="student_id"/></th>
+                                    <th><fmt:message key="student"/></th>
                                     <th><fmt:message key="tutor_id"/></th>
                                     <th><fmt:message key="rating"/></th>
                                     <th><fmt:message key="comment"/></th>
@@ -268,7 +303,7 @@
                                     <tr>
                                         <td>${rating.ratingId}</td>
                                         <td>${rating.bookingId}</td>
-                                        <td>${rating.studentId}</td>
+                                        <td>${rating.username}</td>
                                         <td>${rating.tutorId}</td>
                                         <td>${rating.rating}</td>
                                         <td>${rating.comment}</td>
@@ -277,7 +312,7 @@
                                 </c:forEach>
                                 <c:if test="${empty ratingList}">
                                     <tr><td colspan="7"><fmt:message key="no_ratings_found"/></td></tr>
-                                </c:if>
+                                    </c:if>
                             </tbody>
                         </table>
                     </div>
@@ -347,35 +382,35 @@
         <script src="${pageContext.request.contextPath}/assets/vendors/calendar/fullcalendar.js"></script>
         <script src="${pageContext.request.contextPath}/assets/vendors/switcher/switcher.js"></script>
         <script>
-            function toggleDropdown() {
-                document.getElementById("sortOptions").style.display = document.getElementById("sortOptions").style.display === "none" ? "block" : "none";
-            }
+                        function toggleDropdown() {
+                            document.getElementById("sortOptions").style.display = document.getElementById("sortOptions").style.display === "none" ? "block" : "none";
+                        }
 
-            window.onclick = function (event) {
-                if (!event.target.matches('.sort-button') && !event.target.matches('.sort-button *')) {
-                    var dropdown = document.getElementById("sortOptions");
-                    if (dropdown.style.display === "block") {
-                        dropdown.style.display = "none";
-                    }
-                }
-            }
+                        window.onclick = function (event) {
+                            if (!event.target.matches('.sort-button') && !event.target.matches('.sort-button *')) {
+                                var dropdown = document.getElementById("sortOptions");
+                                if (dropdown.style.display === "block") {
+                                    dropdown.style.display = "none";
+                                }
+                            }
+                        }
 
-            document.addEventListener("DOMContentLoaded", function () {
-                const urlParams = new URLSearchParams(window.location.search);
-                const currentOrder = urlParams.get('order');
-                const options = document.querySelectorAll('.option');
-                options.forEach(option => {
-                    if (option.dataset.sort === currentOrder) {
-                        option.querySelector('.check-icon').style.display = 'block';
-                        document.getElementById('currentSortLabel').textContent = '<fmt:message key="sort_by"/>: ' + option.textContent.trim();
-                    }
-                });
-                if (!currentOrder) {
-                    const firstOption = document.querySelector('.option[data-sort="DESC"]');
-                    firstOption.querySelector('.check-icon').style.display = 'block';
-                    document.getElementById('currentSortLabel').textContent = '<fmt:message key="sort_by"/>: ' + firstOption.textContent.trim();
-                }
-            });
+                        document.addEventListener("DOMContentLoaded", function () {
+                            const urlParams = new URLSearchParams(window.location.search);
+                            const currentOrder = urlParams.get('order');
+                            const options = document.querySelectorAll('.option');
+                            options.forEach(option => {
+                                if (option.dataset.sort === currentOrder) {
+                                    option.querySelector('.check-icon').style.display = 'block';
+                                    document.getElementById('currentSortLabel').textContent = '<fmt:message key="sort_by"/>: ' + option.textContent.trim();
+                                }
+                            });
+                            if (!currentOrder) {
+                                const firstOption = document.querySelector('.option[data-sort="DESC"]');
+                                firstOption.querySelector('.check-icon').style.display = 'block';
+                                document.getElementById('currentSortLabel').textContent = '<fmt:message key="sort_by"/>: ' + firstOption.textContent.trim();
+                            }
+                        });
         </script>
     </body>
 </html>
