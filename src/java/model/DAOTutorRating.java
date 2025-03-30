@@ -63,6 +63,21 @@ public class DAOTutorRating extends DBConnect {
         }
         return list;
     }
+    
+        public List<TutorRating> getTutorRatings(String sql) throws SQLException {
+        List<TutorRating> list = new ArrayList<>();
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            while (rs.next()) {
+                TutorRating rating = extractTutorRatingFromResultSet(rs);
+                list.add(rating);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOTutorRating.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
 
     // Lấy danh sách đánh giá theo TutorID
     public List<TutorRating> getRatingsByTutorId(int tutorId) throws SQLException {
@@ -80,6 +95,34 @@ public class DAOTutorRating extends DBConnect {
             Logger.getLogger(DAOTutorRating.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
+    }
+    public int getAvgRating(int tutorid){
+        int avg=0;
+        String sql = "SELECT sum(rating)/COUNT(rating)  FROM [dbo].[TutorRating] WHERE TutorID ="+tutorid;
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            if (rs.next()) {
+                avg = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOTutorRating.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return avg;
+    }
+        public int numberReview(int tutorid){
+        int count=0;
+        String sql = "SELECT COUNT(rating)  FROM [dbo].[TutorRating] WHERE TutorID ="+tutorid;
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOTutorRating.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return count;
     }
 
     // Kiểm tra vai trò học sinh (RoleID = 2)

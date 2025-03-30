@@ -1,4 +1,5 @@
 <%@ page import="entity.User" %>
+<%@page import="model.DAOTutorRating"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -34,6 +35,7 @@
     <body id="bg">
         <%
             User user = (User) session.getAttribute("user");
+            DAOTutorRating dao = new DAOTutorRating();
         %>
         <fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en'}"/>
         <fmt:setBundle basename="messages"/>
@@ -229,13 +231,19 @@
                                                     </div>
                                                     <div class="cours-more-info">
                                                         <div class="review">
-                                                            <span>${tutor.rating} Rating</span>
                                                             <ul class="cours-star">
-                                                                <c:forEach begin="1" end="5" var="i">
-                                                                    <li class="${i <= tutor.rating ? 'active' : ''}">
-                                                                        <i class="fa fa-star"></i>
-                                                                    </li>
-                                                                </c:forEach>
+                                                                <c:set var="rating" value="${tutor.rating}" />
+                                                                <!-- Hiển thị sao đầy đủ -->
+                                                                <c:forEach var="i" begin="1" end="5">
+                                                                    <c:choose>
+                                                                        <c:when test="${i <= rating}">
+                                                                            <li class="active"><i class="fa fa-star"></i></li>
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                            <li><i class="fa fa-star"></i></li>
+                                                                            </c:otherwise>
+                                                                        </c:choose>
+                                                                    </c:forEach>
                                                             </ul>
                                                         </div>
                                                         <div class="price">

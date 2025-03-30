@@ -1,5 +1,6 @@
 package UserController;
 
+import entity.TutorRating;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -8,7 +9,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.ResultSet;
+import java.util.List;
 import model.DAOCv;
+import model.DAOTutorRating;
 
 @WebServlet(name = "TutorDetailController", urlPatterns = {"/Tutordetail"})
 public class TutorDetailController extends HttpServlet {
@@ -18,7 +21,7 @@ public class TutorDetailController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            DAOCv dao= new DAOCv();
+            DAOTutorRating dao= new DAOTutorRating();
             int tutor = Integer.parseInt(request.getParameter("tutorID"));
             ResultSet rsTutor=null;
             rsTutor = dao.getData("select TutorID, FullName, SubjectName, rating, Avatar, Tutor.Price ,Desciption, Certificates,Subject.SubjectID from users\n" +
@@ -27,7 +30,6 @@ public class TutorDetailController extends HttpServlet {
 "                        join Subject on CV.SubjectId=Subject.SubjectID\n" +
 "                    where TutorID="+tutor);
             request.setAttribute("rsTutor", rsTutor);
-
             ResultSet rsReviews = dao.getData("SELECT StudentID, Rating, Comment, RatingDate " +
                     "FROM TutorRating " +
                     "WHERE TutorID = " + tutor + " " +
