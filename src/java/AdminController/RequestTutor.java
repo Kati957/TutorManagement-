@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import model.DAOCv;
 import model.DAOTutor;
+import model.DAOTutorRating;
 import model.DAOTutorSubject;
 import model.DAOUser;
 
@@ -45,6 +46,7 @@ public class RequestTutor extends HttpServlet {
             DAOTutor dao2 = new DAOTutor();
             DAOTutorSubject dao3 = new DAOTutorSubject();
             DAOUser dao4 = new DAOUser();
+            DAOTutorRating dao5= new DAOTutorRating();
             String error = "";
             int CvID = 0;
             String cvid = request.getParameter("cvid");
@@ -61,7 +63,8 @@ public class RequestTutor extends HttpServlet {
                     if (status.equals("Approved")) {
                         Cv cv = dao.getCVbyId(CvID);
                         int n = dao4.updateRole(cv.getUserId(), 3);
-                        dao2.addTutor(new Tutor(0, CvID, 5));
+                        float price= dao.getPriceById(CvID);
+                        dao2.addTutor(new Tutor(0, CvID, 0, price));
                         Tutor tutor = dao2.getTutorByCVid(CvID);
                         dao3.addTutorSubject(tutor.getTutorID(), subjectId);
                     }

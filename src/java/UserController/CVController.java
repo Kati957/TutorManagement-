@@ -74,9 +74,12 @@ public class CVController extends HttpServlet {
             String certificates = request.getParameter("certificates");
             int subjectId = Integer.parseInt(request.getParameter("Subject"));
             String description = request.getParameter("Description");
+            String skill = request.getParameter("Skill");
+            float price = Float.parseFloat(request.getParameter("Price"));
+            
 
             // Gửi CV mới
-            int n = dao.sendCv(new Cv(0, userId, education, experience, certificates, "Pending", subjectId, description));
+            int n = dao.sendCv(new Cv(0, userId, education, experience, certificates, "Pending", subjectId, description,skill,price));
             if (n > 0) {
                 session.setAttribute("message", "CV submitted successfully!");
                 session.setAttribute("messageType", "success");

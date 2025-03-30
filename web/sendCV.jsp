@@ -274,6 +274,18 @@
                                                             <input class="form-control" type="text" name="Description" required>
                                                         </div>
                                                     </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="skill"/></label>
+                                                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                            <input class="form-control" type="text" name="Skill" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label"><fmt:message key="price"/></label>
+                                                        <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                            <input class="form-control" type="text" name="Price" required>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-12 col-sm-3 col-md-3 col-lg-2"></div>

@@ -222,6 +222,8 @@
                                             <p><%=rsTutor.getString(7)%></p>
                                             <h5 class="m-b5"><fmt:message key="certification"/></h5>
                                             <p><%=rsTutor.getString("Certificates")%></p>
+                                            <h5 class="m-b5"><fmt:message key="skill"/></h5>
+                                            <p><%=rsTutor.getString("Skill")%></p>
                                             <ul class="list-checked primary"></ul>
                                         </div>
                                     </div>

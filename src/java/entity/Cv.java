@@ -10,6 +10,8 @@ public class Cv {
     private String status;
     private int subjectId;
     private String description;
+    private String skill;
+    private float price;
 
     private User user;
     private Subject subject;
@@ -27,6 +29,22 @@ public class Cv {
         this.subjectId = subjectId;
         this.description = description;
     }
+
+    public Cv(int cvId, int userId, String education, String experience, String certificates, String status, int subjectId, String description, String skill, float price) {
+        this.cvId = cvId;
+        this.userId = userId;
+        this.education = education;
+        this.experience = experience;
+        this.certificates = certificates;
+        this.status = status;
+        this.subjectId = subjectId;
+        this.description = description;
+        this.skill = skill;
+        this.price = price;
+        this.user = user;
+        this.subject = subject;
+    }
+    
 
     public int getCvId() {
         return cvId;
@@ -107,5 +125,22 @@ public class Cv {
     public void setSubject(Subject subject) {
         this.subject = subject;
     }
+
+    public String getSkill() {
+        return skill;
+    }
+
+    public void setSkill(String skill) {
+        this.skill = skill;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+    
     
 }
