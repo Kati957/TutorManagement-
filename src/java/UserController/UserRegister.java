@@ -70,10 +70,7 @@ public class UserRegister extends HttpServlet {
         String address = request.getParameter("Address");
         String avatar = request.getParameter("Avatar");
         String userName = request.getParameter("UserName");
-        String password = request.getParameter("Password");
-
-        // Mã hóa mật khẩu bằng MD5
-        String encryptedPassword = util.MD5Util.getMD5Hash(password);
+        String password = request.getParameter("Password"); // Giữ plaintext
 
         String avatarPath = handleFileUpload(request);
 
@@ -85,11 +82,11 @@ public class UserRegister extends HttpServlet {
                 return;
             }
 
-            // Tạo đối tượng User với mật khẩu đã mã hóa
+            // Tạo đối tượng User với mật khẩu plaintext
             User newUser = new User(
                     0, 2, email, fullName, phone, null, 0, Date.valueOf(dob),
                     address, avatarPath != null ? avatarPath : "uploads/default_avatar.jpg",
-                    userName, encryptedPassword
+                    userName, password // Truyền plaintext
             );
 
             // Đăng ký người dùng và lấy UserID
