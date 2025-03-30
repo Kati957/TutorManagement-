@@ -286,7 +286,7 @@
                                                     <div class="form-group row">
                                                         <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label"><fmt:message key="new_password"/></label>
                                                         <div class="col-12 col-sm-8 col-md-8 col-lg-7">
-                                                            <input class="form-control" type="password" name="new_password" required>
+                                                            <input class="form-control" type="password" name="newPassword" required>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
@@ -310,26 +310,7 @@
                             </div>
                         </div>
                     </div>
-                    <%
-                        String message = (String) session.getAttribute("message");
-                        String error = (String) session.getAttribute("error");
-                        if (message != null) {
-                    %>
-                    <div class="alert alert-success">
-                        <%= message%>
-                    </div>
-                    <%
-                            session.removeAttribute("message");
-                        }
-                        if (error != null) {
-                    %>
-                    <div class="alert alert-danger">
-                        <%= error%>
-                    </div>
-                    <%
-                            session.removeAttribute("error");
-                        }
-                    %>
+                    <!-- Xóa phần hiển thị thông báo cũ -->
                 </div>
                 <!-- Footer -->
                 <footer>
@@ -363,12 +344,25 @@
             <script src="assets/js/contact.js"></script>
             <script src='assets/vendors/switcher/switcher.js'></script>
             <script>
-                <% if (session.getAttribute("message") != null || session.getAttribute("error") != null) { %>
+                                            // Xử lý popup thông báo từ tham số URL
+                                            const urlParams = new URLSearchParams(window.location.search);
+                                            const message = urlParams.get('message');
+                                            const error = urlParams.get('error');
+
+                                            if (message) {
+                                                alert(decodeURIComponent(message)); // Hiển thị thông báo thành công
+                                                // Xóa tham số sau khi hiển thị để tránh popup lặp lại khi refresh
+                                                window.history.replaceState({}, document.title, window.location.pathname);
+                                            } else if (error) {
+                                                alert(decodeURIComponent(error));   // Hiển thị thông báo lỗi
+                                                window.history.replaceState({}, document.title, window.location.pathname);
+                                            }
+
+                                            // Chuyển tab dựa trên action (nếu cần)
                 <% if ("changePassword".equals(request.getParameter("action"))) { %>
-                                        $('#change-password').tab('show');
-                <% } else { %>
-                                        $('#edit-profile').tab('show');
-                <% } %>
+                                            $('#change-password').tab('show');
+                <% } else if ("editProfile".equals(request.getParameter("action"))) { %>
+                                            $('#edit-profile').tab('show');
                 <% }%>
             </script>
     </body>
