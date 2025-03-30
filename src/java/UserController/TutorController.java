@@ -57,6 +57,7 @@ public class TutorController extends HttpServlet {
                      sql+= " Where SubjectName='"+subjectName+"'";
                  }
             }
+            
             rs=dao.getData(sql);
             request.setAttribute("list", list);
             request.setAttribute("rs", rs);

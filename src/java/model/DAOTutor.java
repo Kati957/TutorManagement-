@@ -67,7 +67,7 @@ public class DAOTutor extends DBConnect {
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
-
+           DAOTutorRating dao= new DAOTutorRating();
             while (rs.next()) {
                 User user = new User();
                 user.setUserID(rs.getInt("UserID"));
@@ -84,7 +84,7 @@ public class DAOTutor extends DBConnect {
                 Tutor tutor = new Tutor();
                 tutor.setTutorID(rs.getInt("TutorID"));
                 tutor.setCVID(rs.getInt("CVID"));
-                tutor.setRating(rs.getFloat("Rating"));
+                tutor.setRating(dao.getAvgRating(rs.getInt("TutorID")));
                 tutor.setPrice(rs.getFloat("Price"));
                 tutor.setCv(cv);
 

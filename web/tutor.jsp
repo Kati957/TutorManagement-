@@ -1,3 +1,4 @@
+<%@page import="model.DAOTutorRating"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -38,6 +39,7 @@
             List<Subject> list = (List<Subject>) request.getAttribute("list");
             ResultSet rs = (ResultSet) request.getAttribute("rs");
             User user = (User) session.getAttribute("user");
+            DAOTutorRating dao = new DAOTutorRating();
         %>
         <!-- Thi?t l?p Locale và Resource Bundle -->
         <fmt:setLocale value="${sessionScope.locale != null ? sessionScope.locale : 'en'}"/>
@@ -183,18 +185,28 @@
                                                 </div>
                                                 <div class="cours-more-info">
                                                     <div class="review">
-                                                        <span><fmt:message key="three_review"/></span>
+                                                        <span><%=dao.numberReview(rs.getInt(1))%> <fmt:message key="reviews"/></span>
                                                         <ul class="cours-star">
+                                                            <%
+                                                                int avgRating = dao.getAvgRating(rs.getInt(1));
+                                                                int soSao = (int) Math.floor(avgRating);
+                                                                soSao = Math.max(0, Math.min(5, soSao));
+                                                                for (int i = 0; i < soSao; i++) {
+                                                            %>
                                                             <li class="active"><i class="fa fa-star"></i></li>
-                                                            <li class="active"><i class="fa fa-star"></i></li>
-                                                            <li class="active"><i class="fa fa-star"></i></li>
+                                                                <%
+                                                                    }
+                                                                    for (int i = 0; i < 5 - soSao; i++) {
+                                                                %>
                                                             <li><i class="fa fa-star"></i></li>
-                                                            <li><i class="fa fa-star"></i></li>
+                                                                <%
+                                                                    }
+                                                                %>
                                                         </ul>
                                                     </div>
                                                     <div class="price">
                                                         <del>VND</del>
-                                                        <h5><%=rs.getInt(6)%></h5>
+                                                        <h5><%=rs.getFloat(6)%></h5>
                                                     </div>
                                                 </div>
                                             </div>
