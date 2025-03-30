@@ -18,7 +18,7 @@ public class DAOCv extends DBConnect {
 
     public int sendCv(Cv cv) {
         int n = 0;
-        String sql = "INSERT INTO CV (UserID, Education, Experience, Certificates, Status, SubjectId, Desciption) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO CV (UserID, Education, Experience, Certificates, Status, SubjectId, Desciption,Skill ,Price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, cv.getUserId());
             stmt.setString(2, cv.getEducation());
@@ -27,6 +27,8 @@ public class DAOCv extends DBConnect {
             stmt.setString(5, cv.getStatus());
             stmt.setInt(6, cv.getSubjectId());
             stmt.setString(7, cv.getDescription());
+            stmt.setString(8, cv.getSkill());
+            stmt.setFloat(9, cv.getPrice());
             n = stmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOCv.class.getName()).log(Level.SEVERE, null, ex);
@@ -194,6 +196,20 @@ public class DAOCv extends DBConnect {
             int rowsUpdated = pstmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOCv.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return n;
+    }
+    public float getPriceById(int cvid){
+        float n=0;
+        String sql = "SELECT Price  FROM [dbo].[CV] WHERE CVID ="+cvid;
+        try {
+            PreparedStatement pre = conn.prepareStatement(sql);
+            ResultSet rs = pre.executeQuery();
+            if (rs.next()) {
+                n = rs.getFloat(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOTutorRating.class.getName()).log(Level.SEVERE, null, ex);
         }
         return n;
     }
